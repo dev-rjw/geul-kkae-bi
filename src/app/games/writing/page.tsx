@@ -8,11 +8,13 @@ interface Qusetion {
   question: string;
   answer: string;
   consonant: string;
+  meaning: string;
 }
 
 const WritingQuizPage = () => {
   const [questions, setQuestions] = useState<Qusetion[]>([]);
   const [userInput, setUserInput] = useState('');
+  const [currentQuizNumber, setCurrentQuiz] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const fetchWritingQuestins = async () => {
@@ -35,19 +37,33 @@ const WritingQuizPage = () => {
     return <p>로딩중</p>;
   }
 
+  const moveToNextQuestion = () => {
+    if (currentQuizNumber < questions.length - 1) {
+      setCurrentQuiz((index) => index + 1);
+      setUserInput('');
+    } else {
+      alert('모든 문제를 풀엇다!');
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const correct = userInput === questions[0].answer;
     alert(correct ? '정답입니다!' : '오답입니다!');
+    moveToNextQuestion();
   };
 
   console.log(questions);
   return (
     <div>
-      <h1>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</h1>
+      <p>{`${currentQuizNumber + 1}번 문제`}</p>
+      <p>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
       <div>
-        <p>{questions[0].consonant}</p>
-        <p>{questions[0].question}</p>
+        <div>
+          <p>{questions[currentQuizNumber].consonant}</p>
+          <p>{questions[currentQuizNumber].question}</p>
+          <p>{`※ ${questions[currentQuizNumber].meaning}`}</p>
+        </div>
         <form onSubmit={handleSubmit}>
           <input
             type='text'
@@ -56,7 +72,7 @@ const WritingQuizPage = () => {
               setUserInput(e.target.value);
             }}
           />
-          <button>제출</button>
+          <button type='submit'>제출</button>
         </form>
       </div>
     </div>
