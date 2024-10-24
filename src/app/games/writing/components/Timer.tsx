@@ -17,11 +17,11 @@ const Timer: React.FC<TimerProps> = ({ onTimeOver }) => {
           if (prevTime <= 0) {
             clearInterval(timer);
             onTimeOver();
-            return 0;
+            return 0; // 음수 나오지 마라!
           }
           return prevTime - 1;
         });
-      }, 1000); // 1초마다 타이머 업데이트
+      }, 1000);
     };
     startTimer();
     return () => {
@@ -35,9 +35,7 @@ const Timer: React.FC<TimerProps> = ({ onTimeOver }) => {
         <div
           className='bg-blue-600 h-2.5 transition-all ease-linear'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
-        >
-          {timeLeft}
-        </div>
+        ></div>
       </div>
     </div>
   );

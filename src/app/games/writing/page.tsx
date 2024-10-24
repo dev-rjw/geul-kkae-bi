@@ -18,13 +18,25 @@ const WritingQuizPage = () => {
   const [userInput, setUserInput] = useState('');
   const [currentQuizNumber, setCurrentQuiz] = useState(0);
   const [score, setScore] = useState(0);
+  const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const user = browserClient.auth.getUser();
-  console.log(user);
+  // 유저 정보 가져오기
+  const fetchUser = async () => {
+    const {
+      data: { user },
+      error,
+    } = await browserClient.auth.getUser();
 
-  // 데이터 가져오기 랜덤으로
+    if (error) {
+      console.log('비로그인');
+    } else if (user) {
+      setUserId(user.id);
+    }
+  };
+
+  // 퀴즈 가져오기
   const fetchWritingQuestions = async () => {
     setLoading(true);
     const { data, error } = await browserClient.rpc('get_writing_questions');
@@ -38,6 +50,7 @@ const WritingQuizPage = () => {
   };
 
   useEffect(() => {
+    fetchUser();
     fetchWritingQuestions();
   }, []);
 
@@ -47,7 +60,9 @@ const WritingQuizPage = () => {
       setCurrentQuiz((index) => index + 1);
       setUserInput('');
     } else {
+      saveScore();
       alert('모든 문제를 풀엇다!');
+      // 결과 페이지로 이동 필요
       router.push('/');
     }
   };
@@ -66,17 +81,31 @@ const WritingQuizPage = () => {
     moveToNextQuestion();
   };
 
+  // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async () => {
-    if (user) {
+    if (userId) {
+      const { error } = await browserClient
+        .from('rank')
+        .upsert({
+          user_id: userId,
+          writing: score,
+          created_at: new Date(),
+        })
+        .eq('user_id', userId);
+      if (error) {
+        console.error('점수를 저장하지 못했습니다.', error);
+      }
     } else {
+      localStorage.setItem('writing_score', score.toString());
     }
   };
 
   // 시간 초과 시 페이지 이동
   const handleTimeOver = () => {
+    saveScore();
     alert('시간 끝~');
     //router.push('/');
-    // 시간 초과하면 보여줄 페이지 로직 필요
+    // 결과 페이지 이동 필요
   };
 
   if (loading) {
@@ -92,7 +121,7 @@ const WritingQuizPage = () => {
         <div>
           <p>{questions[currentQuizNumber].consonant}</p>
           <p>{questions[currentQuizNumber].question}</p>
-          <p>{`※ ${questions[currentQuizNumber].meaning}`}</p>
+          <p>{`**${questions[currentQuizNumber].meaning}`}</p>
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -102,7 +131,7 @@ const WritingQuizPage = () => {
               setUserInput(e.target.value);
             }}
           />
-          <button type='submit'>제출</button>
+          <button type='submit'>옆으로 넘어가기? </button>
         </form>
       </div>
     </div>
