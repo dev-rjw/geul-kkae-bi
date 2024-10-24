@@ -1,6 +1,7 @@
 'use client';
 import browserClient from '@/util/supabase/client';
 import React, { useEffect, useState } from 'react';
+import Timer from './components/Timer';
 
 interface Qusetion {
   id: string;
@@ -17,7 +18,8 @@ const WritingQuizPage = () => {
   const [currentQuizNumber, setCurrentQuiz] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const fetchWritingQuestins = async () => {
+  // 데이터 가져오기 랜덤으로
+  const fetchWritingQuestions = async () => {
     setLoading(true);
     const { data, error } = await browserClient.rpc('get_writing_questions');
 
@@ -30,13 +32,10 @@ const WritingQuizPage = () => {
   };
 
   useEffect(() => {
-    fetchWritingQuestins();
+    fetchWritingQuestions();
   }, []);
 
-  if (loading) {
-    return <p>로딩중</p>;
-  }
-
+  // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuestion = () => {
     if (currentQuizNumber < questions.length - 1) {
       setCurrentQuiz((index) => index + 1);
@@ -46,16 +45,32 @@ const WritingQuizPage = () => {
     }
   };
 
+  //정답 확인
+  const handleChackAnswers = () => {
+    const correct = userInput === questions[currentQuizNumber].answer;
+    console.log(correct);
+    // 정답 여부에 따른 점수 로직 필요
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const correct = userInput === questions[0].answer;
-    alert(correct ? '정답입니다!' : '오답입니다!');
+    handleChackAnswers();
     moveToNextQuestion();
   };
 
-  console.log(questions);
+  // 시간 초과
+  const handleTimeOver = () => {
+    alert('시간 끝~');
+    // 시간 초과하면 보여줄 페이지 로직 필요
+  };
+
+  if (loading) {
+    return <p>로딩중</p>;
+  }
+
   return (
     <div>
+      <Timer onTimeOver={handleTimeOver} />
       <p>{`${currentQuizNumber + 1}번 문제`}</p>
       <p>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
       <div>
