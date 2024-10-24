@@ -2,6 +2,7 @@
 import browserClient from '@/util/supabase/client';
 import React, { useEffect, useState } from 'react';
 import Timer from './components/Timer';
+import { useRouter } from 'next/navigation';
 
 interface Qusetion {
   id: string;
@@ -16,7 +17,12 @@ const WritingQuizPage = () => {
   const [questions, setQuestions] = useState<Qusetion[]>([]);
   const [userInput, setUserInput] = useState('');
   const [currentQuizNumber, setCurrentQuiz] = useState(0);
+  const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const user = browserClient.auth.getUser();
+  console.log(user);
 
   // 데이터 가져오기 랜덤으로
   const fetchWritingQuestions = async () => {
@@ -42,14 +48,16 @@ const WritingQuizPage = () => {
       setUserInput('');
     } else {
       alert('모든 문제를 풀엇다!');
+      router.push('/');
     }
   };
 
-  //정답 확인
+  //정답 확인, 점수 추가
   const handleChackAnswers = () => {
     const correct = userInput === questions[currentQuizNumber].answer;
-    console.log(correct);
-    // 정답 여부에 따른 점수 로직 필요
+    if (correct) {
+      setScore((prevScore) => prevScore + 10);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,9 +66,16 @@ const WritingQuizPage = () => {
     moveToNextQuestion();
   };
 
-  // 시간 초과
+  const saveScore = async () => {
+    if (user) {
+    } else {
+    }
+  };
+
+  // 시간 초과 시 페이지 이동
   const handleTimeOver = () => {
     alert('시간 끝~');
+    //router.push('/');
     // 시간 초과하면 보여줄 페이지 로직 필요
   };
 
