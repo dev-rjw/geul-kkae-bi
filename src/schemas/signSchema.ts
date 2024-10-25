@@ -16,29 +16,39 @@ export const signinSchema = z.object({
   email: z.string().email({ message: '이메일을 올바르게 입력해 주세요.' }),
   password: z
     .string()
-    .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다' })
-    .max(16, '비밀번호는 16자리 이하이어야 합니다')
-    .regex(/[a-zA-Z]/, { message: '문자를 포함해야 합니다' })
-    .regex(/\d/, { message: '숫자를 포함해야 합니다' }),
+    .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다.' })
+    .max(16, '비밀번호는 16자리 이하이어야 합니다.')
+    .regex(/[a-zA-Z]/, { message: '문자를 포함해야 합니다.' })
+    .regex(/\d/, { message: '숫자를 포함해야 합니다.' }),
 });
 
 // 회원가입
-export const signupSchema = z.object({
-  email: z.string().email({ message: '이메일을 올바르게 입력해 주세요.' }),
-  password: z
-    .string()
-    .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다' })
-    .max(16, '비밀번호는 16자리 이하이어야 합니다')
-    .regex(/[a-zA-Z]/, { message: '문자를 포함해야 합니다' })
-    .regex(/\d/, { message: '숫자를 포함해야 합니다' }),
-  confirmPassword: z
-    .string()
-    .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다' })
-    .max(100, '비밀번호는 100자리 이하이어야 합니다')
-    .regex(/[a-zA-Z]/, { message: '문자를 포함해야 합니다' })
-    .regex(/\d/, { message: '숫자를 포함해야 합니다' }),
-  nickname: z
-    .string()
-    .min(2, { message: '닉네임은 최소 2자 이상이어야 합니다' })
-    .max(8, '닉네임은 8자리 이하이어야 합니다'),
-});
+export const signupSchema = z
+  .object({
+    email: z.string().email({ message: '이메일을 올바르게 입력해 주세요.' }),
+    password: z
+      .string()
+      .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다.' })
+      .max(16, '비밀번호는 16자리 이하이어야 합니다.')
+      .regex(/[a-zA-Z]/, { message: '문자를 포함해야 합니다.' })
+      .regex(/\d/, { message: '숫자를 포함해야 합니다.' }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다.' })
+      .max(16, '비밀번호는 16자리 이하이어야 합니다.')
+      .regex(/[a-zA-Z]/, { message: '문자를 포함해야 합니다.' })
+      .regex(/\d/, { message: '숫자를 포함해야 합니다.' }),
+    nickname: z
+      .string()
+      .min(2, { message: '닉네임은 최소 2자 이상이어야 합니다.' })
+      .max(8, '닉네임은 8자리 이하이어야 합니다.'),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['confirmPassword'],
+        message: '비밀번호가 일치하지 않습니다.',
+      });
+    }
+  });
