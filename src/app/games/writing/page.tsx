@@ -16,7 +16,7 @@ interface Qusetion {
 const WritingQuizPage = () => {
   const [questions, setQuestions] = useState<Qusetion[]>([]);
   const [userInput, setUserInput] = useState('');
-  const [currentQuizNumber, setCurrentQuiz] = useState(0);
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -55,21 +55,24 @@ const WritingQuizPage = () => {
   }, []);
 
   // 다음 문제로 넘어가기, 퀴즈 클리어
-  const moveToNextQuestion = () => {
-    if (currentQuizNumber < questions.length - 1) {
-      setCurrentQuiz((index) => index + 1);
+  const moveToNextQuiz = () => {
+    if (currentQuizIndex < questions.length - 1) {
+      setCurrentQuizIndex((index) => index + 1);
       setUserInput('');
     } else {
       saveScore();
       alert('모든 문제를 풀엇다!');
-      // 결과 페이지로 이동 필요
-      router.push('/');
+      moveToWritingResultPage();
     }
+  };
+  // result페이지 이동
+  const moveToWritingResultPage = () => {
+    router.push('/games/result?type=writing');
   };
 
   //정답 확인, 점수 추가
-  const handleChackAnswers = () => {
-    const correct = userInput === questions[currentQuizNumber].answer;
+  const handleCheckAnswer = () => {
+    const correct = userInput === questions[currentQuizIndex].answer;
     if (correct) {
       setScore((prevScore) => prevScore + 10);
     }
@@ -77,8 +80,8 @@ const WritingQuizPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleChackAnswers();
-    moveToNextQuestion();
+    handleCheckAnswer();
+    moveToNextQuiz();
   };
 
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
@@ -104,8 +107,7 @@ const WritingQuizPage = () => {
   const handleTimeOver = () => {
     saveScore();
     alert('시간 끝~');
-    //router.push('/');
-    // 결과 페이지 이동 필요
+    moveToWritingResultPage();
   };
 
   if (loading) {
@@ -115,13 +117,13 @@ const WritingQuizPage = () => {
   return (
     <div>
       <Timer onTimeOver={handleTimeOver} />
-      <p>{`${currentQuizNumber + 1}번 문제`}</p>
+      <p>{`${currentQuizIndex + 1}번 문제`}</p>
       <p>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
       <div>
         <div>
-          <p>{questions[currentQuizNumber].consonant}</p>
-          <p>{questions[currentQuizNumber].question}</p>
-          <p>{`**${questions[currentQuizNumber].meaning}`}</p>
+          <p>{questions[currentQuizIndex].consonant}</p>
+          <p>{questions[currentQuizIndex].question}</p>
+          <p>{`**${questions[currentQuizIndex].meaning}`}</p>
         </div>
         <form onSubmit={handleSubmit}>
           <input
