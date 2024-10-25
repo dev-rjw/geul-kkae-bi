@@ -1,39 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
+import speekStore from '@/store/speekStoreStore';
 import { useEffect, useState } from 'react';
 
 const Timer = () => {
   const [time, setTimer] = useState(40);
-  const [isActive, setIsActive] = useState(true);
+  const { index } = speekStore();
+
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined;
-    if (isActive && time > 0) {
+    if (time > 0) {
       timer = setInterval(() => {
         setTimer((time) => time - 1);
       }, 1000);
     }
-
-    if (time === 0 || !isActive) {
+    if (time === 0 || index > 9) {
       clearInterval(timer);
     }
 
     return () => clearInterval(timer);
-  }, [isActive, time]);
-
-  const handleStopTime = () => {
-    setIsActive(!isActive);
-  };
+  }, [index, time]);
 
   return (
     <div>
-      <div className='w-full bg-gray-200 h-2.5 dark:bg-gray-700'>
+      <div className='w-full bg-[#fdeace] h-2.5 dark:bg-gray-700'>
         <div
-          className='bg-blue-600 h-2.5 transition-all ease-linear'
+          className='bg-[#f9bc5f] h-2.5 transition-all ease-linear'
           style={{ width: `${(time / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>
-      <button onClick={handleStopTime}>정지</button>
     </div>
   );
 };
