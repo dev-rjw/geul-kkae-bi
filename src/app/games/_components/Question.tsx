@@ -40,7 +40,7 @@ const Question = ({ text }: text) => {
       <p>{randomText[index]}</p>
       <p>{percent}</p>
       <p>{text}</p>
-      <button onClick={() => onclickAccuracy(text, randomText[0])}>클릭하기</button>
+      <button onClick={() => onclickAccuracy(text, randomText[index])}>클릭하기</button>
       <button
         onClick={() => {
           setIndex(index + 1);

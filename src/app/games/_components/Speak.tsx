@@ -2,12 +2,15 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Question from './Question';
+import speekStore from '@/store/speekStoreStore';
 
 const speak = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder>(null);
   const [text, setText] = useState('');
   const audioChunks = useRef<Blob[]>([]);
+
+  const { index, percent, totlaPercent, incrementIndex, resetPercent, setPercent, addTotalPercent } = speekStore();
 
   useEffect(() => {
     const initMediaRecorder = async () => {
@@ -40,8 +43,6 @@ const speak = () => {
           const text = jsonArray[jsonArray.length - 1];
           //   console.log(text.text);
           setText(text.text);
-
-          // const text = getFinalText([data]);
 
           // 포맷확인
           console.log(audioBlob);
@@ -109,19 +110,6 @@ const speak = () => {
     }
   };
 
-  // 최종 텍스트 변환 함수
-  const getFinalText = (responses) => {
-    let finalText = '';
-
-    responses.forEach((response) => {
-      if (response.type === 'FINAL_TRANSCRIPTION') {
-        finalText = response.text; // 최종 텍스트 업데이트
-      }
-    });
-
-    return finalText;
-  };
-
   const startRecording = () => {
     audioChunks.current = [];
     mediaRecorder.start();
@@ -131,6 +119,8 @@ const speak = () => {
 
   const stopRecording = () => {
     mediaRecorder.stop();
+    incrementIndex();
+    console.log(index);
     setIsRecording(false);
     // Wit.ai API 호출
   };
@@ -158,7 +148,7 @@ const speak = () => {
     <div>
       <Question text={text}></Question>
       <button onClick={isRecording ? stopRecording : startRecording}>
-        {isRecording ? 'Stop Recording' : 'Start Recording'}
+        {isRecording ? '마이크 버튼을 눌러 종료하기' : '마이크 버튼을 눌러 시작하기'}
       </button>
     </div>
   );
