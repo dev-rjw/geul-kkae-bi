@@ -1,5 +1,5 @@
 import { SignUpWithPasswordCredentials, SignInWithPasswordCredentials } from '@supabase/supabase-js';
-import { createClient } from './client';
+import { createClient } from '../supabase/client';
 
 // 회원가입
 export const signup = async (formData: SignUpWithPasswordCredentials) => {
@@ -25,14 +25,17 @@ export const signin = async (formData: SignInWithPasswordCredentials) => {
   return data;
 };
 
-// 로그인 세션 정보
-export const fetchSessionData = async () => {
+// 현재 사용자 조회
+export const fetchCurrentUser = async () => {
   const supabase = createClient();
-  const { data, error } = await supabase.auth.getSession();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
-  if (!data.session) {
-    return error;
+  if (error || !user) {
+    return null;
   }
 
-  return data.session?.user;
+  return user;
 };
