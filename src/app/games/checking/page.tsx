@@ -18,6 +18,7 @@ const CheckingQuizPage = () => {
   const [score, setScore] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const router = useRouter();
 
   //유저 정보 가져오기
@@ -54,6 +55,7 @@ const CheckingQuizPage = () => {
   const moveToNextQuiz = () => {
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
+      setSelectedOption(null);
     } else {
       saveScore();
       alert('모든 문제를 풀엇다!');
@@ -68,12 +70,13 @@ const CheckingQuizPage = () => {
   // 클릭 옵션 생성
   const chackingButton = () => {
     const correct = questions[currentQuizIndex].correct;
+    console.log(selectedOption);
     return correct.map((option: string, index: number) => {
       return (
         <button
           key={index}
-          onClick={() => handleClick(option)}
-          className=' gap-4 border border-black'
+          onClick={() => setSelectedOption(option)}
+          className=' p-2 border border-black'
         >
           {option}
         </button>
@@ -81,8 +84,8 @@ const CheckingQuizPage = () => {
     });
   };
 
-  // 정답  확인
-  const handleClick = (selectedOption: string) => {
+  // 정답 확인
+  const handleCheckAnswer = () => {
     if (selectedOption === questions[currentQuizIndex].answer) {
       setScore((prevscore) => prevscore + 10);
       moveToNextQuiz();
@@ -91,6 +94,7 @@ const CheckingQuizPage = () => {
     }
   };
 
+  // 로그인 상태면 수퍼 베이스로, 비로그인이면 로컬 스토리지
   const saveScore = async () => {
     if (userId) {
       const { error } = await browserClient
@@ -123,6 +127,7 @@ const CheckingQuizPage = () => {
           <p>{questions[currentQuizIndex].question}</p>
         </div>
         <div>{chackingButton()}</div>
+        <button onClick={handleCheckAnswer}>다음 문제로</button>
       </div>
     </div>
   );
