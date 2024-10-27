@@ -37,7 +37,8 @@ interface userTableProp {
   created_at: string;
 }
 
-const ResultPageForLoginUser = async ({ searchParams }: justEndedGameProp) => {
+//http://localhost:3000/games/result?key=checking 이런식으로 들어올거임
+const ResultPageForUser = async ({ searchParams }: justEndedGameProp) => {
   const serverClient = createClient();
 
   //현재 접속중인 user의 nick name
@@ -67,6 +68,7 @@ const ResultPageForLoginUser = async ({ searchParams }: justEndedGameProp) => {
   //   created_at: '2024-10-25T10:32:50.692893+00:00'}
   //]
 
+  //해당 유저의 rank table에서 가장 최신의 rank table 가져오는 함수
   const lastestUserTable = userTable.reduce((lastest, current) => {
     return new Date(current.created_at) > new Date(lastest.created_at) ? current : lastest;
   });
@@ -115,7 +117,7 @@ const ResultPageForLoginUser = async ({ searchParams }: justEndedGameProp) => {
   // ]
 
   // 다끝냈을때 다끝내지 않았을때만 정확하게 판별 (하지만 2문제 다 안풀었는지 1문제는 풀었는지는 판별안됨)
-  // isdone= true 모든문제 끝냄  isdone= false 1문제만 끝냄, 2문제 모두 못끝냄
+  // isdone= true : 모든문제 끝냄  isdone= false : 1문제만 끝냄, 2문제 모두 못끝냄
   const isDone = unMatchedGames.every((game) => game.score);
 
   // isdone이 false일때 1문제는 풀었는지 2문제 다 못풀었는지 배열안에 요소개수로 확인
@@ -169,4 +171,4 @@ const ResultPageForLoginUser = async ({ searchParams }: justEndedGameProp) => {
   );
 };
 
-export default ResultPageForLoginUser;
+export default ResultPageForUser;
