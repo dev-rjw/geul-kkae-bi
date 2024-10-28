@@ -118,18 +118,30 @@ const CheckingQuizPage = () => {
 
   const questionUnderLine = () => {
     const { correct, question } = questions[currentQuizIndex];
-    let words = question;
     const parts: React.ReactNode[] = [];
-    return (
-        correct.forEach((phrase, index)=>{
-            const phraseIndex = words.indexOf(phrase)
-            if (phraseIndex !== -1) {
-                // phrase 이전 텍스트 추가
-                if (phraseIndex > 0) {
-                  parts.push(<span key={`text-${index}`}>{displayText.slice(0, phraseIndex)}</span>);
-                }
-        })
-    )
+    let lastIndex = 0;
+
+    correct.forEach((phrase, index) => {
+      const phraseIndex = question.indexOf(phrase, lastIndex);
+      if (lastIndex < phraseIndex) {
+        parts.push(<span key={lastIndex}>{question.slice(lastIndex, phraseIndex)}</span>);
+      }
+      parts.push(
+        <span
+          key={phraseIndex}
+          className={` underline ${selectedOption === phrase ? ' decoration-red-600' : ' decoration-black'} relative`}
+        >
+          {phrase}
+          <sub className='absolute -bottom-2 left-0 text-gray-500'>{index + 1}</sub>
+        </span>,
+      );
+      lastIndex = phraseIndex + phrase.length;
+    });
+    if (lastIndex < question.length) {
+      parts.push(<span key='end'>{question.slice(lastIndex)}</span>);
+    }
+
+    return <p>{parts}</p>;
   };
 
   if (loading) {
