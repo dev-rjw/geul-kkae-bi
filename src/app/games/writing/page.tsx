@@ -134,7 +134,8 @@ const WritingQuizPage = () => {
               setUserInput(e.target.value);
             }}
           />
-          <button type='submit'>옆으로 넘어가기? </button>
+          <button type='submit'>다음 문제 </button>
+          {currentQuizIndex === questions.length - 1 && <p>결과 보기</p>}
         </form>
       </div>
     </div>
