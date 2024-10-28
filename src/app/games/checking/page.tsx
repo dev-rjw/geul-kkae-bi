@@ -64,19 +64,22 @@ const CheckingQuizPage = () => {
   };
 
   const moveToWritingResultPage = () => {
-    router.push('/games/result?type=checking');
+    if (userId) {
+      router.push('/games/user?type=checking');
+    } else {
+      router.push('/games/guest?type=checking');
+    }
   };
 
   // 클릭 옵션 생성
   const chackingButton = () => {
     const correct = questions[currentQuizIndex].correct;
-    console.log(selectedOption);
     return correct.map((option: string, index: number) => {
       return (
         <button
           key={index}
           onClick={() => setSelectedOption(option)}
-          className=' p-2 border border-black'
+          className={`p-2 border border-black ${selectedOption === option ? 'bg-blue-300' : 'bg-gray-500'}`}
         >
           {option}
         </button>
@@ -94,7 +97,7 @@ const CheckingQuizPage = () => {
     }
   };
 
-  // 로그인 상태면 수퍼 베이스로, 비로그인이면 로컬 스토리지
+  // 점수 저장
   const saveScore = async () => {
     if (userId) {
       const { error } = await browserClient
@@ -113,10 +116,21 @@ const CheckingQuizPage = () => {
     moveToWritingResultPage();
   };
 
-  //   const questionUnderLine = () => {
-  //     const { correct, question } = questions[currentQuizIndex];
-  //     correct.map(()=>{})
-  //   };
+  const questionUnderLine = () => {
+    const { correct, question } = questions[currentQuizIndex];
+    let words = question;
+    const parts: React.ReactNode[] = [];
+    return (
+        correct.forEach((phrase, index)=>{
+            const phraseIndex = words.indexOf(phrase)
+            if (phraseIndex !== -1) {
+                // phrase 이전 텍스트 추가
+                if (phraseIndex > 0) {
+                  parts.push(<span key={`text-${index}`}>{displayText.slice(0, phraseIndex)}</span>);
+                }
+        })
+    )
+  };
 
   if (loading) {
     return <p>로딩중</p>;
@@ -126,10 +140,10 @@ const CheckingQuizPage = () => {
     <div>
       <Timer onTimeOver={handleTimeOver} />
       <p>{`${currentQuizIndex + 1}번 문제`}</p>
-      <p>문장에서 틀린부분을 고르세요</p>
+      <p>문장에서 틀린 부분을 고르세요</p>
       <div>
         <div>
-          <p>{questions[currentQuizIndex].question}</p>
+          <p>{questionUnderLine()}</p>
         </div>
         <div>{chackingButton()}</div>
         <button onClick={handleCheckAnswer}>다음 문제로</button>
