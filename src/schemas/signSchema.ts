@@ -12,6 +12,7 @@ export const signinSchema = z.object({
     .refine((value) => /[a-zA-Z]/.test(value), { message: '문자를 포함해야 합니다.' }) // 문자 포함 체크
     .refine((value) => /\d/.test(value), { message: '숫자를 포함해야 합니다.' }) // 숫자 포함 체크
     .refine((value) => /^[A-Za-z0-9]+$/.test(value), { message: '비밀번호에 특수 문자를 포함할 수 없습니다.' }), // 특수 문자 체크
+  rememberedEmail: z.boolean().optional(), // 선택
 });
 
 // 회원가입
