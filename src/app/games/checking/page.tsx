@@ -117,31 +117,31 @@ const CheckingQuizPage = () => {
   };
 
   const questionUnderLine = () => {
-    const { correct, question } = questions[currentQuizIndex];
-    const parts: React.ReactNode[] = [];
-    let lastIndex = 0;
+    const { question, correct } = questions[currentQuizIndex];
 
-    correct.forEach((phrase, index) => {
-      const phraseIndex = question.indexOf(phrase, lastIndex);
-      if (lastIndex < phraseIndex) {
-        parts.push(<span key={lastIndex}>{question.slice(lastIndex, phraseIndex)}</span>);
-      }
-      parts.push(
-        <span
-          key={phraseIndex}
-          className={` underline ${selectedOption === phrase ? ' decoration-red-600' : ' decoration-black'} relative`}
-        >
-          {phrase}
-          <sub className='absolute -bottom-2 left-0 text-gray-500'>{index + 1}</sub>
-        </span>,
-      );
-      lastIndex = phraseIndex + phrase.length;
-    });
-    if (lastIndex < question.length) {
-      parts.push(<span key='end'>{question.slice(lastIndex)}</span>);
-    }
+    return (
+      <p>
+        {question.split(' ').map((word, index) => {
+          // `correct` 배열에 포함된 단어나 구절인지 확인
+          const isCorrect = correct.some((phrase) => phrase === word);
 
-    return <p>{parts}</p>;
+          return (
+            <span
+              key={index}
+              className={isCorrect ? `underline ${selectedOption === word ? 'text-red-600' : 'text-black'}` : ''}
+            >
+              {word}
+              {/* 구절이 `correct`에 있으면 번호 추가 */}
+              {isCorrect && (
+                <sub className={selectedOption === word ? 'text-red-600' : 'text-gray-500'}>
+                  {correct.indexOf(word) + 1}
+                </sub>
+              )}
+            </span>
+          );
+        })}
+      </p>
+    );
   };
 
   if (loading) {
