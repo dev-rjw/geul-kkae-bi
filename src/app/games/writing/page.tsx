@@ -91,14 +91,11 @@ const WritingQuizPage = () => {
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async () => {
     if (userId) {
-      const { error } = await browserClient
-        .from('rank')
-        .upsert({
-          user_id: userId,
-          writing: score,
-          created_at: new Date(),
-        })
-        .eq('user_id', userId);
+      const { error } = await browserClient.from('rank').upsert({
+        user_id: userId,
+        writing: score,
+        created_at: new Date(),
+      });
       if (error) {
         console.error('점수를 저장하지 못했습니다.', error);
       }
