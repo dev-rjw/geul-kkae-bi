@@ -1,101 +1,150 @@
-import Image from "next/image";
+'use client';
+import * as React from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
+
+function GameCards() {
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  const cardData = [
+    {
+      id: 1,
+      bg: 'bg-[#F9BC5F]',
+      title: '주어진 문장 읽기',
+      description: [
+        '이 게임은 주어진 문장을',
+        '읽고 녹음하면 점수가',
+        '매겨지는 게임입니다!',
+        '주어진 시간 내에',
+        '정확한 발음을 해보세요!',
+      ],
+    },
+    {
+      id: 2,
+      bg: 'bg-[#A07BE5]',
+      title: '틀린 것 맞추기',
+      description: ['당신의 국어 지식을 뽐내보세요!', '문장에서 틀린 부분을 찾아', '선택하는 게임입니다!'],
+    },
+    {
+      id: 3,
+      bg: 'bg-[#2AD4AF]',
+      title: '빈칸 채우기',
+      description: ['빈칸에 들어갈 알맞은', '말을 적어주세요!', '많이 맞을수록 당신은 국어 마스터!'],
+    },
+  ];
+
+  return (
+    <div className='flex ml-[20%] mr-[20%] gap-4'>
+      {cardData.map(({ id, bg, title, description }) => (
+        <Card
+          key={id}
+          className={`w-[50%] h-80 p-4 transition-transform duration-300 ${bg} ${
+            hoveredCard === id ? 'scale-105 shadow-lg' : 'opacity-50'
+          }
+          ${hoveredCard === null || hoveredCard === id ? 'opacity-100' : 'opacity-50'}`}
+          onMouseEnter={() => setHoveredCard(id)}
+          onMouseLeave={() => setHoveredCard(null)}
+        >
+          <div className='flex flex-col h-full'>
+            <CardHeader className='mb-4'>
+              <CardTitle className='text-lg font-bold'>{title}</CardTitle>
+              <CardDescription>
+                {description.map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
+              </CardDescription>
+            </CardHeader>
+            <Button className='mt-auto btn'>게임 하러 가기 &gt;</Button>
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+const dummy = [
+  {
+    rank: 1,
+    name: '가을엔 붕어빵',
+    score: 90,
+  },
+  {
+    rank: 2,
+    name: '가을엔 붕어빵',
+    score: 70,
+  },
+  {
+    rank: 3,
+    name: '가을엔 붕어빵',
+    score: 60,
+  },
+];
+
+// API 호출
+const getRankList = async () => {
+  // let { data: rank, error } = await supabase
+  // .from('rank')
+  // .select('*')
+
+  return dummy;
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [ranks, setRanks] = useState<any>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  useEffect(() => {
+    getRankList().then((data) => setRanks(data));
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <GameCards />
+      <div className='flex ml-[20%] mr-[20%] mt-5 gap-4'>
+        <Carousel className='flex-shrink-0 w-[62%]'>
+          <CarouselContent>
+            {Array.from({ length: 2 }).map((_, index) => (
+              <CarouselItem key={index}>
+                <div className='p-1'>
+                  <Card className='bg-[#357EE7] h-64'>
+                    <CardContent>
+                      <span>서비스 소개</span>
+                      <CardTitle>글을 절로 깨치는 글깨비</CardTitle>
+                      <p>문해력, 어휘력 자신 있으십니까?</p>
+                      <p>낫 놓고 기역자도 모르는</p>
+                      <p>무국적 한국인들을 위한</p>
+                      <p>본격 성인 한글 공부 프로젝트</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className='left-1' />
+          <CarouselNext className='right-1' />
+        </Carousel>
+        <Card className='w-[30%]'>
+          <CardHeader>
+            <CardTitle>랭킹 TOP 3</CardTitle>
+            <CardDescription>이번주의 랭킹을 확인하세요</CardDescription>
+          </CardHeader>
+          {ranks.map((rank) => {
+            return (
+              <p key={rank.name}>
+                {rank.rank}위 {rank.name}
+              </p>
+            );
+          })}
+        </Card>
+      </div>
+      <Footer />
+    </>
   );
 }
