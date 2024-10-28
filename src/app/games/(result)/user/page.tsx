@@ -2,7 +2,7 @@ import { createClient } from '@/util/supabase/server';
 import React from 'react';
 
 //로그인한 유저 아이디 가져오기
-const fetchUserId = async () => {
+export const fetchUserId = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser();
   console.log('user', user);
@@ -14,7 +14,7 @@ const fetchUserId = async () => {
 };
 
 //로그인한 유저 닉네임 가져오기
-const fetchUserNickName = async () => {
+export const fetchUserNickName = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser();
   console.log('user', user);
@@ -25,11 +25,11 @@ const fetchUserNickName = async () => {
   }
 };
 
-interface justEndedGameProp {
+export interface justEndedGameProp {
   searchParams: { [key: string]: string | undefined };
 }
 
-interface userTableProp {
+export interface userTable {
   user_id: string;
   checking: number;
   speaking: number;
@@ -37,7 +37,7 @@ interface userTableProp {
   created_at: string;
 }
 
-//http://localhost:3000/games/result?key=checking 이런식으로 들어올거임
+//http://localhost:3000/games/user?key=checking 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: justEndedGameProp) => {
   const serverClient = createClient();
 
@@ -51,7 +51,7 @@ const ResultPageForUser = async ({ searchParams }: justEndedGameProp) => {
   const userId = await fetchUserId();
 
   //rank table에 해당 유저에 관련된 데이터만 가져와서 변수 user에 담아짐(2주치가 있다면 게임기록 2개가 들어감)
-  const userTable: userTableProp[] = resultScore?.find((user) => user.user_id === userId);
+  const userTable = resultScore?.filter((user) => user.user_id === userId) as userTable[];
   // 담기는 형태(테이블2개있을시)
   // userTable [
   //{
@@ -74,7 +74,7 @@ const ResultPageForUser = async ({ searchParams }: justEndedGameProp) => {
   });
 
   //객체분해할당 : user안에 담긴 객체 중에 게임점수 관련된 객체만 뽑아내서 객체 추가후 새로운 배열을 만드는 함수
-  const extractGames = (game: userTableProp) => {
+  const extractGames = (game: userTable) => {
     const { checking, speaking, writing } = game;
     return [
       {
