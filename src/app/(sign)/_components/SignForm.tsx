@@ -18,39 +18,30 @@ const SignForm = () => {
   // 유효성 검사
   const isSignUp = path === '/signup'; // 회원가입일때
   const selectedSchema = isSignUp ? signupSchema : signinSchema;
-  const defaultValues = isSignUp
-    ? {
-        email: '',
-        password: '',
-        confirmPassword: '',
-        nickname: '',
-      }
-    : {
-        email: '',
-        password: '',
-      };
-      
+  const defaultValues = {
+    email: '',
+    password: '',
+    ...(isSignUp && {
+      confirmPassword: '',
+      nickname: '',
+    }),
+  };
+
   const form = useForm<z.infer<typeof selectedSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(selectedSchema),
     defaultValues,
   });
-  const {
-    formState: { errors },
-    setError,
-  } = form;
+  const { getFieldState } = form;
+
+  console.log(form, getFieldState('confirmPassword'));
 
   const onSubmit = async (values: FieldValues) => {
     const { email, password } = values;
 
     if (isSignUp) {
       // 회원가입일때
-      const { confirmPassword, nickname } = values;
-
-      // 비밀번호 확인
-      if (password !== confirmPassword) {
-        setError('confirmPassword', { message: '비밀번호가 일치하지 않습니다.' });
-        return;
-      }
+      const { nickname } = values;
 
       const result = await signup({
         email,
@@ -137,7 +128,11 @@ const SignForm = () => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              {!getFieldState('password').invalid && field.value ? (
+                <FormMessage className='text-primary-400'>올바른 비밀번호입니다.</FormMessage>
+              ) : (
+                <FormMessage />
+              )}
             </FormItem>
           )}
         />
@@ -157,7 +152,11 @@ const SignForm = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage>{errors.confirmPassword && errors.confirmPassword.message}</FormMessage>
+                  {!getFieldState('confirmPassword').invalid && field.value ? (
+                    <FormMessage className='text-primary-400'>비밀번호가 일치합니다.</FormMessage>
+                  ) : (
+                    <FormMessage />
+                  )}
                 </FormItem>
               )}
             />
@@ -174,7 +173,11 @@ const SignForm = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  {!getFieldState('nickname').invalid && field.value ? (
+                    <FormMessage className='text-primary-400'>사용할 수 있는 닉네임입니다.</FormMessage>
+                  ) : (
+                    <FormMessage />
+                  )}
                 </FormItem>
               )}
             />
