@@ -125,29 +125,31 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const remainingGamesCount = unMatchedGames.filter((game) => !game.score).length;
 
   const playMessage = isDone
-    ? `잘했다 깨비! 이제 랭킹을 확인해보라 깨비!`
+    ? `잘했다 깨비! 이제 랭킹을 확인해봐 깨비!`
     : remainingGamesCount === 1
-    ? `종합 랭킹을 확인하려면 나머지 게임 1개를 마저 플레이 해야한다 깨비!`
-    : `종합 랭킹을 확인하려면 나머지 게임 2개를 마저 플레이 해야한다 깨비!`;
+    ? `종합 랭킹을 확인하려면 나머지 게임 1개를 마저 플레이 해야해 깨비!`
+    : `종합 랭킹을 확인하려면 나머지 게임 2개를 마저 플레이 해야해 깨비!`;
 
   // 해야될것
   // 점수에 따라서 라운드 그래프 변경, 캐릭터 변경, 점수평변경
 
   return (
     <div>
-      <div>{matchedGame?.name}</div>
-      <div>
-        {isDone ? (
-          <div>
-            <Link href={'/games/rank'}>랭킹보러가기</Link>
+      <div className='w-[590] flex justify-between'>
+        <div>{matchedGame?.name}</div>
+        <div>
+          {isDone ? (
+            <div>
+              <Link href={'/games/rank'}>랭킹보러가기</Link>
+              <Link href={'/'}>홈으로</Link>
+            </div>
+          ) : (
             <Link href={'/'}>홈으로</Link>
-          </div>
-        ) : (
-          <Link href={'/'}>홈으로</Link>
-        )}
+          )}
+        </div>
       </div>
       <div className='flex flex-row'>
-        <div className={`w-96 h-96 ${matchedGame?.color}`}>
+        <div className={`w-96 h-[415] ${matchedGame?.color}`}>
           <div>{nickName}님의 국어 문해력은</div>
           <div>{matchedGame?.score}</div>
           <div>캐릭터이미지</div>
@@ -167,8 +169,8 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
             );
           })}
         </div>
-        <div>{playMessage}</div>
       </div>
+      <div>{playMessage}</div>
     </div>
   );
 };
