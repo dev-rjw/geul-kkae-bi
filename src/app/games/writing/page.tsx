@@ -67,7 +67,11 @@ const WritingQuizPage = () => {
   };
   // result페이지 이동
   const moveToWritingResultPage = () => {
-    router.push('/games/result?type=writing');
+    if (userId) {
+      router.push('/games/user?type=writing');
+    } else {
+      router.push('/games/guest?type=writing');
+    }
   };
 
   //정답 확인, 점수 추가
