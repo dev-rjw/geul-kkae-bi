@@ -29,9 +29,7 @@ export default function RootLayout({
     <QueryProvider>
       <html lang='en'>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
-          <Header />
           <main className='grow'>{children}</main>
-          <footer className='text-center my-10'>ⓒ 2024. 글깨비 All rights reserved.</footer>
         </body>
       </html>
     </QueryProvider>
