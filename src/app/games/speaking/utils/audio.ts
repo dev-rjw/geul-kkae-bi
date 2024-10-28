@@ -1,4 +1,4 @@
-export const convertAudioToPCM = async (audioBlob) => {
+export const convertAudioToPCM = async (audioBlob: Blob) => {
   const arrayBuffer = await audioBlob.arrayBuffer();
   const audioContext = new (window.AudioContext || window.AudioContext)();
 
@@ -19,7 +19,8 @@ export const convertAudioToPCM = async (audioBlob) => {
 };
 
 // WAV Blob 생성 함수
-const createWavBlob = (pcmData, sampleRate) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createWavBlob = (pcmData: string | any[] | Int16Array, sampleRate: number) => {
   const buffer = new ArrayBuffer(44 + pcmData.length * 2);
   const view = new DataView(buffer);
 
@@ -47,7 +48,7 @@ const createWavBlob = (pcmData, sampleRate) => {
 };
 
 // 문자열 작성 함수
-const writeString = (view, offset, string) => {
+const writeString = (view: DataView, offset: number, string: string) => {
   for (let i = 0; i < string.length; i++) {
     view.setUint8(offset + i, string.charCodeAt(i));
   }

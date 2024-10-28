@@ -1,7 +1,11 @@
 'use client';
-import speekStore from '@/store/speekStoreStore';
+import { upsertMutation } from '@/mutations/speek-mutation';
+import { useAuth } from '@/queries/useAuth';
+import speekStore from '@/store/speekStore';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import Timer from './Timer';
+import { timStore } from '@/store/timeStore';
 
 type Question = {
   text: string;
@@ -12,10 +16,14 @@ type Question = {
 const Question = ({ text, randomText, isAudioStop }: Question) => {
   const { index, percent, totlaPercent, setPercent, resetText, resetPercent, incrementIndex, addTotalPercent } =
     speekStore();
+  const { time } = timStore();
   const finalPercent = totlaPercent / 10;
 
+  const { data } = useAuth();
+
+  const { mutate } = upsertMutation();
+
   useEffect(() => {
-    localStorage.setItem('finalPercent', finalPercent.toString());
     // text와 randomText가 모두 설정된 후에만 정확도 계산 실행
     if (text && randomText[index]) {
       onclickAccuracy(text, randomText[index]);
@@ -42,11 +50,22 @@ const Question = ({ text, randomText, isAudioStop }: Question) => {
     setPercent(point);
   };
 
+  const handleUpsertScore = () => {
+    if (data) {
+      mutate({ userId: data.id, score: finalPercent });
+      console.log(data.id, finalPercent);
+    } else {
+      localStorage.setItem('finalPercent', finalPercent.toString());
+    }
+  };
+
   return (
     <>
-      {index == 10 ? (
+      <Timer handleUpsertScore={handleUpsertScore} />
+      <strong className='bg-[#F9BC5F]'>{index + 1}문제</strong>
+
+      {index === 10 || time === 0 ? (
         <>
-          <strong>10문제</strong>
           <div className='bg-[#fff] w-[800px] h-[200px] flex items-center justify-center mb-[40px]'>
             <p>문제: {randomText[9]}</p>
           </div>
@@ -54,11 +73,26 @@ const Question = ({ text, randomText, isAudioStop }: Question) => {
             <p>정확도 총점</p>
             <span>{finalPercent}</span>
           </div>
-          <Link href={'/shop?type=Speek'}>결과 보러가기</Link>
+          {data ? (
+            <>
+              <Link
+                onClick={handleUpsertScore}
+                href={'/games/user?key=speaking'}
+              >
+                결과 보러가기
+              </Link>
+            </>
+          ) : (
+            <Link
+              onClick={handleUpsertScore}
+              href={'/games/guest?key=speaking'}
+            >
+              결과 보러가기
+            </Link>
+          )}
         </>
       ) : (
         <>
-          <strong className='bg-[#F9BC5F]'>{index + 1}문제</strong>
           <div className='bg-[#fff] w-[800px] h-[200px] flex items-center justify-center mb-[40px]'>
             <p>문제: {randomText[index]}</p>
           </div>

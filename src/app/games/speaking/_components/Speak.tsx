@@ -2,27 +2,46 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Question from './Question';
-import speekStore from '@/store/speekStoreStore';
+import speekStore from '@/store/speekStore';
 import TextData from '@/mock/speak';
-import { convertAudioToPCM } from '../ts/audio';
+import { convertAudioToPCM } from '../utils/audio';
 import { useAuth } from '@/queries/useAuth';
-import { getSpeekData } from '@/queries/useGetSpeekQuery';
+
+// 오디오 값 통신
+async function sendToAudio(audioBlob: Blob) {
+  if (audioBlob.size > 0) {
+    console.log('음성데이터가 있습니다', audioBlob);
+    const response = await fetch('https://api.wit.ai/speech', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer VUKAET3AVSBYQP5NBQ4N6ABZ4ZCCHMVZ',
+        'Content-Type': 'audio/wav',
+      },
+      body: audioBlob,
+    });
+
+    const data = await response.text();
+    console.log(data);
+    return data;
+  } else {
+    console.log('음성데이터가 없습니다');
+  }
+}
 
 const Speak = () => {
-  // const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder>();
   const [randomText, setRandomText] = useState<string[]>([]);
   const [isAudioStop, setIsAudioStop] = useState(false);
   const audioChunks = useRef<Blob[]>([]);
   const { text, isRecording, setText, setIsRecording } = speekStore();
 
-  // 최종 점수
-
-  // 비로그인 로컬스토리지에 저장
+  const { data } = useAuth();
+  console.log(data);
 
   function getRandomSentences(textArray: string[]) {
     return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
   }
+
   useEffect(() => {
     const questions = getRandomSentences(TextData);
     setRandomText(questions);
@@ -46,7 +65,6 @@ const Speak = () => {
             return;
           }
 
-          // data String값 JSON 변환
           const jsonText = data.trim().split(/\n(?={)/);
           const jsonArray = jsonText.map((part) => JSON.parse(part.trim()));
           const text = jsonArray[jsonArray.length - 1];
@@ -86,35 +104,6 @@ const Speak = () => {
     setIsRecording(false);
   };
 
-  // 오디오 값 통신
-  async function sendToAudio(audioBlob: Blob) {
-    if (audioBlob.size > 0) {
-      console.log('음성데이터가 있습니다', audioBlob);
-      const response = await fetch('https://api.wit.ai/speech', {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer VUKAET3AVSBYQP5NBQ4N6ABZ4ZCCHMVZ',
-          'Content-Type': 'audio/wav',
-        },
-        body: audioBlob,
-      });
-
-      const data = await response.text();
-      console.log(data);
-      return data;
-    } else {
-      console.log('음성데이터가 업습니다');
-    }
-  }
-
-  const { data } = useAuth();
-  if (data === undefined || null) {
-    console.log(data);
-  } else {
-    const { data: speek } = getSpeekData(data.id);
-    console.log(speek);
-  }
-
   return (
     <div>
       <div className='flex flex-col items-center justify-center '>
@@ -122,7 +111,7 @@ const Speak = () => {
           text={text}
           randomText={randomText}
           isAudioStop={isAudioStop}
-        ></Question>
+        />
         <button onClick={isRecording ? stopRecording : startRecording}>
           {isRecording ? '마이크 버튼을 눌러 종료하기' : '마이크 버튼을 눌러 시작하기'}
         </button>

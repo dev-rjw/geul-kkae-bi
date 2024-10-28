@@ -2,20 +2,22 @@
 import browserClient from '@/util/supabase/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const addSpeekScore = async (score: { score: number; userId: string }) => {
+const upsertSpeekScore = async (score: { score: number; userId: string }) => {
+  console.log(score);
   return await browserClient
     .from('rank')
-    .insert({
+    .upsert({
       user_id: score.userId,
-      speaking: score,
+      speaking: score.score,
+      created_at: new Date(),
     })
     .select();
 };
-export const addSeekMutation = () => {
+export const upsertMutation = () => {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: addSpeekScore,
+    mutationFn: upsertSpeekScore,
     onSuccess: async () => {
       client.invalidateQueries({ queryKey: ['speek'] });
     },

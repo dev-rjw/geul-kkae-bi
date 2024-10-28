@@ -21,6 +21,7 @@ const speekStore = create<speek>((set) => ({
   totlaPercent: 0,
   text: '',
   isRecording: false,
+  time: 40,
   // 상태 업데이트 함수
   incrementIndex: () => set((state) => ({ index: state.index + 1 })),
   resetPercent: () => set(() => ({ percent: 0 })),
