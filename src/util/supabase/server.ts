@@ -14,16 +14,9 @@ export const createClient = async () => {
             cookieStore.set(name, value, options);
           });
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       },
     },
   });
-};
-export const getIsLogin = async () => {
-  const serverClient = await createClient();
-  const {
-    data: { session },
-  } = await serverClient.auth.getSession();
-  return !!session;
 };
