@@ -10,7 +10,8 @@ import EmailInput from './EmailInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
-import { signupSchema, translateErrorMessage } from '@/schemas/signSchema';
+import { translateErrorMessage } from '@/schemas/commonSchema';
+import { signupSchema } from '@/schemas/signSchema';
 
 const SignupForm = () => {
   const router = useRouter();

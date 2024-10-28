@@ -23,7 +23,6 @@ const FindPasswordForm = () => {
 
   const onSubmit = async (values: FieldValues) => {
     const { email } = values;
-
     findPassword(email);
   };
 

@@ -8,7 +8,8 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
-import { signinSchema, translateErrorMessage } from '@/schemas/signSchema';
+import { translateErrorMessage } from '@/schemas/commonSchema';
+import { signinSchema } from '@/schemas/signSchema';
 
 const SigninForm = () => {
   const router = useRouter();
