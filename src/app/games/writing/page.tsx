@@ -68,9 +68,9 @@ const WritingQuizPage = () => {
   // result페이지 이동
   const moveToWritingResultPage = () => {
     if (userId) {
-      router.push('/games/user?type=writing');
+      router.push('/games/user?type=Writing');
     } else {
-      router.push('/games/guest?type=writing');
+      router.push('/games/guest?type=Writing');
     }
   };
 
