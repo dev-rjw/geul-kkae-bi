@@ -1,4 +1,4 @@
-import { checkEmailExists } from '@/util/user/client-action';
+import { checkEmailExists, checkNicknameExists } from '@/util/user/client-action';
 import { z } from 'zod';
 
 // 로그인
@@ -46,7 +46,14 @@ export const signupSchema = z
     nickname: z
       .string()
       .min(2, { message: '닉네임은 최소 2자 이상이어야 합니다.' })
-      .max(8, '닉네임은 8자리 이하이어야 합니다.'),
+      .max(8, '닉네임은 8자리 이하이어야 합니다.')
+      .refine(
+        async (nickname) => {
+          const exists = await checkNicknameExists(nickname);
+          return !exists;
+        },
+        { message: '중복된 닉네임입니다.' },
+      ),
     agreeToTerms: z.boolean().refine((value) => value === true, {
       message: '이용약관에 동의해야 합니다.',
     }),
