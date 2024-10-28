@@ -15,3 +15,18 @@ export const fetchCurrentUser = async () => {
 
   return user;
 };
+
+// 이메일 중복확인
+// export const checkEmailExists = async (email: string) => {
+//   const supabase = createServerComponentSupabaseClient({ cookies });
+//   const {
+//     data: { users },
+//     error,
+//   } = await supabase.auth.admin.listUsers();
+
+//   if (error) {
+//     throw new Error('이메일 조회에 실패했습니다.');
+//   }
+
+//   return users.some((user) => user.email === email);
+// };

@@ -1,3 +1,4 @@
+// import { checkEmailExists } from '@/util/auth/server-action';
 import { z } from 'zod';
 
 // 오류 메시지를 한국어로 변환
@@ -25,7 +26,18 @@ export const signinSchema = z.object({
 // 회원가입
 export const signupSchema = z
   .object({
-    email: z.string().email({ message: '이메일을 올바르게 입력해 주세요.' }),
+    email: z
+      .string()
+      .email({ message: '이메일을 올바르게 입력해 주세요.' }),
+      // .refine(
+      //   async (email) => {
+      //     const exists = await checkEmailExists(email);
+      //     return !exists;
+      //   },
+      //   {
+      //     message: '이미 가입된 이메일입니다.',
+      //   },
+      // ),
     password: z
       .string()
       .min(6, { message: '비밀번호는 최소 6자 이상이어야 합니다.' })
