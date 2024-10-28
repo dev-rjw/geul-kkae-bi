@@ -1,22 +1,23 @@
-import Image from 'next/image';
-import React from 'react';
-import Logo from '../img/logo.png';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import HeaderInfoChange from './HeaderInfoChange';
+import Image from 'next/image';
+import Logo from '../img/logo.png';
 
 const Header = () => {
   return (
-    <div className='ml-[20%] mr-[20%] mt-10 mb-5'>
-      <Link href={'/'}>
-        <Image
-          src={Logo}
-          width={150}
-          height={150}
-          alt='글깨비'
-        ></Image>
-      </Link>
-      <Button className='float-right'>로그인</Button>
-    </div>
+    <header>
+      <div className='flex items-center justify-between max-w-[1000px] mx-auto my-10'>
+        <Link href='/'>
+          <Image
+            src={Logo}
+            width={150}
+            height={150}
+            alt='글깨비'
+          ></Image>
+        </Link>
+        <HeaderInfoChange />
+      </div>
+    </header>
   );
 };
 
