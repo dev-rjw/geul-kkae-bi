@@ -113,6 +113,11 @@ const CheckingQuizPage = () => {
     moveToWritingResultPage();
   };
 
+  //   const questionUnderLine = () => {
+  //     const { correct, question } = questions[currentQuizIndex];
+  //     correct.map(()=>{})
+  //   };
+
   if (loading) {
     return <p>로딩중</p>;
   }
