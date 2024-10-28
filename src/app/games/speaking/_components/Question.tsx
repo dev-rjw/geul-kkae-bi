@@ -6,9 +6,10 @@ import { useEffect } from 'react';
 type Question = {
   text: string;
   randomText: string[];
+  isAudioStop: boolean;
 };
 
-const Question = ({ text, randomText }: Question) => {
+const Question = ({ text, randomText, isAudioStop }: Question) => {
   const { index, percent, totlaPercent, setPercent, resetText, resetPercent, incrementIndex, addTotalPercent } =
     speekStore();
   const finalPercent = totlaPercent / 10;
@@ -43,11 +44,11 @@ const Question = ({ text, randomText }: Question) => {
 
   return (
     <>
-      {index > 1 ? (
+      {index == 10 ? (
         <>
           <strong>10문제</strong>
           <div className='bg-[#fff] w-[800px] h-[200px] flex items-center justify-center mb-[40px]'>
-            <p>문제: {randomText[index]}</p>
+            <p>문제: {randomText[9]}</p>
           </div>
           <div className='bg-[#fff] w-[800px] h-[200px] flex items-center justify-center'>
             <p>정확도 총점</p>
@@ -65,16 +66,18 @@ const Question = ({ text, randomText }: Question) => {
             <p>정확도 총점</p>
             <span>{percent}</span>
           </div>
-          <button
-            onClick={() => {
-              addTotalPercent(percent);
-              resetPercent();
-              resetText();
-              incrementIndex();
-            }}
-          >
-            넘어가기
-          </button>
+          {!isAudioStop ? null : (
+            <button
+              onClick={() => {
+                addTotalPercent(percent);
+                resetPercent();
+                resetText();
+                incrementIndex();
+              }}
+            >
+              넘어가기
+            </button>
+          )}
         </>
       )}
     </>

@@ -5,17 +5,16 @@ import Question from './Question';
 import speekStore from '@/store/speekStoreStore';
 import TextData from '@/mock/speak';
 import { convertAudioToPCM } from '../ts/audio';
+import { useAuth } from '@/queries/useAuth';
+import { getSpeekData } from '@/queries/useGetSpeekQuery';
 
 const Speak = () => {
-  const [isRecording, setIsRecording] = useState(false);
+  // const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder>();
   const [randomText, setRandomText] = useState<string[]>([]);
+  const [isAudioStop, setIsAudioStop] = useState(false);
   const audioChunks = useRef<Blob[]>([]);
-  const { text, setText } = speekStore();
-
-  // const { data } = useAuth();
-
-  // const { data: speek } = getSpeekData(data?.id);
+  const { text, isRecording, setText, setIsRecording } = speekStore();
 
   // 최종 점수
 
@@ -24,7 +23,6 @@ const Speak = () => {
   function getRandomSentences(textArray: string[]) {
     return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
   }
-
   useEffect(() => {
     const questions = getRandomSentences(TextData);
     setRandomText(questions);
@@ -53,6 +51,7 @@ const Speak = () => {
           const jsonArray = jsonText.map((part) => JSON.parse(part.trim()));
           const text = jsonArray[jsonArray.length - 1];
           await setText(text.text);
+          setIsAudioStop(true);
           console.log(data);
 
           // 포맷확인
@@ -108,12 +107,21 @@ const Speak = () => {
     }
   }
 
+  const { data } = useAuth();
+  if (data === undefined || null) {
+    console.log(data);
+  } else {
+    const { data: speek } = getSpeekData(data.id);
+    console.log(speek);
+  }
+
   return (
     <div>
       <div className='flex flex-col items-center justify-center '>
         <Question
           text={text}
           randomText={randomText}
+          isAudioStop={isAudioStop}
         ></Question>
         <button onClick={isRecording ? stopRecording : startRecording}>
           {isRecording ? '마이크 버튼을 눌러 종료하기' : '마이크 버튼을 눌러 시작하기'}
