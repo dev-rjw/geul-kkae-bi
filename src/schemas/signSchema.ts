@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { checkEmailExists } from '@/util/user/client-action';
+import { z } from 'zod';
 
 // 오류 메시지를 한국어로 변환
 export const translateErrorMessage = (error: string): string => {
@@ -36,9 +36,7 @@ export const signupSchema = z
           const exists = await checkEmailExists(email);
           return !exists;
         },
-        {
-          message: '중복된 이메일입니다.',
-        },
+        { message: '중복된 이메일입니다.' },
       ),
     password: z
       .string()

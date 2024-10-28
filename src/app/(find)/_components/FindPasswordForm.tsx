@@ -5,24 +5,26 @@ import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
-import { findSchema } from '@/schemas/findSchema';
+import { findPasswordSchema } from '@/schemas/findSchema';
 import { Button } from '@/components/ui/button';
+import { findPassword } from '@/util/auth/client-action';
 
-const FindForm = () => {
+const FindPasswordForm = () => {
   // 유효성 검사
   const defaultValues = {
     email: '',
   };
 
-  const form = useForm<z.infer<typeof findSchema>>({
+  const form = useForm<z.infer<typeof findPasswordSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(findSchema),
+    resolver: zodResolver(findPasswordSchema),
     defaultValues,
   });
-  //   const { getFieldState } = form;
 
   const onSubmit = async (values: FieldValues) => {
-    console.log(values);
+    const { email } = values;
+
+    findPassword(email);
   };
 
   return (
@@ -53,4 +55,4 @@ const FindForm = () => {
   );
 };
 
-export default FindForm;
+export default FindPasswordForm;
