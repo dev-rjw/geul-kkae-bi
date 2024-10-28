@@ -20,6 +20,7 @@ const WritingQuizPage = () => {
   const [score, setScore] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
 
   // 유저 정보 가져오기
@@ -61,8 +62,7 @@ const WritingQuizPage = () => {
       setUserInput('');
     } else {
       saveScore();
-      alert('모든 문제를 풀엇다!');
-      moveToWritingResultPage();
+      setIsAllQuestions(true);
     }
   };
   // result페이지 이동
@@ -100,14 +100,14 @@ const WritingQuizPage = () => {
         console.error('점수를 저장하지 못했습니다.', error);
       }
     } else {
-      localStorage.setItem('writing_score', score.toString());
+      localStorage.setItem('writing', score.toString());
     }
   };
 
   // 시간 초과 시 페이지 이동
   const handleTimeOver = () => {
     saveScore();
-    alert('시간 끝~');
+    alert('시간 끝~ 결과 페이지로 이동!');
     moveToWritingResultPage();
   };
 
@@ -135,7 +135,7 @@ const WritingQuizPage = () => {
             }}
           />
           <button type='submit'>다음 문제 </button>
-          {currentQuizIndex === questions.length - 1 && <p>결과 보기</p>}
+          {isAllQuestions && <button onClick={moveToWritingResultPage}>결과 보기</button>}
         </form>
       </div>
     </div>
