@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SignForm from '../_components/SignForm';
+import SignupForm from '../_components/SignupForm';
 
 export const metadata: Metadata = {
   title: '회원가입',
@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 const SignupPage = () => {
   return (
-    <div className='max-w-96 mx-auto my-10'>
+    <div className='max-w-[898px] mx-auto my-10'>
       <h2 className='text-2xl font-bold text-center mb-6'>회원가입</h2>
-      <SignForm />
+      <SignupForm />
     </div>
   );
 };
