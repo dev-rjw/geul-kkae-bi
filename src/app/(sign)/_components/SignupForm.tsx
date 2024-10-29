@@ -1,180 +1,166 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signup } from '@/util/auth/client-action';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { usePathname, useRouter } from 'next/navigation';
-import { signin, signup } from '@/util/supabase/client-action';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import EmailInput from './EmailInput';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FieldValues, useForm } from 'react-hook-form';
+import { translateErrorMessage } from '@/schemas/commonSchema';
+import { signupSchema } from '@/schemas/signSchema';
 
 const SignupForm = () => {
-  const path = usePathname();
   const router = useRouter();
-  const [userId, setUserId] = useState('');
-  const [domain, setDomain] = useState('');
-  const [customDomain, setCustomDomain] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [error, setError] = useState<string | null>(null);
 
-  // 이메일 도메인 목록
-  const domainOptions = ['gmail.com', 'naver.com', 'daum.net', '직접 입력'];
+  // 유효성 검사
+  const defaultValues = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+    nickname: '',
+    agreeToTerms: false,
+  };
 
-  // userId와 domain이 변경될 때 email 값을 업데이트
-  useEffect(() => {
-    if (userId && domain && domain !== '직접 입력') {
-      setEmail(`${userId}@${domain}`);
-    } else if (userId && customDomain) {
-      setEmail(`${userId}@${customDomain}`);
-    }
-  }, [userId, domain, customDomain]);
-  console.log(email);
+  const form = useForm<z.infer<typeof signupSchema>>({
+    mode: 'onChange',
+    resolver: zodResolver(signupSchema),
+    defaultValues,
+  });
+  const { getFieldState } = form;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  const onSubmit = async (values: FieldValues) => {
+    const { email, password, nickname } = values;
 
-    if (path === '/signup' && password !== confirmPassword) {
-      setError('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-
-    if (path === '/signup') {
-      // 회원가입
-      const result = await signup({
-        email,
-        password,
-        options: {
-          data: {
-            nickname,
-          },
+    const result = await signup({
+      email,
+      password,
+      options: {
+        data: {
+          nickname,
         },
-      });
+      },
+    });
 
-      if (result instanceof Error) {
-        setError(result.message);
-      } else {
-        router.push('/');
-      }
+    if (result instanceof Error) {
+      alert(translateErrorMessage(result.message));
     } else {
-      // 로그인
-      const result = await signin({ email, password });
-
-      if (result instanceof Error) {
-        setError(result.message);
-      } else {
-        router.push('/');
-      }
+      router.push('/');
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='flex flex-col gap-4'
-    >
-      {path === '/signup' ? (
-        <>
-          <div className='flex items-center gap-2'>
-            <Input
-              type='text'
-              placeholder='아이디'
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <span>@</span>
-            <div className='relative'>
-              <Select
-                value={domain}
-                onValueChange={(value) => {
-                  setDomain(value);
-                  setCustomDomain('');
-                  if (value === '직접 입력') {
-                    setEmail('');
-                  } else if (userId && value) {
-                    setEmail(`${userId}@${value}`);
-                  }
-                }}
-              >
-                <SelectTrigger className='w-[180px]'>
-                  <SelectValue placeholder='도메인 선택' />
-                </SelectTrigger>
-                <SelectContent>
-                  {domainOptions.map((option, index) => (
-                    <SelectItem
-                      key={index}
-                      value={option}
-                    >
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {domain === '직접 입력' && (
-                <div className='absolute right-0 top-1/2 -translate-y-1/2 w-full max-w-sm'>
-                  <Input
-                    placeholder='직접 입력'
-                    value={customDomain ?? ''}
-                    onChange={(e) => setCustomDomain(e.target.value)}
-                    className='max-w-sm'
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='flex flex-col gap-4'
+      >
+        <FormField
+          control={form.control}
+          name='agreeToTerms'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <>
+                  <Checkbox
+                    id='agreeToTerms'
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
                   />
-                  <Button
-                    type='button'
-                    variant='ghost'
-                    size='icon'
-                    className='absolute right-0 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
-                    onClick={() => {
-                      setDomain('');
-                      setCustomDomain('');
-                      setEmail('');
-                    }}
-                  >
-                    X<span className='sr-only'>Clear</span>
-                  </Button>
-                </div>
-              )}
-            </div>
-          </div>
-        </>
-      ) : (
-        <Input
-          type='email'
-          placeholder='이메일'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+                  <label htmlFor='agreeToTerms'>[필수] 글깨비 이용약관 동의</label>
+                </>
+              </FormControl>
+              <FormDescription>글깨비 이용약관이 들어갑니다.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      )}
 
-      <Input
-        type='password'
-        placeholder='비밀번호'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <FormField
+          control={form.control}
+          name='email'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <EmailInput
+                  field={field}
+                  domainOptions={['gmail.com', 'naver.com', '직접 입력']}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      {path === '/signup' && (
-        <>
-          <Input
-            type='password'
-            placeholder='비밀번호 확인'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <Input
-            type='text'
-            placeholder='닉네임'
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
-        </>
-      )}
+        <FormField
+          control={form.control}
+          name='password'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  type='password'
+                  placeholder='비밀번호'
+                  {...field}
+                />
+              </FormControl>
+              {!getFieldState('password').invalid && field.value ? (
+                <FormMessage className='text-primary-400'>올바른 비밀번호입니다.</FormMessage>
+              ) : (
+                <FormMessage />
+              )}
+            </FormItem>
+          )}
+        />
 
-      {error && <p className='text-red-500'>{error}</p>}
+        <FormField
+          control={form.control}
+          name='confirmPassword'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  type='password'
+                  placeholder='비밀번호 확인'
+                  {...field}
+                />
+              </FormControl>
+              {!getFieldState('confirmPassword').invalid && field.value ? (
+                <FormMessage className='text-primary-400'>비밀번호가 일치합니다.</FormMessage>
+              ) : (
+                <FormMessage />
+              )}
+            </FormItem>
+          )}
+        />
 
-      <Button>{path === '/signup' ? '가입하기' : '로그인'}</Button>
-    </form>
+        <FormField
+          control={form.control}
+          name='nickname'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  type='text'
+                  placeholder='사용하실 닉네임'
+                  {...field}
+                />
+              </FormControl>
+              {!getFieldState('nickname').invalid && field.value ? (
+                <FormMessage className='text-primary-400'>사용 가능한 닉네임입니다.</FormMessage>
+              ) : (
+                <FormMessage />
+              )}
+            </FormItem>
+          )}
+        />
+
+        <Button>회원가입</Button>
+      </form>
+    </Form>
   );
 };
 
