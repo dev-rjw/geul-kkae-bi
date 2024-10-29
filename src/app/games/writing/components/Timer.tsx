@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 
 interface TimerProps {
   onTimeOver: () => void;
+  isAllQuestions: boolean;
 }
 
-const Timer: React.FC<TimerProps> = ({ onTimeOver }) => {
+const Timer: React.FC<TimerProps> = ({ onTimeOver, isAllQuestions }) => {
   const [timeLeft, setTimeLeft] = useState(40);
 
   useEffect(() => {
+    if (isAllQuestions) return;
+
     let timer: NodeJS.Timeout;
 
     const startTimer = () => {
@@ -27,7 +30,7 @@ const Timer: React.FC<TimerProps> = ({ onTimeOver }) => {
     return () => {
       clearInterval(timer);
     };
-  }, [onTimeOver]);
+  }, [onTimeOver, isAllQuestions]);
 
   return (
     <div>

@@ -117,7 +117,10 @@ const WritingQuizPage = () => {
 
   return (
     <div>
-      <Timer onTimeOver={handleTimeOver} />
+      <Timer
+        onTimeOver={handleTimeOver}
+        isAllQuestions={isAllQuestions}
+      />
       <p>{`${currentQuizIndex + 1}번 문제`}</p>
       <p>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
       <div>
