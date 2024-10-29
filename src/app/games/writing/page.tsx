@@ -138,25 +138,28 @@ const WritingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
+      <div className='flex-1 flex flex-col items-center justify-center'>
+        <div className='p-4'>
+          <p className='text-center'>{`${currentQuizIndex + 1}번 문제`}</p>
+          <p className='text-center'>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
+        </div>
+        <div className='mb-4'>
+          <p className='text-center'>{ConsonantCards(question.consonant)}</p>
+          <p className='text-center'>{question.question}</p>
+          <p className='text-center'>{`**${question.meaning}`}</p>
+        </div>
+        <div className='flex justify-center'>
+          <input
+            type='text'
+            placeholder='정답을 입력하세요'
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+          />
+        </div>
+      </div>
 
-      <div className='p-4'>
-        <p className='text-center'>{`${currentQuizIndex + 1}번 문제`}</p>
-        <p className='text-center'>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
-      </div>
-      <div className='mb-4'>
-        <p className='text-center'>{ConsonantCards(question.consonant)}</p>
-        <p className='text-center'>{question.question}</p>
-        <p className='text-center'>{`**${question.meaning}`}</p>
-      </div>
-      <input
-        type='text'
-        placeholder='정답을 입력하세요'
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        className='text-center'
-      />
-      <div className='flex flex-col items-center'>
-        <p>{`${currentQuizIndex + 1}/10`}</p>
+      <div className='absolute right-4 top-1/4 flex flex-col items-end'>
+        <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
         <button
           onClick={handleNextQuestion}
           className='px-4 py-2'
@@ -166,7 +169,7 @@ const WritingQuizPage = () => {
         {isAllQuestions && (
           <button
             onClick={moveToWritingResultPage}
-            className='px-4 py-2 rounded mt-4'
+            className='px-4 py-2'
           >
             결과 보기
           </button>
