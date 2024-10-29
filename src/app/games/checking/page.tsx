@@ -3,6 +3,7 @@ import browserClient from '@/util/supabase/client';
 import React, { useEffect, useState } from 'react';
 import Timer from './components/Timer';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 interface Qusetion {
   id: string;
@@ -114,8 +115,13 @@ const CheckingQuizPage = () => {
   // 시간 초과 시 페이지 이동
   const handleTimeOver = () => {
     saveScore();
-    alert('시간 끝~');
-    moveToWritingResultPage();
+    Swal.fire({
+      title: '시간 초과!',
+      text: '결과 페이지로 넘어갑니다.',
+      willClose: () => {
+        moveToWritingResultPage();
+      },
+    });
   };
 
   const questionUnderLine = () => {
