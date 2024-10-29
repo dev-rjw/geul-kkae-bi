@@ -26,6 +26,44 @@ export const signin = async (formData: SignInWithPasswordCredentials) => {
   return data;
 };
 
+// 구글 회원가입 및 로그인
+export const googleSignin = async () => {
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
+  });
+
+  if (error) {
+    alert('로그인에 실패하였습니다.');
+    return error;
+  }
+};
+
+// 카카오 회원가입 및 로그인
+export const kakaoSignin = async () => {
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'kakao',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
+  });
+
+  if (error) {
+    alert('로그인에 실패하였습니다.');
+    return error;
+  }
+};
+
 // 현재 사용자 조회
 export const fetchCurrentUser = async () => {
   const supabase = createClient();
