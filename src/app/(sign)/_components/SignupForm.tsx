@@ -10,7 +10,8 @@ import EmailInput from './EmailInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
-import { signupSchema, translateErrorMessage } from '@/schemas/signSchema';
+import { translateErrorMessage } from '@/schemas/commonSchema';
+import { signupSchema } from '@/schemas/signSchema';
 
 const SignupForm = () => {
   const router = useRouter();
@@ -149,7 +150,7 @@ const SignupForm = () => {
                 />
               </FormControl>
               {!getFieldState('nickname').invalid && field.value ? (
-                <FormMessage className='text-primary-400'>사용할 수 있는 닉네임입니다.</FormMessage>
+                <FormMessage className='text-primary-400'>사용 가능한 닉네임입니다.</FormMessage>
               ) : (
                 <FormMessage />
               )}
