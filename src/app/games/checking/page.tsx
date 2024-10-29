@@ -159,7 +159,10 @@ const CheckingQuizPage = () => {
 
   return (
     <div>
-      <Timer onTimeOver={handleTimeOver} />
+      <Timer
+        onTimeOver={handleTimeOver}
+        isAllQuestions={isAllQuestions}
+      />
       <p>{`${currentQuizIndex + 1}번 문제`}</p>
       <p>문장에서 틀린 부분을 고르세요</p>
       <div>
