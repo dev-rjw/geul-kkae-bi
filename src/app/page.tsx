@@ -69,38 +69,38 @@ function GameCards() {
   );
 }
 
-const dummy = [
-  {
-    rank: 1,
-    name: '가을엔 붕어빵',
-    score: 90,
-  },
-  {
-    rank: 2,
-    name: '가을엔 붕어빵',
-    score: 70,
-  },
-  {
-    rank: 3,
-    name: '가을엔 붕어빵',
-    score: 60,
-  },
-];
+// const dummy = [
+//   {
+//     rank: 1,
+//     name: '가을엔 붕어빵',
+//     score: 90,
+//   },
+//   {
+//     rank: 2,
+//     name: '가을엔 붕어빵',
+//     score: 70,
+//   },
+//   {
+//     rank: 3,
+//     name: '가을엔 붕어빵',
+//     score: 60,
+//   },
+// ];
 
 // API 호출
-const getRankList = async () => {
-  // let { data: rank, error } = await supabase
-  // .from('rank')
-  // .select('*')
+// const getRankList = async () => {
+// let { data: rank, error } = await supabase
+// .from('rank')
+// .select('*')
 
-  return dummy;
-};
+//   return dummy;
+// };
 
 export default function Home() {
-  const [ranks, setRanks] = useState<any>([]);
+  // const [ranks, setRanks] = useState<Array<unknown>>([]);
 
   useEffect(() => {
-    getRankList().then((data) => setRanks(data));
+    // getRankList().then((data) => setRanks(data));
   }, []);
 
   return (
@@ -135,13 +135,13 @@ export default function Home() {
             <CardTitle>랭킹 TOP 3</CardTitle>
             <CardDescription>이번주의 랭킹을 확인하세요</CardDescription>
           </CardHeader>
-          {ranks.map((rank) => {
+          {/* {ranks.map((rank) => {
             return (
               <p key={rank.name}>
                 {rank.rank}위 {rank.name}
               </p>
             );
-          })}
+          })} */}
         </Card>
       </div>
       <Footer />
