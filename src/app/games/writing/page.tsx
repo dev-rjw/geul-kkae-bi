@@ -21,6 +21,7 @@ const WritingQuizPage = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
+  const question = questions[currentQuizIndex];
   const router = useRouter();
 
   // 유저 정보 가져오기
@@ -76,14 +77,13 @@ const WritingQuizPage = () => {
 
   //정답 확인, 점수 추가
   const handleCheckAnswer = () => {
-    const correct = userInput === questions[currentQuizIndex].answer;
+    const correct = userInput === question.answer;
     if (correct) {
       setScore((prevScore) => prevScore + 10);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleNextQuestion = () => {
     handleCheckAnswer();
     moveToNextQuiz();
   };
@@ -111,6 +111,23 @@ const WritingQuizPage = () => {
     moveToWritingResultPage();
   };
 
+  const ConsonantCards = (consonants: string) => {
+    return (
+      <div className='flex justify-center gap-3'>
+        {consonants.split('').map((char, index) => {
+          return (
+            <div
+              key={index}
+              className='w-12 h-12 flex items-center justify-center bg-orange-200 text-lg font-bold'
+            >
+              {char}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   if (loading) {
     return <p>로딩중</p>;
   }
@@ -121,25 +138,39 @@ const WritingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
-      <p>{`${currentQuizIndex + 1}번 문제`}</p>
-      <p>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
-      <div>
-        <div>
-          <p>{questions[currentQuizIndex].consonant}</p>
-          <p>{questions[currentQuizIndex].question}</p>
-          <p>{`**${questions[currentQuizIndex].meaning}`}</p>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type='text'
-            value={userInput}
-            onChange={(e) => {
-              setUserInput(e.target.value);
-            }}
-          />
-          <button type='submit'>다음 문제 </button>
-          {isAllQuestions && <button onClick={moveToWritingResultPage}>결과 보기</button>}
-        </form>
+
+      <div className='p-4'>
+        <p className='text-center'>{`${currentQuizIndex + 1}번 문제`}</p>
+        <p className='text-center'>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
+      </div>
+      <div className='mb-4'>
+        <p className='text-center'>{ConsonantCards(question.consonant)}</p>
+        <p className='text-center'>{question.question}</p>
+        <p className='text-center'>{`**${question.meaning}`}</p>
+      </div>
+      <input
+        type='text'
+        placeholder='정답을 입력하세요'
+        value={userInput}
+        onChange={(e) => setUserInput(e.target.value)}
+        className='text-center'
+      />
+      <div className='flex flex-col items-center'>
+        <p>{`${currentQuizIndex + 1}/10`}</p>
+        <button
+          onClick={handleNextQuestion}
+          className='px-4 py-2'
+        >
+          다음 문제
+        </button>
+        {isAllQuestions && (
+          <button
+            onClick={moveToWritingResultPage}
+            className='px-4 py-2 rounded mt-4'
+          >
+            결과 보기
+          </button>
+        )}
       </div>
     </div>
   );
