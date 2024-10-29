@@ -74,17 +74,19 @@ const CheckingQuizPage = () => {
   // 클릭 옵션 생성
   const chackingButton = () => {
     const correct = questions[currentQuizIndex].correct;
-    return correct.map((option: string, index: number) => {
-      return (
-        <button
-          key={index}
-          onClick={() => setSelectedOption(option)}
-          className={`p-2 border border-black ${selectedOption === option ? 'bg-blue-300' : 'bg-gray-500'}`}
-        >
-          {option}
-        </button>
-      );
-    });
+    return (
+      <div className='grid grid-cols-2 gap-3'>
+        {correct.map((option: string, index: number) => (
+          <button
+            key={index}
+            onClick={() => setSelectedOption(option)}
+            className={`p-2 border border-black ${selectedOption === option ? 'bg-blue-300' : 'bg-gray-500'}`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    );
   };
 
   // 정답 확인
@@ -137,7 +139,7 @@ const CheckingQuizPage = () => {
             className='underline decoration-black relative'
           >
             {phrase}
-            <sub className='absolute -bottom-2 left-0 text-xs text-gray-500'>{index + 1}</sub>
+            <sub className='absolute -bottom-4 left-1/2 text-sm text-gray-500'>{index + 1}</sub>
           </span>,
         );
 
@@ -163,11 +165,13 @@ const CheckingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
-      <p>{`${currentQuizIndex + 1}번 문제`}</p>
-      <p>문장에서 틀린 부분을 고르세요</p>
-      <div>
-        {questionUnderLine()}
-        <div>{chackingButton()}</div>
+      <div className='flex-1 flex flex-col items-center justify-center'>
+        <p>{`${currentQuizIndex + 1}번 문제`}</p>
+        <p>문장에서 틀린 부분을 고르세요</p>
+        <div className='p-4'>{questionUnderLine()}</div>
+        {chackingButton()}
+      </div>
+      <div className=' absolute right-4 top-1/4 flex flex-col items-end'>
         <button onClick={handleCheckAnswer}>다음 문제로</button>
         {isAllQuestions && <button onClick={moveToWritingResultPage}>결과 보기</button>}
       </div>
