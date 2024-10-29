@@ -19,6 +19,7 @@ const CheckingQuizPage = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
 
   //유저 정보 가져오기
@@ -58,8 +59,7 @@ const CheckingQuizPage = () => {
       setSelectedOption(null);
     } else {
       saveScore();
-      alert('모든 문제를 풀엇다!');
-      moveToWritingResultPage();
+      setIsAllQuestions(true);
     }
   };
 
@@ -106,7 +106,7 @@ const CheckingQuizPage = () => {
       if (error) {
         console.error('점수를 저장하지 못했습니다.', error);
       }
-    } else localStorage.setItem('checking_score', score.toString());
+    } else localStorage.setItem('checking', score.toString());
   };
 
   // 시간 초과 시 페이지 이동
@@ -118,30 +118,39 @@ const CheckingQuizPage = () => {
 
   const questionUnderLine = () => {
     const { question, correct } = questions[currentQuizIndex];
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
 
-    return (
-      <p>
-        {question.split(' ').map((word, index) => {
-          // `correct` 배열에 포함된 단어나 구절인지 확인
-          const isCorrect = correct.some((phrase) => phrase === word);
+    correct.forEach((phrase, index) => {
+      const phraseIndex = question.indexOf(phrase, lastIndex);
 
-          return (
-            <span
-              key={index}
-              className={isCorrect ? `underline ${selectedOption === word ? 'text-red-600' : 'text-black'}` : ''}
-            >
-              {word}
-              {/* 구절이 `correct`에 있으면 번호 추가 */}
-              {isCorrect && (
-                <sub className={selectedOption === word ? 'text-red-600' : 'text-gray-500'}>
-                  {correct.indexOf(word) + 1}
-                </sub>
-              )}
-            </span>
-          );
-        })}
-      </p>
-    );
+      if (phraseIndex !== -1) {
+        // phrase 전의 일반 텍스트 추가
+        if (lastIndex < phraseIndex) {
+          parts.push(<span key={lastIndex}>{question.slice(lastIndex, phraseIndex)}</span>);
+        }
+
+        // phrase에 밑줄과 번호 추가
+        parts.push(
+          <span
+            key={phraseIndex}
+            className='underline decoration-black relative'
+          >
+            {phrase}
+            <sub className='absolute -bottom-2 left-0 text-xs text-gray-500'>{index + 1}</sub>
+          </span>,
+        );
+
+        lastIndex = phraseIndex + phrase.length;
+      }
+    });
+
+    // 마지막 남은 텍스트 추가
+    if (lastIndex < question.length) {
+      parts.push(<span key='end'>{question.slice(lastIndex)}</span>);
+    }
+
+    return <p>{parts}</p>;
   };
 
   if (loading) {
@@ -154,11 +163,10 @@ const CheckingQuizPage = () => {
       <p>{`${currentQuizIndex + 1}번 문제`}</p>
       <p>문장에서 틀린 부분을 고르세요</p>
       <div>
-        <div>
-          <p>{questionUnderLine()}</p>
-        </div>
+        {questionUnderLine()}
         <div>{chackingButton()}</div>
         <button onClick={handleCheckAnswer}>다음 문제로</button>
+        {isAllQuestions && <button onClick={moveToWritingResultPage}>결과 보기</button>}
       </div>
     </div>
   );
