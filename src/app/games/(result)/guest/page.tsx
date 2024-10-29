@@ -1,21 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { JustEndedGameProp } from '../user/page';
+
 import Link from 'next/link';
-
-export interface GamesScore {
-  speakingScore: string | null;
-  checkingScore: string | null;
-  writingScore: string | null;
-}
-
-export interface GamesArray {
-  type: string;
-  score: string | null;
-  color: string;
-  name: string;
-}
+import { GamesArray, GamesScore, JustEndedGameProp } from '@/types/result';
 
 const ResultPageForGuest = ({ searchParams }: JustEndedGameProp) => {
   const [games, setGames] = useState<GamesArray[]>();

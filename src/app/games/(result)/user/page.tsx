@@ -1,42 +1,8 @@
+import { JustEndedGameProp, UserTable } from '@/types/result';
+import { fetchUserId, fetchUserNickName } from '@/util/rank/server-action';
 import { createClient } from '@/util/supabase/server';
 import Link from 'next/link';
 import React from 'react';
-
-//로그인한 유저 아이디 가져오기
-export const fetchUserId = async () => {
-  const supabase = createClient();
-  const { data: user } = await supabase.auth.getUser();
-  console.log('user', user);
-  if (user) {
-    return user.user?.id;
-  } else {
-    return null;
-  }
-};
-
-//로그인한 유저 닉네임 가져오기
-export const fetchUserNickName = async () => {
-  const supabase = createClient();
-  const { data: user } = await supabase.auth.getUser();
-  console.log('user', user);
-  if (user) {
-    return user.user?.user_metadata.nickname;
-  } else {
-    return null;
-  }
-};
-
-export interface JustEndedGameProp {
-  searchParams: { [key: string]: string | undefined };
-}
-
-export interface UserTable {
-  user_id: string;
-  checking: number;
-  speaking: number;
-  writing: number;
-  created_at: string;
-}
 
 //http://localhost:3000/games/user?key=checking 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
