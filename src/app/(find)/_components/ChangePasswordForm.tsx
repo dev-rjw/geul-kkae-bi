@@ -44,7 +44,7 @@ const ChangePasswordForm = () => {
       {error ? (
         <div>
           <p>비밀번호 재설정 링크가 유효하지 않거나 만료되었습니다.</p>
-          <Link href='/'>홈으로</Link>
+          <Link href='/find-password'>돌아가기</Link>
         </div>
       ) : (
         <Form {...form}>

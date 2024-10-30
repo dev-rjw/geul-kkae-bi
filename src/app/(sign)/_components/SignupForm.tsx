@@ -13,6 +13,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { translateErrorMessage } from '@/schemas/commonSchema';
 import { signupSchema } from '@/schemas/signSchema';
 import PasswordInput from '@/components/PasswordInput';
+import Swal from 'sweetalert2';
 
 const SignupForm = () => {
   const router = useRouter();
@@ -47,7 +48,7 @@ const SignupForm = () => {
     });
 
     if (result instanceof Error) {
-      alert(translateErrorMessage(result.message));
+      Swal.fire(translateErrorMessage(result.message));
     } else {
       router.push('/');
     }

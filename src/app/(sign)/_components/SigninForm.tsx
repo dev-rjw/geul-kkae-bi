@@ -13,6 +13,7 @@ import { translateErrorMessage } from '@/schemas/commonSchema';
 import { signinSchema } from '@/schemas/signSchema';
 import { Checkbox } from '@/components/ui/checkbox';
 import PasswordInput from '@/components/PasswordInput';
+import Swal from 'sweetalert2';
 
 const SigninForm = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const SigninForm = () => {
     }
 
     if (result instanceof Error) {
-      alert(translateErrorMessage(result.message));
+      Swal.fire(translateErrorMessage(result.message));
     } else {
       router.push('/');
     }
