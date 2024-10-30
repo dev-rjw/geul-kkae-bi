@@ -12,6 +12,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { translateErrorMessage } from '@/schemas/commonSchema';
 import { signinSchema } from '@/schemas/signSchema';
 import { Checkbox } from '@/components/ui/checkbox';
+import PasswordInput from '@/components/PasswordInput';
 
 const SigninForm = () => {
   const router = useRouter();
@@ -85,10 +86,9 @@ const SigninForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  type='password'
+                <PasswordInput
                   placeholder='비밀번호'
-                  {...field}
+                  field={field}
                 />
               </FormControl>
               {!getFieldState('password').invalid && field.value ? (

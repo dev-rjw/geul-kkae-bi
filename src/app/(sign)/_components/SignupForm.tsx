@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { translateErrorMessage } from '@/schemas/commonSchema';
 import { signupSchema } from '@/schemas/signSchema';
+import PasswordInput from '@/components/PasswordInput';
 
 const SignupForm = () => {
   const router = useRouter();
@@ -101,10 +102,9 @@ const SignupForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  type='password'
+                <PasswordInput
                   placeholder='비밀번호'
-                  {...field}
+                  field={field}
                 />
               </FormControl>
               {!getFieldState('password').invalid && field.value ? (
@@ -122,10 +122,9 @@ const SignupForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  type='password'
+                <PasswordInput
                   placeholder='비밀번호 확인'
-                  {...field}
+                  field={field}
                 />
               </FormControl>
               {!getFieldState('confirmPassword').invalid && field.value ? (
