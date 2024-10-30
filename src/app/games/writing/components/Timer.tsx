@@ -34,9 +34,9 @@ const Timer: React.FC<TimerProps> = ({ onTimeOver, isAllQuestions }) => {
 
   return (
     <div>
-      <div className='w-full bg-gray-200 h-2.5 dark:bg-gray-700'>
+      <div className='w-full bg-writing-100 h-[24px]'>
         <div
-          className='bg-blue-600 h-2.5 transition-all ease-linear'
+          className=' bg-writing-500  h-[24px] rounded-r-lg transition-all ease-linear'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>
