@@ -18,7 +18,8 @@ const SigninForm = () => {
 
   // 유효성 검사
   const defaultValues = {
-    email: localStorage.getItem('rememberedEmail') || '', // 초기 이메일 값을 로컬 스토리지에서 불러옴
+    // 컴포넌트가 브라우저에서만 렌더링되는지 확인하는 조건문을 추가
+    email: typeof window !== 'undefined' ? localStorage.getItem('rememberedEmail') || '' : '', // 초기 이메일 값을 로컬 스토리지에서 불러옴
     password: '',
   };
 
