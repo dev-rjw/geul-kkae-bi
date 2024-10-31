@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -10,6 +9,7 @@ import { changePasswordSchema } from '@/schemas/findSchema';
 import { Button } from '@/components/ui/button';
 import { changePassword } from '@/util/auth/client-action';
 import Link from 'next/link';
+import PasswordInput from '@/components/PasswordInput';
 
 const ChangePasswordForm = () => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const ChangePasswordForm = () => {
       {error ? (
         <div>
           <p>비밀번호 재설정 링크가 유효하지 않거나 만료되었습니다.</p>
-          <Link href='/'>홈으로</Link>
+          <Link href='/find-password'>돌아가기</Link>
         </div>
       ) : (
         <Form {...form}>
@@ -58,10 +58,9 @@ const ChangePasswordForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      type='password'
+                    <PasswordInput
                       placeholder='비밀번호'
-                      {...field}
+                      field={field}
                     />
                   </FormControl>
                   {!getFieldState('password').invalid && field.value ? (
@@ -79,10 +78,9 @@ const ChangePasswordForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      type='password'
+                    <PasswordInput
                       placeholder='비밀번호 확인'
-                      {...field}
+                      field={field}
                     />
                   </FormControl>
                   {!getFieldState('confirmPassword').invalid && field.value ? (
