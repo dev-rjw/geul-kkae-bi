@@ -6,9 +6,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 function GameCards() {
   const [hoveredCard, setHoveredCard] = useState<number | null>();
+  const router = useRouter();
 
   const cardData = [
     {
@@ -22,27 +24,30 @@ function GameCards() {
         '주어진 시간 내에',
         '정확한 발음을 해보세요!',
       ],
+      link: '/games/speaking',
     },
     {
       id: 2,
       bg: 'bg-[#A07BE5]',
       title: '틀린 것 맞추기',
       description: ['당신의 국어 지식을 뽐내보세요!', '문장에서 틀린 부분을 찾아', '선택하는 게임입니다!'],
+      link: '/games/checking',
     },
     {
       id: 3,
       bg: 'bg-[#2AD4AF]',
       title: '빈칸 채우기',
       description: ['빈칸에 들어갈 알맞은', '말을 적어주세요!', '많이 맞을수록 당신은 국어 마스터!'],
+      link: '/games/writing',
     },
   ];
 
   return (
     <div className='flex ml-[20%] mr-[20%] gap-4'>
-      {cardData.map(({ id, bg, title, description }) => (
+      {cardData.map(({ id, bg, title, description, link }) => (
         <Card
           key={id}
-          className={`w-[50%] h-80 p-4 transition-transform duration-300 ${bg} ${
+          className={`w-[30%] h-80 p-4 transition-transform duration-300 ${bg} ${
             hoveredCard === id ? 'scale-105 shadow-lg' : 'opacity-50'
           }
           ${hoveredCard === null || hoveredCard === id ? 'opacity-100' : 'opacity-50'}`}
@@ -61,7 +66,12 @@ function GameCards() {
                 ))}
               </CardDescription>
             </CardHeader>
-            <Button className='mt-auto btn'>게임 하러 가기 &gt;</Button>
+            <Button
+              className='mt-auto btn'
+              onClick={() => router.push(`${link}`)}
+            >
+              게임 하러 가기 &gt;
+            </Button>
           </div>
         </Card>
       ))}
@@ -143,7 +153,7 @@ export default function Home() {
           </CardHeader>
           {ranks.map((rank) => {
             return (
-              <p key={rank.name}>
+              <p key={rank.rank}>
                 {rank.rank}위 {rank.name}
               </p>
             );
