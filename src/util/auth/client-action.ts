@@ -1,6 +1,8 @@
 import { SignUpWithPasswordCredentials, SignInWithPasswordCredentials } from '@supabase/supabase-js';
 import { createClient } from '../supabase/client';
 import { translateErrorMessage } from '@/schemas/commonSchema';
+import Swal from 'sweetalert2';
+// import { redirect } from 'next/navigation';
 
 // 회원가입
 export const signup = async (formData: SignUpWithPasswordCredentials) => {
@@ -29,20 +31,19 @@ export const signin = async (formData: SignInWithPasswordCredentials) => {
 // 구글 회원가입 및 로그인
 export const googleSignin = async () => {
   const supabase = createClient();
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      queryParams: {
-        access_type: 'offline',
-        prompt: 'consent',
-      },
+      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
     },
   });
 
   if (error) {
-    alert('로그인에 실패하였습니다.');
+    Swal.fire('로그인에 실패하였습니다.');
     return error;
   }
+
+  return data;
 };
 
 // 카카오 회원가입 및 로그인
@@ -51,15 +52,12 @@ export const kakaoSignin = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
-      queryParams: {
-        access_type: 'offline',
-        prompt: 'consent',
-      },
+      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
     },
   });
 
   if (error) {
-    alert('로그인에 실패하였습니다.');
+    Swal.fire('로그인에 실패하였습니다.');
     return error;
   }
 };
@@ -92,7 +90,7 @@ export const findPassword = async (email: string) => {
     console.error(error);
   }
 
-  alert('비밀번호 재설정 이메일이 전송되었습니다.');
+  Swal.fire('비밀번호 재설정 이메일이 전송되었습니다.');
   return data;
 };
 
@@ -105,11 +103,11 @@ export const changePassword = async (newPassword: string) => {
   const { error } = await supabase.auth.updateUser({ password: newPassword });
 
   if (error) {
-    alert(translateErrorMessage(error.message));
+    Swal.fire(translateErrorMessage(error.message));
     console.error(error.message);
     return false;
   }
 
-  alert('비밀번호가 성공적으로 업데이트되었습니다.');
+  Swal.fire('비밀번호가 성공적으로 업데이트되었습니다.');
   return true;
 };

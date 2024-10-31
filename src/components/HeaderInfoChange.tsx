@@ -6,6 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { createClient } from '@/util/supabase/client';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/queries/useAuth';
+import Swal from 'sweetalert2';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();
@@ -28,7 +29,7 @@ const HeaderInfoChange = () => {
     if (error) {
       console.error('로그아웃에 실패했습니다.');
     } else {
-      alert('로그아웃 되었습니다.');
+      Swal.fire('로그아웃 되었습니다.');
       router.push('/');
     }
   };

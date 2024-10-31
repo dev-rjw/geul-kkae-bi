@@ -6,12 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FieldValues } from 'react-hook-form';
 
-interface EmailInputProps {
+interface Props {
   field: FieldValues;
   domainOptions: string[];
 }
 
-const EmailInput = ({ field, domainOptions }: EmailInputProps) => {
+const EmailInput = ({ field, domainOptions }: Props) => {
   const [userId, setUserId] = useState('');
   const [domain, setDomain] = useState('');
   const [customDomain, setCustomDomain] = useState('');
