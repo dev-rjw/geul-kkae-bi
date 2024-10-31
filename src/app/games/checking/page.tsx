@@ -66,7 +66,7 @@ const CheckingQuizPage = () => {
 
   const moveToWritingResultPage = () => {
     if (userId) {
-      router.push('/games/user?type=checking');
+      router.push(`/games/user?type=checking&score=${score}`);
     } else {
       router.push('/games/guest?type=checking');
     }
@@ -102,14 +102,51 @@ const CheckingQuizPage = () => {
 
   // 점수 저장
   const saveScore = async () => {
+    const startSeason = new Date(2024, 9, 27);
+    const now = new Date();
+    const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
+
     if (userId) {
-      const { error } = await browserClient
+      // 특정 사용자에 대한 랭크 데이터 존재 여부 확인
+      const { data: currentScore, error: fetchError } = await browserClient
         .from('rank')
-        .upsert({ user_id: userId, checking: score, create_at: new Date() });
-      if (error) {
-        console.error('점수를 저장하지 못했습니다.', error);
+        .select('id, checking')
+        .eq('user_id', userId)
+        .eq('week', weekNumber);
+      if (fetchError) {
+        console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
+        return;
       }
-    } else localStorage.setItem('checking', score.toString());
+      if (currentScore && currentScore.length > 0) {
+        if (score > currentScore[0].checking) {
+          // 기존 점수가 현재 점수보다 낮을 경우 업데이트
+          const { error: updateError } = await browserClient
+            .from('rank')
+            .update({
+              checking: score,
+            })
+            .eq('id', currentScore[0].id);
+
+          if (updateError) {
+            console.error('점수를 업데이트하지 못했습니다.', updateError);
+          }
+        }
+      } else {
+        // 기존 데이터가 없으면 새로 삽입
+        const { error: insertError } = await browserClient.from('rank').insert({
+          user_id: userId,
+          checking: score,
+          week: weekNumber,
+        });
+
+        if (insertError) {
+          console.error('점수를 삽입하지 못했습니다.', insertError);
+        }
+      }
+    } else {
+      // 비로그인 시 로컬 스토리지에 점수 저장
+      localStorage.setItem('checking', score.toString());
+    }
   };
 
   // 시간 초과 시 페이지 이동
