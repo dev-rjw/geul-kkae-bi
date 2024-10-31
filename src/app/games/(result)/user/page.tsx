@@ -17,7 +17,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   //현재 접속중인 userID
   const userId = await fetchUserId();
 
-  //rank table에 해당 유저에 관련된 데이터만 가져와서 변수 user에 담아짐(2주치가 있다면 게임기록 2개가 들어감)
+  //rank table에 해당 유저에 관련된 데이터만 가져와서 변수 userTable에 담아짐(2주치가 있다면 게임기록 2개가 들어감)
   const userTable = resultScore?.filter((user) => user.user_id === userId) as UserTable[];
   // 담기는 형태(테이블2개있을시)
   // userTable [
@@ -27,13 +27,17 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   //   speaking: 100,
   //   writing: 100,
   //   created_at: '2024-10-24T10:32:50.692893+00:00'
+  //   id: '1e0ecb68-78eb-4469-bbc4-92a218894a1e',
   // },
   // { user_id: '3627f20f-4884-4671-b28a-101dcb72dbac',
   //   checking: 100,
   //   speaking: 100,
   //   writing: 100,
   //   created_at: '2024-10-25T10:32:50.692893+00:00'}
+  //   id: '49ccea5c-d427-4d9e-a612-83b21a81d112',
   //]
+
+  console.log('userTable', userTable);
 
   //해당 유저의 rank table에서 가장 최신의 rank table 가져오는 함수
   const lastestUserTable = userTable.reduce((lastest, current) => {
@@ -66,6 +70,9 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   //서치파람으로 가져온 방금 끝난 게임 이름
   const justEndedGame: string | undefined = searchParams.key;
 
+  // 방금 끝난 게임 점수
+  const GameScore: string | undefined = searchParams.score;
+
   //사용자가 방금 끝낸 게임
   const matchedGame = games.find((game) => {
     return game.type === justEndedGame;
@@ -96,8 +103,25 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
     ? `종합 랭킹을 확인하려면 나머지 게임 1개를 마저 플레이 해야해 깨비!`
     : `종합 랭킹을 확인하려면 나머지 게임 2개를 마저 플레이 해야해 깨비!`;
 
-  // 해야될것
-  // 점수에 따라서 라운드 그래프 변경, 캐릭터 변경, 점수평변경
+  //3문제가 모두 완료되었을때 모든 점수를 합산하여 supabase total에 넣어줌
+  if (isDone) {
+    const totalScore = userTable.reduce(
+      (acc, current) => {
+        const total = (current.checking || 0) + (current.speaking || 0) + (current.writing || 0);
+        return { user_id: current.user_id, id: current.id, total };
+      },
+      { total: 0 },
+    );
+    const updateTotalScore = async () => {
+      const { data, error } = await serverClient.from('rank').upsert(totalScore);
+      if (error) {
+        console.error('Error posting data', error);
+        return;
+      }
+      console.log('Data posted successfully', data);
+    };
+    updateTotalScore();
+  }
 
   return (
     <div>
@@ -117,7 +141,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
       <div className='flex flex-row'>
         <div className={`w-96 h-[415] ${matchedGame?.color}`}>
           <div>{nickName}님의 국어 문해력은</div>
-          <div>{matchedGame?.score}</div>
+          <div>{GameScore}</div>
           <div>캐릭터이미지</div>
           <div>점수에 따라 달라지는 점수평 이것도 if문?</div>
         </div>
