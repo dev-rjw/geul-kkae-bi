@@ -2,7 +2,7 @@ import { createClient } from '../supabase/server';
 
 // 현재 사용자 조회
 export const fetchCurrentUser = async () => {
-  const supabase = await createClient();
+  const supabase = createClient();
   const {
     data: { user },
     error,
