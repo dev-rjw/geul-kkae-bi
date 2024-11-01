@@ -1,7 +1,7 @@
 'use client';
 import browserClient from '@/util/supabase/client';
 import React, { useEffect, useState } from 'react';
-import Timer from './_components/Timer';
+import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import ConsonantCard from './_components/ConsonantCard';
@@ -152,7 +152,7 @@ const WritingQuizPage = () => {
 
   return (
     <div>
-      <Timer
+      <QuizTimer
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
