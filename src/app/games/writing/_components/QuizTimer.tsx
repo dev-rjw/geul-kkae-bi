@@ -46,16 +46,16 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
     <div>
       {isCountDown ? (
         <div className='fixed inset-0 flex items-center justify-center bg-white z-50'>
-          <div className='bg-[#DDD0F6] w-[290px] h-[290px] rounded-full flex items-center justify-center'>
-            <p className='text-[#6429D1] text-[128px] font-bold'>{countDown}</p>
+          <div className='bg-[#D4F7EF] w-[290px] h-[290px] rounded-full flex items-center justify-center'>
+            <p className='text-[#2AD4AF] text-[128px] font-bold'>{countDown}</p>
           </div>
         </div>
       ) : (
         <></>
       )}
-      <div className='w-full bg-checking-100 h-[28px]'>
+      <div className='w-full bg-[#BAF1E5] h-[28px]'>
         <div
-          className=' bg-checking-300 h-[28px] transition-all ease-linear rounded-r-lg'
+          className=' bg-[#2AD4AF] h-[28px] transition-all ease-linear rounded-r-lg'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>
