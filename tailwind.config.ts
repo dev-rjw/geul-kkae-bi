@@ -48,6 +48,11 @@ const config: Config = {
           500: '#2AD4AF',
           cecibdary: '#FDEACE',
         },
+        checking: {
+          100: '#DDD0F6',
+          300: '#A07BE5',
+          400: '#8150DD',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
