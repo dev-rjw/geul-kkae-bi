@@ -1,39 +1,119 @@
-// import { fetchUserId } from '@/util/rank/server-action';
 import { createClient } from '@/util/supabase/server';
 import React from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
 // import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { fetchUserId } from '@/util/rank/server-action';
+import { RankingArray } from '@/types/result';
 
 const RankingPage = async () => {
   const serverClient = createClient();
-  // const userId = await fetchUserId();
+  const userId = await fetchUserId();
 
-  //최신순 기준 가져오기
+  //가장 최신 week 가져오기(숫자가 클수록 최신)
   const { data: latestWeekData } = await serverClient
     .from('rank')
     .select('week')
     .order('week', { ascending: false })
     .limit(1);
+
   //latestWeekData 형태 [ { week: 3 } ]
 
   if (latestWeekData && latestWeekData.length > 0) {
     const latestWeek = latestWeekData[0].week;
     //latestWeek 형태 3
 
-    const { data } = await serverClient
+    //table가져올 때 가장 최신 week table에서 토탈점수 있는거만 필터 하고 토탈점수가 높은거를 내림차순으로 정렬
+    const { data }: { data: RankingArray[] | null } = await serverClient
       .from('rank')
       .select(`*,user(nickname, introduction, image)`)
       .eq('week', latestWeek)
       .gt('total', 0)
       .order('total', { ascending: false });
-    console.log('data', data);
+    console.log('data@@@@', data);
 
+    // [
+    //   {
+    //     user_id: 'f4da3280-529e-4473-bdb8-f98a1a234e43',
+    //     checking: 50,
+    //     speaking: 60,
+    //     writing: 60,
+    //     created_at: '2024-10-31T06:01:51.210521+00:00',
+    //     id: '4e1bdd2c-04e0-428d-b0d4-2401e73dc564',
+    //     total: 170,
+    //     week: 1,
+    //     user: { image: null, nickname: '보영짱', introduction: null }
+    //   },
+    // ]
+
+    // table에서 내림순으로 받은 객체들 각각 순위 매김
+    //현재 접속중인 사용자에 해당하는 랭킹을 넣어줌.
     if (data && data.length > 0) {
       const countRankng = data.map((item, index) => ({ ...item, ranking: index + 1 }));
-      // const userTable = data?.filter((user) => user.user_id === userId);
       console.log('countRankng', countRankng);
+
+      const userTable = countRankng?.filter((user) => user.user_id === userId);
+      console.log('userTable 이거이거', userTable);
+      // userTable [
+      //   {
+      //     user_id: 'f4da3280-529e-4473-bdb8-f98a1a234e43',
+      //     checking: 50,
+      //     speaking: 60,
+      //     writing: 60,
+      //     created_at: '2024-10-31T06:01:51.210521+00:00',
+      //     id: '4e1bdd2c-04e0-428d-b0d4-2401e73dc564',
+      //     total: 170,
+      //     week: 1,
+      //     user: { image: null, nickname: '보영짱', introduction: null },
+      //     ranking: 1
+      //   }
+      // ]
+
+      //이번주차에서 내 순위 업데이트->이건 다음주가 되기 전까지 계속 변동가능(다음주차때 이 순위를 참조가능)
+      const latestRanking = {
+        user_id: userTable[0].user_id,
+        id: userTable[0].id,
+        ranking: userTable[0].ranking,
+        week: userTable[0].week,
+      };
+      console.log('latestRanking', latestRanking);
+
+      const UpdatelatestRanking = async () => {
+        const { data, error } = await serverClient.from('rank').upsert(latestRanking);
+        if (error) {
+          console.error('Error posting data', error);
+          return;
+        }
+        console.log('Data posted successfully', data);
+      };
+      UpdatelatestRanking();
+
+      //지난주 나의 랭킹을 가져오는 함수
+      const lastRankingRecord = async () => {
+        //전 주에 나의 점수 기록이 있는지 판별
+        if (latestRanking && latestRanking.week - 1 > 0) {
+          const user = latestRanking.user_id;
+          const week = latestRanking.week - 1;
+          console.log('user', user);
+          const { data: lastRanking, error } = await serverClient
+            .from('rank')
+            .select()
+            .eq('user_id', user)
+            .eq('week', week);
+          if (error) {
+            console.error('Error posting data', error);
+            return;
+          }
+          console.log('Data posted successfully 지난주데이터', lastRanking);
+        } else {
+          return;
+        }
+      };
+      lastRankingRecord();
+
+      //전주에 record가 없으면 null 있으면 lastRanking.ranking으로 접근
+      // 데이터 뿌려 줄 때 return 에 삼항연산써서 lastRanking이 null때는 공백 값이 있을때는 lastRanking.ranking 해주면될듯
 
       return (
         <Card className='w-full max-w-2xl mx-auto'>
@@ -64,15 +144,15 @@ const RankingPage = async () => {
 
                   <div className='flex-1 grid grid-cols-3 gap-2 text-sm'>
                     <div>
-                      <div className='text-gray-600'>나의 랭킹</div>
+                      <div className='text-gray-600'></div>
                       <div className='font-bold'>36등</div>
                     </div>
                     <div>
-                      <div className='text-gray-600'>나의 순위</div>
+                      <div className='text-gray-600'>지난주 나의 순위</div>
                       <div className='font-bold'>57등</div>
                     </div>
                     <div className='grid grid-cols-2 gap-1'>
-                      <div className='text-gray-600'>방문하기</div>
+                      <div className='text-gray-600'>방문문문하기</div>
                       <div className='font-bold'>60회</div>
                       <div className='text-gray-600'>반갑하기</div>
                       <div className='font-bold'>80회</div>
@@ -92,7 +172,7 @@ const RankingPage = async () => {
     }
   }
 
-  return <div>뭐지</div>;
+  // return <div>뭐지</div>;
 };
 
 export default RankingPage;

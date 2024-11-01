@@ -23,3 +23,16 @@ export interface GamesArray {
   color: string;
   name: string;
 }
+
+export interface RankingArray {
+  user_id: string;
+  checking: number;
+  speaking: number;
+  writing: number;
+  created_at: string;
+  id: string;
+  total: number;
+  week: number;
+  ranking: number;
+  user: { image: string; nickname: string; introduction: string };
+}
