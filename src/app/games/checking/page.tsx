@@ -1,7 +1,7 @@
 'use client';
 import browserClient from '@/util/supabase/client';
 import React, { useEffect, useState } from 'react';
-import Timer from './components/Timer';
+import QuizTimer from './components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
@@ -149,7 +149,7 @@ const CheckingQuizPage = () => {
     }
   };
 
-  // 시간 초과 시 페이지 이동
+  // 시간 초과 alert
   const handleTimeOver = () => {
     saveScore();
     Swal.fire({
@@ -201,7 +201,7 @@ const CheckingQuizPage = () => {
 
   return (
     <div>
-      <Timer
+      <QuizTimer
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
