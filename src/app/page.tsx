@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 function GameCards() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>();
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const router = useRouter();
 
   const cardData = [
@@ -47,9 +47,8 @@ function GameCards() {
       {cardData.map(({ id, bg, title, description, link }) => (
         <Card
           key={id}
-          className={`w-[30%] h-80 p-4 transition-transform duration-300 ${bg} ${
-            hoveredCard === id ? 'scale-105 shadow-lg' : 'opacity-50'
-          }
+          className={`w-[30%] h-80 p-4 transition-transform duration-300 ${bg} 
+          ${hoveredCard === id ? 'scale-105 shadow-lg' : 'opacity-50'}
           ${hoveredCard === null || hoveredCard === id ? 'opacity-100' : 'opacity-50'}`}
           onMouseEnter={() => setHoveredCard(id)}
           onMouseLeave={() => setHoveredCard(null)}
