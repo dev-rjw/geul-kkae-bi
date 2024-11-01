@@ -24,7 +24,8 @@ export interface GamesArray {
   name: string;
 }
 
-export interface RankingArray {
+//랭킹이랑 유저정보 모두 가지고 오는것들 나눠야함
+export interface RankIncludingUserInfo {
   user_id: string;
   checking: number;
   speaking: number;
@@ -35,4 +36,16 @@ export interface RankingArray {
   week: number;
   ranking: number;
   user: { image: string; nickname: string; introduction: string };
+}
+
+export interface Rank {
+  user_id: string;
+  checking: number;
+  speaking: number;
+  writing: number;
+  created_at: string;
+  id: string;
+  total: number;
+  week: number;
+  ranking: number;
 }
