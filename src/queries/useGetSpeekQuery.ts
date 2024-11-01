@@ -2,29 +2,20 @@
 import browserClient from '@/util/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 
-const fetchSpeek = async (uesrId: string, point: number) => {
-  await browserClient.from('rank').upsert({ user_id: uesrId, speaking: point }).select();
+const fetchSpeekUser = async (userId: string | undefined | null, weekNumber: number) => {
+  const { data, error } = await browserClient.from('rank').select('*').eq('user_id', userId).eq('week', weekNumber);
+  if (error || !userId) {
+    throw new Error();
+  } else {
+    return data;
+  }
 };
 
-export const getSpeekData = (userId: string, point: number) => {
-  console.log(userId);
-
+export const useGetSpeekDataUser = (userId: string | undefined | null, weekNumber: number) => {
   return useQuery({
     queryKey: ['speak'],
-    queryFn: () => fetchSpeek(userId, point),
-  });
-};
-
-const fetchSpeekUser = async (userId: string) => {
-  const { data } = await browserClient.from('rank').select('*').eq('user_id', userId);
-  return data;
-};
-
-export const getSpeekDataUser = (userId: string) => {
-  console.log(userId);
-
-  return useQuery({
-    queryKey: ['speak'],
-    queryFn: () => fetchSpeekUser(userId),
+    queryFn: () => fetchSpeekUser(userId, weekNumber),
+    enabled: Boolean(userId),
+    select: (data) => data || [],
   });
 };
