@@ -40,6 +40,14 @@ const config: Config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
+        writing: {
+          100: '#D4F7EF',
+          200: '#AAEEDF',
+          300: '#7FE6CF',
+          400: '#55DDBF',
+          500: '#2AD4AF',
+          cecibdary: '#FDEACE',
+        },
         checking: {
           100: '#DDD0F6',
           300: '#A07BE5',
