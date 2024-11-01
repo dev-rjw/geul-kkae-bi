@@ -40,6 +40,11 @@ const config: Config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
+        checking: {
+          100: '#DDD0F6',
+          300: '#A07BE5',
+          400: '#8150DD',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

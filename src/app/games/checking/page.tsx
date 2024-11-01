@@ -153,11 +153,8 @@ const CheckingQuizPage = () => {
   const handleTimeOver = () => {
     saveScore();
     Swal.fire({
-      title: '시간 초과!',
-      text: '결과 페이지로 넘어갑니다.',
-      willClose: () => {
-        moveToWritingResultPage();
-      },
+      title: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">시간이 다 됐다 깨비!</span>',
+      html: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">다음에 다시 도전하라 깨비</span>',
     });
   };
 
@@ -209,7 +206,7 @@ const CheckingQuizPage = () => {
         isAllQuestions={isAllQuestions}
       />
       <div className='flex-1 flex flex-col items-center justify-center'>
-        <p>{`${currentQuizIndex + 1}번 문제`}</p>
+        <p className='pt-20 font-size:1'>{`${currentQuizIndex + 1}번 문제`}</p>
         <p>문장에서 틀린 부분을 고르세요</p>
         <div className='p-4'>{questionUnderLine()}</div>
         {chackingButton()}
