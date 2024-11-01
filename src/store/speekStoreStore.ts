@@ -6,7 +6,6 @@ type speek = {
   totlaPercent: number;
   text: string;
   isRecording: boolean;
-  isLoading: boolean;
   incrementIndex: () => void;
   resetPercent: () => void;
   setText: (text: string) => void;
@@ -14,7 +13,6 @@ type speek = {
   setPercent: (value: number) => void;
   addTotalPercent: (value: number) => void;
   setIsRecording: (value: boolean) => void;
-  setIsLoading: (value: boolean) => void;
 };
 
 const speekStore = create<speek>((set) => ({
@@ -23,8 +21,6 @@ const speekStore = create<speek>((set) => ({
   totlaPercent: 0,
   text: '',
   isRecording: false,
-  time: 40,
-  isLoading: false,
   // 상태 업데이트 함수
   incrementIndex: () => set((state) => ({ index: state.index + 1 })),
   resetPercent: () => set(() => ({ percent: 0 })),
@@ -33,7 +29,6 @@ const speekStore = create<speek>((set) => ({
   setPercent: (value) => set(() => ({ percent: value })),
   addTotalPercent: (value) => set((state) => ({ totlaPercent: state.totlaPercent + value })),
   setIsRecording: (value) => set(() => ({ isRecording: value })),
-  setIsLoading: (value) => set(() => ({ isLoading: value })),
 }));
 
 export default speekStore;
