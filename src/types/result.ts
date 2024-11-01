@@ -8,6 +8,7 @@ export interface UserTable {
   speaking: number;
   writing: number;
   created_at: string;
+  id: string;
 }
 
 export interface GamesScore {
