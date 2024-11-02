@@ -23,6 +23,7 @@ const WritingQuizPage = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
+  const [isTimeOver, setIsTimeOver] = useState(false);
   const question = questions[currentQuizIndex];
   const router = useRouter();
 
@@ -136,14 +137,14 @@ const WritingQuizPage = () => {
 
   // 시간 초과 시 페이지 이동
   const handleTimeOver = () => {
-    saveScore();
-    Swal.fire({
-      title: '시간 초과쥬?',
-      text: '결과 페이지로 넘어가쥬?',
-      willClose: () => {
-        moveToWritingResultPage();
-      },
-    });
+    if (!isTimeOver) {
+      saveScore();
+      setIsTimeOver(true);
+      Swal.fire({
+        title: '시간 초과쥬?',
+        text: '결과 페이지로 넘어가쥬?',
+      });
+    }
   };
 
   if (loading) {
@@ -178,14 +179,18 @@ const WritingQuizPage = () => {
       </div>
 
       <div className='absolute right-4 top-1/4 flex flex-col items-end'>
-        <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
-        <button
-          onClick={moveToNextQuiz}
-          className='px-4 py-2'
-        >
-          다음 문제
-        </button>
-        {isAllQuestions && (
+        {!isAllQuestions && !isTimeOver && (
+          <div>
+            <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
+            <button
+              onClick={moveToNextQuiz}
+              className='px-4 py-2'
+            >
+              다음 문제
+            </button>
+          </div>
+        )}
+        {(isAllQuestions || isTimeOver) && (
           <button
             onClick={moveToWritingResultPage}
             className='px-4 py-2'
