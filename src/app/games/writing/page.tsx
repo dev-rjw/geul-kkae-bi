@@ -156,20 +156,24 @@ const WritingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
-      <div className='flex-1 flex flex-col items-center justify-center p-20'>
-        <p className=' border bg-writing-500 rounded-full px-4 py-2 text-[20px] font-bold'>{`${
+      <div className='flex-1 flex flex-col items-center justify-center mt-[80px]'>
+        <p className=' inline-flex items-center justify-center px-[30px] py-[10px] bg-[#2AD4AF] text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번문제`}</p>
-        <p className=' py-12 text-[40px] font-bold'>해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.</p>
+        <p className=' mt-[68px] mb-[40px] text-[36px] font-medium'>
+          해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.
+        </p>
         <ConsonantCard consonants={question.consonant} />
-        <p className='pt-14 text-[40px] font-bold'>{question.question}</p>
-        <p className='pt-5 text-[28px] font-bold text-writing-500'>{`**${question.meaning}`}</p>
+        <div className=' mt-[40px] py-[41px] px-[10px] items-center'>
+          <p className=' text-[36px] font-medium mb-[27px]'>{question.question}</p>
+          <p className=' text-[24px] font-midium text-writing-500'>{`**${question.meaning}`}</p>
+        </div>
         <input
           type='text'
           placeholder='정답을 입력하세요'
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          className=' pt-20 border-b border-black focus:outline-none text-[20px]'
+          className=' pt-[64px] border-b border-black focus:outline-none text-[20px]'
         />
       </div>
 

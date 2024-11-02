@@ -9,7 +9,7 @@ interface QuizTimerProps {
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
   const [isCountDown, setIsCountDown] = useState(true);
   const [countDown, setCountDown] = useState(3);
-  const [timeLeft, setTimeLeft] = useState(40);
+  const [timeLeft, setTimeLeft] = useState(10000);
 
   useEffect(() => {
     if (isAllQuestions) return;
