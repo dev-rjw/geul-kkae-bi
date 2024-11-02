@@ -37,12 +37,14 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   //   id: '49ccea5c-d427-4d9e-a612-83b21a81d112',
   //]
 
-  console.log('userTable', userTable);
+  // console.log('userTable나야유저테이블', userTable);
 
   //해당 유저의 rank table에서 가장 최신의 rank table 가져오는 함수
   const lastestUserTable = userTable.reduce((lastest, current) => {
     return new Date(current.created_at) > new Date(lastest.created_at) ? current : lastest;
   });
+
+  // console.log('lastestUserTable', lastestUserTable);
 
   //객체분해할당 : user안에 담긴 객체 중에 게임점수 관련된 객체만 뽑아내서 객체 추가후 새로운 배열을 만드는 함수
   const extractGames = (game: UserTable) => {
@@ -77,6 +79,8 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const matchedGame = games.find((game) => {
     return game.type === justEndedGame;
   });
+
+  // console.log('matchedGame', matchedGame);
   // 형태
   //matchedGame { type: 'writing', score: 100, color: 'mint', name: '빈칸채우기' }
 
@@ -112,13 +116,15 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
       },
       { total: 0 },
     );
+    // console.log('totalScore', totalScore);
+
     const updateTotalScore = async () => {
       const { data, error } = await serverClient.from('rank').upsert(totalScore);
       if (error) {
-        console.error('Error posting data', error);
+        console.error('Error posting score data', error);
         return;
       }
-      console.log('Data posted successfully', data);
+      console.log('Score data posted successfully ', data);
     };
     updateTotalScore();
   }
