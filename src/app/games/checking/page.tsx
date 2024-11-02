@@ -20,6 +20,7 @@ const CheckingQuizPage = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isTimeOver, setIsTimeOver] = useState(false);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
 
@@ -149,9 +150,10 @@ const CheckingQuizPage = () => {
     }
   };
 
-  // 시간 초과 alert
+  // 시간 초과
   const handleTimeOver = () => {
     saveScore();
+    setIsTimeOver(true);
     Swal.fire({
       title: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">시간이 다 됐다 깨비!</span>',
       html: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">다음에 다시 도전하라 깨비</span>',
@@ -212,8 +214,8 @@ const CheckingQuizPage = () => {
         {chackingButton()}
       </div>
       <div className=' absolute right-4 top-1/4 flex flex-col items-end'>
-        <button onClick={handleCheckAnswer}>다음 문제로</button>
-        {isAllQuestions && <button onClick={moveToWritingResultPage}>결과 보기</button>}
+        {!isTimeOver && !isAllQuestions && <button onClick={handleCheckAnswer}>다음 문제로</button>}
+        {(isTimeOver || isAllQuestions) && <button onClick={moveToWritingResultPage}>결과 보기</button>}
       </div>
     </div>
   );
