@@ -152,12 +152,14 @@ const CheckingQuizPage = () => {
 
   // 시간 초과
   const handleTimeOver = () => {
-    saveScore();
-    setIsTimeOver(true);
-    Swal.fire({
-      title: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">시간이 다 됐다 깨비!</span>',
-      html: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">다음에 다시 도전하라 깨비</span>',
-    });
+    if (!isTimeOver) {
+      saveScore();
+      setIsTimeOver(true);
+      Swal.fire({
+        title: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">시간이 다 됐다 깨비!</span>',
+        html: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">다음에 다시 도전하라 깨비</span>',
+      });
+    }
   };
 
   const questionUnderLine = () => {
@@ -214,7 +216,12 @@ const CheckingQuizPage = () => {
         {chackingButton()}
       </div>
       <div className=' absolute right-4 top-1/4 flex flex-col items-end'>
-        {!isTimeOver && !isAllQuestions && <button onClick={handleCheckAnswer}>다음 문제로</button>}
+        {!isTimeOver && !isAllQuestions && (
+          <div>
+            <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
+            <button onClick={handleCheckAnswer}>다음 문제로</button>
+          </div>
+        )}
         {(isTimeOver || isAllQuestions) && <button onClick={moveToWritingResultPage}>결과 보기</button>}
       </div>
     </div>
