@@ -42,7 +42,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
             className='w-full h-full object-cover'
           />
           <button
-            className='absolute bottom-[32px] right-[62px] bg-[#2AD4AF] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
+            className='absolute bottom-[32px] right-[62px] bg-[#A07BE5] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
             onClick={handleStartGame}
           >
             시작하기
