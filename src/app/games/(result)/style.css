@@ -1,0 +1,81 @@
+.speak {
+  background: #fbd498;
+}
+.checking {
+  background: #bfa5ed;
+}
+.writing {
+  background: #7fe6cf;
+}
+
+/* progress_bar */
+.speak .progress_bar {
+  background: linear-gradient(90deg, rgba(255, 217, 159, 1) 0%, rgba(255, 169, 37, 1) 100%);
+}
+.writing .progress_bar {
+  background: linear-gradient(90deg, rgba(127, 230, 207, 1) 0%, rgba(42, 212, 175, 1) 100%);
+}
+.checking .progress_bar {
+  background: linear-gradient(90deg, rgba(221, 208, 246, 1) 0%, rgba(160, 123, 229, 1) 100%);
+}
+.progress_bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -48px;
+  width: 98px;
+  height: 84px;
+  background: url(/character_speak.svg);
+  background-size: cover;
+}
+.writing .progress_bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -48px;
+  width: 98px;
+  height: 84px;
+  background: url(/character_writing.svg);
+  background-size: cover;
+}
+.checking .progress_bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -48px;
+  width: 98px;
+  height: 84px;
+  background: url(/character_checking.svg);
+  background-size: cover;
+}
+
+.speak h3 {
+  color: #b67007;
+}
+.speak .txt {
+  color: #855205;
+}
+.writing h3 {
+  color: #22aa8d;
+}
+.writing .txt {
+  color: #198069;
+}
+.checking h3 {
+  color: #4f21a6;
+}
+.checking .txt {
+  color: #3b187c;
+}
+.speak .game_image_box {
+  border-color: #f9bc5f;
+}
+.writing .game_image_box {
+  border-color: #2ad4af;
+}
+.checking .game_image_box {
+  border-color: #a07be5;
+}
