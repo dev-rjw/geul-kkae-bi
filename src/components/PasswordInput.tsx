@@ -18,6 +18,7 @@ const PasswordInput = ({ field, placeholder }: Props) => {
     <div className='relative'>
       <Input
         type={showPassword ? 'text' : 'password'}
+        maxLength={16}
         placeholder={placeholder}
         className='pr-10'
         {...field}
