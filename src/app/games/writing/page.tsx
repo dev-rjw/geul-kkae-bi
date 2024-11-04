@@ -5,6 +5,7 @@ import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import ConsonantCard from './_components/ConsonantCard';
+import './style.css';
 
 interface Qusetion {
   id: string;
@@ -141,8 +142,13 @@ const WritingQuizPage = () => {
       saveScore();
       setIsTimeOver(true);
       Swal.fire({
-        title: '시간 초과쥬?',
-        text: '결과 페이지로 넘어가쥬?',
+        html: '<p class="swal-custom-text">시간이 다 됐다 깨비!</p><p class="swal-custom-text">다음에 다시 도전하라 깨비</p>',
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
       });
     }
   };
