@@ -60,7 +60,8 @@ const WritingQuizPage = () => {
   }, []);
 
   // 다음 문제로 넘어가기, 퀴즈 클리어
-  const moveToNextQuiz = () => {
+  const moveToNextQuiz = (e: React.FormEvent) => {
+    e.preventDefault();
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
       handleCheckAnswer();
@@ -81,8 +82,7 @@ const WritingQuizPage = () => {
 
   //정답 확인, 점수 추가
   const handleCheckAnswer = () => {
-    const correct = userInput === question.answer;
-    if (correct) {
+    if (userInput === question.answer) {
       setScore((prevScore) => prevScore + 10);
     }
   };
@@ -169,13 +169,15 @@ const WritingQuizPage = () => {
           <p className=' text-[36px] font-medium mb-[27px]'>{question.question}</p>
           <p className=' text-[24px] font-midium text-writing-500'>{`**${question.meaning}`}</p>
         </div>
-        <input
-          type='text'
-          placeholder='정답을 입력하세요'
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          className=' pt-[64px] border-b border-black focus:outline-none text-[20px]'
-        />
+        <form onSubmit={moveToNextQuiz}>
+          <input
+            type='text'
+            placeholder='정답을 입력하고 엔터를 치세요'
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            className=' pt-[64px] border-b border-black focus:outline-none text-[20px]'
+          />
+        </form>
       </div>
 
       <div className='absolute right-4 top-1/4 flex flex-col items-end'>
