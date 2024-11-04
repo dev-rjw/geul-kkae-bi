@@ -67,9 +67,9 @@ const CheckingQuizPage = () => {
 
   const moveToWritingResultPage = () => {
     if (userId) {
-      router.push(`/games/user?type=checking&score=${score}`);
+      router.push(`/games/user?key=checking&score=${score}`);
     } else {
-      router.push('/games/guest?type=checking');
+      router.push('/games/guest?key=checking');
     }
   };
 
