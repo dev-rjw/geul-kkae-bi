@@ -4,7 +4,7 @@ import { createClient } from '@/util/supabase/server';
 import Link from 'next/link';
 import React from 'react';
 
-//http://localhost:3000/games/user?key=checking 이런식으로 들어올거임
+//http://localhost:3000/games/user?key=checking&score=100 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
 
