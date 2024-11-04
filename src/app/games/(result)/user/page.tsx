@@ -3,6 +3,8 @@ import { fetchUserId, fetchUserNickName } from '@/util/rank/server-action';
 import { createClient } from '@/util/supabase/server';
 import Link from 'next/link';
 import React from 'react';
+import ResultSide from '../_components/ResultSide';
+import '../style.css';
 
 //http://localhost:3000/games/user?key=checking&score=100 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
@@ -131,6 +133,10 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
         </div>
       </div>
       <div className='flex flex-row'>
+        <ResultSide
+          GameScore={GameScore}
+          justEndedGame={justEndedGame}
+        />
         <div className={`w-96 h-[415] ${matchedGame?.color}`}>
           <div>{nickName}님의 국어 문해력은</div>
           <div>{GameScore}</div>

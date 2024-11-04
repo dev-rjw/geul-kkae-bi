@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -14,10 +10,10 @@ body {
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220.9 39.3% 11%;
+    --primary: 215 79% 56%;
     --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
+    --secondary: 36 93% 57%;
+    --secondary-foreground: 210 20% 98%;
     --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 8.9% 46.1%;
     --accent: 220 14.3% 95.9%;
@@ -41,9 +37,9 @@ body {
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
-    --secondary: 215 27.9% 16.9%;
+    --primary: 215 79% 56%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 36 93% 57%;
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
@@ -60,13 +56,131 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+    letter-spacing: -0.02em;
+    font-family: 'var(--pretendard)', 'Noto Sans KR', 'Nanum Gothic', 'Apple SD Gothic Neo', Helvetica, Arial,
+      sans-serif;
+  }
+}
+@layer components {
+  .title-56 {
+    font-size: 3.5rem;
+    font-family: var(--font-yangjin);
+    line-height: 130%;
+  }
+  .title-40 {
+    font-size: 2.5rem;
+    font-family: var(--font-yangjin);
+    line-height: 130%;
+  }
+  .title-36 {
+    font-size: 2.25rem;
+    font-family: var(--font-yangjin);
+    line-height: 140%;
+  }
+  .title-34 {
+    font-size: 2.125rem;
+    font-family: var(--font-yangjin);
+    line-height: 140%;
+  }
+  .title-32 {
+    font-size: 2rem;
+    font-family: var(--font-yangjin);
+    line-height: 140%;
+  }
+  .title-24 {
+    font-size: 1.5rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+  .title-20 {
+    font-size: 1.25rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+  .title-16 {
+    font-size: 1rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+  .title-14 {
+    font-size: 0.875rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+  .body-48 {
+    font-size: 3rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 130%;
+  }
+  .body-36 {
+    font-size: 2.25rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 130%;
+  }
+  .body-32 {
+    font-size: 2rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 130%;
+  }
+  .body-30 {
+    font-size: 1.875rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 130%;
+  }
+  .body-24 {
+    font-size: 1.5rem;
+    font-family: var(--pretendard);
+    font-weight: 600;
+    line-height: 150%;
+  }
+  .body-24-p {
+    font-size: 1.5rem;
+    font-family: var(--pretendard);
+    font-weight: 500;
+    line-height: 120%;
+  }
+  .body-22 {
+    font-size: 1.375rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .body-20 {
+    font-size: 1.25rem;
+    font-family: var(--pretendard);
+    font-weight: 600;
+    line-height: 150%;
+  }
+  .body-18 {
+    font-size: 1.125rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .body-16 {
+    font-size: 1rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .caption-12 {
+    font-size: 0.75rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+  .caption-14 {
+    font-size: 0.875rem;
+    font-family: var(--pretendard);
+    font-weight: 700;
+    line-height: 150%;
   }
 }

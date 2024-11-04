@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const SigninPage = () => {
   return (
     <div className='max-w-96 mx-auto my-10'>
-      <h2 className='text-2xl font-bold text-center mb-6'>로그인</h2>
+      <h2 className='font-yangjin text-2xl font-bold text-center mb-6'>로그인</h2>
       <SigninForm />
       <div className='mt-5'>
         <ul className='w-full flex gap-2 items-center justify-around'>
