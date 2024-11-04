@@ -165,7 +165,7 @@ const WritingQuizPage = () => {
           해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.
         </p>
         <ConsonantCard consonants={question.consonant} />
-        <div className=' mt-[40px] py-[41px] px-[10px] items-center'>
+        <div className=' flex flex-col justify-center items-center h-[200px] mt-[40px] p-[10px] '>
           <p className=' text-[36px] font-medium mb-[27px]'>{question.question}</p>
           <p className=' text-[24px] font-midium text-writing-500'>{`**${question.meaning}`}</p>
         </div>
@@ -175,12 +175,12 @@ const WritingQuizPage = () => {
             placeholder='정답을 입력하고 엔터를 치세요'
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            className=' pt-[64px] border-b border-black focus:outline-none text-[20px]'
+            className=' pt-[64px] border-b border-black focus:outline-none text-[20px]  font-medium leading-[30px] tracking-[-0.4px] w-[320px]'
           />
         </form>
       </div>
 
-      <div className='absolute right-4 top-1/4 flex flex-col items-end'>
+      <div className='absolute top-1/2 right-0 flex flex-col items-start'>
         {!isAllQuestions && !isTimeOver && (
           <div>
             <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
