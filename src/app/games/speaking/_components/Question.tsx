@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import Timer from './Timer';
 import { timStore } from '@/store/timeStore';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
+import Image from 'next/image';
 
 type Question = {
   text: string;
@@ -72,52 +73,55 @@ const Question = ({ text, randomText }: Question) => {
 
   return (
     <>
-      <button onClick={handleUpsertScore}>결과보기</button>
       <Timer handleUpsertScore={handleUpsertScore} />
-      <strong className='bg-[#F9BC5F] mt-[84px] rounded-[100px] w-[140px] h-[56px] flex items-center justify-center'>
-        {index + 1}문제
+      <strong className='bg-[#F9BC5F] mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center'>
+        {index + 1}번문제
       </strong>
-      <div className='bg-[#fff] mt-[20px] w-[800px] h-[200px] flex items-center justify-center mb-[40px]'>
+      <div className='bg-[#fdeace] flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-24 py-[2.875rem] text-[#855205] rounded-[30px]'>
         <p className='text-[36px] font-bold'>{randomText[index]}</p>
       </div>
       {index === 9 || time === 0 ? (
         <>
-          <div className='bg-[#fff] font-bold w-[800px] h-[200px] flex-col flex items-center justify-center'>
-            <p className='text-[36px] text-[#6a6967]'>정확도 총점</p>
-            <p className='text-[56px] text-[#357ee7]'>
+          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
+            <p className='leading-normal text-[36px] text-[#6a6967]'>정확도 총점</p>
+            <p className='leading-[1.35] text-[56px] text-[#357ee7]'>
               {finalPercent}
               <span className='text-[36px]'>%</span>
             </p>
           </div>
-          {data ? (
+          <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem]'>
+            <p className='text-center'>{index + 1}/10</p>
             <Link
+              className='mt-[16px] flex flex-col items-center'
               onClick={handleUpsertScore}
-              href={`/games/user?key=speaking&score=${finalPercent}`}
+              href={`/games/${data ? 'user' : 'guest'}?key=speaking&score=${finalPercent}`}
             >
-              결과 보러가기
+              <Image
+                src='/ico_speak_next_btn.svg'
+                width={30}
+                height={30}
+                alt='넘어가기'
+              ></Image>
+              <span className='block mt-[12px]'>결과보기</span>
             </Link>
-          ) : (
-            <Link
-              onClick={handleUpsertScore}
-              href={`/games/guest?key=speaking&score=${finalPercent}`}
-            >
-              결과 보러가기
-            </Link>
-          )}
+          </div>
         </>
       ) : (
         <>
-          <div className='bg-[#fff] font-bold w-[800px] h-[200px] flex flex-col items-center justify-center'>
+          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
             {!isLoading ? (
               <>
-                <p className='text-[36px] text-[#6a6967]'>정확도</p>
-                <p className='text-[56px] text-[#357ee7]'>
-                  {percent}
-                  <span className='text-[36px]'>%</span>
-                </p>
-                <div className='absolute right-[30px]'>
-                  <p>{index + 1}/10</p>
+                <div className='text-center'>
+                  <p className='leading-normal text-[36px] text-[#6a6967]'>정확도</p>
+                  <p className='leading-[1.35] text-[56px] text-[#357ee7]'>
+                    {percent}
+                    <span className='text-[36px]'>%</span>
+                  </p>
+                </div>
+                <div className='absolute right-[30px] flex flex-col items-center top-[40%]'>
+                  <p className='text-[1.5rem]'>{index + 1}/10</p>
                   <button
+                    className='mt-[16px]'
                     onClick={() => {
                       addTotalPercent(percent);
                       resetPercent();
@@ -125,7 +129,12 @@ const Question = ({ text, randomText }: Question) => {
                       incrementIndex();
                     }}
                   >
-                    넘어가기
+                    <Image
+                      src='/ico_speak_next_btn.svg'
+                      width={30}
+                      height={30}
+                      alt='넘어가기'
+                    ></Image>
                   </button>
                 </div>
               </>
