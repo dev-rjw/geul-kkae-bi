@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GamesArray, GamesScore, JustEndedGameProp } from '@/types/result';
+import ResultSide from '../_components/ResultSide';
+import '../style.css';
 
 const ResultPageForGuest = ({ searchParams }: JustEndedGameProp) => {
   const [games, setGames] = useState<GamesArray[]>();
@@ -45,6 +47,9 @@ const ResultPageForGuest = ({ searchParams }: JustEndedGameProp) => {
   //서치파람으로 가져온 방금 끝난 게임 이름
   const justEndedGame: string | undefined = searchParams.key;
 
+  // 방금 끝난 게임 점수
+  const GameScore: string | undefined = searchParams.score;
+
   //사용자가 방금 끝낸 게임
   const matchedGame = games?.find((game) => {
     return game.type === justEndedGame;
@@ -72,6 +77,10 @@ const ResultPageForGuest = ({ searchParams }: JustEndedGameProp) => {
         <Link href={'/'}>홈으로</Link>
       </div>
       <div className='flex flex-row'>
+        <ResultSide
+          GameScore={GameScore}
+          justEndedGame={justEndedGame}
+        />
         <div className={`w-96 h-[415] ${matchedGame?.color}`}>
           <div>당신의 국어문해력은</div>
           <div>{matchedGame?.score}</div>
