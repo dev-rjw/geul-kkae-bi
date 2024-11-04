@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import './style.css';
 
 interface Qusetion {
   id: string;
@@ -77,12 +78,14 @@ const CheckingQuizPage = () => {
   const chackingButton = () => {
     const correct = questions[currentQuizIndex].correct;
     return (
-      <div className='grid grid-cols-2 gap-3'>
+      <div className='grid grid-cols-2 gap-x-8 gap-y-[1.18125rem]'>
         {correct.map((option: string, index: number) => (
           <button
             key={index}
             onClick={() => setSelectedOption(option)}
-            className={`p-2 border border-black ${selectedOption === option ? 'bg-blue-300' : 'bg-gray-500'}`}
+            className={`w-[18.75rem] h-[6.25rem] text-[2.5rem] font-medium rounded-[1.25rem] ${
+              selectedOption === option ? 'bg-[#A07BE5] text-white' : 'bg-white'
+            }`}
           >
             {option}
           </button>
@@ -156,8 +159,13 @@ const CheckingQuizPage = () => {
       saveScore();
       setIsTimeOver(true);
       Swal.fire({
-        title: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">시간이 다 됐다 깨비!</span>',
-        html: '<span style="color: #3b82f6; font-size: 24px; font-weight: bold;">다음에 다시 도전하라 깨비</span>',
+        html: '<p class="swal-custom-text">시간이 다 됐다 깨비!</p><p class="swal-custom-text">다음에 다시 도전하라 깨비</p>',
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
       });
     }
   };
@@ -180,10 +188,12 @@ const CheckingQuizPage = () => {
         parts.push(
           <span
             key={phraseIndex}
-            className='underline decoration-black relative'
+            className=' underline decoration-[#357EE7] relative'
           >
             {phrase}
-            <sub className='absolute -bottom-4 left-1/2 text-sm text-gray-500'>{index + 1}</sub>
+            <span className='absolute -bottom-7 left-1/2 transform -translate-x-1/2 flex w-[1.625rem] h-[1.625rem] bg-[#357EE7] text-[1.3125rem] text-white items-center justify-center rounded-full'>
+              {index + 1}
+            </span>
           </span>,
         );
 
@@ -209,20 +219,34 @@ const CheckingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
-      <div className='flex-1 flex flex-col items-center justify-center'>
-        <p className='pt-20 font-size:1'>{`${currentQuizIndex + 1}번 문제`}</p>
-        <p>문장에서 틀린 부분을 고르세요</p>
-        <div className='p-4'>{questionUnderLine()}</div>
+      <div className='flex-1 flex flex-col items-center justify-center mt-20'>
+        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#A07BE5] text-2xl font-medium rounded-full'>{`${
+          currentQuizIndex + 1
+        }번 문제`}</p>
+        <p className=' mt-[3.25rem] mb-20 text-2xl font-medium'>문장에서 틀린 부분을 고르세요</p>
+        <div className=' text-4xl font-medium pb-[10.1875rem]'>{questionUnderLine()}</div>
         {chackingButton()}
       </div>
-      <div className=' absolute right-4 top-1/4 flex flex-col items-end'>
+      <div className=' absolute top-1/2 right-0 flex flex-col items-start'>
         {!isTimeOver && !isAllQuestions && (
           <div>
-            <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
-            <button onClick={handleCheckAnswer}>다음 문제로</button>
+            <p className='self-center text-2xl font-medium'>{`${currentQuizIndex + 1}/10`}</p>
+            <button
+              onClick={handleCheckAnswer}
+              className='px-4 py-2'
+            >
+              다음 문제로
+            </button>
           </div>
         )}
-        {(isTimeOver || isAllQuestions) && <button onClick={moveToWritingResultPage}>결과 보기</button>}
+        {(isTimeOver || isAllQuestions) && (
+          <button
+            onClick={moveToWritingResultPage}
+            className='px-4 py-2'
+          >
+            결과 보기
+          </button>
+        )}
       </div>
     </div>
   );

@@ -7,48 +7,46 @@ interface QuizTimerProps {
 }
 
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
-  const [isCountDown, setIsCountDown] = useState(true);
-  const [countDown, setCountDown] = useState(3);
   const [timeLeft, setTimeLeft] = useState(40);
+  const [isTutorial, setIsTutorial] = useState(true);
 
   useEffect(() => {
-    if (isAllQuestions) return;
+    if (isAllQuestions || isTutorial) return;
 
     let timer: NodeJS.Timeout;
 
-    if (isCountDown) {
-      // 시작 카운트 다운
-      timer = setInterval(() => {
-        setCountDown((prevTime) => {
-          if (prevTime <= 0) {
-            clearInterval(timer);
-            setIsCountDown(false);
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    } else {
-      // 퀴즈 타이머 시작
-      timer = setInterval(() => {
-        setTimeLeft((prevTime) => {
-          if (prevTime <= 0) {
-            clearInterval(timer);
-            onTimeOver();
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    }
+    // 퀴즈 타이머 시작
+    timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(timer);
+          onTimeOver();
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
     return () => clearInterval(timer);
-  }, [onTimeOver, isAllQuestions, isCountDown]);
+  }, [onTimeOver, isAllQuestions, isTutorial]);
+
+  const handleStartGame = () => {
+    setIsTutorial(false);
+  };
 
   return (
     <div>
-      {isCountDown ? (
+      {isTutorial ? (
         <div className='fixed inset-0 flex items-center justify-center bg-white z-50'>
-          <div className='bg-[#DDD0F6] w-[290px] h-[290px] rounded-full flex items-center justify-center'>
-            <p className='text-[#6429D1] text-[128px] font-bold'>{countDown}</p>
-          </div>
+          <img
+            src='/tutorial_checking.svg'
+            alt='튜토리얼'
+            className='w-full h-full object-cover'
+          />
+          <button
+            className='absolute bottom-[32px] right-[62px] bg-[#2AD4AF] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
+            onClick={handleStartGame}
+          >
+            시작하기
+          </button>
         </div>
       ) : (
         <></>
