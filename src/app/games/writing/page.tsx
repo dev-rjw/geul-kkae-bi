@@ -163,17 +163,17 @@ const WritingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
-      <div className='flex-1 flex flex-col items-center justify-center mt-[80px]'>
-        <p className=' inline-flex items-center justify-center px-[30px] py-[10px] bg-[#2AD4AF] text-2xl font-medium rounded-full'>{`${
+      <div className='flex-1 flex flex-col items-center justify-center mt-20'>
+        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#2AD4AF] text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번문제`}</p>
-        <p className=' mt-[68px] mb-[40px] text-[36px] font-medium'>
+        <p className=' mt-[4.25rem] mb-10 text-4xl font-medium'>
           해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.
         </p>
         <ConsonantCard consonants={question.consonant} />
-        <div className=' flex flex-col justify-center items-center h-[200px] mt-[40px] p-[10px] '>
-          <p className=' text-[36px] font-medium mb-[27px]'>{question.question}</p>
-          <p className=' text-[24px] font-midium text-writing-500'>{`**${question.meaning}`}</p>
+        <div className=' flex flex-col justify-center items-center h-[12.5rem] mt-10 p-2.5 '>
+          <p className=' text-4xl font-medium mb-[1.6875rem]'>{question.question}</p>
+          <p className=' text-2xl font-midium text-[#2AD4AF]'>{`**${question.meaning}`}</p>
         </div>
         <form onSubmit={moveToNextQuiz}>
           <input
@@ -181,27 +181,31 @@ const WritingQuizPage = () => {
             placeholder='정답을 입력하고 엔터를 치세요'
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            className=' pt-[64px] border-b border-black focus:outline-none text-[20px]  font-medium leading-[30px] tracking-[-0.4px] w-[320px]'
+            className=' pt-16 border-b border-black focus:outline-none text-xl font-medium w-80'
           />
         </form>
       </div>
 
-      <div className='absolute top-1/2 right-0 flex flex-col items-start'>
+      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
         {!isAllQuestions && !isTimeOver && (
-          <div>
-            <p className='self-center'>{`${currentQuizIndex + 1}/10`}</p>
+          <div className='flex flex-col items-center'>
+            <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
             <button
               onClick={moveToNextQuiz}
               className='px-4 py-2'
             >
-              다음 문제
+              <img
+                src='/icon_btn_writing.svg'
+                alt='nextbutton'
+                className='w-12 h-12'
+              />
             </button>
           </div>
         )}
         {(isAllQuestions || isTimeOver) && (
           <button
             onClick={moveToWritingResultPage}
-            className='px-4 py-2'
+            className='text-2xl font-medium'
           >
             결과 보기
           </button>
