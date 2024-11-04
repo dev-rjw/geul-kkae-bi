@@ -1,5 +1,5 @@
 'use client';
-import browserClient from '@/util/supabase/client';
+import browserClient from '@/utils/supabase/client';
 import React, { useEffect, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { googleSignin } from '@/util/auth/client-action';
+import { googleSignin } from '@/utils/auth/client-action';
 
 const GoogleSignButton = () => {
   return (

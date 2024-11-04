@@ -1,7 +1,7 @@
-import { createClient } from '@/util/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 import React from 'react';
 // import Image from 'next/image';
-import { fetchUserId } from '@/util/rank/server-action';
+import { fetchUserId } from '@/utils/rank/server-action';
 import { Rank, RankIncludingUserInfo } from '@/types/result';
 
 const RankingPage = async () => {

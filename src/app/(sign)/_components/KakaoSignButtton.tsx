@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { kakaoSignin } from '@/util/auth/client-action';
+import { kakaoSignin } from '@/utils/auth/client-action';
 
 const KakaoSignButtton = () => {
   return (

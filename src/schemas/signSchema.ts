@@ -1,4 +1,4 @@
-import { checkEmailExists, checkNicknameExists } from '@/util/user/client-action';
+import { checkEmailExists, checkNicknameExists } from '@/utils/user/client-action';
 import { z } from 'zod';
 import { getPasswordSchema } from './commonSchema';
 
