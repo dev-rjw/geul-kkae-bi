@@ -227,22 +227,26 @@ const CheckingQuizPage = () => {
         <div className=' text-4xl font-medium pb-[10.1875rem]'>{questionUnderLine()}</div>
         {chackingButton()}
       </div>
-      <div className=' absolute top-1/2 right-0 flex flex-col items-start'>
+      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
         {!isTimeOver && !isAllQuestions && (
-          <div>
-            <p className='self-center text-2xl font-medium'>{`${currentQuizIndex + 1}/10`}</p>
+          <div className='flex flex-col items-center'>
+            <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
             <button
               onClick={handleCheckAnswer}
               className='px-4 py-2'
             >
-              다음 문제로
+              <img
+                src='/icon_btn_checking.svg'
+                alt='btn'
+                className='w-12 h-12'
+              />
             </button>
           </div>
         )}
         {(isTimeOver || isAllQuestions) && (
           <button
             onClick={moveToWritingResultPage}
-            className='px-4 py-2'
+            className='text-2xl font-medium'
           >
             결과 보기
           </button>
