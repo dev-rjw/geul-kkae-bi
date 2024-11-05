@@ -6,7 +6,6 @@ import React from 'react';
 import ResultSide from '../_components/ResultSide';
 import '../style.css';
 import { redirect } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 
 //http://localhost:3000/games/user?key=checking&score=100 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
@@ -159,7 +158,9 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                 종합 <span className='text-orange-200'>랭킹</span>을 확인하러 가 볼 깨비!
               </div>
             </div>
-            <Button>랭킹 보러가기</Button>
+            <Link href={'/games/rank'}>
+              <div>랭킹 보러가기</div>
+            </Link>
           </>
         ) : (
           <>
