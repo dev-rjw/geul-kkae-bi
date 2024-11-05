@@ -14,7 +14,7 @@ import { signupSchema } from '@/schemas/signSchema';
 import PasswordInput from '@/components/PasswordInput';
 import Swal from 'sweetalert2';
 import PasswordValidationInput from '@/components/PasswordValidationInput';
-import ButtonPrimary from '@/components/button/ButtonPrimary';
+import DefaultButton from '@/components/DefaultButton';
 
 const SignupForm = () => {
   const router = useRouter();
@@ -159,7 +159,7 @@ const SignupForm = () => {
           )}
         />
 
-        <ButtonPrimary>회원가입</ButtonPrimary>
+        <DefaultButton variant='text'>회원가입</DefaultButton>
       </form>
     </Form>
   );

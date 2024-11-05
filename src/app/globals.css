@@ -29,6 +29,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --gutter: 1rem;
   }
   .dark {
     --background: 224 71.4% 4.1%;
@@ -182,5 +183,12 @@
     font-family: var(--pretendard);
     font-weight: 700;
     line-height: 150%;
+  }
+  .container {
+    max-width: calc(67.5rem + (var(--gutter) * 2));
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    margin-left: auto;
+    margin-right: auto;
   }
 }
