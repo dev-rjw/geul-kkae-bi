@@ -5,8 +5,9 @@ import { useAuth } from '@/queries/useAuth';
 import { fetchCurrentUserInfo } from '@/util/user/client-action';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import SAMPLE from '../../img/sample.png';
-import KKAEBI from '../../img/kkae-bi.png';
+import KKAEBI from '../../img/kkae_bi.png';
+import { redirect } from 'next/navigation';
+import { fetchUserRank } from '@/util/rank/client-action';
 
 export type User = {
   user_id: string;
@@ -17,9 +18,26 @@ export type User = {
   created_at: string;
 };
 
+export type Rank = {
+  user_id: string;
+  id: string;
+  speaking: string | null;
+  checking: string | null;
+  writing: string | null;
+  total: string | null;
+  ranking: string | null;
+  week: string;
+  created_at: string;
+};
+
 function MyPage() {
   const [user, setUser] = useState<User>();
+  const [rank, setRank] = useState<Rank>();
   const { data } = useAuth();
+
+  if (data === null) {
+    redirect('/');
+  }
 
   useEffect(() => {
     if (data) {
@@ -27,6 +45,13 @@ function MyPage() {
       fetchCurrentUserInfo(email).then((elemant) => setUser(elemant));
     }
   }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      const user_id = data?.user_metadata.sub;
+      fetchUserRank(user_id).then((element) => setRank(element));
+    }
+  });
 
   return (
     <>
@@ -43,7 +68,7 @@ function MyPage() {
             {/* 프로필 이미지 */}
             <div className='w-52 h-52 rounded-full overflow-hidden border-4 border-white mb-4'>
               <Image
-                src={user?.image ? user?.image : SAMPLE}
+                src={user?.image}
                 alt='Profile'
                 width={200}
                 height={200}
@@ -115,13 +140,13 @@ function MyPage() {
                 <p className='text-sm text-gray-600'>24.10.13 - 24.10.19</p>
                 <div className='w-40 h-40 rounded-full overflow-hidden border-4 border-white mb-4 justify-self-center'>
                   <Image
-                    src={user?.image ? user?.image : SAMPLE}
+                    src={user?.image}
                     alt='Profile'
                     width={196}
                     height={196}
                   />
                 </div>
-                <div className='mt-4 text-3xl font-bold'>523위</div>
+                <div className='mt-4 text-3xl font-bold'>{rank?.ranking || '-'}위</div>
               </div>
 
               {/* 지난주 순위 */}
@@ -130,28 +155,28 @@ function MyPage() {
                   <h3 className='text-lg font-semibold'>지난주 순위</h3>
                   <p className='text-sm text-gray-600'>24.10.13 - 24.10.19</p>
                 </div>
-                <div className='mt-4 text-3xl font-bold'>523위</div>
+                <div className='mt-4 text-3xl font-bold'>{rank?.ranking || '-'}위</div>
               </div>
 
               {/* 게임별 점수 */}
               <div className='flex bg-white p-4 rounded-lg shadow-sm'>
                 <div>
                   <h3 className='text-lg font-semibold text-center mb-2'>게임별 점수</h3>
-                  <div className='text-center mt-4 text-xl font-bold text-gray-800'>총점 90점</div>
+                  <div className='text-center mt-4 text-xl font-bold text-gray-800'>총점 {rank?.total || '-'}점</div>
                 </div>
 
                 <div className='flex justify-between text-gray-700'>
                   <div className='flex flex-col items-center'>
                     <span className='text-sm'>주어진 문장 읽기</span>
-                    <span className='text-xl font-bold'>30점</span>
+                    <span className='text-xl font-bold'>{rank?.speaking || '-'}점</span>
                   </div>
                   <div className='flex flex-col items-center'>
                     <span className='text-sm'>빈칸 채우기</span>
-                    <span className='text-xl font-bold'>30점</span>
+                    <span className='text-xl font-bold'>{rank?.checking || '-'}점</span>
                   </div>
                   <div className='flex flex-col items-center'>
                     <span className='text-sm'>틀린 것 맞추기</span>
-                    <span className='text-xl font-bold'>30점</span>
+                    <span className='text-xl font-bold'>{rank?.writing || '-'}점</span>
                   </div>
                 </div>
               </div>
