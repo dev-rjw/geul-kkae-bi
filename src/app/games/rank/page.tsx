@@ -184,7 +184,10 @@ const RankingPage = async () => {
             <div>닉네임 : {userTable?.[0].user.nickname}</div>
             <div>소개 : {userTable?.[0].user.introduction}</div>
             <div>나의 랭킹 : {userTable?.[0].ranking}</div>
-            <div> {myLastrank ? <div>{`지난주 순위 : ${myLastrank[0].ranking}`}</div> : <div>지난주 순위 : </div>}</div>
+            <div>
+              {' '}
+              {myLastrank ? <div>{`지난주 순위 : ${myLastrank?.[0]?.ranking}`}</div> : <div>지난주 순위 : </div>}
+            </div>
             <div>주어진 문장읽기 : {userTable?.[0].speaking}</div>
             <div>빈칸 채우기 : {userTable?.[0].writing}</div>
             <div>틀린것 맞추기 : {userTable?.[0].checking}</div>
