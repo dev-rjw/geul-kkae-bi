@@ -1,6 +1,6 @@
 import { JustEndedGameProp, Rank } from '@/types/result';
-import { fetchUserId, fetchUserNickName } from '@/util/auth/server-action';
-import { createClient } from '@/util/supabase/server';
+import { createClient } from '@/utils/supabase/server';
+import { fetchUserId, fetchUserNickName } from '@/utils/auth/server-action';
 import Link from 'next/link';
 import React from 'react';
 import ResultSide from '../_components/ResultSide';

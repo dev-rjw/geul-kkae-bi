@@ -3,7 +3,7 @@ import SigninForm from '../_components/SigninForm';
 import Link from 'next/link';
 import GoogleSignButton from '../_components/GoogleSignButton';
 import KakaoSignButtton from '../_components/KakaoSignButtton';
-import { fetchCurrentUser } from '@/util/auth/server-action';
+import { fetchCurrentUser } from '@/utils/auth/server-action';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 

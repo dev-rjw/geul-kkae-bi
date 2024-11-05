@@ -2,7 +2,7 @@ import React from 'react';
 import GuestPage from '../_components/GuestPage';
 import { JustEndedGameProp } from '@/types/result';
 import { redirect } from 'next/navigation';
-import { fetchUserId } from '@/util/auth/server-action';
+import { fetchUserId } from '@/utils/auth/server-action';
 
 const page = async ({ searchParams }: JustEndedGameProp) => {
   //현재 접속중인 userID

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import SignupForm from '../_components/SignupForm';
-import { fetchCurrentUser } from '@/util/auth/server-action';
+import { fetchCurrentUser } from '@/utils/auth/server-action';
 import { redirect } from 'next/navigation';
 export const metadata: Metadata = {
   title: '회원가입',
