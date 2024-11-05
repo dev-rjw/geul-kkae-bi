@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { createClient } from '@/util/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/queries/useAuth';
 import Swal from 'sweetalert2';

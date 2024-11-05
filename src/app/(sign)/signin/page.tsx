@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import GoogleSignButton from '../_components/GoogleSignButton';
 import KakaoSignButtton from '../_components/KakaoSignButtton';
-import { fetchCurrentUser } from '@/util/auth/server-action';
+import { fetchCurrentUser } from '@/utils/auth/server-action';
 import SigninForm from '../_components/SigninForm';
 
 export const metadata: Metadata = {

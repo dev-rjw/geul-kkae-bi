@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { findPasswordSchema } from '@/schemas/findSchema';
 import { Button } from '@/components/ui/button';
-import { findPassword } from '@/util/auth/client-action';
+import { findPassword } from '@/utils/auth/client-action';
 
 const FindPasswordForm = () => {
   // 유효성 검사

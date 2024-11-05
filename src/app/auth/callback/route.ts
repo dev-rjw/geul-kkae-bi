@@ -1,7 +1,7 @@
-import { createClient } from '@/util/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 // 서버 측 인증 지침에서 생성한 클라이언트
-import { addNickname, addProfileImage } from '@/util/user/server-action';
+import { addNickname, addProfileImage } from '@/utils/user/server-action';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);

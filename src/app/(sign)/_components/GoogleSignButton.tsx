@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import DefaultButton from '@/components/DefaultButton';
-import { googleSignin } from '@/util/auth/client-action';
+import { googleSignin } from '@/utils/auth/client-action';
 
 const GoogleSignButton = () => {
   return (

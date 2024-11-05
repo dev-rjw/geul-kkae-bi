@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import DefaultButton from '@/components/DefaultButton';
-import { kakaoSignin } from '@/util/auth/client-action';
+import { kakaoSignin } from '@/utils/auth/client-action';
 
 const KakaoSignButtton = () => {
   return (

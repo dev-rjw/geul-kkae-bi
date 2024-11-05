@@ -2,12 +2,12 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { useAuth } from '@/queries/useAuth';
-import { fetchCurrentUserInfo } from '@/util/user/client-action';
+import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import KKAEBI from '../../../public/kkae_bi.png';
 import { redirect } from 'next/navigation';
-import { fetchUserRank } from '@/util/rank/client-action';
+import { fetchUserRank } from '@/utils/rank/client-action';
 
 export type User = {
   user_id: string;
