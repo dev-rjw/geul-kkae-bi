@@ -77,7 +77,7 @@ const SigninForm = () => {
                     <DefaultInput
                       placeholder='아이디를 입력해주세요'
                       {...field}
-                      className='pl-[3.375rem]'
+                      className='pl-[3.375rem] max-w-none'
                     />
                   </div>
                 </FormControl>
@@ -97,7 +97,8 @@ const SigninForm = () => {
                     <PasswordInput
                       placeholder='비밀번호를 입력해주세요'
                       field={field}
-                      inputClassName='px-[3.375rem]'
+                      className='max-w-none'
+                      inputClassName='px-[3.375rem] max-w-none'
                       buttonClassName='!pr-5'
                     />
                   </div>

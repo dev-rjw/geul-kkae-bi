@@ -20,6 +20,7 @@
 .signin-button-group > li:first-child:before {
   display: none;
 }
+
 .line-title {
   position: relative;
   font-size: 0.875rem;

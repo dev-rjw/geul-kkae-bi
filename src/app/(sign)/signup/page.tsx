@@ -15,8 +15,9 @@ const SignupPage = async () => {
   }
 
   return (
-    <div className='max-w-[898px] mx-auto my-10'>
-      <h2 className='text-2xl font-bold text-center mb-6'>회원가입</h2>
+    <div className='container py-[3.125rem]'>
+      <h2 className='body-32 text-gray-700 mb-[0.625rem]'>회원가입</h2>
+      <hr className='border-t-2 border-gray-500 mb-10' />
       <SignupForm />
     </div>
   );
