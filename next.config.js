@@ -2,9 +2,10 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
   images: {
-    domains: ['sfdcyhvieqruoagzezzv.supabase.co'],
+    domains: [
+      'sfdcyhvieqruoagzezzv.supabase.co', // Add this line
+    ],
   },
 };
 

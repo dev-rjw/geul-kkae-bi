@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { signup } from '@/util/auth/client-action';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import EmailInput from './EmailInput';
@@ -14,6 +13,8 @@ import { translateErrorMessage } from '@/schemas/commonSchema';
 import { signupSchema } from '@/schemas/signSchema';
 import PasswordInput from '@/components/PasswordInput';
 import Swal from 'sweetalert2';
+import PasswordValidationInput from '@/components/PasswordValidationInput';
+import DefaultButton from '@/components/DefaultButton';
 
 const SignupForm = () => {
   const router = useRouter();
@@ -32,7 +33,9 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
     defaultValues,
   });
-  const { getFieldState } = form;
+  const { getFieldState, watch } = form;
+  const passwordValue = watch('password');
+  const confirmPasswordValue = watch('confirmPassword');
 
   const onSubmit = async (values: FieldValues) => {
     const { email, password, nickname } = values;
@@ -43,6 +46,7 @@ const SignupForm = () => {
       options: {
         data: {
           nickname,
+          image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.png`,
         },
       },
     });
@@ -103,16 +107,11 @@ const SignupForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <PasswordInput
+                <PasswordValidationInput
                   placeholder='비밀번호'
                   field={field}
                 />
               </FormControl>
-              {!getFieldState('password').invalid && field.value ? (
-                <FormMessage className='text-primary-400'>올바른 비밀번호입니다.</FormMessage>
-              ) : (
-                <FormMessage />
-              )}
             </FormItem>
           )}
         />
@@ -128,8 +127,10 @@ const SignupForm = () => {
                   field={field}
                 />
               </FormControl>
-              {!getFieldState('confirmPassword').invalid && field.value ? (
-                <FormMessage className='text-primary-400'>비밀번호가 일치합니다.</FormMessage>
+              {(passwordValue === confirmPasswordValue || !getFieldState('confirmPassword').invalid) &&
+              passwordValue !== '' &&
+              field.value !== '' ? (
+                <div className='caption-14 text-primary-400'>비밀번호가 일치합니다.</div>
               ) : (
                 <FormMessage />
               )}
@@ -158,7 +159,7 @@ const SignupForm = () => {
           )}
         />
 
-        <Button>회원가입</Button>
+        <DefaultButton variant='text'>회원가입</DefaultButton>
       </form>
     </Form>
   );

@@ -1,7 +1,13 @@
 import React from 'react';
 
 const Footer = () => {
-  return <div className='justify-self-center mt-10 mb-5'>ⓒ 2024. 글깨비 All rights reserved.</div>;
+  return (
+    <footer className='py-[1.625rem]'>
+      <div className='container text-center text-xs font-semibold text-gray-400'>
+        <span className='text-gray-500'>2024 gullkaebi.</span> All Rights Reserved
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
