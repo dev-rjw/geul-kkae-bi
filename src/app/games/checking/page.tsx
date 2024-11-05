@@ -123,7 +123,7 @@ const CheckingQuizPage = () => {
         return;
       }
       if (currentScore && currentScore.length > 0) {
-        if (score > currentScore[0].checking) {
+        if (score > currentScore[0].checking || currentScore[0].checking === null) {
           // 기존 점수가 현재 점수보다 낮을 경우 업데이트
           const { error: updateError } = await browserClient
             .from('rank')
