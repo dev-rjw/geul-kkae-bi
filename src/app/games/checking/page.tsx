@@ -60,6 +60,7 @@ const CheckingQuizPage = () => {
   const moveToNextQuiz = () => {
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
+      handleCheckAnswer();
       setSelectedOption(null);
     } else {
       saveScore();
@@ -99,9 +100,6 @@ const CheckingQuizPage = () => {
   const handleCheckAnswer = () => {
     if (selectedOption === questions[currentQuizIndex].answer) {
       setScore((prevscore) => prevscore + 10);
-      moveToNextQuiz();
-    } else {
-      moveToNextQuiz();
     }
   };
 
@@ -122,7 +120,7 @@ const CheckingQuizPage = () => {
         console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
         return;
       }
-      if (currentScore && currentScore.length > 0) {
+      if (currentScore.length > 0) {
         if (score > currentScore[0].checking || currentScore[0].checking === null) {
           // 기존 점수가 현재 점수보다 낮을 경우 업데이트
           const { error: updateError } = await browserClient
@@ -233,7 +231,7 @@ const CheckingQuizPage = () => {
           <div className='flex flex-col items-center'>
             <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
             <button
-              onClick={handleCheckAnswer}
+              onClick={moveToNextQuiz}
               className='px-4 py-2'
             >
               <Image
