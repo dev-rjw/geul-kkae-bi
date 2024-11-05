@@ -70,14 +70,10 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
     return game.type !== justEndedGame;
   });
 
-  const playMessage = `꼬옥 로그인 후 게임을 모두 플레이 해야해 깨비!`;
-
   return (
     <div>
-      <div className='w-[590] flex justify-between'>
-        <div>{matchedGame?.name}</div>
-        <Link href={'/'}>홈으로</Link>
-      </div>
+      <div>{matchedGame?.name}</div>
+
       <div className='flex flex-row'>
         <ResultSide
           GameScore={GameScore}
@@ -118,47 +114,12 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
       </div>
       <div>
         <div>종합 랭킹을 확인하려면</div>
-        <div>{playMessage}</div>
+        <div>
+          꼬옥 <span className='text-orange-200'>로그인</span> 후 게임을 모두 플레이 해야해 깨비!
+        </div>
       </div>
     </div>
   );
 };
 
 export default GuestPage;
-
-// 로컬 스토리지에서 key가 있으면 점수표시하고 없으면 해당 게임하러가기 문구표시
-// 방금 끝난게임과 끝나지 않은 게임 구분 (파람으로 받아줘야함)
-//그걸로 바로 화면 그려주면 됨
-//플레이된 게임에 따라 문구
-
-// {games?.map((game) => {
-//   if (game.type === justEndedGame) {
-//     return (
-//       <div
-//         key={game.type}
-//         className={`w-96 h-96 ${game.color}`}
-//       >
-//         <div>닉네임님의 국어 문해력은</div>
-//         <div>{game.score}</div>
-//         <div>캐릭터</div>
-//         <div>한줄코멘트</div>
-//       </div>
-//     );
-//   } else {
-//     return (
-//       <div key={game.type}>
-//         <div className={`w-52 h-52 border-black border-4 flex flex-col ${game.color}`}>
-//           <div>
-//             {game.score ? (
-//               <div>
-//                 {game.name} {game.score}
-//               </div>
-//             ) : (
-//               `${game.name}하러가기`
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// })}
