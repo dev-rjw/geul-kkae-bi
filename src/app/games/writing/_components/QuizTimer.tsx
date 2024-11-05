@@ -36,14 +36,14 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       {isTutorial ? (
         <div className='fixed inset-0 flex items-col items-center justify-center bg-white z-50'>
           <Image
-            src='/tutorial_writing.svg'
-            alt='튜토리얼'
+            src='/writing_tutorial.svg'
+            alt='tutorial'
             layout='fill'
             objectFit='cover'
           />
           <button
             onClick={handleStartGame}
-            className='absolute bottom-[32px] right-[62px] bg-[#2AD4AF] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px] '
+            className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px] '
           >
             시작하기
           </button>

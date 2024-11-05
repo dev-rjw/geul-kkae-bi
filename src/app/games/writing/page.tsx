@@ -164,7 +164,7 @@ const WritingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
       />
-      <div className='flex-1 flex flex-col items-center justify-center mt-20'>
+      <div className=' flex flex-col items-center justify-center mt-20'>
         <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#2AD4AF] text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번문제`}</p>
