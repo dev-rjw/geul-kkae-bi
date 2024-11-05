@@ -67,12 +67,14 @@ function MyPage() {
             </h2>
             {/* 프로필 이미지 */}
             <div className='w-52 h-52 rounded-full overflow-hidden border-4 border-white mb-4'>
-              <Image
-                src={user?.image}
-                alt='Profile'
-                width={200}
-                height={200}
-              />
+              {user?.image && (
+                <Image
+                  src={user?.image}
+                  alt='Profile'
+                  width={200}
+                  height={200}
+                />
+              )}
             </div>
             <h2 className='text-xl font-bold'>{user?.nickname}</h2>
             <p className='text-sm mb-1'>{user?.email}</p>
@@ -139,12 +141,14 @@ function MyPage() {
                 <h3 className='text-lg font-semibold'>내 랭킹</h3>
                 <p className='text-sm text-gray-600'>24.10.13 - 24.10.19</p>
                 <div className='w-40 h-40 rounded-full overflow-hidden border-4 border-white mb-4 justify-self-center'>
-                  <Image
-                    src={user?.image}
-                    alt='Profile'
-                    width={196}
-                    height={196}
-                  />
+                  {user?.image && (
+                    <Image
+                      src={user?.image}
+                      alt='Profile'
+                      width={196}
+                      height={196}
+                    />
+                  )}
                 </div>
                 <div className='mt-4 text-3xl font-bold'>{rank?.ranking || '-'}위</div>
               </div>
