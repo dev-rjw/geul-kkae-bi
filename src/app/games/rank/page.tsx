@@ -103,28 +103,69 @@ const RankingPage = async () => {
         <header className='max-w-7xl w-full h-20 fixed bg-yellow-700'>글깨비</header>
         <div className='flex flex-col justify-center items-center pt-20'>
           <div className='flex flex-col items-center w-[1080px] h-[805px] mt-8 bg-slate-300 rounded-[50px] '>
-            <div className='flex justify-center items-center w-[302px] h-[51px] mt-8'>
-              <div className='flex justify-between h-8 px-[8.5px] gap-x-2'>
-                <div className='w-[45px] h-[45px] bg-slate-500'>아이콘</div>
-                <h1 className='text-4xl'>이번주 랭킹순위</h1>
-              </div>
+            <div className='flex justify-between items-center h-[51px] mt-8 px-[8.5px] gap-x-2'>
+              <Image
+                src='/icon_rank.svg'
+                width={45}
+                height={45}
+                alt='랭킹순위 옆 아이콘'
+              />
+              <h1 className='title-36'>이번주 전체 랭킹 순위</h1>
             </div>
-            <div className='w-[1050px] h-[540px] overflow-y-scroll space-y-5 mt-8 '>
-              {countRanking?.map((item) => (
+            <div className='flex flex-col w-[1050px] h-[540px] overflow-y-scroll space-y-5 mt-8 '>
+              {countRanking?.slice(0, 3).map((item) => (
                 <div
                   key={item.id}
-                  className='bg-slate-400 w-[896px] h-[100px] mx-auto rounded-2xl'
+                  className='flex justify-between items-center bg-slate-400 w-[896px] h-[100px] mx-auto px-8 rounded-2xl'
                 >
-                  <div>{item.ranking}</div>
+                  <div className='flex justify-between items-center w-[718]'>
+                    <div className='flex items-center gap-x-4'>
+                      <div className='title-24 mr-2'>{item.ranking}등</div>
+                      <Image
+                        width={78}
+                        height={78}
+                        src={item.user.image}
+                        alt='profile image for ranking'
+                      />
+                      <div className='title-24'>{item.user.nickname}</div>
+                    </div>
+                    <div className='title-24'>{item.user.introduction}</div>
+                  </div>
+                  <div className='title-36'>{item.total}점</div>
+                </div>
+              ))}
+              {countRanking?.slice(3, 5).map((item) => (
+                <div
+                  key={item.id}
+                  className='flex bg-slate-400 w-[896px] h-[76px] mx-auto px-8 rounded-2xl'
+                >
+                  <div className='title-20'>{item.ranking}등</div>
                   <Image
-                    width={78}
-                    height={78}
+                    width={62}
+                    height={62}
                     src={item.user.image}
                     alt='profile image for ranking'
                   />
-                  <div>{item.user.nickname}</div>
-                  <div>{item.user.introduction}</div>
-                  <div>{item.total}</div>
+                  <div className='title-20'>{item.user.nickname}</div>
+                  <div className='title-20'>{item.user.introduction}</div>
+                  <div className='title-36'>{item.total}점</div>
+                </div>
+              ))}
+              {countRanking?.slice(5).map((item) => (
+                <div
+                  key={item.id}
+                  className='flex bg-slate-400 w-[896px] h-[52px] mx-auto px-8 rounded-2xl'
+                >
+                  <div className='title-20'>{item.ranking}등</div>
+                  <Image
+                    width={40}
+                    height={40}
+                    src={item.user.image}
+                    alt='profile image for ranking'
+                  />
+                  <div className='title-20'>{item.user.nickname}</div>
+                  <div className='title-20'>{item.user.introduction}</div>
+                  <div className='title-32'>{item.total}점</div>
                 </div>
               ))}
             </div>
