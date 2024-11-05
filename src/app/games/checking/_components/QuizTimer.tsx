@@ -34,15 +34,15 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className='fixed inset-0 flex items-center justify-center bg-white z-50'>
+        <div className='fixed inset-0 bg-white z-10 flex items-center justify-center'>
           <Image
-            src='/tutorial_checking.svg'
-            alt='튜토리얼'
+            src='/checking_tutorial.svg'
+            alt='tutorial'
             layout='fill'
-            objectFit='cover'
+            objectFit='contain'
           />
           <button
-            className='absolute bottom-[32px] right-[62px] bg-[#A07BE5] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
+            className='absolute bottom-[2rem] right-[3.875rem] bg-[#A07BE5] px-[3.875rem] py-[1.125rem] rounded-full font-bold text-[2.375rem] leading-[3.563rem]'
             onClick={handleStartGame}
           >
             시작하기
@@ -51,9 +51,9 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       ) : (
         <></>
       )}
-      <div className='w-full bg-checking-100 h-[28px]'>
+      <div className='w-full bg-checking-100 h-7'>
         <div
-          className=' bg-checking-300 h-[28px] transition-all ease-linear rounded-r-lg'
+          className=' bg-checking-300 h-7 transition-all ease-linear rounded-r-lg'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>
