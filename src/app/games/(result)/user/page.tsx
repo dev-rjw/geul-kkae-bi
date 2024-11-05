@@ -1,10 +1,11 @@
 import { JustEndedGameProp, Rank } from '@/types/result';
-import { fetchUserId, fetchUserNickName } from '@/util/rank/server-action';
+import { fetchUserId, fetchUserNickName } from '@/util/auth/server-action';
 import { createClient } from '@/util/supabase/server';
 import Link from 'next/link';
 import React from 'react';
 import ResultSide from '../_components/ResultSide';
 import '../style.css';
+import { redirect } from 'next/navigation';
 
 //http://localhost:3000/games/user?key=checking&score=100 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
@@ -12,6 +13,14 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 
   //현재 접속중인 user의 nick name
   const nickName = await fetchUserNickName();
+
+  //현재 접속중인 userID
+  const userId = await fetchUserId();
+
+  //회원이 아니면 메인으로 돌려보냄 = protected route
+  if (!userId) {
+    redirect('/');
+  }
 
   //가장 최신 week 가져오기(숫자가 클수록 최신)->기준이 되는 week
   //null이 있으면 가장 위에 null이 들어와서 오류가뜸
@@ -23,9 +32,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 
   //이번주
   const latestWeek = latestWeekData?.[0].week;
-
-  //현재 접속중인 userID
-  const userId = await fetchUserId();
 
   // 이번주 테이블 다가져오기
   const { data: userTable }: { data: Rank[] | null } = await serverClient
@@ -57,6 +63,12 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   //해당 유저의 테이블이 동적으로 들어가면서 게임의 관련된 객체만 뽑아 정보를 추가해서 새로 만들어진 객체의 배열이 들어가는 games
   const games = userTable && userTable.length > 0 ? extractGames(userTable[0]) : null;
 
+  //게임을 안하고 결과페이지 접근하려면 돌려보냄 = protected route
+  const notFinishedGames = games?.filter((game) => game.score === null);
+  if (notFinishedGames?.length === 3) {
+    redirect('/');
+  }
+
   //서치파람으로 가져온 방금 끝난 게임 이름
   const justEndedGame: string | undefined = searchParams.key;
 
@@ -67,8 +79,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const matchedGame = games?.find((game) => {
     return game.type === justEndedGame;
   });
-
-  // console.log('matchedGame', matchedGame);
   // 형태
   //matchedGame { type: 'writing', score: 100, color: 'mint', name: '빈칸채우기' }
 
@@ -89,12 +99,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   // isdone이 false일때 1문제는 풀었는지 2문제 다 못풀었는지 배열안에 요소개수로 확인
   const remainingGamesCount = unMatchedGames?.filter((game) => !game.score).length;
 
-  const playMessage = isDone
-    ? `잘했다 깨비! 이제 랭킹을 확인해봐 깨비!`
-    : remainingGamesCount === 1
-    ? `종합 랭킹을 확인하려면 나머지 게임 1개를 마저 플레이 해야해 깨비!`
-    : `종합 랭킹을 확인하려면 나머지 게임 2개를 마저 플레이 해야해 깨비!`;
-
   //3문제가 모두 완료되었을때 모든 점수를 합산하여 supabase total에 넣어줌
   if (isDone) {
     const totalScore = userTable?.reduce(
@@ -104,7 +108,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
       },
       { total: 0 },
     );
-    // console.log('totalScore', totalScore);
 
     const updateTotalScore = async () => {
       const { data, error } = await serverClient.from('rank').upsert(totalScore);
@@ -119,19 +122,8 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 
   return (
     <div>
-      <div className='w-[590] flex justify-between'>
-        <div>{matchedGame?.name}</div>
-        <div>
-          {isDone ? (
-            <div>
-              <Link href={'/games/rank'}>랭킹보러가기</Link>
-              <Link href={'/'}>홈으로</Link>
-            </div>
-          ) : (
-            <Link href={'/'}>홈으로</Link>
-          )}
-        </div>
-      </div>
+      <div>{matchedGame?.name}</div>
+
       <div className='flex flex-row'>
         <ResultSide
           GameScore={GameScore}
@@ -157,7 +149,29 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           })}
         </div>
       </div>
-      <div>{playMessage}</div>
+      <div>
+        {isDone ? (
+          <>
+            <div>게임을 모두 완료했으니</div>
+            <div>
+              <div>
+                종합 <span className='text-orange-200'>랭킹</span>을 확인하러 가 볼 깨비!
+              </div>
+            </div>
+            <Link href={'/games/rank'}>
+              <div>랭킹 보러가기</div>
+            </Link>
+          </>
+        ) : (
+          <>
+            <div>종합 랭킹을 확인하려면</div>
+            <div>
+              나머지 게임 <span className='text-orange-200'>{remainingGamesCount === 1 ? '1개' : '2개'}</span>를 모두
+              플레이 해야해 깨비!
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
