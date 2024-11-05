@@ -29,7 +29,7 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
       case justEndedGame === 'speaking':
         return 'speak';
       case justEndedGame === 'checking':
-        return 'check';
+        return 'checking';
       case justEndedGame === 'writing':
         return 'writing';
       default:
@@ -37,8 +37,7 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
     }
   };
   const { image, text } = scoreImage(score);
-  console.log(score);
-  console.log(justEndedGame);
+
   return (
     <div className={`w-[540px] ${game(justEndedGame)}`}>
       <div className='max-w-[402px] mx-auto'>
