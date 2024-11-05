@@ -1,7 +1,15 @@
 import React from 'react';
 import FindPasswordForm from '../_components/FindPasswordForm';
+import { fetchCurrentUser } from '@/util/auth/server-action';
+import { redirect } from 'next/navigation';
 
-const FindPasswordPage = () => {
+const FindPasswordPage = async () => {
+  const user = await fetchCurrentUser();
+
+  if (user) {
+    redirect('/');
+  }
+
   return (
     <div className='max-w-96 mx-auto my-10'>
       <h2 className='text-2xl font-bold text-center mb-6'>비밀번호 찾기</h2>
