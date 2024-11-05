@@ -94,7 +94,7 @@ const Question = ({ text, randomText }: Question) => {
             <Link
               className='mt-[16px] flex flex-col items-center'
               onClick={handleUpsertScore}
-              href={`/games/${data ? 'user' : 'guest'}?key=speaking&score=${finalPercent}`}
+              href={`/games/${data ? `user?key=speaking&score=${finalPercent}` : 'guest?key=speaking'}`}
             >
               <Image
                 src='/ico_speak_next_btn.svg'
