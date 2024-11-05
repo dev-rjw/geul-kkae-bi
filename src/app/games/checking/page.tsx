@@ -227,31 +227,27 @@ const CheckingQuizPage = () => {
         {chackingButton()}
       </div>
       <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
-        {!isTimeOver && !isAllQuestions && (
-          <div className='flex flex-col items-center'>
-            <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
-            <button
-              onClick={moveToNextQuiz}
-              className='px-4 py-2'
-            >
-              <Image
-                src='/icon_btn_checking.svg'
-                alt='nextbutton'
-                width={48}
-                height={48}
-                style={{ width: 'auto', height: 'auto' }}
-              />
-            </button>
-          </div>
-        )}
-        {(isTimeOver || isAllQuestions) && (
+        <div className='flex flex-col items-center'>
+          <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
           <button
-            onClick={moveToWritingResultPage}
-            className='text-2xl font-medium'
+            onClick={moveToNextQuiz}
+            className='px-4 py-2'
           >
-            결과 보기
+            <Image
+              src='/icon_btn_checking.svg'
+              alt='nextbutton'
+              width={48}
+              height={48}
+              style={{ width: 'auto', height: 'auto' }}
+            />
           </button>
-        )}
+        </div>
+        <button
+          onClick={moveToWritingResultPage}
+          className={`text-2xl font-medium ${isTimeOver || isAllQuestions ? 'visible' : 'invisible'}`}
+        >
+          결과 보기
+        </button>
       </div>
     </div>
   );
