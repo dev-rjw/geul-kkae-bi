@@ -7,6 +7,8 @@ import { createClient } from '@/util/supabase/client';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/queries/useAuth';
 import Swal from 'sweetalert2';
+import { Loader2 } from 'lucide-react';
+import DefaultButton from './DefaultButton';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();
@@ -35,7 +37,7 @@ const HeaderInfoChange = () => {
   };
 
   if (isLoading) {
-    return <div>로딩 중...</div>; // 로딩 상태 처리
+    return <Loader2 className='mr-2 h-4 w-4 animate-spin' />;
   }
 
   return (
@@ -47,8 +49,13 @@ const HeaderInfoChange = () => {
         </div>
       ) : (
         <div className='flex items-center gap-6 justify-end'>
-          <Link href='/signin'>로그인</Link>
-          <Link href='/signup'>회원가입</Link>
+          <DefaultButton
+            asChild
+            size='sm'
+            className='min-w-24'
+          >
+            <Link href='/signin'>로그인</Link>
+          </DefaultButton>
         </div>
       )}
     </>
