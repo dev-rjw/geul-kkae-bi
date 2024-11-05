@@ -1,8 +1,9 @@
 import { createClient } from '@/util/supabase/server';
 import React from 'react';
 // import Image from 'next/image';
-import { fetchUserId } from '@/util/rank/server-action';
+import { fetchUserId } from '@/util/auth/server-action';
 import { Rank, RankIncludingUserInfo } from '@/types/result';
+import Image from 'next/image';
 
 const RankingPage = async () => {
   const serverClient = createClient();
@@ -115,7 +116,12 @@ const RankingPage = async () => {
                   className='bg-slate-400 w-[896px] h-[100px] mx-auto rounded-2xl'
                 >
                   <div>{item.ranking}</div>
-                  <div>{item.user.image}</div>
+                  <Image
+                    width={78}
+                    height={78}
+                    src={item.user.image}
+                    alt='profile image for ranking'
+                  />
                   <div>{item.user.nickname}</div>
                   <div>{item.user.introduction}</div>
                   <div>{item.total}</div>
