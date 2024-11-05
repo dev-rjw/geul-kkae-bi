@@ -31,9 +31,9 @@ export default function RootLayout({
     <QueryProvider>
       <html lang='en'>
         <body
-          className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen`}
+          className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen bg-secondary-50`}
         >
-          <main className='grow'>{children}</main>
+          {children}
         </body>
       </html>
     </QueryProvider>

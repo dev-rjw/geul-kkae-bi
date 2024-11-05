@@ -1,17 +1,5 @@
 import { createClient } from '../supabase/server';
-
-// 임의의 닉네임을 생성
-function randomNickname() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const nicknameLength = Math.floor(Math.random() * (8 - 2 + 1)) + 2;
-  let nickname = '';
-
-  for (let i = 0; i < nicknameLength; i++) {
-    nickname += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-
-  return nickname;
-}
+import { randomNickname } from '@/app/(sign)/utils/randomNickname';
 
 // 소셜 회원에 닉네임 추가
 export const addNickname = async (userId: string) => {

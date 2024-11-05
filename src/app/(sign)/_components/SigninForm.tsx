@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signin } from '@/utils/auth/client-action';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +13,7 @@ import { signinSchema } from '@/schemas/signSchema';
 import { Checkbox } from '@/components/ui/checkbox';
 import PasswordInput from '@/components/PasswordInput';
 import Swal from 'sweetalert2';
+import DefaultButton from '@/components/DefaultButton';
 
 const SigninForm = () => {
   const router = useRouter();
@@ -121,7 +121,7 @@ const SigninForm = () => {
           )}
         />
 
-        <Button>로그인</Button>
+        <DefaultButton className='w-full'>로그인</DefaultButton>
       </form>
     </Form>
   );
