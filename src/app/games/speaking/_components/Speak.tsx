@@ -29,7 +29,6 @@ const Speak = () => {
           audioChunks.current = [event.data];
         };
         recorder.onstop = async () => {
-          setIsLoading(true);
           const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
           audioChunks.current = [];
           // 음성확인
@@ -65,6 +64,7 @@ const Speak = () => {
       console.log('MediaRecorder가 초기화되지 않았습니다');
       return;
     }
+    setIsLoading(true);
     audioChunks.current = [];
     mediaRecorderRef.current.start();
     setIsRecording(true);
@@ -80,13 +80,13 @@ const Speak = () => {
   };
 
   return (
-    <div>
-      <div className='flex flex-col items-center justify-center '>
+    <div className='h-screen bg-[#FCFBF9]'>
+      <div className='flex flex-col items-center'>
         <Question
           text={text}
           randomText={randomText}
         />
-        <div className='flex flex-col items-center my-[60px] text-center'>
+        <div className='flex flex-col items-center mt-20 text-center'>
           <button onClick={isRecording ? stopRecording : startRecording}>
             <Image
               src={icon}
@@ -95,8 +95,12 @@ const Speak = () => {
               alt='Audio'
               priority
             />
-            {isRecording ? '마이크 버튼을 눌러 종료하기' : '마이크 버튼을 눌러 시작하기'}
           </button>
+          {isRecording ? (
+            <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 종료하기</p>
+          ) : (
+            <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 시작하기</p>
+          )}
         </div>
       </div>
     </div>
