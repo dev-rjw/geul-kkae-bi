@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 interface QuizTimerProps {
@@ -13,10 +14,8 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
-    let timer: NodeJS.Timeout;
-
     // 퀴즈 타이머 시작
-    timer = setInterval(() => {
+    const timer: NodeJS.Timeout = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(timer);
@@ -36,10 +35,11 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
     <div>
       {isTutorial ? (
         <div className='fixed inset-0 flex items-center justify-center bg-white z-50'>
-          <img
+          <Image
             src='/tutorial_checking.svg'
             alt='튜토리얼'
-            className='w-full h-full object-cover'
+            layout='fill'
+            objectFit='cover'
           />
           <button
             className='absolute bottom-[32px] right-[62px] bg-[#A07BE5] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'

@@ -5,6 +5,7 @@ import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import './style.css';
+import Image from 'next/image';
 
 interface Qusetion {
   id: string;
@@ -235,10 +236,11 @@ const CheckingQuizPage = () => {
               onClick={handleCheckAnswer}
               className='px-4 py-2'
             >
-              <img
+              <Image
                 src='/icon_btn_checking.svg'
-                alt='btn'
-                className='w-12 h-12'
+                alt='nextbutton'
+                width={48}
+                height={48}
               />
             </button>
           </div>
