@@ -5,7 +5,7 @@ import { useAuth } from '@/queries/useAuth';
 import { fetchCurrentUserInfo } from '@/util/user/client-action';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import KKAEBI from '../../img/kkae_bi.png';
+import KKAEBI from '../../../public/kkae_bi.png';
 import { redirect } from 'next/navigation';
 import { fetchUserRank } from '@/util/rank/client-action';
 
