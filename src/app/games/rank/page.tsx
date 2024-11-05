@@ -113,7 +113,7 @@ const RankingPage = async () => {
               <h1 className='title-36'>이번주 전체 랭킹 순위</h1>
             </div>
             <div className='flex flex-col w-[1050px] h-[540px] overflow-y-scroll space-y-5 mt-8 '>
-              {countRanking?.slice(0, 3).map((item) => (
+              {countRanking?.slice(0, 3)?.map((item) => (
                 <div
                   key={item.id}
                   className='flex justify-between items-center bg-slate-400 w-[896px] h-[100px] mx-auto px-8 rounded-2xl'
@@ -134,7 +134,7 @@ const RankingPage = async () => {
                   <div className='title-36'>{item.total}점</div>
                 </div>
               ))}
-              {countRanking?.slice(3, 5).map((item) => (
+              {countRanking?.slice(3, 5)?.map((item) => (
                 <div
                   key={item.id}
                   className='flex bg-slate-400 w-[896px] h-[76px] mx-auto px-8 rounded-2xl'
@@ -151,7 +151,7 @@ const RankingPage = async () => {
                   <div className='title-36'>{item.total}점</div>
                 </div>
               ))}
-              {countRanking?.slice(5).map((item) => (
+              {countRanking?.slice(5)?.map((item) => (
                 <div
                   key={item.id}
                   className='flex bg-slate-400 w-[896px] h-[52px] mx-auto px-8 rounded-2xl'
