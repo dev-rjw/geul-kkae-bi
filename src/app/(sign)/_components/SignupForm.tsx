@@ -5,7 +5,6 @@ import { signup } from '@/utils/auth/client-action';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import EmailInput from './EmailInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -15,6 +14,7 @@ import PasswordInput from '@/components/PasswordInput';
 import Swal from 'sweetalert2';
 import PasswordValidationInput from '@/components/PasswordValidationInput';
 import DefaultButton from '@/components/DefaultButton';
+import EmailInput from '@/components/EmailInput';
 
 const SignupForm = () => {
   const router = useRouter();
