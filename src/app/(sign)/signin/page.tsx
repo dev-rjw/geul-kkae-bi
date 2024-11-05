@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
-import SigninForm from '../_components/SigninForm';
+import '../style.css';
 import Link from 'next/link';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import GoogleSignButton from '../_components/GoogleSignButton';
 import KakaoSignButtton from '../_components/KakaoSignButtton';
 import { fetchCurrentUser } from '@/util/auth/server-action';
-import { redirect } from 'next/navigation';
-import Image from 'next/image';
+import SigninForm from '../_components/SigninForm';
 
 export const metadata: Metadata = {
   title: '로그인',
@@ -35,19 +36,14 @@ const SigninPage = async () => {
             ></Image>
           </Link>
         </div>
+
         <SigninForm />
-        <div className='mt-5'>
-          <ul className='w-full flex gap-2 items-center justify-around'>
-            <li>
-              <Link href='/find-password'>비밀번호 찾기</Link>
-            </li>
-            <li>
-              <Link href='/signup'>회원가입</Link>
-            </li>
-          </ul>
-        </div>
-        <div className='mt-10'>
-          <ul className='w-full flex flex-col gap-2'>
+
+        <div className='mt-16'>
+          <div className='line-title mb-8'>
+            <span>간편로그인</span>
+          </div>
+          <ul className='w-full flex flex-col gap-3'>
             <li>
               <GoogleSignButton />
             </li>

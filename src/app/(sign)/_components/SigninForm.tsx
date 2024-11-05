@@ -3,17 +3,19 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signin } from '@/util/auth/client-action';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { translateErrorMessage } from '@/schemas/commonSchema';
 import { signinSchema } from '@/schemas/signSchema';
-import { Checkbox } from '@/components/ui/checkbox';
-import PasswordInput from '@/components/PasswordInput';
 import Swal from 'sweetalert2';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Checkbox } from '@/components/ui/checkbox';
 import DefaultButton from '@/components/DefaultButton';
+import DefaultInput from '@/components/DefaultInput';
+import PasswordInput from '@/components/PasswordInput';
+import { LockKeyhole, UserRound } from 'lucide-react';
+import Link from 'next/link';
 
 const SigninForm = () => {
   const router = useRouter();
@@ -30,7 +32,8 @@ const SigninForm = () => {
     resolver: zodResolver(signinSchema),
     defaultValues,
   });
-  const { getFieldState, setValue } = form;
+  // const { getFieldState, setValue } = form;
+  const { setValue } = form;
 
   const onSubmit = async (values: FieldValues) => {
     const { email, password, rememberedEmail } = values;
@@ -71,10 +74,14 @@ const SigninForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  placeholder='이메일'
-                  {...field}
-                />
+                <div className='relative'>
+                  <UserRound className='absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-300' />
+                  <DefaultInput
+                    placeholder='아이디를 입력해주세요'
+                    {...field}
+                    className='pl-[3.375rem]'
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,16 +94,22 @@ const SigninForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <PasswordInput
-                  placeholder='비밀번호'
-                  field={field}
-                />
+                <div className='relative'>
+                  <LockKeyhole className='absolute z-10 left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-300' />
+                  <PasswordInput
+                    placeholder='비밀번호를 입력해주세요'
+                    field={field}
+                    inputClassName='px-[3.375rem]'
+                    buttonClassName='!pr-5'
+                  />
+                </div>
               </FormControl>
-              {!getFieldState('password').invalid && field.value ? (
+              <FormMessage />
+              {/* {!getFieldState('password').invalid && field.value ? (
                 <FormMessage className='text-primary-400'>올바른 비밀번호입니다.</FormMessage>
               ) : (
                 <FormMessage />
-              )}
+              )} */}
             </FormItem>
           )}
         />
@@ -105,18 +118,31 @@ const SigninForm = () => {
           control={form.control}
           name='rememberedEmail'
           render={({ field }) => (
-            <div className='flex items-center space-x-2'>
-              <Checkbox
-                id='rememberedEmail'
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-              <label
-                htmlFor='rememberedEmail'
-                className='text-sm font-medium leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-              >
-                아이디 기억하기
-              </label>
+            <div>
+              <div className='flex items-center space-x-2'>
+                <Checkbox
+                  id='rememberedEmail'
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <label
+                  htmlFor='rememberedEmail'
+                  className='text-sm font-medium leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                >
+                  아이디 기억하기
+                </label>
+              </div>
+
+              <div className='mt-5'>
+                <ul className='w-full flex gap-2 items-center justify-around'>
+                  <li>
+                    <Link href='/find-password'>비밀번호 찾기</Link>
+                  </li>
+                  <li>
+                    <Link href='/signup'>회원가입</Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         />
