@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import ConsonantCard from './_components/ConsonantCard';
 import './style.css';
+import Image from 'next/image';
 
 interface Qusetion {
   id: string;
@@ -194,10 +195,11 @@ const WritingQuizPage = () => {
               onClick={moveToNextQuiz}
               className='px-4 py-2'
             >
-              <img
+              <Image
                 src='/icon_btn_writing.svg'
                 alt='nextbutton'
-                className='w-12 h-12'
+                width={48}
+                height={48}
               />
             </button>
           </div>
