@@ -79,7 +79,7 @@ const CheckingQuizPage = () => {
   const chackingButton = () => {
     const correct = questions[currentQuizIndex].correct;
     return (
-      <div className='grid grid-cols-2 gap-x-8 gap-y-[1.8125rem]'>
+      <div className='flex flex-wrap gap-x-8 gap-y-[1.8125rem] justify-center max-w-[39.5rem] mx-auto'>
         {correct.map((option: string, index: number) => (
           <button
             key={index}
@@ -241,6 +241,7 @@ const CheckingQuizPage = () => {
                 alt='nextbutton'
                 width={48}
                 height={48}
+                style={{ width: 'auto', height: 'auto' }}
               />
             </button>
           </div>
