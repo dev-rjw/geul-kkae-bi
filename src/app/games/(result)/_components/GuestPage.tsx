@@ -70,14 +70,10 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
     return game.type !== justEndedGame;
   });
 
-  const playMessage = `꼬옥 로그인 후 게임을 모두 플레이 해야해 깨비!`;
-
   return (
     <div>
-      <div className='w-[590] flex justify-between'>
-        <div>{matchedGame?.name}</div>
-        <Link href={'/'}>홈으로</Link>
-      </div>
+      <div>{matchedGame?.name}</div>
+
       <div className='flex flex-row'>
         <ResultSide
           GameScore={GameScore}
@@ -118,7 +114,9 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
       </div>
       <div>
         <div>종합 랭킹을 확인하려면</div>
-        <div>{playMessage}</div>
+        <div>
+          꼬옥 <span className='text-orange-200'>로그인</span> 후 게임을 모두 플레이 해야해 깨비!
+        </div>
       </div>
     </div>
   );

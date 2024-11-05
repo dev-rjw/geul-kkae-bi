@@ -100,12 +100,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   // isdone이 false일때 1문제는 풀었는지 2문제 다 못풀었는지 배열안에 요소개수로 확인
   const remainingGamesCount = unMatchedGames?.filter((game) => !game.score).length;
 
-  const playMessage = isDone
-    ? `종합 랭킹을 확인하러 가 볼 깨비!`
-    : remainingGamesCount === 1
-    ? `나머지 게임 1개를 모두 플레이 해야해 깨비!`
-    : `나머지 게임 2개를 모두 플레이 해야해 깨비!`;
-
   //3문제가 모두 완료되었을때 모든 점수를 합산하여 supabase total에 넣어줌
   if (isDone) {
     const totalScore = userTable?.reduce(
@@ -129,19 +123,8 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 
   return (
     <div>
-      <div className='w-[590] flex justify-between'>
-        <div>{matchedGame?.name}</div>
-        <div>
-          {isDone ? (
-            <div>
-              <Link href={'/games/rank'}>랭킹보러가기</Link>
-              <Link href={'/'}>홈으로</Link>
-            </div>
-          ) : (
-            <Link href={'/'}>홈으로</Link>
-          )}
-        </div>
-      </div>
+      <div>{matchedGame?.name}</div>
+
       <div className='flex flex-row'>
         <ResultSide
           GameScore={GameScore}
@@ -171,14 +154,20 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
         {isDone ? (
           <>
             <div>게임을 모두 완료했으니</div>
-            <div>{playMessage}</div>
+            <div>
+              <div>
+                종합 <span className='text-orange-200'>랭킹</span>을 확인하러 가 볼 깨비!
+              </div>
+            </div>
             <Button>랭킹 보러가기</Button>
           </>
         ) : (
           <>
-            <div></div>
             <div>종합 랭킹을 확인하려면</div>
-            <div>{playMessage}</div>
+            <div>
+              나머지 게임 <span className='text-orange-200'>{remainingGamesCount === 1 ? '1개' : '2개'}</span>를 모두
+              플레이 해야해 깨비!
+            </div>
           </>
         )}
       </div>
