@@ -200,6 +200,7 @@ const WritingQuizPage = () => {
                 alt='nextbutton'
                 width={48}
                 height={48}
+                style={{ width: 'auto', height: 'auto' }}
               />
             </button>
           </div>
