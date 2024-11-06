@@ -1,13 +1,13 @@
 'use client';
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { findPasswordSchema } from '@/schemas/findSchema';
-import { Button } from '@/components/ui/button';
 import { findPassword } from '@/utils/auth/client-action';
+import DefaultButton from '@/components/DefaultButton';
+import EmailInput from '@/components/EmailInput';
 
 const FindPasswordForm = () => {
   // 유효성 검사
@@ -30,25 +30,30 @@ const FindPasswordForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-4'
+        className='flex flex-col'
       >
-        <FormField
-          control={form.control}
-          name='email'
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder='이메일'
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className='w-full max-w-[46rem] mx-auto'>
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <EmailInput
+                    field={field}
+                    domainOptions={['gmail.com', 'naver.com', '직접 입력']}
+                  />
+                </FormControl>
+                <FormMessage className='text-sm font-bold' />
+              </FormItem>
+            )}
+          />
+        </div>
 
-        <Button>비밀번호 찾기</Button>
+        <hr className='border-t-1 border-gray-200 my-[3.125rem]' />
+        <div className='flex justify-center mt-[3.125rem]'>
+          <DefaultButton className='w-full max-w-[15rem]'>비밀번호 찾기</DefaultButton>
+        </div>
       </form>
     </Form>
   );

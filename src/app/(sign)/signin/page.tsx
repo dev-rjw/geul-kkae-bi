@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const SigninPage = async () => {
   const user = await fetchCurrentUser();
 
-  if (user) {
+  if (user?.id) {
     redirect('/');
   }
 
