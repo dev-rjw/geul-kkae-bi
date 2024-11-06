@@ -31,15 +31,12 @@ type addScoresProps = {
   writing: number | null;
   total: number | null;
   week: number | null;
-  ranking: number | undefined;
 };
 
 // 회원가입 시 rank테이블에 정보 저장
-export const addScoresRank = async ({ userId, checking, speaking, writing, total, week, ranking }: addScoresProps) => {
+export const addScoresRank = async ({ userId, checking, speaking, writing, total, week }: addScoresProps) => {
   const supabase = createClient();
-  const { error } = await supabase
-    .from('rank')
-    .insert([{ user_id: userId, checking, speaking, writing, total, week, ranking }]);
+  const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
 
   if (error) {
     Swal.fire('정보 저장에 실패했습니다.');
