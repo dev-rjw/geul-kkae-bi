@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import browserClient from '@/util/supabase/client';
+import browserClient from '@/utils/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchSpeekUser = async (userId: string | undefined | null, weekNumber: number) => {

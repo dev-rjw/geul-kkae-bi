@@ -1,5 +1,5 @@
 'use client';
-import browserClient from '@/util/supabase/client';
+import browserClient from '@/utils/supabase/client';
 import React, { useEffect, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
@@ -69,6 +69,7 @@ const WritingQuizPage = () => {
       handleCheckAnswer();
       setUserInput('');
     } else {
+      console.log('최종 점수는?', score);
       saveScore();
       setIsAllQuestions(true);
     }
@@ -88,6 +89,7 @@ const WritingQuizPage = () => {
       setScore((prevScore) => prevScore + 10);
     }
   };
+
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async () => {
     const startSeason = new Date(2024, 9, 27);
@@ -101,12 +103,13 @@ const WritingQuizPage = () => {
         .select('id, writing')
         .eq('user_id', userId)
         .eq('week', weekNumber);
+      console.log('뭐라고 나옴?', currentScore);
       if (fetchError) {
         console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
         return;
       }
-      if (currentScore && currentScore.length > 0) {
-        if (score > currentScore[0].writing) {
+      if (currentScore.length > 0) {
+        if (score > currentScore[0].writing || currentScore[0].writing === null) {
           // 기존 점수가 현재 점수보다 낮을 경우 업데이트
           const { error: updateError } = await browserClient
             .from('rank')
@@ -219,3 +222,4 @@ const WritingQuizPage = () => {
 };
 
 export default WritingQuizPage;
+//04cad
