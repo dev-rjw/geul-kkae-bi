@@ -44,6 +44,66 @@
   - 실행 : pnpm dev
 - tanstack query 설치 : pnpm add @tanstack/react-query @tanstack/react-query-devtools
 
+## 🗂️ 기능 설명
+
+#### 메인 페이지
+- 메인 페이지
+  기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/13e8d7c6-73e2-4a31-a84b-7794d94160ae">
+
+#### 회원가입 페이지
+- 회원가입 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/b0985a6e-ca7a-485c-aa3a-59e06ff17f97">
+
+#### 로그인 페이지
+- 로그인 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/c858f6d4-8daa-4c1b-b89e-d45d0f39e790">
+
+#### 마이페이지 페이지
+- 마이 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/a25b5385-d792-4e50-b303-c7fbaaca6af8">
+<img width="500" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/c04d33a1-1a29-47c9-a7cb-f4cc1edde732">
+<img width="500" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/421186f6-9f70-427c-88fd-f85700ebfd01">
+
+#### 게임 페이지(speaking)
+- 말하기 게임 페이지
+ 기술 : getuserMedia를 통해 유저의 마이크 접근 권한을 체크하여 변수에 담아 접근 권한 여부를 MediaRecorder 인수로 전달해주고 recorder라는 인스턴스 객체를 만들고 오디오 값을 저장해준다
+이후 new Blob을 통해 저장된 오디오 값을 저장하여 wit ai와 데이터 통신을 통해 텍스트로 변환받아 문제의 텍스트와 비교하여 정확도를 비교해주었다
+<img width="550" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/44dc84b2-0c24-4ab6-b44f-64a6b6d4dd06">
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/eb2f1686-2c84-4c06-bd3c-7c14df23e7dd">
+
+#### 게임 페이지(writing)
+- 빈칸 한 입 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/20f51193-6cda-4217-889a-8cfc9bf8b2ab">
+
+#### 게임 페이지(checking)
+- 틀린 말 게임 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/c14cdf39-f1fe-453d-adfc-f2706ebe369e">
+
+#### 게임결과 페이지
+- 게임 결과 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/0289d443-7f27-4125-bd1c-69bc3ad0cbd7">
+
+#### 랭크 페이지
+- 랭크 페이지
+ 기술 : 
+
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/88e299ea-c646-49dc-9247-41a90344f000">
+
 ---
 
 ## 💥 Trouble Shooting
