@@ -10,10 +10,10 @@ type time = {
 };
 
 export const timeStore = create<time>((set) => ({
-  time: 4,
+  time: 120,
   isDelay: false,
   // 상태 업데이트 함수
   setTimer: () => set((state) => ({ time: state.time - 1 })),
-  resetTimer: () => set(() => ({ time: 4 })),
+  resetTimer: () => set(() => ({ time: 120 })),
   setIsDelay: (value) => set(() => ({ isDelay: value })),
 }));
