@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { createClient } from '../supabase/client';
 
 // 랭킹 가져오기
@@ -21,4 +22,24 @@ export const fetchRank3 = async () => {
     .limit(3);
 
   return data;
+};
+
+type addScoresProps = {
+  userId: string | null;
+  checking: number | null;
+  speaking: number | null;
+  writing: number | null;
+  total: number | null;
+  week: number | null;
+};
+
+// 회원가입 시 rank테이블에 정보 저장
+export const addScoresRank = async ({ userId, checking, speaking, writing, total, week }: addScoresProps) => {
+  const supabase = createClient();
+  const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
+
+  if (error) {
+    Swal.fire('정보 저장에 실패했습니다.');
+    return;
+  }
 };

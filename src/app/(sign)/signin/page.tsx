@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 const SigninPage = async () => {
   const user = await fetchCurrentUser();
 
-  if (user) {
+  // 로그인했으면 메인으로
+  if (user?.id) {
     redirect('/');
   }
 

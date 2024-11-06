@@ -57,7 +57,7 @@ const MainRank = () => {
           {ranks.map((rank, index) => {
             return (
               <div
-                key={rank.id}
+                key={index}
                 className='flex items-center py-[0.625rem] pr-[1.25rem]'
               >
                 <div
