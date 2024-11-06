@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { fetchRank3 } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
+import { useRouter } from 'next/navigation';
 
 export type Rank = {
   user_id: string;
@@ -23,13 +24,17 @@ export type Rank = {
 const MainRank = () => {
   const { data } = useAuth();
   const [ranks, setRanks] = useState<Rank[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     fetchRank3().then((elemant) => setRanks(elemant!));
   }, []);
 
   return (
-    <Card className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden'>
+    <Card
+      onClick={() => router.push('/games/rank')}
+      className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden cursor-pointer'
+    >
       {!data?.id && (
         <div
           className='absolute top-0 left-0 z-10 w-full h-full flex items-center justify-center'
