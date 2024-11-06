@@ -80,7 +80,7 @@ const WritingQuizPage = () => {
     if (userId) {
       router.push(`/games/user?key=writing&score=${score}`);
     } else {
-      router.push('/games/guest?key=writing');
+      router.push(`/games/guest?key=writing&score=${score}`);
     }
   };
 
