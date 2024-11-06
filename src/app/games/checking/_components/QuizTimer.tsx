@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface QuizTimerProps {
   onTimeOver: () => void;
@@ -11,6 +11,13 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIsTutorial] = useState(true);
 
+  const onTimeOverRef = useRef(onTimeOver);
+
+  useEffect(() => {
+    // onTimeOver가 변경될 때마다 ref 업데이트
+    onTimeOverRef.current = onTimeOver;
+  }, [onTimeOver]);
+
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
@@ -19,13 +26,13 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(timer);
-          onTimeOver();
+          setTimeout(() => onTimeOverRef.current(), 0);
         }
         return prevTime - 1;
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [onTimeOver, isAllQuestions, isTutorial]);
+  }, [isAllQuestions, isTutorial]);
 
   const handleStartGame = () => {
     setIsTutorial(false);
