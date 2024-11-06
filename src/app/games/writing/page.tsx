@@ -69,7 +69,6 @@ const WritingQuizPage = () => {
       handleCheckAnswer();
       setUserInput('');
     } else {
-      console.log('최종 점수는?', score);
       saveScore();
       setIsAllQuestions(true);
     }
@@ -103,7 +102,6 @@ const WritingQuizPage = () => {
         .select('id, writing')
         .eq('user_id', userId)
         .eq('week', weekNumber);
-      console.log('뭐라고 나옴?', currentScore);
       if (fetchError) {
         console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
         return;
@@ -116,7 +114,8 @@ const WritingQuizPage = () => {
             .update({
               writing: score,
             })
-            .eq('id', currentScore[0].id);
+            .eq('id', currentScore[0].id)
+            .eq('user_id', userId);
 
           if (updateError) {
             console.error('점수를 업데이트하지 못했습니다.', updateError);
@@ -218,4 +217,3 @@ const WritingQuizPage = () => {
 };
 
 export default WritingQuizPage;
-//04cad
