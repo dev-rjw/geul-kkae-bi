@@ -193,7 +193,7 @@ const WritingQuizPage = () => {
         </form>
       </div>
 
-      <div className=' absolute top-[387px] right-[1.25rem] flex flex-col items-center'>
+      <div className=' absolute top-[387px] right-[1.25rem] flex flex-col items-center font-yangjin'>
         {!(isTimeOver || isAllQuestions) ? (
           <div className='flex flex-col items-center'>
             <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
