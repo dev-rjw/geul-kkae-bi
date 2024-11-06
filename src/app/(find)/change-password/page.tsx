@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import ChangePasswordForm from '../_components/ChangePasswordForm';
-import { fetchCurrentUser } from '@/util/auth/server-action';
+import { fetchCurrentUser } from '@/utils/auth/server-action';
 import { redirect } from 'next/navigation';
 
 const FindPasswordPage = async () => {

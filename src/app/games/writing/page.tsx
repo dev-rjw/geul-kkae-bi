@@ -1,5 +1,5 @@
 'use client';
-import browserClient from '@/util/supabase/client';
+import browserClient from '@/utils/supabase/client';
 import React, { useEffect, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
@@ -88,6 +88,7 @@ const WritingQuizPage = () => {
       setScore((prevScore) => prevScore + 10);
     }
   };
+
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async () => {
     const startSeason = new Date(2024, 9, 27);
@@ -105,15 +106,16 @@ const WritingQuizPage = () => {
         console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
         return;
       }
-      if (currentScore && currentScore.length > 0) {
-        if (score > currentScore[0].writing) {
+      if (currentScore.length > 0) {
+        if (score > currentScore[0].writing || currentScore[0].writing === null) {
           // 기존 점수가 현재 점수보다 낮을 경우 업데이트
           const { error: updateError } = await browserClient
             .from('rank')
             .update({
               writing: score,
             })
-            .eq('id', currentScore[0].id);
+            .eq('id', currentScore[0].id)
+            .eq('user_id', userId);
 
           if (updateError) {
             console.error('점수를 업데이트하지 못했습니다.', updateError);
@@ -188,31 +190,27 @@ const WritingQuizPage = () => {
       </div>
 
       <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
-        {!isAllQuestions && !isTimeOver && (
-          <div className='flex flex-col items-center'>
-            <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
-            <button
-              onClick={moveToNextQuiz}
-              className='px-4 py-2'
-            >
-              <Image
-                src='/icon_btn_writing.svg'
-                alt='nextbutton'
-                width={48}
-                height={48}
-                style={{ width: 'auto', height: 'auto' }}
-              />
-            </button>
-          </div>
-        )}
-        {(isAllQuestions || isTimeOver) && (
+        <div className='flex flex-col items-center'>
+          <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
           <button
-            onClick={moveToWritingResultPage}
-            className='text-2xl font-medium'
+            onClick={moveToNextQuiz}
+            className='px-4 py-2'
           >
-            결과 보기
+            <Image
+              src='/icon_btn_writing.svg'
+              alt='nextbutton'
+              width={48}
+              height={48}
+              style={{ width: 'auto', height: 'auto' }}
+            />
           </button>
-        )}
+        </div>
+        <button
+          onClick={moveToWritingResultPage}
+          className={`text-2xl font-medium ${isTimeOver || isAllQuestions ? 'visible' : 'invisible'}`}
+        >
+          결과 보기
+        </button>
       </div>
     </div>
   );

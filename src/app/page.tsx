@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
+import { fetchRank3 } from '@/utils/rank/client-action';
 
 function GameCards() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -78,44 +79,26 @@ function GameCards() {
   );
 }
 
-type DummyType = {
-  rank: number;
-  name: string;
-  score: number;
-};
-
-const dummy = [
-  {
-    rank: 1,
-    name: '가을엔 붕어빵',
-    score: 90,
-  },
-  {
-    rank: 2,
-    name: '가을엔 붕어빵',
-    score: 70,
-  },
-  {
-    rank: 3,
-    name: '가을엔 붕어빵',
-    score: 60,
-  },
-];
-
-// API 호출
-const getRankList = async () => {
-  // let { data: rank, error } = await supabase
-  // .from('rank')
-  // .select('*')
-
-  return dummy;
+export type Rank = {
+  user_id: string;
+  id: string;
+  speaking: string | null;
+  checking: string | null;
+  writing: string | null;
+  total: string | null;
+  ranking: string | null;
+  week: string;
+  created_at: string;
+  user: {
+    nickname: string;
+  };
 };
 
 export default function Home() {
-  const [ranks, setRanks] = useState<DummyType[]>([]);
+  const [ranks, setRanks] = useState<Rank[]>([]);
 
   useEffect(() => {
-    getRankList().then((data) => setRanks(data));
+    fetchRank3().then((elemant) => setRanks(elemant!));
   }, []);
 
   return (
@@ -150,10 +133,10 @@ export default function Home() {
               <CardTitle>랭킹 TOP 3</CardTitle>
               <CardDescription>이번주의 랭킹을 확인하세요</CardDescription>
             </CardHeader>
-            {ranks.map((rank) => {
+            {ranks.map((rank, index) => {
               return (
-                <p key={rank.name}>
-                  {rank.rank}위 {rank.name}
+                <p key={rank.id}>
+                  {index + 1}위 {rank.user.nickname} {rank.total}점
                 </p>
               );
             })}

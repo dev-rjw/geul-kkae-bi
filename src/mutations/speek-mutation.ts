@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import browserClient from '@/util/supabase/client';
+import browserClient from '@/utils/supabase/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const insertSpeekScore = async (score: { score: number; userId: string; weekNumber: number }) => {

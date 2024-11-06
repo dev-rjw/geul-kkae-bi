@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { changePasswordSchema } from '@/schemas/findSchema';
 import { Button } from '@/components/ui/button';
-import { changePassword } from '@/util/auth/client-action';
+import { changePassword } from '@/utils/auth/client-action';
 import Link from 'next/link';
 import PasswordInput from '@/components/PasswordInput';
 import PasswordValidationInput from '@/components/PasswordValidationInput';

@@ -1,8 +1,8 @@
-import { createClient } from '@/util/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 import React from 'react';
 // import Image from 'next/image';
-import { fetchUserId } from '@/util/auth/server-action';
 import { Rank, RankIncludingUserInfo } from '@/types/result';
+import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
