@@ -15,6 +15,8 @@ const HeaderInfoChange = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
+  console.log(process.env.NEXT_PUBLIC_BASE_URL);
+
   // useAuth을 통해 로그인 상태 확인
   const { data: auth, isLoading } = useAuth();
 
