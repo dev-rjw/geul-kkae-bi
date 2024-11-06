@@ -64,49 +64,52 @@ const ProfileEdit = () => {
     <>
       <Header />
       <Tabs />
-      <h2 className='text-2xl font-bold text-center mb-6'>프로필 변경</h2>
-      <div className='flex flex-col items-center p-8 bg-gray-50 min-h-screen'>
+      <div className='flex flex-col p-8 bg-gray-50 min-h-screen'>
         {/* 프로필 이미지 업로드 */}
-        <div className='relative'>
+        <div className='relative flex'>
           {user?.image && (
             <Image
               src={user?.image}
-              width={240}
-              height={240}
+              width={176}
+              height={176}
               alt='Profile'
-              className='w-60 h-60 rounded-full object-cover'
+              className='w-44 h-44 ml-[100px] rounded-full object-cover'
             />
           )}
           <button
-            className='absolute top-0 right-0 w-11 h-11 bg-blue-500 p-2 rounded-full shadow-md'
+            className='top-0 right-0 w-8 h-8 bg-[#649CED] ml-[-40px] rounded-full shadow-md'
             onClick={() =>
               setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.jpg')
             }
           >
-            <span className='text-2xl font-bold text-white'>×</span>
+            <span className='text-2xl text-white'>×</span>
           </button>
+
+          <Input
+            id='picture'
+            type='file'
+            className='hidden'
+            onChange={(e) => uploadImgHandler(e)}
+          />
+          <label
+            htmlFor='picture'
+            className='h-[2.688rem] w-[115px] mt-4 ml-[50px] border-2 text-sm text-gray-600 py-1 px-3 rounded-xl cursor-pointer'
+          >
+            <div className='flex'>
+              사진 업로드 <Camera />
+            </div>
+          </label>
+          <p className='mt-[80px] ml-[-110px] text-gray-400 text-xs'>
+            사진은 240px X 240px 이상,
+            <br /> PNG or JPG 파일로 업로드해주세요
+          </p>
         </div>
 
-        <Input
-          id='picture'
-          type='file'
-          className='hidden'
-          onChange={(e) => uploadImgHandler(e)}
-        />
-        <label
-          htmlFor='picture'
-          className='flex mt-4 bg-gray-200 text-sm text-gray-600 py-1 px-3 rounded-md cursor-pointer'
-        >
-          사진 업로드 <Camera />
-        </label>
-        <p className='text-gray-400 text-xs mt-1'>
-          사진은 240px X 240px 이상,
-          <br /> PNG or JPG 파일로 업로드해주세요
-        </p>
+        <hr className='mt-10' />
 
         {/* 닉네임 입력 */}
-        <div className='mt-8 w-full max-w-md'>
-          <label className='text-gray-700'>닉네임</label>
+        <div className='flex mt-8 w-full max-w-md ml-[100px]'>
+          <label className='text-gray-700  mr-[115px] mt-3'>닉네임</label>
           <div className='flex items-center mt-1'>
             <input
               type='text'
@@ -118,8 +121,8 @@ const ProfileEdit = () => {
         </div>
 
         {/* 한줄소개 입력 */}
-        <div className='mt-4 w-full max-w-md'>
-          <label className='text-gray-700'>한줄소개</label>
+        <div className='flex mt-4 w-full max-w-md ml-[100px]'>
+          <label className='text-gray-700 mr-[100px] mt-3'>한줄소개</label>
           <div className='flex items-center mt-1'>
             <input
               type='text'
@@ -132,10 +135,10 @@ const ProfileEdit = () => {
 
         {/* 제출 버튼 */}
         <button
-          className='mt-8 bg-blue-500 text-white py-2 px-4 rounded-md'
+          className='mt-8 bg-blue-500 text-white py-2 px-4 rounded-md w-[20%] self-center'
           onClick={() => updatehandler(user!)}
         >
-          버튼
+          저장하기
         </button>
       </div>
       <Footer />
