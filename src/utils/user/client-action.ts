@@ -32,3 +32,41 @@ export const fetchCurrentUserInfo = async (email: string) => {
 
   return data as User;
 };
+
+// 프로필 사진 storage에 저장
+export const saveProfile = async (image: File) => {
+  const supabase = createClient();
+  const time = new Date().getTime();
+  await supabase.storage.from('profile').upload(time + '.jpg', image!);
+
+  return time;
+};
+
+// 프로필 사진 storage에서 가져오기
+export const fetchProfile = async (name: string) => {
+  const supabase = createClient();
+  const { data } = supabase.storage.from('profile').getPublicUrl(name + '.jpg');
+
+  return data;
+};
+
+// 프로필 수정
+export const updateUserInfo = async (
+  userId: string,
+  image: string | null,
+  nickname: string,
+  introduction: string | null,
+) => {
+  const supabase = createClient();
+  const { data } = await supabase
+    .from('user')
+    .update({
+      image: image,
+      nickname: nickname,
+      introduction: introduction,
+    })
+    .eq('user_id', userId)
+    .select();
+
+  return data;
+};
