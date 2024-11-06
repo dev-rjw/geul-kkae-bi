@@ -58,6 +58,8 @@ const CheckingQuizPage = () => {
 
   // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = () => {
+    if (isTimeOver) return;
+
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
       handleCheckAnswer();

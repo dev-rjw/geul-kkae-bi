@@ -114,8 +114,7 @@ const WritingQuizPage = () => {
             .update({
               writing: score,
             })
-            .eq('id', currentScore[0].id)
-            .eq('user_id', userId);
+            .eq('id', currentScore[0].id);
 
           if (updateError) {
             console.error('점수를 업데이트하지 못했습니다.', updateError);
