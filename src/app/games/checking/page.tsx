@@ -189,10 +189,11 @@ const CheckingQuizPage = () => {
         }
 
         // phrase에 밑줄과 번호 추가
+        const isSelected = selectedOption === phrase;
         parts.push(
           <span
             key={phraseIndex}
-            className=' underline decoration-[#357EE7] relative'
+            className={`underline ${isSelected ? 'decoration-red-600' : 'decoration-[#357EE7]'} relative`}
           >
             {phrase}
             <span className='absolute -bottom-7 left-1/2 transform -translate-x-1/2 flex w-[1.625rem] h-[1.625rem] bg-[#357EE7] text-[1.3125rem] text-white items-center justify-center rounded-full'>
