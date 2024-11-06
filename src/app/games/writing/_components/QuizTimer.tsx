@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface QuizTimerProps {
   onTimeOver: () => void;
@@ -11,6 +11,12 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIstutorial] = useState(true);
 
+  const onTimeOverRef = useRef(onTimeOver);
+
+  useEffect(() => {
+    onTimeOverRef.current = onTimeOver;
+  }, [onTimeOver]);
+
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
@@ -19,7 +25,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(timer);
-          onTimeOver();
+          setTimeout(() => onTimeOverRef.current(), 0);
         }
         return prevTime - 1;
       });
@@ -49,7 +55,9 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
             시작하기
           </button>
         </div>
-      ) : null}
+      ) : (
+        <></>
+      )}
       <div className='w-full bg-[#BAF1E5] h-[28px]'>
         <div
           className=' bg-[#2AD4AF] h-[28px] transition-all ease-linear rounded-r-lg'
