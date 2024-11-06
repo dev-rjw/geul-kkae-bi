@@ -82,7 +82,7 @@ const CheckingQuizPage = () => {
   const chackingButton = () => {
     const correct = questions[currentQuizIndex].correct;
     return (
-      <div className='flex flex-wrap gap-x-8 gap-y-[1.8125rem] justify-center max-w-[39.5rem] mx-auto'>
+      <div className='flex flex-wrap gap-x-8 gap-y-[1.8125rem] justify-center max-w-[39.5rem] mx-auto font-yangjin'>
         {correct.map((option: string, index: number) => (
           <button
             key={index}
@@ -91,7 +91,7 @@ const CheckingQuizPage = () => {
               selectedOption === option ? 'bg-[#A07BE5] text-white' : 'bg-white'
             }`}
           >
-            {option}
+            <span className='relative top-1 inline-block'>{option}</span>
           </button>
         ))}
       </div>
@@ -193,11 +193,13 @@ const CheckingQuizPage = () => {
         parts.push(
           <span
             key={phraseIndex}
-            className={`underline ${isSelected ? 'decoration-[#A07BE5]' : 'decoration-[#357EE7]'} relative`}
+            className={`underline underline-offset-8 ${
+              isSelected ? 'decoration-[#A07BE5]' : 'decoration-[#357EE7] '
+            } relative`}
           >
             {phrase}
             <span
-              className={`absolute -bottom-7 left-1/2 transform -translate-x-1/2 flex w-[1.625rem] h-[1.625rem] ${
+              className={`font-pretendard absolute -bottom-7 left-1/2 transform -translate-x-1/2 flex w-[1.625rem] h-[1.625rem] ${
                 isSelected ? 'bg-[#A07BE5]' : 'bg-[#357EE7]'
               } text-[1.3125rem] text-white items-center justify-center rounded-full`}
             >
@@ -232,11 +234,11 @@ const CheckingQuizPage = () => {
         <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#A07BE5] text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번 문제`}</p>
-        <p className=' mt-[3.25rem] mb-20 text-2xl font-medium'>문장에서 틀린 부분을 고르세요</p>
-        <div className=' text-4xl font-medium pb-[10.1875rem]'>{questionUnderLine()}</div>
+        <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>
+        <div className=' text-4xl font-medium pb-[10.1875rem] font-yangjin'>{questionUnderLine()}</div>
         {chackingButton()}
       </div>
-      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
+      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center font-yangjin'>
         {!(isTimeOver || isAllQuestions) ? (
           <div className='flex flex-col items-center'>
             <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
