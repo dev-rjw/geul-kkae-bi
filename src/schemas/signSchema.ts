@@ -36,7 +36,7 @@ export const signupSchema = z
         { message: '중복된 닉네임입니다.' },
       ),
     agreeToTerms: z.boolean().refine((value) => value === true, {
-      message: '이용약관에 동의해야 합니다.',
+      message: '이용약관을 동의해주세요.',
     }),
   })
   .superRefine((value, ctx) => {

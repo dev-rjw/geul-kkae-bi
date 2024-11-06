@@ -3,16 +3,17 @@ import ChangePasswordForm from '../_components/ChangePasswordForm';
 import { fetchCurrentUser } from '@/utils/auth/server-action';
 import { redirect } from 'next/navigation';
 
-const FindPasswordPage = async () => {
+const ChangePasswordPage = async () => {
   const user = await fetchCurrentUser();
 
-  if (!user) {
+  if (user?.id) {
     redirect('/');
   }
 
   return (
-    <div className='max-w-96 mx-auto my-10'>
-      <h2 className='text-2xl font-bold text-center mb-6'>비밀번호 변경</h2>
+    <div className='container py-[3.125rem]'>
+      <h2 className='body-32 text-gray-700 mb-[0.625rem]'>비밀번호 찾기</h2>
+      <hr className='border-t-2 border-gray-500 mb-10' />
       <Suspense>
         <ChangePasswordForm />
       </Suspense>
@@ -20,4 +21,4 @@ const FindPasswordPage = async () => {
   );
 };
 
-export default FindPasswordPage;
+export default ChangePasswordPage;
