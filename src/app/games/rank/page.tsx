@@ -101,7 +101,7 @@ const RankingPage = async () => {
       .eq('week', lastWeek);
 
     return (
-      <div className='h-screen'>
+      <div>
         <div className='flex flex-col justify-center items-center'>
           <div className='flex flex-col items-center w-[1080px] h-[805px] mt-8 bg-[#EDF3FD] rounded-[50px] relative '>
             <div className='flex justify-between items-center h-[51px] mt-8 px-[8.5px] gap-x-2'>
@@ -111,6 +111,7 @@ const RankingPage = async () => {
                   width={45}
                   height={45}
                   alt='랭킹순위 옆 아이콘'
+                  style={{ objectFit: 'contain', height: '100%' }}
                 />
               </div>
               <h1 className='title-36 text-[#357EE7]'>이번주 전체 랭킹 순위</h1>
@@ -121,19 +122,22 @@ const RankingPage = async () => {
                   key={item.id}
                   className='flex items-center bg-[#98A7F1] top_rank w-[896px] py-2 mx-auto rounded-[1rem]'
                 >
-                  <div className='flex justify-center title-24 w-24 '>{item.ranking}등</div>
-                  <div className='w-[78px] h-[78px]'>
+                  <div className='flex justify-center title-24 w-24 text-[#0e3976]'>
+                    <span>{item.ranking}등</span>
+                  </div>
+                  <div className='w-[78px] h-[78px] rounded-[4px] overflow-hidden'>
                     <Image
                       width={78}
                       height={78}
                       src={item.user.image}
                       alt='profile image for ranking'
+                      style={{ objectFit: 'cover', height: '100%' }}
                     />
                   </div>
                   <strong className='title-24 font-normal w-[11.25rem] pl-4 text-[#0e3976]'>
                     {item.user.nickname}
                   </strong>
-                  <p className='title-24 w-[22.75rem] pl-4 text-[#fff]'>{item.user.introduction}</p>
+                  <p className='title-24 w-[22.75rem] pl-4 text-[#d6dcf9]'>{item.user.introduction}</p>
                   <span className='title-36 ml-auto pr-8 text-[#0e3976]'>{item.total}점</span>
                 </div>
               ))}
@@ -143,12 +147,13 @@ const RankingPage = async () => {
                   className='flex items-center bg-[#C5CDF7] w-[896px] mx-auto py-[0.438rem] rounded-[1rem]'
                 >
                   <div className='flex justify-center title-20 w-24 text-[#0e3976]'>{item.ranking}등</div>
-                  <div className='w-[62px] h-[62px]'>
+                  <div className='w-[62px] h-[62px] rounded-[4px] overflow-hidden'>
                     <Image
                       width={62}
                       height={62}
                       src={item.user.image}
                       alt='profile image for ranking'
+                      style={{ objectFit: 'cover', height: '100%' }}
                     />
                   </div>
                   <strong className='title-20 w-[8.563rem] pl-4 text-[#0e3976] '>{item.user.nickname}</strong>
@@ -162,12 +167,13 @@ const RankingPage = async () => {
                   className='flex items-center bg-[#C5CDF7] w-[896px] mx-auto py-[0.375rem] rounded-[1rem]'
                 >
                   <div className=' flex justify-center title-20 w-24 text-[#0e3976]'>{item.ranking}등</div>
-                  <div className='w-[40px] h-[40px]'>
+                  <div className='w-[40px] h-[40px] rounded-[4px] overflow-hidden'>
                     <Image
                       width={40}
                       height={40}
                       src={item.user.image}
                       alt='profile image for ranking'
+                      style={{ objectFit: 'cover', height: '100%' }}
                     />
                   </div>
                   <div className='title-20 w-[8.563rem] pl-4 text-[#0e3976]'>{item.user.nickname}</div>
@@ -177,8 +183,7 @@ const RankingPage = async () => {
               ))}
             </div>
             <div className='flex items-center w-[1080px] h-[151px] bg-[#BFD6F7] rounded-[20px] absolute bottom-0'>
-              {/* <div className='w-[110px] h-[113px] rounded-[22.37px] ml-[1.439rem] bg-slate-300'>사진</div> */}
-              <div className='w-[110px] h-[113px] rounded-[22.37px] ml-[1.439rem]'>
+              <div className='w-[110px] h-[113px] rounded-[20px] overflow-hidden ml-[1.439rem]'>
                 <Image
                   width={110}
                   height={113}

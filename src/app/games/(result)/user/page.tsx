@@ -6,6 +6,7 @@ import React from 'react';
 import ResultSide from '../_components/ResultSide';
 import '../style.css';
 import { redirect } from 'next/navigation';
+import Image from 'next/image';
 
 //http://localhost:3000/games/user?key=checking&score=100 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
@@ -57,7 +58,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
         color: 'bg-[#FEEFD7]',
         name: '나야, 발음왕',
       },
-      { type: 'writing', score: writing, color: 'bg-[#D4f7ef]', name: '빈칸 한입' },
+      { type: 'writing', score: writing, color: 'bg-[#D4F7EF]', name: '빈칸 한입' },
     ];
   };
 
@@ -122,44 +123,72 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
     updateTotalScore();
   }
 
+  interface matchedGameArray {
+    type: string;
+    score: number | null;
+    color: string;
+    name: string;
+  }
+
+  const game = (matchedGame: matchedGameArray) => {
+    switch (true) {
+      case matchedGame.type === 'speaking':
+        return 'bg-[#Fbd498]';
+      case matchedGame.type === 'checking':
+        return 'bg-[#BFA5ED]';
+      case matchedGame.type === 'writing':
+        return 'bg-[#7FE6CF]';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div>
-      <div className='pt-7 pb-[1.875rem] '>
+      <div className='flex justify-center pt-7 pb-[1.875rem] '>
         <div className='title-32 inline  relative'>
           {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
         </div>
       </div>
 
-      <div className='flex flex-row  h-[36.5rem]'>
+      <div className='flex flex-row justify-center h-[36.5rem]'>
         <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.color} `}>
           <ResultSide
             GameScore={GameScore}
             justEndedGame={justEndedGame}
           />
-          <div>
-            <span className='title-20'>{nickName}</span>
-            <span className='body-16'>님의</span>
-            <div className='title-32'>국어 문해력은?</div>
-            <div className='title-72'>{GameScore}점</div>
+          <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
+            <div className={`${matchedGame?.type} `}>
+              <span className='title-20 text-[#1965D2]'>{nickName}</span>
+              <span className='query body-16 '>님의</span>
+              <div className='query title-32'>국어 문해력은?</div>
+            </div>
+            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline  relative`}>
+              <span className='score relative z-20'>{GameScore}점</span>
+              <div className={`h-[2.688rem] ${matchedGame ? game(matchedGame) : ''} absolute w-full -bottom-5 z-10`} />
+            </div>
           </div>
         </div>
-        <div className='flex flex-col w-[17.438rem] h-[17.938rem]'>
+        <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
           {unMatchedGames?.map((game) => {
             return (
               <Link
                 key={game.type}
                 href={`/games/${game.type}`}
               >
-                <div className={`${game.color} `}>
+                <div className={`${game.color} h-[17.938rem] rounded-[1.25rem] ${game.type} `}>
                   {game.score === null ? (
-                    <div>
-                      <div>{game.name}</div>
-                      <div>하러가기</div>
+                    <div className='pt-[21.79px] pl-[23.89px]'>
+                      <div className='title-32'>{game.name}</div>
+                      <div className='title-24'>하러가기</div>
                     </div>
                   ) : (
-                    <div>
-                      <div>{game.name}</div>
-                      <div>현재 스코어: {game.score}점</div>
+                    <div className='pt-[21.79px] pl-[23.89px] '>
+                      <div className='title-32'>{game.name}</div>
+                      <div className='flex title-24 gap-1'>
+                        <p>현재 스코어:</p>
+                        <div>{game.score}점</div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -168,27 +197,51 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           })}
         </div>
       </div>
-      <div>
+      <div className='flex justify-center items-center  h-[138px]'>
         {isDone ? (
-          <>
-            <div>게임을 모두 완료했으니</div>
-            <div>
+          <div className='flex items-center gap-24'>
+            <Image
+              width={224}
+              height={108}
+              src={`/icon_direct_to_rank.svg`}
+              alt='랭킹보러가기 아이콘'
+            />
+            <div className='flex flex-col items-center'>
+              <div className='body-22 text-[#838281]'>게임을 모두 완료했으니</div>
               <div>
-                종합 <span className='text-orange-200'>랭킹</span>을 확인하러 가 볼 깨비!
+                <div className='body-30 text-[#504F4E]'>
+                  <span className='text-[#EF5252]'>종합 랭킹</span>을 확인하러 가볼 깨비!
+                </div>
               </div>
             </div>
             <Link href={'/games/rank'}>
-              <div>랭킹 보러가기</div>
+              <div className='flex justify-center items-center gap-3  w-[176px] h-[43px] rounded-[99px] border-2 border-[#B6B5B4] body-18 text-[#9D9C9A]'>
+                랭킹 보러가기
+                <Image
+                  width={24}
+                  height={24}
+                  src={`/icon_camera.svg`}
+                  alt='랭킹 버튼 아이콘'
+                />
+              </div>
             </Link>
-          </>
+          </div>
         ) : (
-          <>
-            <div>종합 랭킹을 확인하려면</div>
+          <div className='flex gap-[221.04px]'>
             <div>
-              나머지 게임 <span className='text-orange-200'>{remainingGamesCount === 1 ? '1개' : '2개'}</span>를 모두
-              플레이 해야해 깨비!
+              <div className='body-22 text-[#838281]'>종합 랭킹을 확인하려면</div>
+              <div className='body-30 text-[#504F4E]'>
+                나머지 게임 <span className='text-[#EF5252]'>{remainingGamesCount === 1 ? '1개' : '2개'}</span>를 모두
+                플레이 해야해 깨비!
+              </div>
             </div>
-          </>
+            <Image
+              width={230}
+              height={93.2}
+              src={`/icon_guide_to_play.svg`}
+              alt='회원 게임플레이 안내 아이콘'
+            />
+          </div>
         )}
       </div>
     </div>
