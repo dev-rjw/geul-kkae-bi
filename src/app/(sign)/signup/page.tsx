@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import SignupForm from '../_components/SignupForm';
-// import { fetchCurrentUser } from '@/utils/auth/server-action';
-// import { redirect } from 'next/navigation';
+import { fetchCurrentUser } from '@/utils/auth/server-action';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: '회원가입',
@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 };
 
 const SignupPage = async () => {
-  // const user = await fetchCurrentUser();
+  const user = await fetchCurrentUser();
 
-  // if (user?.id) {
-  //   redirect('/');
-  // }
+  if (user?.id) {
+    redirect('/');
+  }
 
   return (
     <div className='container py-[3.125rem]'>

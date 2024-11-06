@@ -1,6 +1,5 @@
 'use client';
 
-import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { signup } from '@/utils/auth/client-action';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -55,7 +54,6 @@ const SignupForm = () => {
   const confirmPasswordValue = watch('confirmPassword');
 
   const onSubmit = async (values: FieldValues) => {
-    const supabase = createClient();
     const { email, password, nickname } = values;
     const { checking, speaking, writing } = getLocalStorageValues();
 
@@ -72,7 +70,9 @@ const SignupForm = () => {
 
     // 에러 체크
     if (result instanceof AuthError || !result.user) {
-      Swal.fire(translateErrorMessage(result instanceof AuthError ? result.message : 'Unknown error'));
+      Swal.fire(
+        translateErrorMessage(result instanceof AuthError ? result.message : '알 수 없는 오류가 발생했습니다.'),
+      );
       return;
     }
 
@@ -84,28 +84,7 @@ const SignupForm = () => {
     const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
     const week = weekNumber;
 
-    let myRank;
-    // 이번주 데이터
-    const { data: allRank } = await supabase
-      .from('rank')
-      .select('*')
-      .eq('week', week)
-      .gte('total', 0)
-      .order('total', { ascending: false });
-
-    if (allRank && allRank.length > 0) {
-      // 내 total 점수를 추가한 배열
-      const addMyTotal = [...allRank, { user_id: userId, total }];
-
-      // total 기준으로 내림차순 정렬
-      const sortedRank = addMyTotal.sort((a, b) => b.total - a.total);
-
-      // 내 등수
-      myRank = sortedRank.findIndex((item) => item.user_id === userId) + 1;
-    }
-    const ranking = myRank;
-
-    await addScoresRank({ userId, checking, speaking, writing, total, week, ranking });
+    await addScoresRank({ userId, checking, speaking, writing, total, week });
 
     // 점수 저장 후 로컬스토리지 데이터 삭제
     localStorage.removeItem('checking');
