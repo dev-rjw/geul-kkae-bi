@@ -7,12 +7,16 @@ import TextData from '@/mock/speak';
 import { convertAudioToPCM, sendToAudio } from '../utils/audio';
 import Image from 'next/image';
 import icon from '../../../../../public/ico_audio.png';
+import { timeStore } from '@/store/timeStore';
+import Tutorial from './Tutorial';
 
 const Speak = () => {
   const [randomText, setRandomText] = useState<string[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
-  const { text, isRecording, setText, setIsRecording, setIsLoading } = speekStore();
+  const { text, isRecording, setText, setIsRecording, setIsLoading, resetText, resetPercent, resetIndex } =
+    speekStore();
+  const { isDelay, resetTimer, setIsDelay } = timeStore();
   function getRandomSentences(textArray: string[]) {
     return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
   }
@@ -55,8 +59,15 @@ const Speak = () => {
         console.log(error);
       }
     };
-    console.log(randomText);
     initMediaRecorder();
+    return () => {
+      setRandomText([]); // 랜덤 문장 초기화
+      resetText(); // 텍스트 초기화
+      resetPercent();
+      resetTimer();
+      setIsDelay(false);
+      resetIndex();
+    };
   }, []);
 
   const startRecording = () => {
@@ -81,28 +92,34 @@ const Speak = () => {
 
   return (
     <div className='h-screen bg-[#FCFBF9]'>
-      <div className='flex flex-col items-center'>
-        <Question
-          text={text}
-          randomText={randomText}
-        />
-        <div className='flex flex-col items-center mt-20 text-center'>
-          <button onClick={isRecording ? stopRecording : startRecording}>
-            <Image
-              src={icon}
-              width={160}
-              height={160}
-              alt='Audio'
-              priority
-            />
-          </button>
-          {isRecording ? (
-            <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 종료하기</p>
-          ) : (
-            <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 시작하기</p>
-          )}
+      {!isDelay ? (
+        <div className='w-screen h-screen'>
+          <Tutorial setIsDelay={setIsDelay} />
         </div>
-      </div>
+      ) : (
+        <div className='flex flex-col items-center'>
+          <Question
+            text={text}
+            randomText={randomText}
+          />
+          <div className='flex flex-col items-center mt-20 text-center'>
+            <button onClick={isRecording ? stopRecording : startRecording}>
+              <Image
+                src={icon}
+                width={160}
+                height={160}
+                alt='Audio'
+                priority
+              />
+            </button>
+            {isRecording ? (
+              <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 종료하기</p>
+            ) : (
+              <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 시작하기</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
