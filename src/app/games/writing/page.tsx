@@ -69,7 +69,6 @@ const WritingQuizPage = () => {
       handleCheckAnswer();
       setUserInput('');
     } else {
-      console.log('최종 점수는?', score);
       saveScore();
       setIsAllQuestions(true);
     }
@@ -103,7 +102,6 @@ const WritingQuizPage = () => {
         .select('id, writing')
         .eq('user_id', userId)
         .eq('week', weekNumber);
-      console.log('뭐라고 나옴?', currentScore);
       if (fetchError) {
         console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
         return;
@@ -116,7 +114,8 @@ const WritingQuizPage = () => {
             .update({
               writing: score,
             })
-            .eq('id', currentScore[0].id);
+            .eq('id', currentScore[0].id)
+            .eq('user_id', userId);
 
           if (updateError) {
             console.error('점수를 업데이트하지 못했습니다.', updateError);
@@ -191,35 +190,30 @@ const WritingQuizPage = () => {
       </div>
 
       <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
-        {!isAllQuestions && !isTimeOver && (
-          <div className='flex flex-col items-center'>
-            <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
-            <button
-              onClick={moveToNextQuiz}
-              className='px-4 py-2'
-            >
-              <Image
-                src='/icon_btn_writing.svg'
-                alt='nextbutton'
-                width={48}
-                height={48}
-                style={{ width: 'auto', height: 'auto' }}
-              />
-            </button>
-          </div>
-        )}
-        {(isAllQuestions || isTimeOver) && (
+        <div className='flex flex-col items-center'>
+          <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
           <button
-            onClick={moveToWritingResultPage}
-            className='text-2xl font-medium'
+            onClick={moveToNextQuiz}
+            className='px-4 py-2'
           >
-            결과 보기
+            <Image
+              src='/icon_btn_writing.svg'
+              alt='nextbutton'
+              width={48}
+              height={48}
+              style={{ width: 'auto', height: 'auto' }}
+            />
           </button>
-        )}
+        </div>
+        <button
+          onClick={moveToWritingResultPage}
+          className={`text-2xl font-medium ${isTimeOver || isAllQuestions ? 'visible' : 'invisible'}`}
+        >
+          결과 보기
+        </button>
       </div>
     </div>
   );
 };
 
 export default WritingQuizPage;
-//04cad
