@@ -261,3 +261,39 @@
     width: calc(100% - 11rem);
   }
 }
+
+.swal2-popup {
+  width: 100%;
+  max-width: 23.125rem;
+  border-radius: 1.25rem;
+  padding: 0 0 2.25rem;
+}
+div:where(.swal2-container) .swal2-html-container {
+  padding: 2.25rem 2.25rem 0.75rem !important;
+}
+div:where(.swal2-container) .swal2-html-container.swal-custom-title,
+div:where(.swal2-container) .swal2-html-container.swal-custom-text {
+  font-size: 1.5rem;
+  color: #1965D2;
+  line-height: 150%;
+  font-weight: 600;
+}
+div:where(.swal2-container) div:where(.swal2-actions) {
+  width: 100% !important;
+  margin-top: 0.75rem !important;
+}
+.swal-custom-button {
+  width: 100%;
+  max-width: 15rem;
+  height: 3.25rem;
+  padding: 0.75rem;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  background-color: #357EE7;
+}
+div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover {
+  color: #649ced;
+  background-color: #134fa4;
+}

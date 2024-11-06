@@ -39,7 +39,16 @@ export const googleSignin = async () => {
   });
 
   if (error) {
-    Swal.fire('로그인에 실패하였습니다.');
+    Swal.fire({
+      html: `<div class="text-gray-700">로그인에 실패하였습니다.</div>`,
+      customClass: {
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text',
+        confirmButton: 'swal-custom-button',
+      },
+      confirmButtonText: '확인',
+    });
+
     return error;
   }
 
@@ -57,7 +66,16 @@ export const kakaoSignin = async () => {
   });
 
   if (error) {
-    Swal.fire('로그인에 실패하였습니다.');
+    Swal.fire({
+      html: `<div class="text-gray-700">로그인에 실패하였습니다.</div>`,
+      customClass: {
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text',
+        confirmButton: 'swal-custom-button',
+      },
+      confirmButtonText: '확인',
+    });
+
     return error;
   }
 };
@@ -90,7 +108,16 @@ export const findPassword = async (email: string) => {
     console.error(error);
   }
 
-  Swal.fire('비밀번호 재설정 이메일이 전송되었습니다.');
+  Swal.fire({
+    html: `<div class="text-gray-700">해당 이메일로 비밀번호 <br/>변경링크를 보내드렸어요!</div>`,
+    customClass: {
+      title: 'swal-custom-title',
+      htmlContainer: 'swal-custom-text',
+      confirmButton: 'swal-custom-button',
+    },
+    confirmButtonText: '확인',
+  });
+
   return data;
 };
 
@@ -103,11 +130,29 @@ export const changePassword = async (newPassword: string) => {
   const { error } = await supabase.auth.updateUser({ password: newPassword });
 
   if (error) {
-    Swal.fire(translateErrorMessage(error.message));
+    Swal.fire({
+      html: `<div class="text-gray-700">${translateErrorMessage(error.message)}</div>`,
+      customClass: {
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text',
+        confirmButton: 'swal-custom-button',
+      },
+      confirmButtonText: '확인',
+    });
+
     console.error(error.message);
     return false;
   }
 
-  Swal.fire('비밀번호가 성공적으로 업데이트되었습니다.');
+  Swal.fire({
+    html: `<div class="text-gray-700">비밀번호 변경 완료!</div>`,
+    customClass: {
+      title: 'swal-custom-title',
+      htmlContainer: 'swal-custom-text',
+      confirmButton: 'swal-custom-button',
+    },
+    confirmButtonText: '확인',
+  });
+
   return true;
 };

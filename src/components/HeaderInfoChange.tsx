@@ -52,7 +52,16 @@ const HeaderInfoChange = () => {
     if (error) {
       console.error('로그아웃에 실패했습니다.');
     } else {
-      Swal.fire('로그아웃 되었습니다.');
+      Swal.fire({
+        html: `<div class="text-gray-700">로그아웃 되었습니다.</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
+      });
+
       router.push('/');
     }
   };
@@ -75,7 +84,7 @@ const HeaderInfoChange = () => {
               </div>
               <Avatar className='w-12 h-12 border border-gray-100'>
                 <AvatarImage
-                  src={user?.image}
+                  src={user?.image ?? '/default-avatar.png'}
                   alt={auth?.user_metadata?.nickname}
                   className='object-cover'
                 />
@@ -98,7 +107,7 @@ const HeaderInfoChange = () => {
               <div className='flex items-center gap-[0.625rem]'>
                 <Avatar className='w-12 h-12 border border-gray-100'>
                   <AvatarImage
-                    src={user?.image}
+                    src={user?.image ?? '/default-avatar.png'}
                     alt={auth?.user_metadata?.nickname}
                     className='object-cover'
                   />

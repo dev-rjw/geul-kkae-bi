@@ -70,9 +70,18 @@ const SignupForm = () => {
 
     // 에러 체크
     if (result instanceof AuthError || !result.user) {
-      Swal.fire(
-        translateErrorMessage(result instanceof AuthError ? result.message : '알 수 없는 오류가 발생했습니다.'),
-      );
+      Swal.fire({
+        html: `<div class="text-gray-700">${translateErrorMessage(
+          result instanceof AuthError ? result.message : '알 수 없는 오류가 발생했습니다.',
+        )}</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
+      });
+
       return;
     }
 
@@ -115,7 +124,7 @@ const SignupForm = () => {
                     <FormControl>
                       <EmailInput
                         field={field}
-                        domainOptions={['gmail.com', 'naver.com', '직접 입력']}
+                        domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
                       />
                     </FormControl>
                     <FormMessage className='text-sm font-bold' />

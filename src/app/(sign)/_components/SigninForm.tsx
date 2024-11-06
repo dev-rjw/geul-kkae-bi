@@ -47,7 +47,15 @@ const SigninForm = () => {
     }
 
     if (result instanceof Error) {
-      Swal.fire(translateErrorMessage(result.message));
+      Swal.fire({
+        html: `<div class="text-gray-700">${translateErrorMessage(result.message)}</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
+      });
     } else {
       router.push('/');
     }
