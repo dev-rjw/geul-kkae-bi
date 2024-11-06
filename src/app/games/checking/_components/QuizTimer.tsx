@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface QuizTimerProps {
   onTimeOver: () => void;
@@ -10,6 +11,13 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIsTutorial] = useState(true);
 
+  const onTimeOverRef = useRef(onTimeOver);
+
+  useEffect(() => {
+    // onTimeOver가 변경될 때마다 ref 업데이트
+    onTimeOverRef.current = onTimeOver;
+  }, [onTimeOver]);
+
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
@@ -18,13 +26,13 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(timer);
-          onTimeOver();
+          setTimeout(() => onTimeOverRef.current(), 0);
         }
         return prevTime - 1;
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [onTimeOver, isAllQuestions, isTutorial]);
+  }, [isAllQuestions, isTutorial]);
 
   const handleStartGame = () => {
     setIsTutorial(false);
@@ -33,7 +41,14 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className="absolute w-full z-10 h-[100vh] bg-[url('/checking_tutorial.svg')] bg-cover">
+        <div className='fixed inset-0 z-50 bg-[#858584]'>
+          <Image
+            src='/checking_tutorial.svg'
+            alt='Tutorial'
+            fill
+            style={{ objectFit: 'contain' }}
+            priority
+          />
           <button
             className='absolute bottom-[2rem] right-[3.875rem] bg-[#92B9F2] px-[3.875rem] py-[1.125rem] rounded-full font-bold text-[2.375rem] leading-[3.563rem]'
             onClick={handleStartGame}
