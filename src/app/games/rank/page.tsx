@@ -4,6 +4,8 @@ import React from 'react';
 import { Rank, RankIncludingUserInfo } from '@/types/result';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
+import './style.css';
+import Link from 'next/link';
 
 const RankingPage = async () => {
   const serverClient = createClient();
@@ -99,88 +101,130 @@ const RankingPage = async () => {
       .eq('week', lastWeek);
 
     return (
-      <div className='h-[958]'>
-        <header className='max-w-7xl w-full h-20 fixed bg-yellow-700'>글깨비</header>
-        <div className='flex flex-col justify-center items-center pt-20'>
-          <div className='flex flex-col items-center w-[1080px] h-[805px] mt-8 bg-slate-300 rounded-[50px] '>
+      <div className='h-screen'>
+        <div className='flex flex-col justify-center items-center'>
+          <div className='flex flex-col items-center w-[1080px] h-[805px] mt-8 bg-[#EDF3FD] rounded-[50px] relative '>
             <div className='flex justify-between items-center h-[51px] mt-8 px-[8.5px] gap-x-2'>
-              <Image
-                src='/icon_rank.svg'
-                width={45}
-                height={45}
-                alt='랭킹순위 옆 아이콘'
-              />
-              <h1 className='title-36'>이번주 전체 랭킹 순위</h1>
+              <div className='rounded-[0.25rem]'>
+                <Image
+                  src='/icon_rank.svg'
+                  width={45}
+                  height={45}
+                  alt='랭킹순위 옆 아이콘'
+                />
+              </div>
+              <h1 className='title-36 text-[#357EE7]'>이번주 전체 랭킹 순위</h1>
             </div>
-            <div className='flex flex-col w-[1050px] h-[540px] overflow-y-scroll space-y-5 mt-8 '>
+            <div className='flex flex-col w-[1050px] h-[540px] overflow-y-scroll space-y-5 mt-8 pb-[1.125rem]'>
               {countRanking?.slice(0, 3)?.map((item) => (
                 <div
                   key={item.id}
-                  className='flex justify-between items-center bg-slate-400 w-[896px] h-[100px] mx-auto px-8 rounded-2xl'
+                  className='flex items-center bg-[#98A7F1] top_rank w-[896px] py-2 mx-auto rounded-[1rem]'
                 >
-                  <div className='flex justify-between items-center w-[718]'>
-                    <div className='flex items-center gap-x-4'>
-                      <div className='title-24 mr-2'>{item.ranking}등</div>
-                      <Image
-                        width={78}
-                        height={78}
-                        src={item.user.image}
-                        alt='profile image for ranking'
-                      />
-                      <div className='title-24'>{item.user.nickname}</div>
-                    </div>
-                    <div className='title-24'>{item.user.introduction}</div>
+                  <div className='flex justify-center title-24 w-24 '>{item.ranking}등</div>
+                  <div>
+                    <Image
+                      width={78}
+                      height={78}
+                      src={item.user.image}
+                      alt='profile image for ranking'
+                    />
                   </div>
-                  <div className='title-36'>{item.total}점</div>
+                  <strong className='title-24 font-normal w-[11.25rem] pl-4 text-[#0e3976]'>
+                    {item.user.nickname}
+                  </strong>
+                  <p className='title-24 w-[22.75rem] pl-4 text-[#fff]'>{item.user.introduction}</p>
+                  <span className='title-36 ml-auto pr-8 text-[#0e3976]'>{item.total}점</span>
                 </div>
               ))}
               {countRanking?.slice(3, 5)?.map((item) => (
                 <div
                   key={item.id}
-                  className='flex bg-slate-400 w-[896px] h-[76px] mx-auto px-8 rounded-2xl'
+                  className='flex items-center bg-[#C5CDF7] w-[896px] mx-auto py-[0.438rem] rounded-[1rem]'
                 >
-                  <div className='title-20'>{item.ranking}등</div>
-                  <Image
-                    width={62}
-                    height={62}
-                    src={item.user.image}
-                    alt='profile image for ranking'
-                  />
-                  <div className='title-20'>{item.user.nickname}</div>
-                  <div className='title-20'>{item.user.introduction}</div>
-                  <div className='title-36'>{item.total}점</div>
+                  <div className='flex justify-center title-20 w-24 text-[#0e3976]'>{item.ranking}등</div>
+                  <div>
+                    <Image
+                      width={62}
+                      height={62}
+                      src={item.user.image}
+                      alt='profile image for ranking'
+                    />
+                  </div>
+                  <strong className='title-20 w-[8.563rem] pl-4 text-[#0e3976] '>{item.user.nickname}</strong>
+                  <p className='title-20 w-[15.125rem] pl-4 text-[#647BEE]'>{item.user.introduction}</p>
+                  <span className='title-36 ml-auto pr-8 text-[#0e3976]'>{item.total}점</span>
                 </div>
               ))}
               {countRanking?.slice(5)?.map((item) => (
                 <div
                   key={item.id}
-                  className='flex bg-slate-400 w-[896px] h-[52px] mx-auto px-8 rounded-2xl'
+                  className='flex items-center bg-[#C5CDF7] w-[896px] mx-auto py-[0.375rem] rounded-[1rem]'
                 >
-                  <div className='title-20'>{item.ranking}등</div>
-                  <Image
-                    width={40}
-                    height={40}
-                    src={item.user.image}
-                    alt='profile image for ranking'
-                  />
-                  <div className='title-20'>{item.user.nickname}</div>
-                  <div className='title-20'>{item.user.introduction}</div>
-                  <div className='title-32'>{item.total}점</div>
+                  <div className=' flex justify-center title-20 w-24 text-[#0e3976]'>{item.ranking}등</div>
+                  <div>
+                    <Image
+                      width={40}
+                      height={40}
+                      src={item.user.image}
+                      alt='profile image for ranking'
+                    />
+                  </div>
+                  <div className='title-20 w-[8.563rem] pl-4 text-[#0e3976]'>{item.user.nickname}</div>
+                  <div className='title-20 w-[15.125rem] pl-4 text-[#647BEE]'>{item.user.introduction}</div>
+                  <div className='title-32 ml-auto pr-8 text-[#0e3976]'>{item.total}점</div>
                 </div>
               ))}
             </div>
-            <div className='flex w-[1080px] h-[151px] bg-slate-200 rounded-[20px]'>
-              <div className='flex gap-[24px] ml-[24px] mt-[20px]'>
-                <div className='w-[131px] h-[111px] rounded-[22.37px] bg-slate-300'>사진</div>
-                <div className='flex flex-col items-center gap-[5px]'>
-                  <div className='w-[107px] h-[27px] bg-slate-300'>한굴도둑밥도둑</div>
-                  <div className='w-[214px] h-[79px] bg-slate-300 rounded-[12px]'>문해력 올리기 완전 정복!!!!!!!</div>
+            <div className='flex items-center w-[1080px] h-[151px] bg-[#BFD6F7] rounded-[20px] absolute bottom-0'>
+              <div className='w-[110px] h-[113px] rounded-[22.37px] ml-[1.439rem] bg-slate-300'>사진</div>
+              {/* <Image width={110} height={113} src={userTable?.[0].user.image} alt='profile image for my ranking'/> */}
+              <div className='flex flex-col items-center ml-[2.133rem] gap-[5px]'>
+                <div className='flex items-center justify-center title-16 w-[214px] h-[27px] text-[#357EE7]'>
+                  {userTable?.[0].user.nickname}
+                </div>
+                <div className='flex items-center justify-center title-14 w-[214px] h-[79px] bg-[#EDF3FD] rounded-[12px] '>
+                  {userTable?.[0].user.introduction}
                 </div>
               </div>
+              <div className='flex flex-col justify-between ml-[2.753rem] w-[12.813rem] h-[5.563rem] title-20'>
+                <div className='flex justify-between'>
+                  <div className='text-[#0E3976]'>나의 랭킹</div>
+                  <div className='text-[#357EE7]'>{userTable?.[0].ranking}등</div>
+                </div>
+                <div className='flex justify-between'>
+                  <div className='text-[#0E3976]'>지난주 순위</div>
+                  <div className='text-[#134FA4]'>{myLastrank ? myLastrank?.[0]?.ranking : ''}등</div>
+                </div>
+              </div>
+              <div className='flex flex-col justify-between ml-[2.753rem] w-[15.25rem] h-[7.5rem] title-16 '>
+                <div className='flex justify-between'>
+                  <div className='text-[#0E3976]'>주어진 문장읽기</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0].speaking}점</div>
+                </div>
+                <div className='flex justify-between'>
+                  <div className='text-[#0E3976]'>빈칸채우기</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0].writing}점</div>
+                </div>
+                <div className='flex justify-between'>
+                  <div className='text-[#0E3976]'>틀린것 맞추기</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0].checking}점</div>
+                </div>
+                <div className='flex justify-between'>
+                  <div className='text-[#0E3976]'>총합 점수</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0].total}점</div>
+                </div>
+              </div>
+              <Link href={'/mypage'}>
+                <div className='flex justify-center text-center items-center w-[93px] h-[84px] ml-[2.753rem] title-16 bg-[#357EE7] text-[#fff] rounded-[14.38px]'>
+                  내정보 <br />
+                  보러가기
+                </div>
+              </Link>
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <div>닉네임 : {userTable?.[0].user.nickname}</div>
             <div>소개 : {userTable?.[0].user.introduction}</div>
             <div>나의 랭킹 : {userTable?.[0].ranking}</div>
@@ -192,7 +236,7 @@ const RankingPage = async () => {
             <div>빈칸 채우기 : {userTable?.[0].writing}</div>
             <div>틀린것 맞추기 : {userTable?.[0].checking}</div>
             <div>총합 점수 : {userTable?.[0].total}</div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
