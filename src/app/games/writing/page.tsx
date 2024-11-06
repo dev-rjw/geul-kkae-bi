@@ -33,8 +33,12 @@ const WritingQuizPage = () => {
   const fetchUser = async () => {
     const {
       data: { user },
+      error,
     } = await browserClient.auth.getUser();
-    if (user) {
+
+    if (error) {
+      console.log('비로그인');
+    } else if (user) {
       setUserId(user.id);
     }
   };
@@ -62,9 +66,9 @@ const WritingQuizPage = () => {
     e.preventDefault();
     if (isTimeOver) return;
 
+    handleCheckAnswer();
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
-      handleCheckAnswer();
       setUserInput('');
     } else {
       saveScore();

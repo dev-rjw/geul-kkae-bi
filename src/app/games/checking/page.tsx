@@ -56,9 +56,9 @@ const CheckingQuizPage = () => {
   const moveToNextQuiz = () => {
     if (isTimeOver) return;
 
+    handleCheckAnswer();
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
-      handleCheckAnswer();
       setSelectedOption(null);
     } else {
       saveScore();
