@@ -1,11 +1,17 @@
-import React from 'react';
+import { Metadata } from 'next';
 import FindPasswordForm from '../_components/FindPasswordForm';
 import { fetchCurrentUser } from '@/utils/auth/server-action';
 import { redirect } from 'next/navigation';
 
+export const metadata: Metadata = {
+  title: '비밀번호 찾기',
+  description: '비밀번호 찾기',
+};
+
 const FindPasswordPage = async () => {
   const user = await fetchCurrentUser();
 
+  // 로그인했으면 메인으로
   if (user?.id) {
     redirect('/');
   }

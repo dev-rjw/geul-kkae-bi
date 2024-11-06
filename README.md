@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#  글깨비
 
-## Getting Started
+## 👨‍👩‍👧‍👦 팀 소개
 
-First, run the development server:
+### 금오갤(Gold쪽이 Of Galaxy)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 👨‍👩‍👧‍👦 팀원 소개
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+|   류지원   |      조아영      |        김진우        |  이보영  |         임기철         | 권현정 | 조애리 |
+| :--------: | :--------------: | :------------------: | :------: | :--------------------: | :------:| :------: |
+|  **리더**  |     **부리더**     |       **팀원**       | **팀원** |        **팀원**        | **디자이너** | **디자이너** |
+| 메인페이지 | 회원가입, 로그인 | 게임(wrting,checking) | 메인페이지 | 게임(speaking) | 디자인 | 디자인  |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 👨‍🏫 프로젝트 소개
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 한국인을 위한 한국어 발음&맞춤법 공부 사이트
+2030세대 문해력 논란을 있는 요즘 그들을 위한 맞춤법과 발음을 공부 할 수 있고 재밌게 접근하고자 게임적 요소도 들어간 사이트 입니다.
 
-## Learn More
+## 🚩 프로젝트 개요
 
-To learn more about Next.js, take a look at the following resources:
+- **프로젝트명** &nbsp; :&nbsp; **글깨비**
+- **진행 기간** &nbsp;: &nbsp; **24.10.18 ~ 24.11.21**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ## 📚 STACKS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<div align=Left>
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+  <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white">
+<img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/git actions-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
+<img src="https://img.shields.io/badge/VSCODE-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+<img src="https://img.shields.io/badge/VERCEL-007ACC?style=for-the-badge&logo=VERCEL&logoColor=white">
+<img src="https://img.shields.io/badge/SLACK-green?style=for-the-badge&logo=SLACK&logoColor=white">
+<img src="https://img.shields.io/badge/TailwindCss-06B6D4?style=for-the-badge&logo=java&logoColor=white">
+</div>
 
-## Deploy on Vercel
+## 설치 패키지
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 프로젝트 세팅 : npx create-next-app@latest
+  - 실행 : pnpm dev
+- tanstack query 설치 : pnpm add @tanstack/react-query @tanstack/react-query-devtools
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 💥 Trouble Shooting
