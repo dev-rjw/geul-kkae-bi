@@ -236,7 +236,7 @@ const CheckingQuizPage = () => {
         <div className=' text-4xl font-medium pb-[10.1875rem]'>{questionUnderLine()}</div>
         {chackingButton()}
       </div>
-      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
+      <div className=' absolute top-[387px] right-[1.25rem] flex flex-col items-center'>
         {!(isTimeOver || isAllQuestions) ? (
           <div className='flex flex-col items-center'>
             <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
