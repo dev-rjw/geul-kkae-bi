@@ -8,6 +8,7 @@ import { Camera } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
+import Tabs from '../_components/Tabs';
 
 export type User = {
   user_id: string;
@@ -62,6 +63,7 @@ const ProfileEdit = () => {
   return (
     <>
       <Header />
+      <Tabs />
       <h2 className='text-2xl font-bold text-center mb-6'>프로필 변경</h2>
       <div className='flex flex-col items-center p-8 bg-gray-50 min-h-screen'>
         {/* 프로필 이미지 업로드 */}
