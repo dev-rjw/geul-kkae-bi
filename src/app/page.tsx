@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
-import { fetchRank3 } from '@/util/rank/client-action';
+import { fetchRank3 } from '@/utils/rank/client-action';
 
 function GameCards() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
