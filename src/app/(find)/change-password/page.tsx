@@ -1,17 +1,14 @@
 import React, { Suspense } from 'react';
 import ChangePasswordForm from '../_components/ChangePasswordForm';
 import { fetchCurrentUser } from '@/utils/auth/server-action';
-// import Swal from 'sweetalert2';
-// import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 const ChangePasswordPage = async () => {
   const user = await fetchCurrentUser();
 
-  console.log(user);
-
-  // if (user) {
-  //   redirect('/');
-  // }
+  if (user?.id) {
+    redirect('/');
+  }
 
   return (
     <div className='container py-[3.125rem]'>

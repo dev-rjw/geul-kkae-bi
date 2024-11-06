@@ -1,16 +1,14 @@
 import React from 'react';
 import FindPasswordForm from '../_components/FindPasswordForm';
 import { fetchCurrentUser } from '@/utils/auth/server-action';
-// import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 const FindPasswordPage = async () => {
   const user = await fetchCurrentUser();
 
-  console.log(user);
-
-  // if (user) {
-  //   redirect('/');
-  // }
+  if (user?.id) {
+    redirect('/');
+  }
 
   return (
     <div className='container py-[3.125rem]'>
