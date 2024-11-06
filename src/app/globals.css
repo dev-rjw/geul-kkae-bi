@@ -18,7 +18,7 @@
     --muted-foreground: 220 8.9% 46.1%;
     --accent: 220 14.3% 95.9%;
     --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 83.07% 62.94%;
     --destructive-foreground: 210 20% 98%;
     --border: 60 1.03% 80.98%;
     --input: 60 1.03% 80.98%;
@@ -73,6 +73,7 @@
     -webkit-box-shadow: 0 0 0px 1000px transparent inset;
     box-shadow: 0 0 0px 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #363635 !important;
   }
   input:autofill,
   input:autofill:hover,
@@ -81,6 +82,7 @@
     -webkit-box-shadow: 0 0 0px 1000px transparent inset;
     box-shadow: 0 0 0px 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #363635 !important;
   }
 }
 @layer components {
@@ -138,6 +140,12 @@
     font-weight: 400;
     line-height: 150%;
   }
+  .title-72 {
+    font-size: 4.5rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+
   .body-48 {
     font-size: 3rem;
     font-family: var(--pretendard);
@@ -216,5 +224,40 @@
     padding-right: var(--gutter);
     margin-left: auto;
     margin-right: auto;
+  }
+  .form-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .form-item {
+    display: flex;
+    width: 100%;
+    min-height: 5.75rem;
+  }
+  .form-label {
+    width: 11rem;
+  }
+  .form-title {
+    position: relative;
+    display: inline-block;
+    font-size: 1.25rem;
+    font-family: var(--pretendard);
+    font-weight: 600;
+    line-height: 150%;
+    color: #6a6967;
+  }
+  .form-dot {
+    position: absolute;
+    top: 0;
+    right: -6px;
+    display: inline-block;
+    width: 0.313rem;
+    height: 0.313rem;
+    border-radius: 100%;
+    background-color: #ef5252;
+  }
+  .form-field {
+    width: calc(100% - 11rem);
   }
 }

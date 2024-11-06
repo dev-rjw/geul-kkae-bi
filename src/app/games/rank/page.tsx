@@ -19,7 +19,7 @@ const RankingPage = async () => {
     .order('week', { ascending: false })
     .limit(1);
 
-  console.log('latestWeekData', latestWeekData);
+  console.log('latestWeekData!!!', latestWeekData);
   // latestWeekData [
   //   {
   //     user_id: 'e651a7f4-9594-4e10-9fdf-f6858b26fd59',
@@ -48,7 +48,7 @@ const RankingPage = async () => {
       .from('rank')
       .select(`*,user(nickname, introduction, image)`)
       .eq('week', latestWeek)
-      .gt('total', 0)
+      .gte('total', 0)
       .order('total', { ascending: false });
 
     if (data && data.length > 0) {
@@ -122,7 +122,7 @@ const RankingPage = async () => {
                   className='flex items-center bg-[#98A7F1] top_rank w-[896px] py-2 mx-auto rounded-[1rem]'
                 >
                   <div className='flex justify-center title-24 w-24 '>{item.ranking}등</div>
-                  <div>
+                  <div className='w-[78px] h-[78px]'>
                     <Image
                       width={78}
                       height={78}
@@ -143,7 +143,7 @@ const RankingPage = async () => {
                   className='flex items-center bg-[#C5CDF7] w-[896px] mx-auto py-[0.438rem] rounded-[1rem]'
                 >
                   <div className='flex justify-center title-20 w-24 text-[#0e3976]'>{item.ranking}등</div>
-                  <div>
+                  <div className='w-[62px] h-[62px]'>
                     <Image
                       width={62}
                       height={62}
@@ -162,7 +162,7 @@ const RankingPage = async () => {
                   className='flex items-center bg-[#C5CDF7] w-[896px] mx-auto py-[0.375rem] rounded-[1rem]'
                 >
                   <div className=' flex justify-center title-20 w-24 text-[#0e3976]'>{item.ranking}등</div>
-                  <div>
+                  <div className='w-[40px] h-[40px]'>
                     <Image
                       width={40}
                       height={40}
@@ -177,20 +177,27 @@ const RankingPage = async () => {
               ))}
             </div>
             <div className='flex items-center w-[1080px] h-[151px] bg-[#BFD6F7] rounded-[20px] absolute bottom-0'>
-              <div className='w-[110px] h-[113px] rounded-[22.37px] ml-[1.439rem] bg-slate-300'>사진</div>
-              {/* <Image width={110} height={113} src={userTable?.[0].user.image} alt='profile image for my ranking'/> */}
+              {/* <div className='w-[110px] h-[113px] rounded-[22.37px] ml-[1.439rem] bg-slate-300'>사진</div> */}
+              <div className='w-[110px] h-[113px] rounded-[22.37px] ml-[1.439rem]'>
+                <Image
+                  width={110}
+                  height={113}
+                  src={userTable?.[0]?.user.image ?? ''}
+                  alt='profile image for my ranking'
+                />
+              </div>
               <div className='flex flex-col items-center ml-[2.133rem] gap-[5px]'>
                 <div className='flex items-center justify-center title-16 w-[214px] h-[27px] text-[#357EE7]'>
-                  {userTable?.[0].user.nickname}
+                  {userTable?.[0]?.user.nickname}
                 </div>
                 <div className='flex items-center justify-center title-14 w-[214px] h-[79px] bg-[#EDF3FD] rounded-[12px] '>
-                  {userTable?.[0].user.introduction}
+                  {userTable?.[0]?.user.introduction}
                 </div>
               </div>
               <div className='flex flex-col justify-between ml-[2.753rem] w-[12.813rem] h-[5.563rem] title-20'>
                 <div className='flex justify-between'>
                   <div className='text-[#0E3976]'>나의 랭킹</div>
-                  <div className='text-[#357EE7]'>{userTable?.[0].ranking}등</div>
+                  <div className='text-[#357EE7]'>{userTable?.[0]?.ranking}등</div>
                 </div>
                 <div className='flex justify-between'>
                   <div className='text-[#0E3976]'>지난주 순위</div>
@@ -200,19 +207,19 @@ const RankingPage = async () => {
               <div className='flex flex-col justify-between ml-[2.753rem] w-[15.25rem] h-[7.5rem] title-16 '>
                 <div className='flex justify-between'>
                   <div className='text-[#0E3976]'>주어진 문장읽기</div>
-                  <div className='text-[#134FA4]'>{userTable?.[0].speaking}점</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0]?.speaking}점</div>
                 </div>
                 <div className='flex justify-between'>
                   <div className='text-[#0E3976]'>빈칸채우기</div>
-                  <div className='text-[#134FA4]'>{userTable?.[0].writing}점</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0]?.writing}점</div>
                 </div>
                 <div className='flex justify-between'>
                   <div className='text-[#0E3976]'>틀린것 맞추기</div>
-                  <div className='text-[#134FA4]'>{userTable?.[0].checking}점</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0]?.checking}점</div>
                 </div>
                 <div className='flex justify-between'>
                   <div className='text-[#0E3976]'>총합 점수</div>
-                  <div className='text-[#134FA4]'>{userTable?.[0].total}점</div>
+                  <div className='text-[#134FA4]'>{userTable?.[0]?.total}점</div>
                 </div>
               </div>
               <Link href={'/mypage'}>

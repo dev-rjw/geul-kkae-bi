@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FieldValues } from 'react-hook-form';
+import DefaultInput from './DefaultInput';
+import { X } from 'lucide-react';
 
 interface Props {
   field: FieldValues;
@@ -28,8 +29,8 @@ const EmailInput = ({ field, domainOptions }: Props) => {
   }, [userId, domain, customDomain]);
 
   return (
-    <div className='flex items-center gap-2'>
-      <Input
+    <div className='flex items-center gap-[0.625rem]'>
+      <DefaultInput
         type='text'
         placeholder='아이디'
         value={userId}
@@ -40,8 +41,8 @@ const EmailInput = ({ field, domainOptions }: Props) => {
           }
         }}
       />
-      <span>@</span>
-      <div className='relative'>
+      <span className='body-20 text-gray-600'>@</span>
+      <div className='relative w-full max-w-[21.875rem]'>
         <Select
           value={domain}
           onValueChange={(value) => {
@@ -54,14 +55,17 @@ const EmailInput = ({ field, domainOptions }: Props) => {
             }
           }}
         >
-          <SelectTrigger className='w-[180px]'>
-            <SelectValue placeholder='도메인 선택' />
+          <SelectTrigger className='h-[3.25rem] w-full rounded-[0.625rem] px-[0.625rem] py-[0.875rem] text-base font-bold placeholder:text-gray-300 focus:ring-0 focus:ring-offset-0'>
+            <SelectValue
+              placeholder='선택해주세요'
+            />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className='rounded-[0.625rem]'>
             {domainOptions.map((option, index) => (
               <SelectItem
                 key={index}
                 value={option}
+                className='text-base font-semibold text-gray-500 rounded-[0.5rem] hover:font-semibold'
               >
                 {option}
               </SelectItem>
@@ -69,25 +73,25 @@ const EmailInput = ({ field, domainOptions }: Props) => {
           </SelectContent>
         </Select>
         {domain === '직접 입력' && (
-          <div className='absolute right-0 top-1/2 -translate-y-1/2 w-full max-w-sm'>
-            <Input
+          <div className='absolute right-0 top-1/2 -translate-y-1/2 w-full'>
+            <DefaultInput
               placeholder='직접 입력'
               value={customDomain ?? ''}
               onChange={(e) => setCustomDomain(e.target.value)}
-              className='max-w-sm'
+              className='w-full pr-11'
             />
             <Button
               type='button'
               variant='ghost'
               size='icon'
-              className='absolute right-0 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+              className='absolute right-0 top-1/2 -translate-y-1/2 w-auto h-full px-[0.625rem] py-2 hover:bg-transparent'
               onClick={() => {
                 setDomain('');
                 setCustomDomain('');
                 setEmail('');
               }}
             >
-              X<span className='sr-only'>Clear</span>
+              <X className='!w-6 !h-6 text-gray-300' />
             </Button>
           </div>
         )}

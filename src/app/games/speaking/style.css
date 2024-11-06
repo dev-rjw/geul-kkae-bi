@@ -1,0 +1,19 @@
+.swal2-popup {
+  width: 369px;
+  padding: 32px 0;
+  border-radius: 20px;
+}
+
+.swal-custom-text p {
+  font-size: 24px;
+  color: #357ee7;
+  line-height: 150%;
+  font-weight: 600;
+}
+
+.swal-custom-button {
+  background-color: #357ee7;
+  width: 240px;
+  padding: 12.5px;
+  border-radius: 12px;
+}

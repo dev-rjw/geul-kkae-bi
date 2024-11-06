@@ -64,90 +64,102 @@ const SigninForm = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-4'
-      >
-        <FormField
-          control={form.control}
-          name='email'
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className='relative'>
-                  <UserRound className='absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-300' />
-                  <DefaultInput
-                    placeholder='이메일 아이디를 입력해주세요'
-                    {...field}
-                    className='pl-[3.375rem]'
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className='flex flex-col gap-2'>
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className='relative'>
+                    <UserRound className='absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-300' />
+                    <DefaultInput
+                      placeholder='아이디를 입력해주세요'
+                      {...field}
+                      className='pl-[3.375rem] max-w-none'
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name='password'
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className='relative'>
-                  <LockKeyhole className='absolute z-10 left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-300' />
-                  <PasswordInput
-                    placeholder='비밀번호를 입력해주세요'
-                    field={field}
-                    inputClassName='px-[3.375rem]'
-                    buttonClassName='!pr-5'
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-              {/* {!getFieldState('password').invalid && field.value ? (
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className='relative'>
+                    <LockKeyhole className='absolute z-10 left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-gray-300' />
+                    <PasswordInput
+                      placeholder='비밀번호를 입력해주세요'
+                      field={field}
+                      className='max-w-none'
+                      inputClassName='px-[3.375rem] max-w-none'
+                      buttonClassName='!pr-5'
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+                {/* {!getFieldState('password').invalid && field.value ? (
                 <FormMessage className='text-primary-400'>올바른 비밀번호입니다.</FormMessage>
               ) : (
                 <FormMessage />
               )} */}
-            </FormItem>
-          )}
-        />
+              </FormItem>
+            )}
+          />
+        </div>
 
-        <FormField
-          control={form.control}
-          name='rememberedEmail'
-          render={({ field }) => (
-            <div>
-              <div className='flex items-center space-x-2'>
-                <Checkbox
-                  id='rememberedEmail'
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-                <label
-                  htmlFor='rememberedEmail'
-                  className='text-sm font-medium leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-                >
-                  아이디 기억하기
-                </label>
-              </div>
+        <div className='mt-[0.625rem]'>
+          <FormField
+            control={form.control}
+            name='rememberedEmail'
+            render={({ field }) => (
+              <div className='flex justify-between'>
+                <div className='flex items-center space-x-2'>
+                  <Checkbox
+                    id='rememberedEmail'
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                  <label
+                    htmlFor='rememberedEmail'
+                    className='text-sm font-bold text-gray-500 ml-[0.375rem] leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                  >
+                    아이디 기억하기
+                  </label>
+                </div>
 
-              <div className='mt-5'>
-                <ul className='w-full flex gap-2 items-center justify-around'>
+                <ul className='signin-button-group'>
                   <li>
-                    <Link href='/find-password'>비밀번호 찾기</Link>
+                    <Link
+                      href='/find-password'
+                      className='caption-14 text-gray-300 hover:text-gray-400 transition-colors'
+                    >
+                      비밀번호 찾기
+                    </Link>
                   </li>
                   <li>
-                    <Link href='/signup'>회원가입</Link>
+                    <Link
+                      href='/signup'
+                      className='caption-14 text-gray-300 hover:text-gray-400 transition-colors'
+                    >
+                      회원가입
+                    </Link>
                   </li>
                 </ul>
               </div>
-            </div>
-          )}
-        />
+            )}
+          />
+        </div>
 
-        <DefaultButton className='w-full'>로그인</DefaultButton>
+        <div className='mt-7'>
+          <DefaultButton className='w-full'>로그인</DefaultButton>
+        </div>
       </form>
     </Form>
   );
