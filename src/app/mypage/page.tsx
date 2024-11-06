@@ -8,6 +8,11 @@ import { useEffect, useState } from 'react';
 import KKAEBI from '../../../public/kkae_bi.png';
 import { useRouter } from 'next/navigation';
 import { fetchUserRank } from '@/utils/rank/client-action';
+import CODING from '../../../public/coding.png';
+import CROWN from '../../../public/crown.png';
+import KKAEBI1 from '../../../public/kkaebi1.png';
+import KKAEBI2 from '../../../public/kkaebi2.png';
+import KKAEBI3 from '../../../public/kkaebi3.png';
 
 export type User = {
   user_id: string;
@@ -57,11 +62,11 @@ function MyPage() {
   return (
     <>
       <Header />
-      <div className='flex justify-center items-center min-h-[75vh] bg-gray-100'>
+      <div className='flex justify-center items-center min-h-[85vh] bg-gray-100'>
         {/* 전체 박스 */}
         <div className='flex flex-wrap lg:flex-nowrap w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden'>
           {/* 프로필 섹션 */}
-          <div className='bg-blue-500 text-white w-full lg:w-1/3 p-6 flex flex-col items-center'>
+          <div className='bg-blue-500 text-white w-full lg:w-1/3 h-[700px] p-6 flex flex-col items-center'>
             {/* 프로필 제목 */}
             <h2 className='text-2xl font-bol mb-6 text-white font-bold inline-block bg-gradient-to-r from-blue-300 to-blue-300 bg-no-repeat bg-[length:100%_0.3em] bg-bottom pb-1'>
               MY PAGE
@@ -78,37 +83,47 @@ function MyPage() {
                 />
               )}
             </div>
-            <h2 className='text-xl font-bold'>{user?.nickname}</h2>
-            <p className='text-sm mb-1'>{user?.email}</p>
-            <p className='text-sm text-center mb-6'>
+            <h2 className='text-2xl font-bold'>{user?.nickname}</h2>
+            <p className='text-xl mb-1 text-blue-200'>{user?.email}</p>
+            <p className='text-xl text-center mb-6 text-blue-200'>
               {user?.introduction?.trim() ? user?.introduction?.trim() : '한 줄 요약이 없습니다.'}
             </p>
             <div className='flex gap-3'>
               <button
-                className='bg-blue-700 text-sm font-semibold py-2 px-4 rounded mb-2'
+                className='bg-blue-600 text-sm font-semibold py-2 px-4 rounded mb-2'
                 onClick={() => router.push('/mypage/information')}
               >
-                프로필 수정
+                프로필 변경
               </button>
               <button
-                className='bg-blue-700 text-sm font-semibold py-2 px-4 rounded mb-2'
+                className='bg-blue-600 text-sm font-semibold py-2 px-4 rounded mb-2'
                 onClick={() => router.push('/mypage/change-password')}
               >
                 비밀번호 변경
               </button>
             </div>
-            <button className='text-sm underline mt-[6rem]'>로그아웃</button>
+            <button className='text-sm underline mt-[12rem]'>로그아웃</button>
           </div>
 
           {/* 랭킹 섹션 */}
-          <div className='w-full lg:w-2/3 p-6 bg-gray-50 flex flex-col'>
+          <div className='w-full lg:w-2/3 bg-gray-50 flex flex-col'>
             {/* 랭킹 제목 */}
-            <h2 className='text-2xl font-bold text-blue-600 mb-6 w-[110px] inline-block bg-gradient-to-r from-blue-300 to-blue-300 bg-no-repeat bg-[length:100%_0.3em] bg-bottom pb-1'>
-              RANKING
-            </h2>
+            <div className=' bg-blue-200 rounded-xl'>
+              <h2 className='flex justify-self-center text-2xl pt-5 font-bold text-blue-600 mb-6 w-[110px] bg-gradient-to-r from-blue-300 to-blue-300 bg-no-repeat bg-[length:100%_0.3em] bg-bottom pb-1'>
+                RANKING
+              </h2>
+
+              <Image
+                src={CODING}
+                alt='Profile'
+                width={240}
+                height={240}
+                className='object-cover justify-self-center'
+              />
+            </div>
 
             {/* 캐릭터와 말풍선 */}
-            <div className='flex justify-center items-center h-[20vh] bg-blue-50'>
+            <div className='hidden justify-center items-center h-[20vh] bg-blue-50'>
               <div className='relative'>
                 <div className='bg-purple-200 text-purple-800 p-4 rounded-lg w-40'>
                   덕분에 도깨비 왕국을 열심히 재건 중이야.
@@ -150,11 +165,17 @@ function MyPage() {
             </div>
 
             {/* 랭킹 정보 */}
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-2 gap-4 h-[100%]'>
               {/* 내 랭킹 */}
-              <div className='row-span-2 bg-yellow-100 p-4 rounded-lg text-center'>
-                <h3 className='text-lg font-semibold'>내 랭킹</h3>
-                <p className='text-sm text-gray-600'>24.10.13 - 24.10.19</p>
+              <div className='row-span-2 bg-[#649CED] p-4 rounded-lg text-center'>
+                <h3 className='title-24'>내 랭킹</h3>
+                <p className='title-14 text-gray-600'>24.10.13 - 24.10.19</p>
+                <hr className='m-4' />
+                <Image
+                  src={CROWN}
+                  alt='crown'
+                  className='place-self-center mb-[-12px]'
+                />
                 <div className='w-40 h-40 rounded-full overflow-hidden border-4 border-white mb-4 justify-self-center'>
                   {user?.image && (
                     <Image
@@ -166,37 +187,74 @@ function MyPage() {
                     />
                   )}
                 </div>
-                <div className='mt-4 text-3xl font-bold'>{rank?.ranking || '-'}위</div>
-              </div>
+                <div className='mt-4 title-36 text-white'>{rank?.ranking || '-'}위</div>
+                <hr className='m-4' />
 
-              {/* 지난주 순위 */}
-              <div className='flex bg-white p-4 rounded-lg text-center shadow-sm'>
+                {/* 지난주 순위 */}
                 <div>
-                  <h3 className='text-lg font-semibold'>지난주 순위</h3>
-                  <p className='text-sm text-gray-600'>24.10.13 - 24.10.19</p>
+                  <h3 className='title-16 text-[#1965D2]'>
+                    지난주 순위
+                    <span className='ml-10 title-16 text-[#0E3977]'>{rank?.ranking || '-'}위</span>
+                  </h3>
                 </div>
-                <div className='mt-4 text-3xl font-bold'>{rank?.ranking || '-'}위</div>
               </div>
 
               {/* 게임별 점수 */}
-              <div className='flex bg-white p-4 rounded-lg shadow-sm'>
-                <div>
-                  <h3 className='text-lg font-semibold text-center mb-2'>게임별 점수</h3>
-                  <div className='text-center mt-4 text-xl font-bold text-gray-800'>총점 {rank?.total || '-'}점</div>
-                </div>
+              <div className='justify-center items-center h-[100%] bg-gray-100'>
+                <div className='w-96 bg-white rounded-xl shadow-md overflow-hidden'>
+                  <div className='flex'>
+                    {/* 게임별 점수 총점 */}
+                    <div className='bg-blue-100 flex flex-col items-center justify-center p-4 w-1/3 h-[425px]'>
+                      <h2 className='title-20'>게임별 점수</h2>
+                      <p className='title-16 text-blue-400 m-4'>총점</p>
+                      <p className='title-20 text-blue-700 m-2'>{rank?.total || '-'}점</p>
+                    </div>
 
-                <div className='flex justify-between text-gray-700'>
-                  <div className='flex flex-col items-center'>
-                    <span className='text-sm'>주어진 문장 읽기</span>
-                    <span className='text-xl font-bold'>{rank?.speaking || '-'}점</span>
-                  </div>
-                  <div className='flex flex-col items-center'>
-                    <span className='text-sm'>빈칸 채우기</span>
-                    <span className='text-xl font-bold'>{rank?.checking || '-'}점</span>
-                  </div>
-                  <div className='flex flex-col items-center'>
-                    <span className='text-sm'>틀린 것 맞추기</span>
-                    <span className='text-xl font-bold'>{rank?.writing || '-'}점</span>
+                    {/* 게임별 점수 */}
+                    <div className='flex flex-col w-2/3 divide-y divide-gray-200'>
+                      {/* 1 */}
+                      <div className='flex items-center p-4 h-[140px]'>
+                        <Image
+                          src={KKAEBI1}
+                          alt='Cat icon'
+                          width={240}
+                          height={240}
+                          className='w-10 h-10'
+                        />
+                        <div className='ml-3 flex flex-col'>
+                          <span className='title-14 text-blue-700'>주어진 문장 읽기</span>
+                          <span className='title-14 text-blue-900'>{rank?.speaking || '-'}점</span>
+                        </div>
+                      </div>
+                      {/* 2 */}
+                      <div className='flex items-center p-4 h-[140px]'>
+                        <Image
+                          src={KKAEBI2}
+                          alt='Cat icon'
+                          width={240}
+                          height={240}
+                          className='w-10 h-10'
+                        />
+                        <div className='ml-3 flex flex-col'>
+                          <span className='title-14 text-blue-700'>틀린 것 맞추기</span>
+                          <span className='title-14 text-blue-900'>{rank?.checking || '-'}점</span>
+                        </div>
+                      </div>
+                      {/* 3 */}
+                      <div className='flex items-center p-4 h-[140px]'>
+                        <Image
+                          src={KKAEBI3}
+                          alt='Cat icon'
+                          width={240}
+                          height={240}
+                          className='w-10 h-10'
+                        />
+                        <div className='ml-3 flex flex-col'>
+                          <span className='title-14 text-blue-700'>빈칸 채우기</span>
+                          <span className='title-14 text-blue-900'>{rank?.writing || '-'}점</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -204,6 +262,7 @@ function MyPage() {
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );
