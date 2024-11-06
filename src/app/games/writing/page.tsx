@@ -33,12 +33,8 @@ const WritingQuizPage = () => {
   const fetchUser = async () => {
     const {
       data: { user },
-      error,
     } = await browserClient.auth.getUser();
-
-    if (error) {
-      console.log('비로그인');
-    } else if (user) {
+    if (user) {
       setUserId(user.id);
     }
   };
