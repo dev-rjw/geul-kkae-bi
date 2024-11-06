@@ -58,7 +58,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
         color: 'bg-[#FEEFD7]',
         name: '나야, 발음왕',
       },
-      { type: 'writing', score: writing, color: 'bg-[#D4f7ef]', name: '빈칸 한입' },
+      { type: 'writing', score: writing, color: 'bg-[#D4F7EF]', name: '빈칸 한입' },
     ];
   };
 
@@ -239,7 +239,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
               width={230}
               height={93.2}
               src={`/icon_guide_to_play.svg`}
-              alt='게임플레이 안내 아이콘'
+              alt='회원 게임플레이 안내 아이콘'
             />
           </div>
         )}
