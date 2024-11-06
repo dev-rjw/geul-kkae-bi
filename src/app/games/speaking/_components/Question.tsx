@@ -3,9 +3,9 @@ import { useInsertMutation, useUpdateMutation } from '@/mutations/speek-mutation
 import { useAuth } from '@/queries/useAuth';
 import speekStore from '@/store/speekStore';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Timer from './Timer';
-import { timStore } from '@/store/timeStore';
+import { timeStore } from '@/store/timeStore';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
 import Image from 'next/image';
 
@@ -15,18 +15,20 @@ type Question = {
 };
 
 const Question = ({ text, randomText }: Question) => {
+  const [result, setResult] = useState(false);
   const {
     index,
     percent,
     totlaPercent,
+    isRecording,
     isLoading,
     setPercent,
     resetText,
     resetPercent,
-    incrementIndex,
+    addIndex,
     addTotalPercent,
   } = speekStore();
-  const { time } = timStore();
+  const { time } = timeStore();
   const { data } = useAuth();
   const { mutate } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
@@ -57,10 +59,19 @@ const Question = ({ text, randomText }: Question) => {
     setPercent(point);
   };
 
+  const handleIndex = () => {
+    if (index < 9) {
+      addIndex();
+    } else if (index === 9) {
+      handleUpsertScore();
+      setResult(true);
+    }
+  };
+
   const handleUpsertScore = () => {
     if (data) {
       if (game && game.length > 0) {
-        if (finalPercent > game[0].speaking) {
+        if (finalPercent > game[0].speaking || game[0].speaking === null) {
           update({ score: finalPercent, userId: game[0].user_id, week: weekNumber });
         }
       } else {
@@ -73,14 +84,18 @@ const Question = ({ text, randomText }: Question) => {
 
   return (
     <>
-      <Timer handleUpsertScore={handleUpsertScore} />
+      <Timer
+        handleUpsertScore={handleUpsertScore}
+        data={data}
+        finalPercent={finalPercent}
+      />
       <strong className='bg-[#F9BC5F] mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center'>
         {index + 1}번문제
       </strong>
       <div className='bg-[#fdeace] flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-24 py-[2.875rem] text-[#855205] rounded-[30px]'>
         <p className='text-[36px] font-bold'>{randomText[index]}</p>
       </div>
-      {index === 9 || time === 0 ? (
+      {result || time === 0 ? (
         <>
           <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
             <p className='leading-normal text-[36px] text-[#6a6967]'>정확도 총점</p>
@@ -90,18 +105,12 @@ const Question = ({ text, randomText }: Question) => {
             </p>
           </div>
           <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem]'>
-            <p className='text-center'>{index + 1}/10</p>
             <Link
               className='mt-[16px] flex flex-col items-center'
-              onClick={handleUpsertScore}
-              href={`/games/${data ? `user?key=speaking&score=${finalPercent}` : 'guest?key=speaking'}`}
+              href={`/games/${
+                data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`
+              }`}
             >
-              <Image
-                src='/ico_speak_next_btn.svg'
-                width={30}
-                height={30}
-                alt='넘어가기'
-              ></Image>
               <span className='block mt-[12px]'>결과보기</span>
             </Link>
           </div>
@@ -126,7 +135,7 @@ const Question = ({ text, randomText }: Question) => {
                       addTotalPercent(percent);
                       resetPercent();
                       resetText();
-                      incrementIndex();
+                      handleIndex();
                     }}
                   >
                     <Image
@@ -140,7 +149,11 @@ const Question = ({ text, randomText }: Question) => {
               </>
             ) : (
               <>
-                <p className='text-[36px] text-[#6a6967]'>정확도 계산중입니다</p>
+                {isRecording ? (
+                  <p className='text-[36px] text-[#6a6967]'>녹음중</p>
+                ) : (
+                  <p className='text-[36px] text-[#6a6967]'>정확도 계산중입니다</p>
+                )}
                 <div className='absolute right-[30px]'>
                   <p>{index + 1}/10</p>
                 </div>
