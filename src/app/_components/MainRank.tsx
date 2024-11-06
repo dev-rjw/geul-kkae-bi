@@ -31,10 +31,7 @@ const MainRank = () => {
   }, []);
 
   return (
-    <Card
-      onClick={() => router.push('/games/rank')}
-      className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden cursor-pointer'
-    >
+    <Card className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden'>
       {!data?.id && (
         <div
           className='absolute top-0 left-0 z-10 w-full h-full flex items-center justify-center'
@@ -51,13 +48,19 @@ const MainRank = () => {
         </div>
       )}
 
-      <div className='pt-7 pb-4 text-center'>
+      <div
+        className='pt-7 pb-4 text-center cursor-pointer'
+        onClick={() => router.push('/games/rank')}
+      >
         <div className='text-[1.75rem] font-yangjin text-primary-600 leading-none'>랭킹 TOP 3</div>
         <div className='body-18 text-primary-300 mt-1'>이번주 랭킹을 확인해보세요!</div>
       </div>
       <hr className='border-t-2 border-primary-100' />
       <hr className='border-t-8 border-primary-50' />
-      <div className='flex grow items-center'>
+      <div
+        className='flex grow items-center cursor-pointer'
+        onClick={() => router.push('/games/rank')}
+      >
         <div className='w-full pb-5'>
           {ranks.map((rank, index) => {
             return (
