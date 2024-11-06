@@ -122,6 +122,26 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
     updateTotalScore();
   }
 
+  interface matchedGameArray {
+    type: string;
+    score: number | null;
+    color: string;
+    name: string;
+  }
+
+  const game = (matchedGame: matchedGameArray) => {
+    switch (true) {
+      case matchedGame.type === 'speaking':
+        return 'bg-[#Fbd498]';
+      case matchedGame.type === 'checking':
+        return 'bg-[#BFA5ED]';
+      case matchedGame.type === 'writing':
+        return 'bg-[#7FE^CF]';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div>
       <div className='pt-7 pb-[1.875rem] '>
@@ -130,36 +150,44 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
         </div>
       </div>
 
-      <div className='flex flex-row  h-[36.5rem]'>
+      <div className='flex flex-row h-[36.5rem]'>
         <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.color} `}>
           <ResultSide
             GameScore={GameScore}
             justEndedGame={justEndedGame}
           />
-          <div>
-            <span className='title-20'>{nickName}</span>
-            <span className='body-16'>님의</span>
-            <div className='title-32'>국어 문해력은?</div>
-            <div className='title-72'>{GameScore}점</div>
+          <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
+            <div>
+              <span className='title-20'>{nickName}</span>
+              <span className='body-16'>님의</span>
+              <div className='title-32'>국어 문해력은?</div>
+            </div>
+            <div className='title-72 h-[6.813rem] pt-[1.219rem] inline  relative'>
+              <span className='relative z-20'>{GameScore}점</span>
+              <div className={`h-[2.688rem] ${matchedGame ? game(matchedGame) : ''} absolute w-full -bottom-5 z-10`} />
+            </div>
           </div>
         </div>
-        <div className='flex flex-col w-[17.438rem] h-[17.938rem]'>
+        <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
           {unMatchedGames?.map((game) => {
             return (
               <Link
                 key={game.type}
                 href={`/games/${game.type}`}
               >
-                <div className={`${game.color} `}>
+                <div className={`${game.color} h-[17.938rem] rounded-[1.25rem] `}>
                   {game.score === null ? (
                     <div>
-                      <div>{game.name}</div>
-                      <div>하러가기</div>
+                      <div className='title-32'>{game.name}</div>
+                      <div className='title-24'>하러가기</div>
                     </div>
                   ) : (
                     <div>
-                      <div>{game.name}</div>
-                      <div>현재 스코어: {game.score}점</div>
+                      <div className='title-32'>{game.name}</div>
+                      <div className='flex title-24'>
+                        <div>현재 스코어:</div>
+                        <div>{game.score}점</div>
+                      </div>
                     </div>
                   )}
                 </div>
