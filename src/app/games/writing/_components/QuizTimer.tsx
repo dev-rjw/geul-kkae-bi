@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface QuizTimerProps {
   onTimeOver: () => void;
@@ -10,6 +11,12 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIstutorial] = useState(true);
 
+  const onTimeOverRef = useRef(onTimeOver);
+
+  useEffect(() => {
+    onTimeOverRef.current = onTimeOver;
+  }, [onTimeOver]);
+
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
@@ -18,7 +25,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(timer);
-          onTimeOver();
+          setTimeout(() => onTimeOverRef.current(), 0);
         }
         return prevTime - 1;
       });
@@ -33,7 +40,14 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className="absolute w-full z-10 h-[100vh] bg-[url('/writing_tutorial.svg')] bg-cover">
+        <div className='fixed inset-0 z-50 bg-[#858584]'>
+          <Image
+            src='/writing_tutorial.svg'
+            alt='Tutorial'
+            fill
+            style={{ objectFit: 'contain' }}
+            priority
+          />
           <button
             onClick={handleStartGame}
             className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px] '

@@ -64,6 +64,8 @@ const WritingQuizPage = () => {
   // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isTimeOver) return;
+
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
       handleCheckAnswer();
@@ -78,7 +80,7 @@ const WritingQuizPage = () => {
     if (userId) {
       router.push(`/games/user?key=writing&score=${score}`);
     } else {
-      router.push('/games/guest?key=writing');
+      router.push(`/games/guest?key=writing&score=${score}`);
     }
   };
 
@@ -152,6 +154,9 @@ const WritingQuizPage = () => {
           confirmButton: 'swal-custom-button',
         },
         confirmButtonText: '확인',
+        willClose: () => {
+          moveToWritingResultPage();
+        },
       });
     }
   };
@@ -190,27 +195,30 @@ const WritingQuizPage = () => {
       </div>
 
       <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
-        <div className='flex flex-col items-center'>
-          <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
+        {!(isTimeOver || isAllQuestions) ? (
+          <div className='flex flex-col items-center'>
+            <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
+            <button
+              onClick={moveToNextQuiz}
+              className='px-4 py-2'
+            >
+              <Image
+                src='/icon_btn_writing.svg'
+                alt='nextbutton'
+                width={48}
+                height={48}
+                style={{ width: 'auto', height: 'auto' }}
+              />
+            </button>
+          </div>
+        ) : (
           <button
-            onClick={moveToNextQuiz}
-            className='px-4 py-2'
+            onClick={moveToWritingResultPage}
+            className={`text-2xl font-medium`}
           >
-            <Image
-              src='/icon_btn_writing.svg'
-              alt='nextbutton'
-              width={48}
-              height={48}
-              style={{ width: 'auto', height: 'auto' }}
-            />
+            결과 보기
           </button>
-        </div>
-        <button
-          onClick={moveToWritingResultPage}
-          className={`text-2xl font-medium ${isTimeOver || isAllQuestions ? 'visible' : 'invisible'}`}
-        >
-          결과 보기
-        </button>
+        )}
       </div>
     </div>
   );
