@@ -40,10 +40,10 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
 
   return (
     <div className={`w-[504px] rounded-l-[1.25rem] rounded-r-[3rem] ${game(justEndedGame)}`}>
-      <div className='max-w-[402px] mx-auto'>
-        <h3 className='text-center font-bold'>작품명</h3>
-        <p className='txt text-center font-bold'>{text}</p>
-        <div className='game_image_box rounded-[20px] border-8 border-solid inline-block'>
+      <div className='max-w-[402px] mt-9 mx-auto'>
+        <h3 className='text-center title-20'>작품명</h3>
+        <p className='txt text-center title-24'>{text}</p>
+        <div className='game_image_box rounded-[18px] relative border-8 border-solid inline-block mt-8'>
           <Image
             width={396}
             height={272}
@@ -51,7 +51,7 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
             alt='점수에 맞는 이미지'
           />
         </div>
-        <div className='bg-white rounded-[90px] px-2.5 py-2'>
+        <div className='bg-white rounded-[90px] px-2.5 py-2 mt-[3.063rem]'>
           <div
             className='progress_bar relative h-11 rounded-[90px] transition-all ease-linear'
             style={{ width: `${score}%`, transitionDuration: '1s' }}
