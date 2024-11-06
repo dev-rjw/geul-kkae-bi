@@ -101,7 +101,7 @@ const RankingPage = async () => {
       .eq('week', lastWeek);
 
     return (
-      <div className='h-screen'>
+      <div>
         <div className='flex flex-col justify-center items-center'>
           <div className='flex flex-col items-center w-[1080px] h-[805px] mt-8 bg-[#EDF3FD] rounded-[50px] relative '>
             <div className='flex justify-between items-center h-[51px] mt-8 px-[8.5px] gap-x-2'>
