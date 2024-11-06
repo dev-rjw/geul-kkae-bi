@@ -39,7 +39,7 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
   const { image, text } = scoreImage(score);
 
   return (
-    <div className={`w-[540px] ${game(justEndedGame)}`}>
+    <div className={`w-[504px] rounded-l-[1.25rem] rounded-r-[3rem] ${game(justEndedGame)}`}>
       <div className='max-w-[402px] mx-auto'>
         <h3 className='text-center font-bold'>작품명</h3>
         <p className='txt text-center font-bold'>{text}</p>

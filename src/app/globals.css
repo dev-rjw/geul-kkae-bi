@@ -129,6 +129,12 @@
     font-family: var(--font-yangjin);
     line-height: 150%;
   }
+  .title-72 {
+    font-size: 4.5rem;
+    font-family: var(--font-yangjin);
+    line-height: 150%;
+  }
+
   .body-48 {
     font-size: 3rem;
     font-family: var(--pretendard);
