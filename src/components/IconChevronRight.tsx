@@ -9,14 +9,14 @@ const IconChevronRight = ({ className }: Props) => {
       viewBox='0 0 12 18'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      className={`${className}`}
+      className={className || ''}
     >
       <path
         d='M2.5 16L9.5 9L2.5 2'
         stroke='currentColor'
-        stroke-width='3.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='3.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   );

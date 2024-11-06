@@ -9,15 +9,16 @@ import DefaultInput from './DefaultInput';
 interface Props {
   field: FieldValues;
   placeholder: string;
+  className?: string | null;
   inputClassName?: string | null;
   buttonClassName?: string | null;
 }
 
-const PasswordInput = ({ field, placeholder, inputClassName, buttonClassName }: Props) => {
+const PasswordInput = ({ field, placeholder, className, inputClassName, buttonClassName }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className='relative'>
+    <div className={`relative max-w-[21.875rem] ${className}`}>
       <DefaultInput
         type={showPassword ? 'text' : 'password'}
         maxLength={16}

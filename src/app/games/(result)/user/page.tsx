@@ -27,6 +27,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const { data: latestWeekData }: { data: Rank[] | null } = await serverClient
     .from('rank')
     .select()
+    .not('week', 'is', null)
     .order('week', { ascending: false })
     .limit(1);
 
@@ -47,16 +48,16 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
       {
         type: 'checking',
         score: checking,
-        color: 'bg-purple-300',
-        name: '틀린곳맞추기',
+        color: 'bg-[#Ddd0f6]',
+        name: '틀린 말 탐정단',
       },
       {
         type: 'speaking',
         score: speaking,
-        color: 'bg-orange-200',
-        name: '주어진문장읽기',
+        color: 'bg-[#FEEFD7]',
+        name: '나야, 발음왕',
       },
-      { type: 'writing', score: writing, color: 'bg-teal-100', name: '빈칸채우기' },
+      { type: 'writing', score: writing, color: 'bg-[#D4f7ef]', name: '빈칸 한입' },
     ];
   };
 
@@ -79,6 +80,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const matchedGame = games?.find((game) => {
     return game.type === justEndedGame;
   });
+
   // 형태
   //matchedGame { type: 'writing', score: 100, color: 'mint', name: '빈칸채우기' }
 
@@ -94,10 +96,10 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 
   // 다끝냈을때 다끝내지 않았을때만 정확하게 판별 (하지만 2문제 다 안풀었는지 1문제는 풀었는지는 판별안됨)
   // isdone= true : 모든문제 끝냄  isdone= false : 1문제만 끝냄, 2문제 모두 못끝냄
-  const isDone = unMatchedGames?.every((game) => game.score);
+  const isDone = unMatchedGames?.every((game) => game.score !== null);
 
   // isdone이 false일때 1문제는 풀었는지 2문제 다 못풀었는지 배열안에 요소개수로 확인
-  const remainingGamesCount = unMatchedGames?.filter((game) => !game.score).length;
+  const remainingGamesCount = unMatchedGames?.filter((game) => game.score !== null).length;
 
   //3문제가 모두 완료되었을때 모든 점수를 합산하여 supabase total에 넣어줌
   if (isDone) {
@@ -122,27 +124,44 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 
   return (
     <div>
-      <div>{matchedGame?.name}</div>
-
-      <div className='flex flex-row'>
-        <ResultSide
-          GameScore={GameScore}
-          justEndedGame={justEndedGame}
-        />
-        <div className={`w-96 h-[415] ${matchedGame?.color}`}>
-          <div>{nickName}님의 국어 문해력은</div>
-          <div>{GameScore}</div>
-          <div>캐릭터이미지</div>
+      <div className='pt-7 pb-[1.875rem] '>
+        <div className='title-32 inline  relative'>
+          {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
         </div>
-        <div>
+      </div>
+
+      <div className='flex flex-row  h-[36.5rem]'>
+        <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.color} `}>
+          <ResultSide
+            GameScore={GameScore}
+            justEndedGame={justEndedGame}
+          />
+          <div>
+            <span className='title-20'>{nickName}</span>
+            <span className='body-16'>님의</span>
+            <div className='title-32'>국어 문해력은?</div>
+            <div className='title-72'>{GameScore}점</div>
+          </div>
+        </div>
+        <div className='flex flex-col w-[17.438rem] h-[17.938rem]'>
           {unMatchedGames?.map((game) => {
             return (
               <Link
                 key={game.type}
                 href={`/games/${game.type}`}
               >
-                <div className={`w-52 h-52 ${game.color} `}>
-                  {game.score ? `${game.name}${game.score}점` : `${game.name}하러가기`}
+                <div className={`${game.color} `}>
+                  {game.score === null ? (
+                    <div>
+                      <div>{game.name}</div>
+                      <div>하러가기</div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div>{game.name}</div>
+                      <div>현재 스코어: {game.score}점</div>
+                    </div>
+                  )}
                 </div>
               </Link>
             );
