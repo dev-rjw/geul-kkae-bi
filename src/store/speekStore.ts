@@ -7,7 +7,8 @@ type speek = {
   text: string;
   isRecording: boolean;
   isLoading: boolean;
-  incrementIndex: () => void;
+  addIndex: () => void;
+  resetIndex: () => void;
   resetPercent: () => void;
   setText: (text: string) => void;
   resetText: () => void;
@@ -26,7 +27,8 @@ const speekStore = create<speek>((set) => ({
   time: 40,
   isLoading: false,
   // 상태 업데이트 함수
-  incrementIndex: () => set((state) => ({ index: state.index + 1 })),
+  addIndex: () => set((state) => ({ index: state.index + 1 })),
+  resetIndex: () => set(() => ({ index: 0 })),
   resetPercent: () => set(() => ({ percent: 0 })),
   setText: (text) => set(() => ({ text })),
   resetText: () => set(() => ({ text: '' })),
