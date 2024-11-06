@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +15,7 @@ import DefaultButton from '@/components/DefaultButton';
 const ChangePasswordForm = () => {
   const router = useRouter();
   const params = useSearchParams();
+  const pathname = usePathname();
 
   const error = params.get('error');
 
@@ -69,7 +70,7 @@ const ChangePasswordForm = () => {
               <div className='form-item'>
                 <div className='form-label'>
                   <div className='form-title'>
-                    비밀번호
+                    {pathname === '/mypage/change-password' && '새 '}비밀번호
                     <span className='form-dot' />
                   </div>
                 </div>
@@ -81,7 +82,7 @@ const ChangePasswordForm = () => {
                       <FormItem>
                         <FormControl>
                           <PasswordValidationInput
-                            placeholder='비밀번호'
+                            placeholder='비밀번호를 입력해주세요'
                             field={field}
                           />
                         </FormControl>
@@ -94,7 +95,7 @@ const ChangePasswordForm = () => {
               <div className='form-item'>
                 <div className='form-label'>
                   <div className='form-title'>
-                    비밀번호 확인
+                    {pathname === '/mypage/change-password' && '새 '}비밀번호 확인
                     <span className='form-dot' />
                   </div>
                 </div>
@@ -106,7 +107,7 @@ const ChangePasswordForm = () => {
                       <FormItem>
                         <FormControl>
                           <PasswordInput
-                            placeholder='비밀번호 확인'
+                            placeholder='한 번 더 비밀번호를 입력해주세요'
                             field={field}
                           />
                         </FormControl>
@@ -125,9 +126,9 @@ const ChangePasswordForm = () => {
               </div>
             </div>
 
-            <hr className='border-t-1 border-gray-200 my-[3.125rem]' />
+            <hr className='border-t-1 border-gray-200 mt-[2.5rem] mb-[3.125rem]' />
             <div className='flex justify-center mt-[3.125rem]'>
-              <DefaultButton className='w-full max-w-[15rem]'>변경하기</DefaultButton>
+              <DefaultButton className='w-full max-w-[15rem]'>확인</DefaultButton>
             </div>
           </form>
         </Form>

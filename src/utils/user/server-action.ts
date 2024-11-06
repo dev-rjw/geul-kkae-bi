@@ -49,7 +49,7 @@ export const addProfileImage = async (userId: string) => {
     // 프로필 이미지 저장
     const { error: updateError } = await supabase
       .from('user')
-      .update({ image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.png` })
+      .update({ image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.jpg` })
       .eq('user_id', userId);
 
     if (updateError) {

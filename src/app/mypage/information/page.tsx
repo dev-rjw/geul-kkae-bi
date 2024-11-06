@@ -79,7 +79,7 @@ const ProfileEdit = () => {
           <button
             className='top-0 right-0 w-8 h-8 bg-[#649CED] ml-[-40px] rounded-full shadow-md'
             onClick={() =>
-              setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.png')
+              setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.jpg')
             }
           >
             <span className='text-2xl text-white'>×</span>

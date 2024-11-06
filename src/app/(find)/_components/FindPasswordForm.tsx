@@ -32,7 +32,7 @@ const FindPasswordForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='flex flex-col'
       >
-        <div className='w-full max-w-[46rem] mx-auto'>
+        <div className='w-full'>
           <FormField
             control={form.control}
             name='email'
@@ -41,7 +41,7 @@ const FindPasswordForm = () => {
                 <FormControl>
                   <EmailInput
                     field={field}
-                    domainOptions={['gmail.com', 'naver.com', '직접 입력']}
+                    domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
                   />
                 </FormControl>
                 <FormMessage className='text-sm font-bold' />
@@ -52,7 +52,7 @@ const FindPasswordForm = () => {
 
         <hr className='border-t-1 border-gray-200 my-[3.125rem]' />
         <div className='flex justify-center mt-[3.125rem]'>
-          <DefaultButton className='w-full max-w-[15rem]'>비밀번호 찾기</DefaultButton>
+          <DefaultButton className='w-full max-w-[15rem]'>메일 받기</DefaultButton>
         </div>
       </form>
     </Form>

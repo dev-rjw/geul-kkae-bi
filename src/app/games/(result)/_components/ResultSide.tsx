@@ -29,9 +29,9 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
       case justEndedGame === 'speaking':
         return 'speak';
       case justEndedGame === 'checking':
-        return 'checking';
+        return 'check';
       case justEndedGame === 'writing':
-        return 'writing';
+        return 'write';
       default:
         return '';
     }
