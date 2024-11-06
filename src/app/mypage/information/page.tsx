@@ -78,7 +78,7 @@ const ProfileEdit = () => {
           <button
             className='absolute top-0 right-0 w-11 h-11 bg-blue-500 p-2 rounded-full shadow-md'
             onClick={() =>
-              setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.png')
+              setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.jpg')
             }
           >
             <span className='text-2xl font-bold text-white'>×</span>
