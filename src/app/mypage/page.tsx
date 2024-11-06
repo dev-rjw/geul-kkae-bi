@@ -6,7 +6,7 @@ import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import KKAEBI from '../../../public/kkae_bi.png';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { fetchUserRank } from '@/utils/rank/client-action';
 
 export type User = {
@@ -34,9 +34,10 @@ function MyPage() {
   const [user, setUser] = useState<User>();
   const [rank, setRank] = useState<Rank>();
   const { data } = useAuth();
+  const router = useRouter();
 
   if (data === null) {
-    redirect('/');
+    router.push('/');
   }
 
   useEffect(() => {
@@ -51,7 +52,7 @@ function MyPage() {
       const user_id = data?.user_metadata.sub;
       fetchUserRank(user_id).then((element) => setRank(element));
     }
-  });
+  }, []);
 
   return (
     <>
@@ -71,8 +72,9 @@ function MyPage() {
                 <Image
                   src={user?.image}
                   alt='Profile'
-                  width={200}
-                  height={200}
+                  width={240}
+                  height={240}
+                  className='w-60 h-60 rounded-full object-cover'
                 />
               )}
             </div>
@@ -81,7 +83,20 @@ function MyPage() {
             <p className='text-sm text-center mb-6'>
               {user?.introduction?.trim() ? user?.introduction?.trim() : '한 줄 요약이 없습니다.'}
             </p>
-            <button className='bg-blue-700 text-sm font-semibold py-2 px-4 rounded mb-2'>내 정보 수정하기</button>
+            <div className='flex gap-3'>
+              <button
+                className='bg-blue-700 text-sm font-semibold py-2 px-4 rounded mb-2'
+                onClick={() => router.push('/mypage/information')}
+              >
+                프로필 수정
+              </button>
+              <button
+                className='bg-blue-700 text-sm font-semibold py-2 px-4 rounded mb-2'
+                onClick={() => router.push('/mypage/change-password')}
+              >
+                비밀번호 변경
+              </button>
+            </div>
             <button className='text-sm underline mt-[6rem]'>로그아웃</button>
           </div>
 
@@ -145,8 +160,9 @@ function MyPage() {
                     <Image
                       src={user?.image}
                       alt='Profile'
-                      width={196}
-                      height={196}
+                      width={240}
+                      height={240}
+                      className='w-60 h-60 rounded-full object-cover'
                     />
                   )}
                 </div>
