@@ -150,7 +150,7 @@ const SignupForm = () => {
                     <FormControl>
                       <DefaultInput
                         type='text'
-                        placeholder='사용하실 닉네임'
+                        placeholder='닉네임을 입력해주세요'
                         {...field}
                       />
                     </FormControl>
@@ -180,7 +180,7 @@ const SignupForm = () => {
                   <FormItem>
                     <FormControl>
                       <PasswordValidationInput
-                        placeholder='비밀번호'
+                        placeholder='비밀번호를 입력해주세요'
                         field={field}
                       />
                     </FormControl>
@@ -205,7 +205,7 @@ const SignupForm = () => {
                   <FormItem>
                     <FormControl>
                       <PasswordInput
-                        placeholder='비밀번호 확인'
+                        placeholder='한 번 더 비밀번호를 입력해주세요'
                         field={field}
                       />
                     </FormControl>
@@ -229,22 +229,24 @@ const SignupForm = () => {
             name='agreeToTerms'
             render={({ field }) => (
               <FormItem>
-                <FormControl>
-                  <div className='flex items-center gap-2 mb-4'>
-                    <Checkbox
-                      id='agreeToTerms'
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                    <label
-                      htmlFor='agreeToTerms'
-                      className='body-20 text-gray-400 cursor-pointer'
-                    >
-                      <span className='text-gray-900'>[필수]</span> 글깨비 이용약관 동의
-                    </label>
-                  </div>
-                </FormControl>
-                <FormMessage className='text-sm font-bold' />
+                <div className='mb-4'>
+                  <FormControl>
+                    <div className='flex items-center gap-2'>
+                      <Checkbox
+                        id='agreeToTerms'
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <label
+                        htmlFor='agreeToTerms'
+                        className='body-20 text-gray-400 cursor-pointer'
+                      >
+                        <span className='text-gray-900'>[필수]</span> 글깨비 이용약관 동의
+                      </label>
+                    </div>
+                  </FormControl>
+                  <FormMessage className='text-sm font-bold mt-2' />
+                </div>
                 <ScrollArea className='h-[10rem] w-full rounded-lg py-5 px-6 bg-[#F2F2F2]'>
                   <div className='caption-14 text-gray-400'>
                     제1장 총칙
