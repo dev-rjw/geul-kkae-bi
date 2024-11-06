@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 interface QuizTimerProps {
@@ -33,7 +34,14 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className="absolute w-full z-10 h-[100vh] bg-[url('/writing_tutorial.svg')] bg-cover">
+        <div className='fixed inset-0 z-50 bg-[#858584]'>
+          <Image
+            src='/writing_tutorial.svg'
+            alt='Tutorial'
+            fill
+            style={{ objectFit: 'contain' }}
+            priority
+          />
           <button
             onClick={handleStartGame}
             className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px] '
@@ -41,9 +49,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
             시작하기
           </button>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <div className='w-full bg-[#BAF1E5] h-[28px]'>
         <div
           className=' bg-[#2AD4AF] h-[28px] transition-all ease-linear rounded-r-lg'
