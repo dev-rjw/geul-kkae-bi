@@ -135,7 +135,7 @@ const ProfileEdit = () => {
           className='mt-8 bg-blue-500 text-white py-2 px-4 rounded-md'
           onClick={() => updatehandler(user!)}
         >
-          버튼
+          변경
         </button>
       </div>
       <Footer />
