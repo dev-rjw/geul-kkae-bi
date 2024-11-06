@@ -214,7 +214,7 @@ const WritingQuizPage = () => {
         ) : (
           <button
             onClick={moveToWritingResultPage}
-            className={`text-2xl font-medium ${isTimeOver || isAllQuestions ? 'visible' : 'invisible'}`}
+            className={`text-2xl font-medium`}
           >
             결과 보기
           </button>
