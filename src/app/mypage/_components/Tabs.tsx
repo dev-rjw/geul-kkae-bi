@@ -18,7 +18,7 @@ const Tabs = () => {
   return (
     <div>
       <div className='pb-14'>
-        <div className='flex justify-between border-b border-gray-500'>
+        <div className='flex items-center justify-between border-b border-gray-500'>
           <div>
             <button
               onClick={() => moveTabs('프로필 변경', '/mypage/information')}
