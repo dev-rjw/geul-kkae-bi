@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 // 서버 측 인증 지침에서 생성한 클라이언트
-import { addNickname, addProfileImage } from '@/utils/user/server-action';
+import { addNickname, addProfileImage, addProvider } from '@/utils/user/server-action';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -27,19 +27,21 @@ export async function GET(request: Request) {
       }
 
       if (isLocalEnv) {
-        // 닉네임, 프로필 이미지 추가
+        // 닉네임, 프로필 이미지, Provider 추가
         if (user?.id) {
           await addNickname(user.id);
           await addProfileImage(user.id);
+          await addProvider(user);
         }
 
         // 그 사이에 로드 밸런서가 없으므로 X-포워드 호스트를 지켜볼 필요가 없습니다
         return NextResponse.redirect(`${origin}${next}`);
       } else if (forwardedHost) {
-        // 닉네임, 프로필 이미지 추가
+        // 닉네임, 프로필 이미지, Provider 추가
         if (user?.id) {
           await addNickname(user.id);
           await addProfileImage(user.id);
+          await addProvider(user);
         }
 
         return NextResponse.redirect(`https://${forwardedHost}${next}`);

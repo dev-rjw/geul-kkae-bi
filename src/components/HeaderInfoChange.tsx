@@ -79,13 +79,13 @@ const HeaderInfoChange = () => {
               <div className='text-right'>
                 <div className='caption-14 text-primary-500'>어서오세요!</div>
                 <div className='font-bold text-gray-700'>
-                  <span className='text-lg text-primary-500'>{auth?.user_metadata?.nickname}</span>님
+                  <span className='text-lg text-primary-500'>{user?.nickname}</span>님
                 </div>
               </div>
               <Avatar className='w-12 h-12 border border-gray-100'>
                 <AvatarImage
                   src={user?.image ?? '/default-avatar.png'}
-                  alt={auth?.user_metadata?.nickname}
+                  alt={user?.nickname}
                   className='object-cover'
                 />
                 <AvatarFallback
@@ -108,7 +108,7 @@ const HeaderInfoChange = () => {
                 <Avatar className='w-12 h-12 border border-gray-100'>
                   <AvatarImage
                     src={user?.image ?? '/default-avatar.png'}
-                    alt={auth?.user_metadata?.nickname}
+                    alt={user?.nickname}
                     className='object-cover'
                   />
                   <AvatarFallback
@@ -118,10 +118,10 @@ const HeaderInfoChange = () => {
                 </Avatar>
                 <div>
                   <div className='flex items-center'>
-                    <span className='text-lg font-bold text-primary-500'>{auth?.user_metadata?.nickname}</span>
+                    <span className='text-lg font-bold text-primary-500'>{user?.nickname}</span>
                     <ChevronRight className='text-gray-600' />
                   </div>
-                  <div className='caption-14 text-gray-400'>{auth?.user_metadata?.email}</div>
+                  <div className='caption-14 text-gray-400'>{user?.email}</div>
                 </div>
               </div>
             </Link>
