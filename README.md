@@ -108,7 +108,7 @@
   기술 : getuserMedia를 통해 유저의 마이크 접근 권한을 체크하여 변수에 담아 접근 권한 여부를 MediaRecorder 인수로 전달해주고 recorder라는 인스턴스 객체를 만들고 오디오 값을 저장해준다
   이후 new Blob을 통해 저장된 오디오 값을 저장하여 wit ai와 데이터 통신을 통해 텍스트로 변환받아 문제의 텍스트와 비교하여 정확도를 비교해주었다
 
-```
+```ts
       // 사용자의 마이크 권한 여부를 확인하는 코드
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         // 녹음을 가능하게 해주는 코드
@@ -141,7 +141,7 @@
 - 빈칸 한 입 페이지
   기술 : Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 단어를 사용자가 입력하도록 한다. 타이머가 제한 시간을 관리하며, 사용자가 입력한 답안을 정답과 비교해 점수를 부여하고, 최종 점수는 로그인 상태에 따라 Supabase 또는 로컬 스토리지에 저장된다.
 
-  ```
+  ```ts
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async () => {
     const startSeason = new Date(2024, 9, 27);
@@ -201,7 +201,7 @@
 
 아래 코드는 현재 퀴즈 질문에서 특정 구문에 밑줄과 번호를 추가하여 사용자에게 강조된 텍스트를 보여준다.
 
-```
+```ts
 const questionUnderLine = () => {
   const { question, correct } = questions[currentQuizIndex];
   const parts: React.ReactNode[] = [];
@@ -287,7 +287,7 @@ useEffect(() => {
 }, [img]);
 ```
 - checkQuiz: lastIndex가 정확히 업데이트되지 않아 question 내 일부 구문이 예상 위치에 표시되지 않거나 텍스트 분할이 잘못되는 문제가 있었습니다.그래서 lastIndex를 각 구문 끝 위치로 정확히 업데이트하여 indexOf가 항상 올바른 위치에서 다음 구문을 찾도록 수정했습니다. 이를 위해 다음과 같은 코드를 사용했습니다:
-```
+```ts
 lastIndex = phraseIndex + phrase.length; // phrase 끝 위치로 lastIndex 업데이트
 ```
 
