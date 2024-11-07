@@ -122,7 +122,7 @@
 - 랭크 페이지
  기술 : 
 
-<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/88e299ea-c646-49dc-9247-41a90344f000">
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/4804bffc-3f5e-4f01-8e55-2c7ac564b9d0">
 
 ---
 
