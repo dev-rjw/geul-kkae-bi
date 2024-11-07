@@ -56,7 +56,7 @@ const Speak = () => {
         };
       } catch (error) {
         alert('마이크 권한이 필요합니다');
-        console.log(error);
+        console.error(error);
       }
     };
     initMediaRecorder();

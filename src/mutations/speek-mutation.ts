@@ -22,7 +22,7 @@ export const useInsertMutation = () => {
       client.invalidateQueries({ queryKey: ['speek'] });
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -46,7 +46,7 @@ export const useUpdateMutation = () => {
       client.invalidateQueries({ queryKey: ['speek'] });
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 };
