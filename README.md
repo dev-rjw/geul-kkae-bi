@@ -51,7 +51,7 @@
 
 - 메인 페이지
   기술 : 각 게임 별로 hover시 진하게 나타나도록 추가하였습니다.
-  '''ts
+  ```ts
   <Card
     key={id}
     className={`w-full min-h-[26.25rem] p-[2.375rem] border-0 rounded-[1.25rem] transition-all duration-500 bg-cover bg-right-bottom ${bg} 
@@ -61,7 +61,7 @@
     onMouseEnter={() => setHoveredCard(id)}
     onMouseLeave={() => setHoveredCard(null)}
   >
-  ''' 
+  ```
 <img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/13e8d7c6-73e2-4a31-a84b-7794d94160ae">
 
 #### 회원가입 페이지
@@ -82,7 +82,7 @@
 
 - 마이 페이지
   기술 : user API와 rank API를 가져와서 해당 유저의 정보를 가져온다. 프로필 변경에서는 스토리지를 활용해 이미지를 저장하고, 그 이미지를 스토리지에서 가져와 페이지에 반영해준다. 이후 이미지, 닉네임, 한 줄 소개를 user 테이블에 저장해준다.
-  '''ts
+  ```ts
   // 프로필 수정
   const updatehandler = (user: User) => {
     updateUserInfo(user.user_id, user.image, user.nickname, user.introduction);
@@ -96,7 +96,7 @@
     const fullpath = await fetchProfile(name.toString());
     setUser({ ...user!, image: fullpath.publicUrl });
   };
-  '''
+  ```
 
 <img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/a25b5385-d792-4e50-b303-c7fbaaca6af8">
 <img width="500" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/c04d33a1-1a29-47c9-a7cb-f4cc1edde732">
