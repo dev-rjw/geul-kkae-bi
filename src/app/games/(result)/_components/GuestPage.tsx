@@ -11,13 +11,6 @@ import Image from 'next/image';
 const GuestPage = ({ searchParams }: JustEndedGameProp) => {
   const [games, setGames] = useState<GamesArray[]>();
 
-  //얘는 더미데이터
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('speaking', '80');
-    localStorage.setItem('checking', '100');
-    // localStorage.setItem('writing', '60');
-  }
-
   useEffect(() => {
     //로컬스토리지에서 해당 value 가져오기(첫렌더링 할 때마다)
     const speakingScore = localStorage.getItem('speaking');
