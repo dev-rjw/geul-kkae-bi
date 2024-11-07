@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Camera } from 'lucide-react';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
 import Tabs from '../_components/Tabs';
@@ -62,7 +61,6 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <Header />
       <Tabs />
       <div className='flex flex-col p-8 bg-gray-50 min-h-screen'>
         {/* 프로필 이미지 업로드 */}
