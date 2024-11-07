@@ -225,7 +225,7 @@ https://geul-kkae-bi.vercel.app/
 ## 🗂️ 기능 설명
 
 ### 메인 페이지
-![메인페이지](https://github.com/user-attachments/assets/68e0d72d-09fe-4a20-b557-d39277a159b4)
+![메인페이지](https://github.com/user-attachments/assets/4fe77b94-991f-45e8-baee-35fb04f1c6d9)
 각 게임 별로 hover시 진하게 나타나도록 추가하였습니다.
 ```tsx
 <Card
@@ -305,7 +305,7 @@ const onSubmit = async (values: FieldValues) => {
 
 ### 로그인 페이지
 ![로그인](https://github.com/user-attachments/assets/798dfc5f-40b4-4cdc-9c94-42f2fd788659)
-소셜 로그인 회원에게 랜덤 닉네임을 자동으로 부여하는 기능을 구현했습니다. <br/>
+소셜 로그인 회원에게 랜덤 닉네임을 자동으로 부여하는 기능을 구현했습니다.<br/>
 회원가입 시 /auth/callback 경로로 리다이렉션되며, 코드 작성 시 로컬 및 배포 환경 모두를 고려해 안정적으로 작동하도록 구성했습니다.
 ```tsx
 // client-action.ts
@@ -372,7 +372,9 @@ if (isLocalEnv) {
 ![마이페이지](https://github.com/user-attachments/assets/39f2b479-8392-4fc6-836f-19055d401fda)
 ![마이페이지-프로필변경](https://github.com/user-attachments/assets/bf19a9e1-1ab4-4f35-b752-c1cdc15d2dd9)
 ![마이페이지-비밀번호변경](https://github.com/user-attachments/assets/48bb9d99-3af2-47cb-80cf-5352711813a9)
-user API와 rank API를 가져와서 해당 유저의 정보를 가져온다. 프로필 변경에서는 스토리지를 활용해 이미지를 저장하고, 그 이미지를 스토리지에서 가져와 페이지에 반영해준다. 이후 이미지, 닉네임, 한 줄 소개를 user 테이블에 저장해준다.
+user API와 rank API를 가져와서 해당 유저의 정보를 가져온다.<br/>
+프로필 변경에서는 스토리지를 활용해 이미지를 저장하고, 그 이미지를 스토리지에서 가져와 페이지에 반영해준다.<br/>
+이후 이미지, 닉네임, 한 줄 소개를 user 테이블에 저장해준다.
 ```tsx
 // 프로필 수정
 const updatehandler = (user: User) => {
@@ -421,8 +423,8 @@ recorder.onstop = async () => {
 
 ### 틀린말탐정단 페이지(checking)
 ![틀린말탐정단](https://github.com/user-attachments/assets/b1f040fe-e5e9-4d45-ad66-f6a44121bc62)
-Supabase에서 불러온 문장 중 틀린 맞춤법을 포함한 선택지를 보여주고, 사용자가 잘못된 단어를 선택하는 방식입니다. 맞춤법 오류가 있는 선택지 중 정답을 고르면 점수를 얻으며, 게임 종료 후 결과가 Supabase 또는 로컬 스토리지에 저장됩니다.
-
+Supabase에서 불러온 문장 중 틀린 맞춤법을 포함한 선택지를 보여주고, 사용자가 잘못된 단어를 선택하는 방식입니다.<br/>
+맞춤법 오류가 있는 선택지 중 정답을 고르면 점수를 얻으며, 게임 종료 후 결과가 Supabase 또는 로컬 스토리지에 저장됩니다.<br/>
 아래 코드는 현재 퀴즈 질문에서 특정 구문에 밑줄과 번호를 추가하여 사용자에게 강조된 텍스트를 보여준다.
 ```tsx
 const questionUnderLine = () => {
@@ -475,7 +477,8 @@ const questionUnderLine = () => {
 
 ### 빈칸한입 페이지(writing)
 ![빈칸한입](https://github.com/user-attachments/assets/0427b52b-632f-4c3c-b93a-08f44c4e0dcb)
-Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 단어를 사용자가 입력하도록 한다. 타이머가 제한 시간을 관리하며, 사용자가 입력한 답안을 정답과 비교해 점수를 부여하고, 최종 점수는 로그인 상태에 따라 Supabase 또는 로컬 스토리지에 저장된다.
+Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 단어를 사용자가 입력하도록 한다.<br/>
+타이머가 제한 시간을 관리하며, 사용자가 입력한 답안을 정답과 비교해 점수를 부여하고, 최종 점수는 로그인 상태에 따라 Supabase 또는 로컬 스토리지에 저장된다.
 ```tsx
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async () => {
@@ -529,7 +532,8 @@ Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 
 
 ### 게임결과 페이지
 ![결과페이지](https://github.com/user-attachments/assets/e99adf73-f7af-4024-a273-293c8bcd9c6e)
-회원은 supabase에서 비회원은 localstorage에서 데이터를 받아 옴으로써 회원은 server 비회원은 clinet로 페이지를 각각 구성하였습니다. 회원에 한해서 모든 게임(3문제)을 끝냈을 때에만 점수를 합산하여 supabase에 total점수를 업데이트 시켜줍니다.
+회원은 supabase에서 비회원은 localstorage에서 데이터를 받아 옴으로써 회원은 server 비회원은 clinet로 페이지를 각각 구성하였습니다.<br/>
+회원에 한해서 모든 게임(3문제)을 끝냈을 때에만 점수를 합산하여 supabase에 total점수를 업데이트 시켜줍니다.
 ```tsx
   if (isDone) {
     const totalScore = userTable?.reduce(
@@ -554,7 +558,8 @@ Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 
 
 ### 랭킹 페이지
 ![랭킹](https://github.com/user-attachments/assets/cbd80f2c-1568-4c66-a8e3-93c9aa670284)
-이번주 모든 랭킹 리스트와 지난주 나의 랭킹 순위를 볼 수 있습니다. 이번주 랭킹 순위는 따로 supabase에 저장하지 않고 화면이 렌더링 될 때마다 순위를 매겨서 화면 ui에 그려주는 방식을 채택하였고 지난주 랭킹 같은 경우에는 supabase에 새로운 주차가 생길 때 새로운row가 생성되면서 지난주차row의 게임 total 점수의 변동이 일어나지 않는데, 그래서 새로운 주차가 시작했을 때 가장 처음 랭킹페이지를 들어오는 사람을 기준으로 지난주차 데이터를 가져와 total 점수를 기준으로 랭킹 순위를 매겨서 supabase에 넣어주고 난 뒤 지난주 나의 랭킹 순위를 supabase에서 불러오는 방식은 채택 하였습니다.
+이번주 모든 랭킹 리스트와 지난주 나의 랭킹 순위를 볼 수 있습니다.<br/>
+이번주 랭킹 순위는 따로 supabase에 저장하지 않고 화면이 렌더링 될 때마다 순위를 매겨서 화면 ui에 그려주는 방식을 채택하였고 지난주 랭킹 같은 경우에는 supabase에 새로운 주차가 생길 때 새로운row가 생성되면서 지난주차row의 게임 total 점수의 변동이 일어나지 않는데, 그래서 새로운 주차가 시작했을 때 가장 처음 랭킹페이지를 들어오는 사람을 기준으로 지난주차 데이터를 가져와 total 점수를 기준으로 랭킹 순위를 매겨서 supabase에 넣어주고 난 뒤 지난주 나의 랭킹 순위를 supabase에서 불러오는 방식은 채택 하였습니다.
 ```tsx
   if (latestWeekData && latestWeekData[0].week - 1 > 0) {
     const lastWeek = latestWeekData[0].week - 1;
@@ -595,15 +600,12 @@ Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 
 ---
 
 ## 💥 Trouble Shooting
-## 💥 Trouble Shooting
 
-#### Speaking <br/>
+#### Speaking
 🔥 Trouble: 오디오 입력 값이 처음 시작시 빈 데이터를 저장하는 오류 발생 : MediaRecorder 객체를 생성해 오디오를 녹음하고 MediaRecorder 인스턴스를 변수 상태로 저장하면 리렌더링 시마다 새로 생성되어 녹음이 끊길 수 있다는걸 확인<br/>
 solution: useRef를 사용하여 리렌더링이 발생해도 MediaRecorder 인스턴스는 그대로 유지되게 만들어 끊김 없이 안정적으로 녹음을 이어갈 수 있습니다.
 
-<br/>
-
-#### Checking <br>
+#### Checking
 🔥 Trouble: checkQuiz: lastIndex가 정확히 업데이트되지 않아 question 내 일부 텍스트가 예상 위치에 표시되지 않거나 텍스트 분할이 잘못되는 문제가 있었습니다.<br/>
 solution: lastIndex를 각 구문 끝 위치로 정확히 업데이트하여 indexOf가 항상 올바른 위치에서 다음 텍스트을 찾도록 수정했습니다. 이를 위해 다음과 같은 코드를 사용했습니다:
 
@@ -611,18 +613,13 @@ solution: lastIndex를 각 구문 끝 위치로 정확히 업데이트하여 ind
 lastIndex = phraseIndex + phrase.length; // phrase 끝 위치로 lastIndex 업데이트
 ```
 
-<br/>
-
-#### Ranking <br/>
-
+#### Ranking
 🔥 Trouble: 랭킹 순위를 매길려면 supabase에서 total 점수가 가장 높은 것들을 기준으로 내림차순으로 정렬시켜서 데이터를 받아오는데 오류 발생<br/>
 solution: 데이터를 내림차순으로 정렬시킬때 supabase에서 null을 가장 위로 정렬 시킨다는 것을 확인하여 데이터를 불러오는 조건에 ` .not('total', 'is', null)` 를 추가 시켜서 total점수에 null값이 있는 데이터를 걸러지게 하여 가장 높은 점수가 위로 가도록 하였습니다.
 
-<br/>
 
-#### Login <br/>
-
-🔥 Trouble: Vercel에 배포하는 과정에서 문제가 발생
+#### Login
+🔥 Trouble: Vercel에 배포하는 과정에서 문제가 발생<br/>
 localStorage는 브라우저에서만 사용할 수 있는 API이기 때문에, 서버에서 렌더링 시 접근하면 오류가 발생합니다.
 typeof window !== "undefined"를 사용해 브라우저 환경에서만 실행되도록 수정했습니다.
 ``` tsx
@@ -633,13 +630,9 @@ const defaultValues = {
 };
 ```
 
-<br/>
-
-#### Mypage <br/>
-
+#### Mypage
 🔥 Trouble: useEffect를 남발하여 Input 값에 입력이 버벅이는 오류 발생<br/>
 solution: useEffect 대신 setUser를 onChange에 삽입하여 useEffect를 모두 제거하였습니다.
-
 ```tsx
 useEffect(() => {
   setUser({ ...user!, nickname });
