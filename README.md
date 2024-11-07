@@ -116,7 +116,7 @@
 - 게임 결과 페이지
  기술 : 
 
-<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/0289d443-7f27-4125-bd1c-69bc3ad0cbd7">
+<img width="1151" alt="스크린샷 2024-10-17 오전 4 58 17" src="https://github.com/user-attachments/assets/7796b29f-78c9-4e55-ba41-4b5a82a57259">
 
 #### 랭크 페이지
 - 랭크 페이지
