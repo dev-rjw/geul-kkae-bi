@@ -1,5 +1,4 @@
 'use client';
-import Header from '@/components/Header';
 import { useAuth } from '@/queries/useAuth';
 import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import Image from 'next/image';
@@ -56,7 +55,6 @@ function MyPage() {
 
   return (
     <>
-      <Header />
       <div className='flex justify-center items-center min-h-[85vh] pt-[1.875rem]'>
         {/* 전체 박스 */}
         <div className='flex flex-wrap lg:flex-nowrap w-full max-w-[67.5rem] rounded-lg gap-4'>
