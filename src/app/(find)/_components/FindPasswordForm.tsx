@@ -28,8 +28,6 @@ const FindPasswordForm = () => {
 
     const user = await fetchEmailUserInfo(email);
 
-    console.log(user);
-
     if (user?.provider === 'google' || user?.provider === 'kakao') {
       Swal.fire({
         html: `<div class="text-gray-700">해당 계정은 ${user?.provider} 소셜 로그인으로 가입되었습니다. <br />${user?.provider} 계정으로 로그인해주세요.</div>`,

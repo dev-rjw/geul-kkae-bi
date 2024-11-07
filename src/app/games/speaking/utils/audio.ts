@@ -1,7 +1,6 @@
 // 오디오 값 통신
 export const sendToAudio = async (audioBlob: Blob) => {
   if (audioBlob.size > 0) {
-    console.log('음성데이터가 있습니다', audioBlob);
     const response = await fetch('https://api.wit.ai/speech', {
       method: 'POST',
       headers: {
@@ -14,7 +13,7 @@ export const sendToAudio = async (audioBlob: Blob) => {
     const data = await response.text();
     return data;
   } else {
-    console.log('음성데이터가 없습니다');
+    console.error('음성데이터가 없습니다');
   }
 };
 
