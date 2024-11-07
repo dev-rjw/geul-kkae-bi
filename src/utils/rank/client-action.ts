@@ -39,7 +39,16 @@ export const addScoresRank = async ({ userId, checking, speaking, writing, total
   const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
 
   if (error) {
-    Swal.fire('정보 저장에 실패했습니다.');
+    Swal.fire({
+      html: `<div class="text-gray-700">정보 저장에 실패했습니다.</div>`,
+      customClass: {
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text',
+        confirmButton: 'swal-custom-button',
+      },
+      confirmButtonText: '확인',
+    });
+
     return;
   }
 };

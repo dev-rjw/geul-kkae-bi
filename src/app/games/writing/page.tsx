@@ -33,12 +33,8 @@ const WritingQuizPage = () => {
   const fetchUser = async () => {
     const {
       data: { user },
-      error,
     } = await browserClient.auth.getUser();
-
-    if (error) {
-      console.log('비로그인');
-    } else if (user) {
+    if (user) {
       setUserId(user.id);
     }
   };
@@ -171,14 +167,14 @@ const WritingQuizPage = () => {
         isAllQuestions={isAllQuestions}
       />
       <div className=' flex flex-col items-center justify-center mt-20'>
-        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#2AD4AF] text-2xl font-medium rounded-full'>{`${
+        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#2AD4AF] text-2xl font-medium rounded-full font-Pretendard'>{`${
           currentQuizIndex + 1
         }번문제`}</p>
-        <p className=' mt-[4.25rem] mb-10 text-4xl font-medium'>
+        <p className=' mt-[4.25rem] mb-10 text-4xl font-medium font-yangjin'>
           해당 자음을 보고 제시한 문장에 어울리는 단어를 적어주세요.
         </p>
         <ConsonantCard consonants={question.consonant} />
-        <div className=' flex flex-col justify-center items-center h-[12.5rem] mt-10 p-2.5 '>
+        <div className=' flex flex-col justify-center items-center h-[12.5rem] mt-10 p-2.5 font-yangjin'>
           <p className=' text-4xl font-medium mb-[1.6875rem]'>{question.question}</p>
           <p className=' text-2xl font-midium text-[#2AD4AF]'>{`**${question.meaning}`}</p>
         </div>
@@ -188,12 +184,12 @@ const WritingQuizPage = () => {
             placeholder='정답을 입력하고 엔터를 치세요'
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            className=' pt-16 border-b border-black focus:outline-none text-xl font-medium w-80'
+            className=' pt-16 border-b border-black focus:outline-none text-xl font-medium w-80 font-yangjin'
           />
         </form>
       </div>
 
-      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center'>
+      <div className=' absolute top-[387px] right-[1.25rem] flex flex-col items-center font-yangjin'>
         {!(isTimeOver || isAllQuestions) ? (
           <div className='flex flex-col items-center'>
             <p className='text-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { fetchRank3 } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
+import { useRouter } from 'next/navigation';
 
 export type Rank = {
   user_id: string;
@@ -23,6 +24,7 @@ export type Rank = {
 const MainRank = () => {
   const { data } = useAuth();
   const [ranks, setRanks] = useState<Rank[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     fetchRank3().then((elemant) => setRanks(elemant!));
@@ -46,13 +48,19 @@ const MainRank = () => {
         </div>
       )}
 
-      <div className='pt-7 pb-4 text-center'>
+      <div
+        className='pt-7 pb-4 text-center cursor-pointer'
+        onClick={() => router.push('/games/rank')}
+      >
         <div className='text-[1.75rem] font-yangjin text-primary-600 leading-none'>랭킹 TOP 3</div>
         <div className='body-18 text-primary-300 mt-1'>이번주 랭킹을 확인해보세요!</div>
       </div>
       <hr className='border-t-2 border-primary-100' />
       <hr className='border-t-8 border-primary-50' />
-      <div className='flex grow items-center'>
+      <div
+        className='flex grow items-center cursor-pointer'
+        onClick={() => router.push('/games/rank')}
+      >
         <div className='w-full pb-5'>
           {ranks.map((rank, index) => {
             return (
