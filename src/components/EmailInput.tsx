@@ -32,7 +32,7 @@ const EmailInput = ({ field, domainOptions }: Props) => {
     <div className='flex items-center gap-[0.625rem]'>
       <DefaultInput
         type='text'
-        placeholder='아이디'
+        placeholder='이메일 아이디'
         value={userId}
         onChange={(e) => {
           setUserId(e.target.value);
@@ -56,9 +56,7 @@ const EmailInput = ({ field, domainOptions }: Props) => {
           }}
         >
           <SelectTrigger className='h-[3.25rem] w-full rounded-[0.625rem] px-[0.625rem] py-[0.875rem] text-base font-bold placeholder:text-gray-300 focus:ring-0 focus:ring-offset-0'>
-            <SelectValue
-              placeholder='선택해주세요'
-            />
+            <SelectValue placeholder='선택해주세요' />
           </SelectTrigger>
           <SelectContent className='rounded-[0.625rem]'>
             {domainOptions.map((option, index) => (

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Camera } from 'lucide-react';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
 import Tabs from '../_components/Tabs';
@@ -62,7 +61,6 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <Header />
       <Tabs />
       <div className='flex flex-col p-8 bg-gray-50 min-h-screen'>
         {/* 프로필 이미지 업로드 */}
@@ -79,7 +77,7 @@ const ProfileEdit = () => {
           <button
             className='top-0 right-0 w-8 h-8 bg-[#649CED] ml-[-40px] rounded-full shadow-md'
             onClick={() =>
-              setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.png')
+              setImg('https://sfdcyhvieqruoagzezzv.supabase.co/storage/v1/object/public/profile/default_img.jpg')
             }
           >
             <span className='text-2xl text-white'>×</span>

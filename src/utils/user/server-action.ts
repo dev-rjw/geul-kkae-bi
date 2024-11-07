@@ -1,3 +1,4 @@
+import { User } from '@supabase/supabase-js';
 import { createClient } from '../supabase/server';
 import { randomNickname } from '@/app/(sign)/utils/randomNickname';
 
@@ -49,12 +50,26 @@ export const addProfileImage = async (userId: string) => {
     // 프로필 이미지 저장
     const { error: updateError } = await supabase
       .from('user')
-      .update({ image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.png` })
+      .update({ image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.jpg` })
       .eq('user_id', userId);
 
     if (updateError) {
       console.error('프로필 이미지 저장 중 오류:', updateError);
       return updateError;
     }
+  }
+};
+
+// 소셜 회원에 provider 추가
+export const addProvider = async (user: User) => {
+  const supabase = createClient();
+
+  if (user && user.app_metadata.provider) {
+    await supabase
+      .from('user')
+      .update({
+        provider: user.app_metadata.provider,
+      })
+      .eq('user_id', user.id);
   }
 };
