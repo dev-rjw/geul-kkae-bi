@@ -286,7 +286,7 @@ useEffect(() => {
   setUser({ ...user!, image: img });
 }, [img]);
 ```
-- checkQuiz: lastIndex가 정확히 업데이트되지 않아 question 내 일부 구문이 예상 위치에 표시되지 않거나 텍스트 분할이 잘못되는 문제가 있었습니다.그래서 lastIndex를 각 구문 끝 위치로 정확히 업데이트하여 indexOf가 항상 올바른 위치에서 다음 구문을 찾도록 수정했습니다. 이를 위해 다음과 같은 코드를 사용했습니다:
+- checkQuiz: lastIndex가 정확히 업데이트되지 않아 question 내 일부 텍스트가 예상 위치에 표시되지 않거나 텍스트 분할이 잘못되는 문제가 있었습니다.그래서 lastIndex를 각 구문 끝 위치로 정확히 업데이트하여 indexOf가 항상 올바른 위치에서 다음 텍스트을 찾도록 수정했습니다. 이를 위해 다음과 같은 코드를 사용했습니다:
 ```ts
 lastIndex = phraseIndex + phrase.length; // phrase 끝 위치로 lastIndex 업데이트
 ```
