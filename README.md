@@ -197,7 +197,7 @@
 #### 게임 페이지(checking)
 
 - 틀린 말 게임 페이지
-  기술 : Supabase에서 불러온 문장 중 틀린 맞춤법을 포함한 선택지를 제공하고, 사용자가 잘못된 단어를 선택하는 방식입니다. 맞춤법 오류가 있는 선택지 중 정답을 고르면 점수를 얻으며, 게임 종료 후 결과가 Supabase 또는 로컬 스토리지에 저장됩니다.
+  기술 : Supabase에서 불러온 문장 중 틀린 맞춤법을 포함한 선택지를 보여주고, 사용자가 잘못된 단어를 선택하는 방식입니다. 맞춤법 오류가 있는 선택지 중 정답을 고르면 점수를 얻으며, 게임 종료 후 결과가 Supabase 또는 로컬 스토리지에 저장됩니다.
 
 아래 코드는 현재 퀴즈 질문에서 특정 구문에 밑줄과 번호를 추가하여 사용자에게 강조된 텍스트를 보여준다.
 
@@ -207,7 +207,7 @@ const questionUnderLine = () => {
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
 
-  // 'correct' 배열에 있는 각 구문을 순회하며 위치와 스타일을 설정
+  // 'correct' 배열에 있는 각 택스트을 순회하며 위치와 스타일을 설정
   correct.forEach((phrase, index) => {
     const phraseIndex = question.indexOf(phrase, lastIndex);
 
@@ -217,7 +217,7 @@ const questionUnderLine = () => {
         parts.push(<span key={lastIndex}>{question.slice(lastIndex, phraseIndex)}</span>);
       }
 
-      // 선택된 구문에 밑줄과 번호 스타일을 추가
+      // 선택된 텍스트에 밑줄과 번호 스타일을 추가
       const isSelected = selectedOption === phrase;
       parts.push(
         <span
@@ -232,12 +232,12 @@ const questionUnderLine = () => {
               isSelected ? 'bg-[#A07BE5]' : 'bg-[#357EE7]'
             } text-[1.3125rem] text-white items-center justify-center rounded-full`}
           >
-            {index + 1} {/* 구문에 표시할 번호 */}
+            {index + 1} {/* 텍스트에 표시할 번호 */}
           </span>
         </span>,
       );
 
-      lastIndex = phraseIndex + phrase.length; // 다음 구문 탐색을 위해 마지막 인덱스 업데이트
+      lastIndex = phraseIndex + phrase.length; // 다음 텍스트 탐색을 위해 마지막 인덱스 업데이트
     }
   });
 
