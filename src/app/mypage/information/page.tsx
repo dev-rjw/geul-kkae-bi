@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Camera } from 'lucide-react';
-import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
 import Tabs from '../_components/Tabs';
 
@@ -47,10 +46,10 @@ const ProfileEdit = () => {
   };
 
   return (
-    <>
+    <div className='container py-[2.5rem]'>
       <Tabs />
-      <Input />
-      <div className='flex flex-col p-8 bg-gray-50 min-h-screen'>
+      {/* <Input /> */}
+      <div className='flex flex-col p-8'>
         {/* 프로필 이미지 업로드 */}
         <div className='relative flex'>
           {user?.image && (
@@ -113,7 +112,7 @@ const ProfileEdit = () => {
         <div className='flex mt-4 w-full max-w-md ml-[100px]'>
           <label className='text-gray-700 mr-[100px] mt-3'>한줄소개</label>
           <div className='flex items-center mt-1'>
-            <input
+            <Input
               type='text'
               className='flex-1 border border-gray-300 rounded-md p-2'
               value={user?.introduction?.trim()}
@@ -130,8 +129,7 @@ const ProfileEdit = () => {
           저장하기
         </button>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 

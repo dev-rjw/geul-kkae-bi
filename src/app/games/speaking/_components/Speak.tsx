@@ -72,7 +72,7 @@ const Speak = () => {
 
   const startRecording = () => {
     if (!mediaRecorderRef.current) {
-      console.log('MediaRecorder가 초기화되지 않았습니다');
+      console.error('MediaRecorder가 초기화되지 않았습니다');
       return;
     }
     setIsLoading(true);
@@ -83,7 +83,7 @@ const Speak = () => {
 
   const stopRecording = async () => {
     if (!mediaRecorderRef.current) {
-      console.log('MediaRecorder가 초기화되지 않았습니다');
+      console.error('MediaRecorder가 초기화되지 않았습니다');
       return;
     }
     mediaRecorderRef.current.stop();

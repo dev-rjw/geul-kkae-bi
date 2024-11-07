@@ -28,7 +28,6 @@ export const useInsertMutation = () => {
 };
 
 const updateSpeekScore = async (score: { score: number; userId: string; week: number }) => {
-  console.log(score.userId);
   return await browserClient
     .from('rank')
     .update({
