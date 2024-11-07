@@ -19,7 +19,6 @@ const RankingPage = async () => {
     .order('week', { ascending: false })
     .limit(1);
 
-  console.log('latestWeekData!!!', latestWeekData);
   // latestWeekData [
   //   {
   //     user_id: 'e651a7f4-9594-4e10-9fdf-f6858b26fd59',
@@ -54,13 +53,10 @@ const RankingPage = async () => {
     if (data && data.length > 0) {
       //이번주 전체 등수
       countRanking = data.map((item, index) => ({ ...item, ranking: index + 1 }));
-      console.log('countRanking', countRanking);
       //이번주 내 등수
       userTable = countRanking?.filter((user) => user.user_id === userId);
     }
   }
-  console.log('userTable', userTable);
-  console.log('countRanking', countRanking);
 
   //지난주 랭킹 로직
 
@@ -75,7 +71,6 @@ const RankingPage = async () => {
       .eq('week', lastWeek)
       .not('total', 'is', null)
       .order('total', { ascending: false });
-    console.log('lastWeekData', lastWeekData);
 
     //지난주 테이블에 랭킹 기록이 없을시에 랭킹을 매겨주고 랭킹을 넣어줌
     if (lastWeekData?.[0].ranking === null) {
@@ -84,12 +79,11 @@ const RankingPage = async () => {
         ranking: index + 1,
       }));
       const insertLastRankingData = async () => {
-        const { data, error } = await serverClient.from('rank').upsert(countRanking);
+        const { error } = await serverClient.from('rank').upsert(countRanking);
         if (error) {
           console.error('Error posting Ranking data', error);
           return;
         }
-        console.log('Ranking Data posted successfully', data);
       };
       insertLastRankingData();
     }

@@ -84,7 +84,7 @@ const HeaderInfoChange = () => {
               </div>
               <Avatar className='w-12 h-12 border border-gray-100'>
                 <AvatarImage
-                  src={user?.image ?? '/default-avatar.png'}
+                  src={user?.image ?? '/default_img.jpg'}
                   alt={user?.nickname}
                   className='object-cover'
                 />
@@ -107,7 +107,7 @@ const HeaderInfoChange = () => {
               <div className='flex items-center gap-[0.625rem]'>
                 <Avatar className='w-12 h-12 border border-gray-100'>
                   <AvatarImage
-                    src={user?.image ?? '/default-avatar.png'}
+                    src={user?.image ?? '/default_img.jpg'}
                     alt={user?.nickname}
                     className='object-cover'
                   />
