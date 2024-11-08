@@ -1,4 +1,4 @@
-.swal-custom-text {
+/* .swal-custom-text {
   color: var(--Primary-500, #1965d2);
   text-align: center;
   font-family: Pretendard;
@@ -6,9 +6,9 @@
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: -0.48px;
-}
+} */
 
-.swal-custom-button {
+/* .swal-custom-button {
   display: flex;
   width: 240px;
   height: 52px;
@@ -24,4 +24,4 @@
   color: #fff;
   border: none;
   border-radius: 12px;
-}
+} */
