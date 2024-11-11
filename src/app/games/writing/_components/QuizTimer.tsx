@@ -9,32 +9,51 @@ interface QuizTimerProps {
 
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
   const [timeLeft, setTimeLeft] = useState(40);
-  const [isTutorial, setIstutorial] = useState(true);
-
+  const [isTutorial, setIsTutorial] = useState(true);
+  const workerRef = useRef<Worker | null>(null);
   const onTimeOverRef = useRef(onTimeOver);
 
+  // 최신 onTimeOver 참조 유지
   useEffect(() => {
     onTimeOverRef.current = onTimeOver;
   }, [onTimeOver]);
 
+  // Worker 초기화
+  useEffect(() => {
+    if (!workerRef.current) {
+      workerRef.current = new Worker(new URL('../util/TimerWorker.js', import.meta.url));
+
+      workerRef.current.onmessage = (e) => {
+        if (e.data === 'timeover') {
+          setTimeout(() => {
+            onTimeOverRef.current();
+          }, 1000);
+        } else if (typeof e.data === 'number') {
+          setTimeLeft(e.data);
+        }
+      };
+    }
+
+    return () => {
+      workerRef.current?.terminate();
+      workerRef.current = null;
+    };
+  }, []);
+
+  // 타이머 시작 및 정지 제어
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
-    // 퀴즈 타이머 시작
-    const timer: NodeJS.Timeout = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(timer);
-          setTimeout(() => onTimeOverRef.current(), 0);
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [onTimeOver, isAllQuestions, isTutorial]);
+    workerRef.current?.postMessage('start');
+
+    return () => {
+      workerRef.current?.postMessage('stop');
+    };
+  }, [isAllQuestions, isTutorial]);
 
   const handleStartGame = () => {
-    setIstutorial(false);
+    setIsTutorial(false);
+    workerRef.current?.postMessage('start');
   };
 
   return (
@@ -50,14 +69,12 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
           />
           <button
             onClick={handleStartGame}
-            className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px] '
+            className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
           >
             시작하기
           </button>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <div className='w-full bg-[#BAF1E5] h-[28px]'>
         <div
           className=' bg-[#2AD4AF] h-[28px] transition-all ease-linear rounded-r-lg'
