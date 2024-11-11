@@ -11,6 +11,23 @@ const RankingPage = async () => {
   const serverClient = createClient();
   const userId = await fetchUserId();
 
+  interface userProfile {
+    user_id: string;
+    nickname: string;
+    introduction: string;
+    image: string;
+    created_at: string;
+    email: string;
+    provider: null;
+  }
+
+  // 현재 유저
+  const { data: userProfile }: { data: userProfile[] | null } = await serverClient
+    .from('user')
+    .select()
+    .eq('user_id', userId);
+  console.log('userProfile', userProfile);
+
   //가장 최신 week 가져오기(숫자가 클수록 최신)->기준이 되는 week
   const { data: latestWeekData }: { data: Rank[] | null } = await serverClient
     .from('rank')
@@ -185,22 +202,22 @@ const RankingPage = async () => {
           <div className='h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem]'>
             <div className='relative w-[6.875rem] h-[6.875rem] rounded-[1.25rem] overflow-hidden'>
               <Image
-                src={userTable?.[0]?.user.image ?? ''}
+                src={userProfile?.[0]?.image ?? ''}
                 alt='profile image for my ranking'
                 quality={85}
                 fill
                 style={{ objectFit: 'cover' }}
               />
             </div>
-
+            {/* 닉네임, 소개: 없으먼 "한줄 소개가 없습니다로 대체", 프로필사진: 없으면 기본이미지 은 어스랑 연결시켜야함  */}
             <div className='flex grow gap-[2.75rem] h-full pl-[2.125rem]'>
               <div className='flex items-center grow gap-[2.75rem]'>
                 <div className='flex flex-col self-stretch w-full'>
                   <div className='flex items-center justify-center body-16 mb-4 text-primary-400'>
-                    {userTable?.[0]?.user.nickname}
+                    {userProfile?.[0]?.nickname}
                   </div>
                   <div className='flex items-center justify-center h-full caption-14 bg-primary-50 rounded-[0.875rem]'>
-                    {userTable?.[0]?.user.introduction}
+                    {userProfile ? userProfile?.[0]?.introduction : '한줄 소개가 없습니다.'}
                   </div>
                 </div>
                 <div className='flex flex-col justify-between gap-4 w-full max-w-[12.813rem] title-20'>
@@ -242,20 +259,6 @@ const RankingPage = async () => {
             </div>
           </div>
         </div>
-
-        {/* <div>
-            <div>닉네임 : {userTable?.[0].user.nickname}</div>
-            <div>소개 : {userTable?.[0].user.introduction}</div>
-            <div>나의 랭킹 : {userTable?.[0].ranking}</div>
-            <div>
-              {' '}
-              {myLastrank ? <div>{`지난주 순위 : ${myLastrank?.[0]?.ranking}`}</div> : <div>지난주 순위 : </div>}
-            </div>
-            <div>주어진 문장읽기 : {userTable?.[0].speaking}</div>
-            <div>빈칸 채우기 : {userTable?.[0].writing}</div>
-            <div>틀린것 맞추기 : {userTable?.[0].checking}</div>
-            <div>총합 점수 : {userTable?.[0].total}</div>
-          </div> */}
       </div>
     );
   }

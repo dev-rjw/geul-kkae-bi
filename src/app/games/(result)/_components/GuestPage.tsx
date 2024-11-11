@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { GamesArray, GamesScore, JustEndedGameProp } from '@/types/result';
+import { GamesArray, GamesScore, JustEndedGameProp, matchedGameArrayForGuest } from '@/types/result';
 import ResultSide from '../_components/ResultSide';
 import '../style.css';
 import { redirect } from 'next/navigation';
@@ -64,14 +64,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
     return game.type !== justEndedGame;
   });
 
-  interface matchedGameArray {
-    type: string;
-    score: string | null;
-    color: string;
-    name: string;
-  }
-
-  const game = (matchedGame: matchedGameArray) => {
+  const game = (matchedGame: matchedGameArrayForGuest) => {
     switch (true) {
       case matchedGame.type === 'speaking':
         return 'bg-[#Fbd498]';
