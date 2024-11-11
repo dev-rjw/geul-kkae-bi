@@ -1,19 +1,19 @@
-import { create } from 'zustand';
+// import { create } from 'zustand';
 
-// 타입 정의
-interface AnswerRecord {
-  question: string;
-  correctAnswer: string;
-  userAnswer: string;
-}
+// // 타입 정의
+// interface AnswerRecord {
+//   question: string;
+//   correctAnswer: string;
+//   userAnswer: string;
+// }
 
-interface WritingStore {
-  correctAnswers: AnswerRecord[];
-  incorrectAnswers: AnswerRecord[];
-  addCorrectAnswer: (answer: AnswerRecord) => void;
-  addIncorrectAnswer: (answer: AnswerRecord) => void;
-}
+// interface WritingStore {
+//   correctAnswers: AnswerRecord[];
+//   incorrectAnswers: AnswerRecord[];
+//   addCorrectAnswer: (answer: AnswerRecord) => void;
+//   addIncorrectAnswer: (answer: AnswerRecord) => void;
+// }
 
-const useWritingStore = create<WritingStore>((set) => ({}));
+// const useWritingStore = create<WritingStore>((set) => ({}));
 
-export default useWritingStore;
+// export default useWritingStore;
