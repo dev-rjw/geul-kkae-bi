@@ -1,8 +1,8 @@
-type delay = {
+type Delay = {
   handleStart: () => void;
 };
 
-const Tutorial = ({ handleStart }: delay) => {
+const Tutorial = ({ handleStart }: Delay) => {
   return (
     <div className='w-full mx-auto bg-[#858584]'>
       <div className="bg-center h-screen bg-[url('/speak_tutorial.svg')] bg-contain bg-no-repeat">

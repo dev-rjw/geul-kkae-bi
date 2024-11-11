@@ -1,21 +1,21 @@
 'use client';
 import { useInsertMutation, useUpdateMutation } from '@/mutations/speek-mutation';
 import { useAuth } from '@/queries/useAuth';
-import speekStore from '@/store/speekStore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Timer from './Timer';
-import { timeStore } from '@/store/timeStore';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
 import Image from 'next/image';
 import { weekNumber } from '@/utils/week/weekNumber';
+import { useSpeekStore } from '@/store/speekStore';
+import { useTimeStore } from '@/store/timeStore';
 
-type Question = {
+type QuestionProps = {
   text: string;
   randomText: string[];
 };
 
-const Question = ({ text, randomText }: Question) => {
+const Question = ({ text, randomText }: QuestionProps) => {
   const [result, setResult] = useState(false);
   const {
     index,
@@ -28,8 +28,8 @@ const Question = ({ text, randomText }: Question) => {
     resetPercent,
     addIndex,
     addTotalPercent,
-  } = speekStore();
-  const { time } = timeStore();
+  } = useSpeekStore();
+  const { time } = useTimeStore();
   const { data } = useAuth();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();

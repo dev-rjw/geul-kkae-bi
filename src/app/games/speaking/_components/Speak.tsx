@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Question from './Question';
-import speekStore from '@/store/speekStore';
 import TextData from '@/mock/speak';
 import { convertAudioToPCM, sendToAudio } from '../utils/audio';
 import Image from 'next/image';
 import icon from '../../../../../public/ico_audio.png';
-import { timeStore } from '@/store/timeStore';
+import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
+import { useSpeekStore } from '@/store/speekStore';
 
 function getRandomQuestion(textArray: string[]) {
   return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
@@ -19,8 +19,8 @@ const Speak = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
   const { text, isRecording, setText, setIsRecording, setIsLoading, resetText, resetPercent, resetIndex } =
-    speekStore();
-  const { isDelay, resetTimer, setIsDelay } = timeStore();
+    useSpeekStore();
+  const { isDelay, resetTimer, setIsDelay } = useTimeStore();
 
   const ondataavailable = (event: { data: Blob }) => {
     audioChunks.current = [event.data];
@@ -37,6 +37,7 @@ const Speak = () => {
       const text = jsonArray[jsonArray.length - 1];
       await setText(text.text);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -49,7 +50,6 @@ const Speak = () => {
         mediaRecorderRef.current = recorder;
         recorder.ondataavailable = ondataavailable;
         recorder.onstop = onStop;
-        setIsLoading(false);
       } catch (error) {
         alert('마이크 권한이 필요합니다');
         console.error(error);
