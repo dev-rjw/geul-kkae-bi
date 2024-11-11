@@ -291,7 +291,7 @@ const onSubmit = async (values: FieldValues) => {
   const week = weekNumber;
 
   // 회원가입 시 rank 테이블에 정보 저장
-  await addScoresRank({ userId, checking, speaking, writing, total, week });
+  await addScores({ userId, checking, speaking, writing, total, week });
 
   // 점수 저장 후 로컬스토리지 데이터 삭제
   localStorage.removeItem("checking");

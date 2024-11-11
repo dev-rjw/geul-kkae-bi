@@ -30,7 +30,8 @@ const HeaderInfoChange = () => {
     queryClient.invalidateQueries({ queryKey: ['user', 'client'] });
   });
 
-  const signout = async (e: React.FormEvent) => {
+  // 로그아웃
+  const handleSignout = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const { error } = await supabase.auth.signOut();
@@ -123,7 +124,7 @@ const HeaderInfoChange = () => {
             </div>
             <Button
               className='flex gap-[0.375rem] w-full justify-start text-sm font-bold rounded-none bg-primary-50 text-gray-500 hover:bg-primary-100'
-              onClick={signout}
+              onClick={handleSignout}
             >
               <LogOut className='text-base' />
               로그아웃

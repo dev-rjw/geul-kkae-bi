@@ -1,6 +1,6 @@
 import { User } from '@supabase/supabase-js';
 import { createClient } from '../supabase/server';
-import { randomNickname } from '@/app/(sign)/utils/randomNickname';
+import { randomNickname } from '@/app/(sign)/utils/sign';
 
 // 소셜 회원에 닉네임 추가
 export const addNickname = async (userId: string) => {
@@ -50,7 +50,9 @@ export const addProfileImage = async (userId: string) => {
     // 프로필 이미지 저장
     const { error: updateError } = await supabase
       .from('user')
-      .update({ image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.webp` })
+      .update({
+        image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.webp`,
+      })
       .eq('user_id', userId);
 
     if (updateError) {

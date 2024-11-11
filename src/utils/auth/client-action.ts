@@ -2,7 +2,6 @@ import { SignUpWithPasswordCredentials, SignInWithPasswordCredentials } from '@s
 import { createClient } from '../supabase/client';
 import { translateErrorMessage } from '@/schemas/commonSchema';
 import Swal from 'sweetalert2';
-// import { redirect } from 'next/navigation';
 
 // 회원가입
 export const signup = async (formData: SignUpWithPasswordCredentials) => {
@@ -91,7 +90,7 @@ export const fetchCurrentUser = async () => {
   if (error || !user) {
     return null;
   }
-  
+
   return user;
 };
 

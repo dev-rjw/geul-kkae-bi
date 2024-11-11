@@ -1,5 +1,5 @@
-import Swal from 'sweetalert2';
 import { createClient } from '../supabase/client';
+import { addScoresProps } from '@/types/user';
 
 // 랭킹 가져오기
 export const fetchUserRank = async (user_id: string) => {
@@ -24,31 +24,26 @@ export const fetchRank3 = async () => {
   return data;
 };
 
-type addScoresProps = {
-  userId: string | null;
-  checking: number | null;
-  speaking: number | null;
-  writing: number | null;
-  total: number | null;
-  week: number | null;
-};
-
 // 회원가입 시 rank테이블에 정보 저장
-export const addScoresRank = async ({ userId, checking, speaking, writing, total, week }: addScoresProps) => {
+export const addScores = async ({ userId, checking, speaking, writing }: addScoresProps) => {
   const supabase = createClient();
+  const total = checking + speaking + writing;
+  // week 계산
+  const startSeason = new Date(2024, 9, 27);
+  const now = new Date();
+  const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
+  const week = weekNumber;
+
   const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
 
-  if (error) {
-    Swal.fire({
-      html: `<div class="text-gray-700">정보 저장에 실패했습니다.</div>`,
-      customClass: {
-        title: 'swal-custom-title',
-        htmlContainer: 'swal-custom-text',
-        confirmButton: 'swal-custom-button',
-      },
-      confirmButtonText: '확인',
-    });
+  // 점수 저장 후 로컬스토리지 데이터 삭제
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('checking');
+    localStorage.removeItem('speaking');
+    localStorage.removeItem('writing');
+  }
 
-    return;
+  if (error) {
+    return error;
   }
 };
