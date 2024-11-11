@@ -11,6 +11,7 @@ import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
 import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutations/checking-mutation';
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
+import { weekNumber } from '@/utils/week/weekNumber';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
@@ -57,10 +58,6 @@ const CheckingQuizPage = () => {
 
   // 점수 저장
   const saveScore = async (score: number) => {
-    const startSeason = new Date(2024, 9, 27);
-    const now = new Date();
-    const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
-
     if (userId) {
       const { data: currentScore, error } = await browserClient
         .from('rank')
@@ -78,7 +75,7 @@ const CheckingQuizPage = () => {
           updateScoreMutation.mutate({ score, userId, week: weekNumber });
         }
       } else {
-        insertScoreMutation.mutate({ score, userId, weekNumber });
+        insertScoreMutation.mutate({ score, userId, weekNumber: weekNumber });
       }
     } else {
       localStorage.setItem('checking', score.toString());
