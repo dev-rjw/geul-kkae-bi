@@ -275,7 +275,7 @@ const onSubmit = async (values: FieldValues) => {
     options: {
       data: {
         nickname,
-        image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.jpg`,
+        image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.webp`,
       },
     },
   });

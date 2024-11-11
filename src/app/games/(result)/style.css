@@ -22,34 +22,18 @@
   content: '';
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  right: -48px;
+  right: 0;
+  transform: translate(50%, -50%);
   width: 98px;
-  height: 84px;
-  background: url(/character_speak.svg);
+  aspect-ratio: 72/62;
+  background-image: url(/character_speak.svg);
   background-size: cover;
 }
 .write .progress_bar::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -48px;
-  width: 98px;
-  height: 86px;
-  background: url(/character_writing.svg);
-  background-size: cover;
+  background-image: url(/character_writing.svg);
 }
 .check .progress_bar::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -48px;
-  width: 94px;
-  height: 89px;
-  background: url(/character_checking.svg);
-  background-size: cover;
+  background-image: url(/character_checking.svg);
 }
 
 .speak h3 {
