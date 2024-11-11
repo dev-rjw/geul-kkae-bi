@@ -22,20 +22,14 @@ export async function GET(request: Request) {
       }
 
       if (isLocalEnv) {
-        // 닉네임, 프로필 이미지, Provider 추가
         if (user?.id) {
-          await addNickname(user.id);
-          await addProfileImage(user.id);
-          await addProvider(user);
+          await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
         }
 
         return NextResponse.redirect(`/auth/callback-client`);
       } else if (forwardedHost) {
-        // 닉네임, 프로필 이미지, Provider 추가
         if (user?.id) {
-          await addNickname(user.id);
-          await addProfileImage(user.id);
-          await addProvider(user);
+          await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
         }
 
         return NextResponse.redirect(`/auth/callback-client`);
