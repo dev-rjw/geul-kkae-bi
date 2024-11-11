@@ -12,7 +12,6 @@ export const fetchCurrentUser = async () => {
     console.error(error);
     return null;
   }
-
   return user;
 };
 

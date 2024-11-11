@@ -1,7 +1,5 @@
 import { SignUpWithPasswordCredentials, SignInWithPasswordCredentials } from '@supabase/supabase-js';
 import { createClient } from '../supabase/client';
-import { translateErrorMessage } from '@/schemas/commonSchema';
-import Swal from 'sweetalert2';
 
 // 회원가입
 export const signup = async (formData: SignUpWithPasswordCredentials) => {
@@ -11,7 +9,6 @@ export const signup = async (formData: SignUpWithPasswordCredentials) => {
   if (error) {
     return error;
   }
-
   return data;
 };
 
@@ -23,7 +20,6 @@ export const signin = async (formData: SignInWithPasswordCredentials) => {
   if (error) {
     return error;
   }
-
   return data;
 };
 
@@ -38,26 +34,15 @@ export const googleSignin = async () => {
   });
 
   if (error) {
-    Swal.fire({
-      html: `<div class="text-gray-700">로그인에 실패하였습니다.</div>`,
-      customClass: {
-        title: 'swal-custom-title',
-        htmlContainer: 'swal-custom-text',
-        confirmButton: 'swal-custom-button',
-      },
-      confirmButtonText: '확인',
-    });
-
     return error;
   }
-
   return data;
 };
 
 // 카카오 회원가입 및 로그인
 export const kakaoSignin = async () => {
   const supabase = createClient();
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
       redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
@@ -65,18 +50,9 @@ export const kakaoSignin = async () => {
   });
 
   if (error) {
-    Swal.fire({
-      html: `<div class="text-gray-700">로그인에 실패하였습니다.</div>`,
-      customClass: {
-        title: 'swal-custom-title',
-        htmlContainer: 'swal-custom-text',
-        confirmButton: 'swal-custom-button',
-      },
-      confirmButtonText: '확인',
-    });
-
     return error;
   }
+  return data;
 };
 
 // 현재 사용자 조회
@@ -90,7 +66,6 @@ export const fetchCurrentUser = async () => {
   if (error || !user) {
     return null;
   }
-
   return user;
 };
 
@@ -102,51 +77,18 @@ export const findPassword = async (email: string) => {
   });
 
   if (error) {
-    console.error(error);
+    return error;
   }
-
-  Swal.fire({
-    html: `<div class="text-gray-700">해당 이메일로 비밀번호 <br/>변경링크를 보내드렸어요!</div>`,
-    customClass: {
-      title: 'swal-custom-title',
-      htmlContainer: 'swal-custom-text',
-      confirmButton: 'swal-custom-button',
-    },
-    confirmButtonText: '확인',
-  });
-
   return data;
 };
 
 // 비밀번호 변경
 export const changePassword = async (newPassword: string) => {
   const supabase = createClient();
-  const { error } = await supabase.auth.updateUser({ password: newPassword });
+  const { data, error } = await supabase.auth.updateUser({ password: newPassword });
 
   if (error) {
-    Swal.fire({
-      html: `<div class="text-gray-700">${translateErrorMessage(error.message)}</div>`,
-      customClass: {
-        title: 'swal-custom-title',
-        htmlContainer: 'swal-custom-text',
-        confirmButton: 'swal-custom-button',
-      },
-      confirmButtonText: '확인',
-    });
-
-    console.error(error.message);
-    return false;
+    return error;
   }
-
-  Swal.fire({
-    html: `<div class="text-gray-700">비밀번호 변경 완료!</div>`,
-    customClass: {
-      title: 'swal-custom-title',
-      htmlContainer: 'swal-custom-text',
-      confirmButton: 'swal-custom-button',
-    },
-    confirmButtonText: '확인',
-  });
-
-  return true;
+  return data;
 };
