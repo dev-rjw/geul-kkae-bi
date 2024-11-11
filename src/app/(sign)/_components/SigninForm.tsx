@@ -20,10 +20,8 @@ import Link from 'next/link';
 const SigninForm = () => {
   const router = useRouter();
 
-  // 유효성 검사
   const defaultValues = {
-    // 컴포넌트가 브라우저에서만 렌더링되는지 확인하는 조건문을 추가
-    email: typeof window !== 'undefined' ? localStorage.getItem('rememberedEmail') || '' : '', // 초기 이메일 값을 로컬 스토리지에서 불러옴
+    email: typeof window !== 'undefined' ? localStorage.getItem('rememberedEmail') || '' : '',
     password: '',
   };
 
@@ -32,14 +30,12 @@ const SigninForm = () => {
     resolver: zodResolver(signinSchema),
     defaultValues,
   });
-  // const { getFieldState, setValue } = form;
   const { setValue } = form;
 
   const onSubmit = async (values: FieldValues) => {
     const { email, password, rememberedEmail } = values;
     const result = await signin({ email, password });
 
-    // rememberedEmail가 체크된 경우 이메일을 저장, 아니면 삭제
     if (rememberedEmail) {
       localStorage.setItem('rememberedEmail', email);
     } else {
@@ -61,12 +57,11 @@ const SigninForm = () => {
     }
   };
 
-  // 페이지가 로드될 때 로컬 스토리지에서 아이디를 불러옴
   useEffect(() => {
     const savedEmail = localStorage.getItem('rememberedEmail');
     if (savedEmail) {
       setValue('email', savedEmail);
-      setValue('rememberedEmail', true); // 체크 상태로 설정
+      setValue('rememberedEmail', true);
     }
   }, [setValue]);
 
@@ -112,11 +107,6 @@ const SigninForm = () => {
                   </div>
                 </FormControl>
                 <FormMessage />
-                {/* {!getFieldState('password').invalid && field.value ? (
-                <FormMessage className='text-primary-400'>올바른 비밀번호입니다.</FormMessage>
-              ) : (
-                <FormMessage />
-              )} */}
               </FormItem>
             )}
           />

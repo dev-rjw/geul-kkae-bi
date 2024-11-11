@@ -4,24 +4,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { createClient } from '@/utils/supabase/client';
-import { Button } from '@/components/ui/button';
-import { useAuth, useUser } from '@/queries/useAuth';
 import Swal from 'sweetalert2';
 import { Award, ChevronDown, ChevronRight, Loader2, LogOut, UserRound } from 'lucide-react';
-import DefaultButton from './DefaultButton';
+import { useAuth, useUser } from '@/queries/useAuth';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-// import { fetchCurrentUserInfo } from '@/utils/user/client-action';
+import { Button } from '@/components/ui/button';
+import DefaultButton from './DefaultButton';
 import Avatar from './Avatar';
-// import { User } from '@/types/mypage';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  // useAuth을 통해 로그인 상태 확인
   const { data, isLoading } = useAuth();
-  // email로 user정보 확인
   const email = data?.user_metadata.email;
   const { data: user } = useUser(email);
 

@@ -21,6 +21,6 @@ export const getLocalStorageValues = () => {
     return { checking, speaking, writing };
   }
 
-  // 기본값을 반환하여 컴파일 에러를 방지
+  // 기본값 반환하여 컴파일 에러 방지
   return { checking: 0, speaking: 0, writing: 0 };
 };

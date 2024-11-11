@@ -19,7 +19,6 @@ const ChangePasswordForm = () => {
 
   const error = params.get('error');
 
-  // 유효성 검사
   const defaultValues = {
     password: '',
     confirmPassword: '',
@@ -36,12 +35,15 @@ const ChangePasswordForm = () => {
 
   const onSubmit = async (values: FieldValues) => {
     const { password } = values;
-    const success = await changePassword(password); // 변경 결과를 확인
+    const success = await changePassword(password);
 
     if (success) {
-      router.push('/'); // 비밀번호 변경 성공 시에만 이동
+      router.push('/');
     }
   };
+
+  const isPasswordSame =
+    passwordValue === confirmPasswordValue && !getFieldState('confirmPassword').invalid && passwordValue !== '';
 
   return (
     <>
@@ -111,10 +113,7 @@ const ChangePasswordForm = () => {
                             field={field}
                           />
                         </FormControl>
-                        {passwordValue === confirmPasswordValue &&
-                        !getFieldState('confirmPassword').invalid &&
-                        passwordValue !== '' &&
-                        field.value !== '' ? (
+                        {isPasswordSame && field.value !== '' ? (
                           <div className='caption-14 text-primary-400'>비밀번호가 일치합니다.</div>
                         ) : (
                           <FormMessage />
