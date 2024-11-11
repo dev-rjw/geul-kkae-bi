@@ -112,12 +112,11 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
     );
 
     const updateTotalScore = async () => {
-      const { data, error } = await serverClient.from('rank').upsert(totalScore);
+      const { error } = await serverClient.from('rank').upsert(totalScore);
       if (error) {
         console.error('Error posting score data', error);
         return;
       }
-      console.log('Score data posted successfully ', data);
     };
     updateTotalScore();
   }
