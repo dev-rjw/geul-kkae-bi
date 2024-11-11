@@ -13,7 +13,7 @@ const MypageMyScore = () => {
   useEffect(() => {
     if (data) {
       const user_id = data?.user_metadata.sub;
-      fetchUserRank(user_id).then((element) => setRank(element));
+      fetchUserRank(user_id, 0).then((element) => setRank(element));
     }
   }, [data]);
 
