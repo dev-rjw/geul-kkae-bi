@@ -17,6 +17,12 @@ interface Qusetion {
   meaning: string;
 }
 
+interface AnswerRecord {
+  qustion: string;
+  corectAnswer: string;
+  userAnswer: string;
+}
+
 const WritingQuizPage = () => {
   const [questions, setQuestions] = useState<Qusetion[]>([]);
   const [userInput, setUserInput] = useState('');
@@ -64,6 +70,7 @@ const WritingQuizPage = () => {
   // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(question);
     if (isTimeOver) return;
 
     handleCheckAnswer();
@@ -86,8 +93,15 @@ const WritingQuizPage = () => {
 
   //정답 확인, 점수 추가
   const handleCheckAnswer = () => {
+    const answerRecord: AnswerRecord = {
+      qustion: question.question,
+      corectAnswer: question.answer,
+      userAnswer: userInput,
+    };
+
     if (userInput === question.answer) {
       setScore((prevScore) => prevScore + 10);
+      //
     }
   };
 
