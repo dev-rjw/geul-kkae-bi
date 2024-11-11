@@ -18,7 +18,7 @@ type speek = {
   setIsLoading: (value: boolean) => void;
 };
 
-const speekStore = create<speek>((set) => ({
+export const useSpeakStore = create<speek>((set) => ({
   index: 0,
   percent: 0,
   totlaPercent: 0,
@@ -37,5 +37,3 @@ const speekStore = create<speek>((set) => ({
   setIsRecording: (value) => set(() => ({ isRecording: value })),
   setIsLoading: (value) => set(() => ({ isLoading: value })),
 }));
-
-export default speekStore;
