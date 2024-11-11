@@ -33,17 +33,20 @@ const ChangeProfile = () => {
   const { setValue } = form;
 
   useEffect(() => {
-    if (data) {
-      const email = data?.user_metadata.email;
-      fetchCurrentUserInfo(email).then((info) => {
-        setUser(info);
-        if (info) {
-          setValue('nickname', info.nickname || '');
-          setValue('introduction', info.introduction || '');
-        }
-      });
+    fetchUserInfo();
+  }, []);
+
+  const fetchUserInfo = async () => {
+    const email = data?.user_metadata.email;
+    const info = await fetchCurrentUserInfo(email);
+
+    setUser(info);
+
+    if (info) {
+      setValue('nickname', info.nickname || '');
+      setValue('introduction', info.introduction || '');
     }
-  }, [data, setValue]);
+  };
 
   const uploadImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
