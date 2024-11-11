@@ -13,12 +13,10 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const workerRef = useRef<Worker | null>(null);
   const onTimeOverRef = useRef(onTimeOver);
 
-  // 최신 onTimeOver 참조 유지
   useEffect(() => {
     onTimeOverRef.current = onTimeOver;
   }, [onTimeOver]);
 
-  // Worker 초기화
   useEffect(() => {
     if (!workerRef.current) {
       workerRef.current = new Worker(new URL('../util/TimerWorker.js', import.meta.url));
@@ -40,7 +38,6 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
     };
   }, []);
 
-  // 타이머 시작 및 정지 제어
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 

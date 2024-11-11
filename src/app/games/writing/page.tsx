@@ -26,7 +26,6 @@ const WritingQuizPage = () => {
   const insertScoreMutation = useInsertWritingMutation();
   const updateScoreMutation = useUpdateWritingMutation();
 
-  // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
     setUserInput('');
@@ -41,7 +40,7 @@ const WritingQuizPage = () => {
       setIsAllQuestions(true);
     }
   };
-  // result페이지 이동
+
   const moveToWritingResultPage = (score: number) => {
     if (userId) {
       router.push(`/games/user?key=writing&score=${score}`);
@@ -50,14 +49,12 @@ const WritingQuizPage = () => {
     }
   };
 
-  // 정답 확인, 점수 추가
   const handleCheckAnswer = () => {
     if (userInput === question.answer) {
       scoreRef.current += 10;
     }
   };
 
-  // 점수 저장 - 로그인 상태는 Supabase에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async (score: number) => {
     if (userId) {
       const { data: currentScore, error } = await browserClient
