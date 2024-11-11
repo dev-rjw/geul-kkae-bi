@@ -25,7 +25,7 @@ const MypageMyRank = () => {
       const user_id = data?.user_metadata.sub;
       fetchUserRank(user_id).then((element) => setRank(element));
     }
-  }, []);
+  }, [data]);
 
   return (
     <div className='flex flex-col min-w-[16.125rem] bg-primary-300 rounded-3xl text-center'>

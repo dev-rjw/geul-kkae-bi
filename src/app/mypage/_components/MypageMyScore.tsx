@@ -15,7 +15,7 @@ const MypageMyScore = () => {
       const user_id = data?.user_metadata.sub;
       fetchUserRank(user_id).then((element) => setRank(element));
     }
-  }, []);
+  }, [data]);
 
   return (
     <div className='rounded-3xl w-full h-full bg-primary-50'>
