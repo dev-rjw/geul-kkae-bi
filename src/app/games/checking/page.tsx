@@ -1,6 +1,6 @@
 'use client';
 import browserClient from '@/utils/supabase/client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ interface Qusetion {
 const CheckingQuizPage = () => {
   const [questions, setQuestions] = useState<Qusetion[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-  const [score, setScore] = useState(0);
+  const scoreRef = useRef(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -56,17 +56,18 @@ const CheckingQuizPage = () => {
   const moveToNextQuiz = () => {
     if (isTimeOver) return;
 
+    handleCheckAnswer();
+
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
-      handleCheckAnswer();
       setSelectedOption(null);
     } else {
-      saveScore();
+      saveScore(scoreRef.current);
       setIsAllQuestions(true);
     }
   };
 
-  const moveToWritingResultPage = () => {
+  const moveToWritingResultPage = (score: number) => {
     if (userId) {
       router.push(`/games/user?key=checking&score=${score}`);
     } else {
@@ -97,12 +98,12 @@ const CheckingQuizPage = () => {
   // 정답 확인
   const handleCheckAnswer = () => {
     if (selectedOption === questions[currentQuizIndex].answer) {
-      setScore((prevscore) => prevscore + 10);
+      scoreRef.current += 10;
     }
   };
 
   // 점수 저장
-  const saveScore = async () => {
+  const saveScore = async (score: number) => {
     const startSeason = new Date(2024, 9, 27);
     const now = new Date();
     const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
@@ -153,7 +154,7 @@ const CheckingQuizPage = () => {
   // 시간 초과
   const handleTimeOver = () => {
     if (!isTimeOver) {
-      saveScore();
+      saveScore(scoreRef.current);
       setIsTimeOver(true);
       Swal.fire({
         html: `
@@ -168,7 +169,7 @@ const CheckingQuizPage = () => {
         },
         confirmButtonText: '확인',
         willClose: () => {
-          moveToWritingResultPage();
+          moveToWritingResultPage(scoreRef.current);
         },
       });
     }
@@ -257,7 +258,7 @@ const CheckingQuizPage = () => {
           </div>
         ) : (
           <button
-            onClick={moveToWritingResultPage}
+            onClick={() => moveToWritingResultPage(scoreRef.current)}
             className={'text-2xl font-medium'}
           >
             결과 보기
