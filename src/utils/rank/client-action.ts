@@ -4,19 +4,35 @@ import { createClient } from '../supabase/client';
 // 랭킹 가져오기
 export const fetchUserRank = async (user_id: string) => {
   const supabase = createClient();
-  const { data } = await supabase.from('rank').select('*').eq('user_id', user_id).single();
+
+  const standardDate: Date = new Date('2024-10-28');
+  const todayDate: Date = new Date();
+
+  // 기준 일자와 오늘 일자간 몇 주가 지났는지 계산
+  let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
+  diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  diff = Math.floor(diff / 7) + (diff % 7 === 0 ? 0 : 1);
+
+  const { data } = await supabase.from('rank').select('*').eq('week', diff).eq('user_id', user_id).single();
 
   return data;
 };
 
-// 랭킹 TOP 3
-// TODO: week 2로 고정시키면 안됨
-export const fetchRank3 = async () => {
+export const fetchRankTop3 = async () => {
   const supabase = createClient();
+
+  const standardDate: Date = new Date('2024-10-28');
+  const todayDate: Date = new Date();
+
+  // 기준 일자와 오늘 일자간 몇 주가 지났는지 계산
+  let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
+  diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  diff = Math.floor(diff / 7) + (diff % 7 === 0 ? 0 : 1);
+
   const { data } = await supabase
     .from('rank')
     .select(`*, user(nickname)`)
-    .eq('week', 2)
+    .eq('week', diff)
     .gte('total', 0)
     .order('total', { ascending: false })
     .limit(3);
