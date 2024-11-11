@@ -1,60 +1,31 @@
 'use client';
 import browserClient from '@/utils/supabase/client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import './style.css';
 import Image from 'next/image';
-
-interface Qusetion {
-  id: string;
-  game_kind: string;
-  question: string;
-  answer: string;
-  correct: string[];
-}
+import { useAuth } from '@/queries/useAuth';
+import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
+import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutations/checking-mutation';
 
 const CheckingQuizPage = () => {
-  const [questions, setQuestions] = useState<Qusetion[]>([]);
+  const { data: user } = useAuth();
+  const userId = user?.id ?? null;
+  const { data: questions = [], isLoading } = useFetchQuestions();
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const scoreRef = useRef(0);
-  const [userId, setUserId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isTimeOver, setIsTimeOver] = useState(false);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
-
-  //유저 정보 가져오기
-  const fetchUser = async () => {
-    const {
-      data: { user },
-    } = await browserClient.auth.getUser();
-    if (user) {
-      setUserId(user.id);
-    }
-  };
-
-  // 데이터 가져오기
-  const fetchCheckingQuestions = async () => {
-    setLoading(true);
-    const { data, error } = await browserClient.rpc('get_checking_questions');
-    if (error) {
-      console.error('틀린 것 찾기 데이터를 가져오지 못했습니다', error);
-    } else {
-      setQuestions(data);
-    }
-    setLoading(false);
-  };
-  useEffect(() => {
-    fetchCheckingQuestions();
-    fetchUser();
-  }, []);
+  const insertScoreMutation = useInsertCheckingMutation();
+  const updateScoreMutation = useUpdateCheckingMutation();
 
   // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = () => {
-    if (isTimeOver) return;
+    if (isTimeOver || isAllQuestions) return;
 
     handleCheckAnswer();
 
@@ -76,7 +47,7 @@ const CheckingQuizPage = () => {
   };
 
   // 클릭 옵션 생성
-  const chackingButton = () => {
+  const checkingButton = () => {
     const correct = questions[currentQuizIndex].correct;
     return (
       <div className='flex flex-wrap gap-x-8 gap-y-[1.8125rem] justify-center max-w-[39.5rem] mx-auto font-yangjin'>
@@ -109,44 +80,25 @@ const CheckingQuizPage = () => {
     const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
 
     if (userId) {
-      // 특정 사용자에 대한 랭크 데이터 존재 여부 확인
-      const { data: currentScore, error: fetchError } = await browserClient
+      const { data: currentScore, error } = await browserClient
         .from('rank')
         .select('id, checking')
         .eq('user_id', userId)
         .eq('week', weekNumber);
-      if (fetchError) {
-        console.error('기존 랭크 데이터를 가져오는 중 오류가 발생했습니다.', fetchError);
+
+      if (error) {
+        console.error('기존 데이터를 가져오지 못했습니다.', error);
         return;
       }
-      if (currentScore.length > 0) {
-        if (score > currentScore[0].checking || currentScore[0].checking === null) {
-          // 기존 점수가 현재 점수보다 낮을 경우 업데이트
-          const { error: updateError } = await browserClient
-            .from('rank')
-            .update({
-              checking: score,
-            })
-            .eq('id', currentScore[0].id);
 
-          if (updateError) {
-            console.error('점수를 업데이트하지 못했습니다.', updateError);
-          }
+      if (currentScore && currentScore.length > 0) {
+        if (score > currentScore[0].checking || currentScore[0].checking === null) {
+          updateScoreMutation.mutate({ score, userId, week: weekNumber });
         }
       } else {
-        // 기존 데이터가 없으면 새로 삽입
-        const { error: insertError } = await browserClient.from('rank').insert({
-          user_id: userId,
-          checking: score,
-          week: weekNumber,
-        });
-
-        if (insertError) {
-          console.error('점수를 삽입하지 못했습니다.', insertError);
-        }
+        insertScoreMutation.mutate({ score, userId, weekNumber });
       }
     } else {
-      // 비로그인 시 로컬 스토리지에 점수 저장
       localStorage.setItem('checking', score.toString());
     }
   };
@@ -180,7 +132,7 @@ const CheckingQuizPage = () => {
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
 
-    correct.forEach((phrase, index) => {
+    correct.forEach((phrase: string, index: number) => {
       const phraseIndex = question.indexOf(phrase, lastIndex);
 
       if (phraseIndex !== -1) {
@@ -221,7 +173,7 @@ const CheckingQuizPage = () => {
     return <p>{parts}</p>;
   };
 
-  if (loading) {
+  if (isLoading) {
     return <p>로딩중</p>;
   }
 
@@ -237,7 +189,7 @@ const CheckingQuizPage = () => {
         }번 문제`}</p>
         <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>
         <div className=' text-4xl font-medium pb-[10.1875rem] font-yangjin'>{questionUnderLine()}</div>
-        {chackingButton()}
+        {checkingButton()}
       </div>
       <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center font-yangjin'>
         {!(isTimeOver || isAllQuestions) ? (
