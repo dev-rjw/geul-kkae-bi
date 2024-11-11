@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
 import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutations/checking-mutation';
+import CheckingButton from './_components/CheckingButton';
+import QuestionUnderLine from './_components/QuestionUnderLine';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
@@ -44,26 +46,6 @@ const CheckingQuizPage = () => {
     } else {
       router.push(`/games/guest?key=checking&score=${score}`);
     }
-  };
-
-  // 클릭 옵션 생성
-  const checkingButton = () => {
-    const correct = questions[currentQuizIndex].correct;
-    return (
-      <div className='flex flex-wrap gap-x-8 gap-y-[1.8125rem] justify-center max-w-[39.5rem] mx-auto font-yangjin'>
-        {correct.map((option: string, index: number) => (
-          <button
-            key={index}
-            onClick={() => setSelectedOption(option)}
-            className={`w-[18.75rem] h-[6.25rem] text-[2.5rem] font-medium rounded-[1.25rem] ${
-              selectedOption === option ? 'bg-[#A07BE5] text-white' : 'bg-white'
-            }`}
-          >
-            <span className='relative top-1 inline-block'>{option}</span>
-          </button>
-        ))}
-      </div>
-    );
   };
 
   // 정답 확인
@@ -127,52 +109,6 @@ const CheckingQuizPage = () => {
     }
   };
 
-  const questionUnderLine = () => {
-    const { question, correct } = questions[currentQuizIndex];
-    const parts: React.ReactNode[] = [];
-    let lastIndex = 0;
-
-    correct.forEach((phrase: string, index: number) => {
-      const phraseIndex = question.indexOf(phrase, lastIndex);
-
-      if (phraseIndex !== -1) {
-        // phrase 전의 일반 텍스트 추가
-        if (lastIndex < phraseIndex) {
-          parts.push(<span key={lastIndex}>{question.slice(lastIndex, phraseIndex)}</span>);
-        }
-
-        // phrase에 밑줄과 번호 추가
-        const isSelected = selectedOption === phrase;
-        parts.push(
-          <span
-            key={phraseIndex}
-            className={`underline underline-offset-8 ${
-              isSelected ? 'decoration-[#A07BE5]' : 'decoration-[#357EE7] '
-            } relative`}
-          >
-            {phrase}
-            <span
-              className={`font-pretendard absolute -bottom-7 left-1/2 transform -translate-x-1/2 flex w-[1.625rem] h-[1.625rem] ${
-                isSelected ? 'bg-[#A07BE5]' : 'bg-[#357EE7]'
-              } text-[1.3125rem] text-white items-center justify-center rounded-full`}
-            >
-              {index + 1}
-            </span>
-          </span>,
-        );
-
-        lastIndex = phraseIndex + phrase.length;
-      }
-    });
-
-    // 마지막 남은 텍스트 추가
-    if (lastIndex < question.length) {
-      parts.push(<span key='end'>{question.slice(lastIndex)}</span>);
-    }
-
-    return <p>{parts}</p>;
-  };
-
   if (isLoading) {
     return <p>로딩중</p>;
   }
@@ -188,8 +124,18 @@ const CheckingQuizPage = () => {
           currentQuizIndex + 1
         }번 문제`}</p>
         <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>
-        <div className=' text-4xl font-medium pb-[10.1875rem] font-yangjin'>{questionUnderLine()}</div>
-        {checkingButton()}
+        <div className=' text-4xl font-medium pb-[10.1875rem] font-yangjin'>
+          <QuestionUnderLine
+            question={questions[currentQuizIndex].question}
+            selectedOption={selectedOption}
+            correct={questions[currentQuizIndex].correct}
+          />
+        </div>
+        <CheckingButton
+          correctOptions={questions[currentQuizIndex].correct}
+          selectedOption={selectedOption}
+          onselect={setSelectedOption}
+        />
       </div>
       <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center font-yangjin'>
         {!(isTimeOver || isAllQuestions) ? (
