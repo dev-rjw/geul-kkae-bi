@@ -39,3 +39,17 @@ export interface Rank {
   week: number;
   ranking: number;
 }
+
+export interface matchedGameArrayForGuest {
+  type: string;
+  score: string | null;
+  color: string;
+  name: string;
+}
+
+export interface matchedGameArrayForUser {
+  type: string;
+  score: number | null;
+  color: string;
+  name: string;
+}
