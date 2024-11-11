@@ -295,7 +295,7 @@
   padding: 0 0 2.25rem;
 }
 div:where(.swal2-container) .swal2-html-container {
-  padding: 2.25rem 2.25rem 0.75rem !important;
+  padding: 2.25rem 0.75rem 0.75rem !important;
 }
 div:where(.swal2-container) .swal2-html-container.swal-custom-title,
 div:where(.swal2-container) .swal2-html-container.swal-custom-text {
@@ -309,17 +309,24 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   margin-top: 0.75rem !important;
 }
 .swal-custom-button {
+  display: block;
   width: 100%;
   max-width: 15rem;
   height: 3.25rem;
   padding: 0.75rem;
-  margin: 0;
+  margin: 0 auto;
   font-size: 1.125rem;
   font-weight: 700;
   border-radius: 0.75rem;
+  color: #fff;
   background-color: #357ee7;
 }
-div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover {
+.swal-custom-button:hover {
   color: #649ced;
   background-color: #134fa4;
+}
+div:where(.swal2-container) div:where(.swal2-footer) {
+  border-top: 0 !important;
+  margin: 1.25em 0 0 !important;
+  padding: 0 !important;
 }

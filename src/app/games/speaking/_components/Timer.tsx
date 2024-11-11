@@ -22,7 +22,7 @@ const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
 
   const handleAlert = () => {
     Swal.fire({
-      html: '<p>시간이 다 됐다 깨비!<br>다음에 다시 도전하라 깨비</p>',
+      html: '<div>시간이 다 됐다 깨비!<br>다음에 다시 도전하라 깨비</div>',
       confirmButtonText: '확인',
       customClass: {
         title: 'swal-custom-title',
