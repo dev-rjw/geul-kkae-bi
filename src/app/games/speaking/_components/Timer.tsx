@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-import { useSpeekStore } from '@/store/speekStore';
+import { useSpeakStore } from '@/store/speakStore';
 import { useTimeStore } from '@/store/timeStore';
 
 type Upsert = {
@@ -16,7 +16,7 @@ type Upsert = {
 
 const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
   const { time, isDelay, setTimer } = useTimeStore();
-  const { index } = useSpeekStore();
+  const { index } = useSpeakStore();
   const router = useRouter();
 
   const handleAlert = () => {

@@ -14,7 +14,6 @@ const MypageMyScore = () => {
     if (data) {
       const user_id = data?.user_metadata.sub;
       fetchUserRank(user_id).then((element) => setRank(element));
-      console.log(rank);
     }
   }, []);
 

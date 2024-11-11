@@ -7,7 +7,7 @@ import Timer from './Timer';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
 import Image from 'next/image';
 import { weekNumber } from '@/utils/week/weekNumber';
-import { useSpeekStore } from '@/store/speekStore';
+import { useSpeakStore } from '@/store/speakStore';
 import { useTimeStore } from '@/store/timeStore';
 
 type QuestionProps = {
@@ -28,7 +28,7 @@ const Question = ({ text, randomText }: QuestionProps) => {
     resetPercent,
     addIndex,
     addTotalPercent,
-  } = useSpeekStore();
+  } = useSpeakStore();
   const { time } = useTimeStore();
   const { data } = useAuth();
   const { mutate: insert } = useInsertMutation();

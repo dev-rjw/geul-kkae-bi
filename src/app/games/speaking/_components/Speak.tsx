@@ -8,7 +8,7 @@ import Image from 'next/image';
 import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
-import { useSpeekStore } from '@/store/speekStore';
+import { useSpeakStore } from '@/store/speakStore';
 
 function getRandomQuestion(textArray: string[]) {
   return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
@@ -19,7 +19,7 @@ const Speak = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
   const { text, isRecording, setText, setIsRecording, setIsLoading, resetText, resetPercent, resetIndex } =
-    useSpeekStore();
+    useSpeakStore();
   const { isDelay, resetTimer, setIsDelay } = useTimeStore();
 
   const ondataavailable = (event: { data: Blob }) => {
