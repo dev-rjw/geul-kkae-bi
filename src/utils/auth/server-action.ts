@@ -20,7 +20,7 @@ export const fetchCurrentUser = async () => {
 export const fetchUserId = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser();
-  console.log('user', user);
+
   if (user) {
     return user.user?.id;
   } else {
@@ -32,7 +32,7 @@ export const fetchUserId = async () => {
 export const fetchUserNickName = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser();
-  console.log('user', user);
+
   if (user) {
     return user.user?.user_metadata.nickname;
   } else {
