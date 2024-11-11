@@ -1,4 +1,5 @@
-import { JustEndedGameProp, matchedGameArrayForUser, Rank } from '@/types/result';
+import { JustEndedGameProp, MatchedGameArrayForUser } from '@/types/result';
+import { Rank } from '@/types/rank';
 import { createClient } from '@/utils/supabase/server';
 import { fetchUserId, fetchUserNickName } from '@/utils/auth/server-action';
 import Link from 'next/link';
@@ -7,132 +8,53 @@ import ResultSide from '../_components/ResultSide';
 import '../style.css';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
+import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 
-//http://localhost:3000/games/user?key=checking&score=100 이런식으로 들어올거임
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
-
-  //현재 접속중인 user의 nick name
   const nickName = await fetchUserNickName();
-
-  //현재 접속중인 userID
   const userId = await fetchUserId();
+  const latestWeekData = await fetchLatestWeekData();
 
-  //회원이 아니면 메인으로 돌려보냄 = protected route
   if (!userId) {
     redirect('/');
   }
 
-  //가장 최신 week 가져오기(숫자가 클수록 최신)->기준이 되는 week
-  const { data: latestWeekData }: { data: Rank[] | null } = await serverClient
-    .from('rank')
-    .select()
-    .not('week', 'is', null)
-    .order('week', { ascending: false })
-    .limit(1);
-
-  //이번주
-  const latestWeek = latestWeekData?.[0].week;
-
-  // 이번주 테이블 다가져오기
-  const { data: userTable }: { data: Rank[] | null } = await serverClient
+  const latestWeek = latestWeekData?.week;
+  const { data: userTable }: { data: Rank | null } = await serverClient
     .from('rank')
     .select()
     .eq('week', latestWeek)
-    .eq('user_id', userId);
+    .eq('user_id', userId)
+    .single();
 
-  //객체분해할당 : user안에 담긴 객체 중에 게임점수 관련된 객체만 뽑아내서 객체 추가후 새로운 배열을 만드는 함수
-  const extractGames = (game: Rank) => {
-    const { checking, speaking, writing } = game;
-    return [
-      {
-        type: 'checking',
-        score: checking,
-        color: 'bg-[#Ddd0f6]',
-        name: '틀린 말 탐정단',
-      },
-      {
-        type: 'speaking',
-        score: speaking,
-        color: 'bg-[#FEEFD7]',
-        name: '나야, 발음왕',
-      },
-      { type: 'writing', score: writing, color: 'bg-[#D4F7EF]', name: '빈칸 한입' },
-    ];
-  };
+  const games = userTable ? extractGames(userTable) : null;
 
-  //해당 유저의 테이블이 동적으로 들어가면서 게임의 관련된 객체만 뽑아 정보를 추가해서 새로 만들어진 객체의 배열이 들어가는 games
-  const games = userTable && userTable.length > 0 ? extractGames(userTable[0]) : null;
-
-  //게임을 안하고 결과페이지 접근하려면 돌려보냄 = protected route
   const notFinishedGames = games?.filter((game) => game.score === null);
   if (notFinishedGames?.length === 3) {
     redirect('/');
   }
 
-  //서치파람으로 가져온 방금 끝난 게임 이름
   const justEndedGame: string | undefined = searchParams.key;
 
-  // 방금 끝난 게임 점수
   const GameScore: string | undefined = searchParams.score;
 
-  //사용자가 방금 끝낸 게임
-  const matchedGame = games?.find((game) => {
-    return game.type === justEndedGame;
-  });
+  const matchedGame = games?.find((game) => game.type === justEndedGame);
+  const unMatchedGames = games?.filter((game) => game.type !== justEndedGame);
 
-  // 형태
-  //matchedGame { type: 'writing', score: 100, color: 'mint', name: '빈칸채우기' }
-
-  //사용자가 방금 끝내지 않은 게임
-  const unMatchedGames = games?.filter((game) => {
-    return game.type !== justEndedGame;
-  });
-  //형태
-  // unMatchedGames [
-  //   { type: 'checking', score: 100, color: 'purple', name: '틀린곳맞추기' },
-  //   { type: 'speaking', score: 100, color: 'orange', name: '주어진문장읽기' }
-  // ]
-
-  // 다끝냈을때 다끝내지 않았을때만 정확하게 판별 (하지만 2문제 다 안풀었는지 1문제는 풀었는지는 판별안됨)
-  // isdone= true : 모든문제 끝냄  isdone= false : 1문제만 끝냄, 2문제 모두 못끝냄
   const isDone = unMatchedGames?.every((game) => game.score !== null);
 
-  // isdone이 false일때 1문제는 풀었는지 2문제 다 못풀었는지 배열안에 요소개수로 확인
   const remainingGamesCount = unMatchedGames?.filter((game) => game.score !== null).length;
 
-  //3문제가 모두 완료되었을때 모든 점수를 합산하여 supabase total에 넣어줌
-  if (isDone) {
-    const totalScore = userTable?.reduce(
-      (acc, current) => {
-        const total = (current.checking || 0) + (current.speaking || 0) + (current.writing || 0);
-        return { user_id: current.user_id, id: current.id, total };
-      },
-      { total: 0 },
-    );
-
-    const updateTotalScore = async () => {
-      const { error } = await serverClient.from('rank').upsert(totalScore);
-      if (error) {
-        console.error('Error posting score data', error);
-        return;
-      }
+  if (isDone && userTable) {
+    const totalScore = {
+      user_id: userTable.user_id,
+      id: userTable.id,
+      total: (userTable.checking || 0) + (userTable.speaking || 0) + (userTable.writing || 0),
     };
-    updateTotalScore();
-  }
 
-  const game = (matchedGame: matchedGameArrayForUser) => {
-    switch (true) {
-      case matchedGame.type === 'speaking':
-        return 'bg-[#Fbd498]';
-      case matchedGame.type === 'checking':
-        return 'bg-[#BFA5ED]';
-      case matchedGame.type === 'writing':
-        return 'bg-[#7FE6CF]';
-      default:
-        return '';
-    }
-  };
+    updateTotalScore(totalScore);
+  }
 
   return (
     <div>
@@ -156,7 +78,11 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
             </div>
             <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline  relative`}>
               <span className='score relative z-20'>{GameScore}점</span>
-              <div className={`h-[2.688rem] ${matchedGame ? game(matchedGame) : ''} absolute w-full -bottom-5 z-10`} />
+              <div
+                className={`h-[2.688rem] ${
+                  matchedGame ? highlightScoreForMatchedGame(matchedGame) : ''
+                } absolute w-full -bottom-5 z-10`}
+              />
             </div>
           </div>
         </div>
@@ -167,7 +93,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                 key={game.type}
                 href={`/games/${game.type}`}
               >
-                <div className={`${game.color} h-[17.938rem] rounded-[1.25rem] ${game.type} `}>
+                <div className={`${game.type} h-[17.938rem] rounded-[1.25rem] `}>
                   {game.score === null ? (
                     <div className='pt-[21.79px] pl-[23.89px]'>
                       <div className='title-32'>{game.name}</div>
@@ -239,3 +165,43 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   );
 };
 export default ResultPageForUser;
+
+const extractGames = (game: Rank) => {
+  const { checking, speaking, writing } = game;
+  return [
+    {
+      type: 'checking',
+      score: checking,
+      color: 'bg-[#Ddd0f6]',
+      name: '틀린 말 탐정단',
+    },
+    {
+      type: 'speaking',
+      score: speaking,
+      color: 'bg-[#FEEFD7]',
+      name: '나야, 발음왕',
+    },
+    {
+      type: 'writing',
+      score: writing,
+      color: 'bg-[#D4F7EF]',
+      name: '빈칸 한입',
+    },
+  ];
+};
+
+//score의 type이 guest랑 달라서 같이 쓸 수 없음
+const highlightScoreForMatchedGame = (matchedGame: MatchedGameArrayForUser) => {
+  switch (matchedGame.type) {
+    case 'speaking':
+      return 'bg-[#Fbd498]';
+    case 'checking':
+      return 'bg-[#BFA5ED]';
+    case 'writing':
+      return 'bg-[#7FE6CF]';
+    default:
+      return '';
+  }
+};
+
+// ${game.color}

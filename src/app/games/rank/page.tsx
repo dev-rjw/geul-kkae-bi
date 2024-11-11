@@ -1,53 +1,29 @@
 import { createClient } from '@/utils/supabase/server';
 import React from 'react';
-import { Rank, RankIncludingUserInfo, userProfile } from '@/types/rank';
+import { Rank, RankIncludingUserInfo, UserProfile } from '@/types/rank';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
+import { fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
 
 const RankingPage = async () => {
   const serverClient = createClient();
   const userId = await fetchUserId();
+  const latestWeekData = await fetchLatestWeekData();
 
-  // 현재 유저 프로필
-  const { data: userProfile }: { data: userProfile[] | null } = await serverClient
+  const { data: userProfile }: { data: UserProfile | null } = await serverClient
     .from('user')
     .select()
-    .eq('user_id', userId);
-  console.log('userProfile', userProfile);
-
-  //가장 최신 week 가져오기(숫자가 클수록 최신)->기준이 되는 week
-  const { data: latestWeekData }: { data: Rank[] | null } = await serverClient
-    .from('rank')
-    .select()
-    .not('week', 'is', null)
-    .order('week', { ascending: false })
-    .limit(1);
-
-  // latestWeekData [
-  //   {
-  //     user_id: 'e651a7f4-9594-4e10-9fdf-f6858b26fd59',
-  //     checking: 20,
-  //     speaking: 0,
-  //     writing: 20,
-  //     created_at: '2024-11-01T03:20:24.031187+00:00',
-  //     id: 'dc29e732-880c-4397-9c1d-c547f03e26e9',
-  //     total: 60,
-  //     week: 2,
-  //     ranking: null
-  //   }
-  // ]
+    .eq('user_id', userId)
+    .single();
 
   //이번주 랭킹 로직
-
-  //이번주 테이블 모두 가져오고 전체 랭킹매겨주고 내 등수에 관한 로직(ui로 실시간 반영, supabase 반영 안됨)
-  //똑같은 점수인 경우에는 먼저 점수를 흭득한사람이 앞등수
   let userTable;
   let countRanking;
 
-  if (latestWeekData && latestWeekData.length > 0) {
-    const latestWeek = latestWeekData[0].week;
+  if (latestWeekData) {
+    const latestWeek = latestWeekData.week;
 
     const { data }: { data: RankIncludingUserInfo[] | null } = await serverClient
       .from('rank')
@@ -65,12 +41,9 @@ const RankingPage = async () => {
   }
 
   //지난주 랭킹 로직
+  if (latestWeekData && latestWeekData.week - 1 > 0) {
+    const lastWeek = latestWeekData.week - 1;
 
-  //가장 최근 데이터의 week가 1주가 아닐때 실행시켜주고 && 지난주 테이블 랭킹에 점수가 안 들어가 있으면 지난주 최종점수를 기준으로 내림차순으로 가져와서 랭킹을 매겨서 supabase 랭킹점수에 넣어준다.
-  if (latestWeekData && latestWeekData[0].week - 1 > 0) {
-    const lastWeek = latestWeekData[0].week - 1;
-
-    //지난주 테이블 모두 가져오는데 토탈점수가 높은거부터 내림차순 정렬
     const { data: lastWeekData } = await serverClient
       .from('rank')
       .select()
@@ -78,27 +51,23 @@ const RankingPage = async () => {
       .not('total', 'is', null)
       .order('total', { ascending: false });
 
-    //지난주 테이블에 랭킹 기록이 없을시에 랭킹을 매겨주고 랭킹을 넣어줌
     if (lastWeekData?.[0].ranking === null) {
-      const countRanking: Rank[] | null = lastWeekData?.map((item, index) => ({
+      const countRanking: Rank[] | undefined = lastWeekData?.map((item, index) => ({
         ...item,
         ranking: index + 1,
       }));
-      const insertLastRankingData = async () => {
-        const { error } = await serverClient.from('rank').upsert(countRanking);
-        if (error) {
-          console.error('Error posting Ranking data', error);
-          return;
-        }
-      };
-      insertLastRankingData();
+
+      if (countRanking) {
+        insertLastRankingData(countRanking);
+      }
     }
-    //내 아이디랑 일치하는 지난 테이블 가져오는 로직
-    const { data: myLastrank }: { data: Rank[] | null } = await serverClient
+
+    const { data: myLastrank }: { data: Rank | null } = await serverClient
       .from('rank')
       .select()
       .eq('user_id', userId)
-      .eq('week', lastWeek);
+      .eq('week', lastWeek)
+      .single();
 
     return (
       <div className='container pt-10 pb-4'>
@@ -191,22 +160,21 @@ const RankingPage = async () => {
           <div className='h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem]'>
             <div className='relative w-[6.875rem] h-[6.875rem] rounded-[1.25rem] overflow-hidden'>
               <Image
-                src={userProfile?.[0]?.image ?? ''}
+                src={userProfile?.image ?? ''}
                 alt='profile image for my ranking'
                 quality={85}
                 fill
                 style={{ objectFit: 'cover' }}
               />
             </div>
-            {/* 닉네임, 소개: 없으먼 "한줄 소개가 없습니다로 대체", 프로필사진: 없으면 기본이미지 은 어스랑 연결시켜야함  */}
             <div className='flex grow gap-[2.75rem] h-full pl-[2.125rem]'>
               <div className='flex items-center grow gap-[2.75rem]'>
                 <div className='flex flex-col self-stretch w-full'>
                   <div className='flex items-center justify-center body-16 mb-4 text-primary-400'>
-                    {userProfile?.[0]?.nickname}
+                    {userProfile?.nickname}
                   </div>
                   <div className='flex items-center justify-center h-full caption-14 bg-primary-50 rounded-[0.875rem]'>
-                    {userProfile ? userProfile?.[0]?.introduction : '한줄 소개가 없습니다.'}
+                    {userProfile ? userProfile?.introduction : '한줄 소개가 없습니다.'}
                   </div>
                 </div>
                 <div className='flex flex-col justify-between gap-4 w-full max-w-[12.813rem] title-20'>
@@ -216,7 +184,7 @@ const RankingPage = async () => {
                   </div>
                   <div className='flex items-center justify-between'>
                     <div className='text-primary-700'>지난주 순위</div>
-                    <div className='text-primary-600'>{myLastrank ? myLastrank?.[0]?.ranking : ''}등</div>
+                    <div className='text-primary-600'>{myLastrank ? myLastrank?.ranking : ''}등</div>
                   </div>
                 </div>
                 <div className='flex flex-col justify-between self-stretch w-full max-w-[15.25rem] title-16'>

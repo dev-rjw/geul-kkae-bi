@@ -23,7 +23,7 @@ export interface Rank {
   ranking: number;
 }
 
-export interface userProfile {
+export interface UserProfile {
   user_id: string;
   nickname: string;
   introduction: string;

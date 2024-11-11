@@ -15,16 +15,22 @@ export interface GamesArray {
   name: string;
 }
 
-export interface matchedGameArrayForGuest {
+export interface MatchedGameArrayForGuest {
   type: string;
   score: string | null;
   color: string;
   name: string;
 }
 
-export interface matchedGameArrayForUser {
+export interface MatchedGameArrayForUser {
   type: string;
   score: number | null;
   color: string;
   name: string;
+}
+
+export interface TotalScore {
+  user_id: string;
+  id: string;
+  total: number;
 }
