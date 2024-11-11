@@ -24,7 +24,7 @@ export const fetchRank3 = async () => {
   return data;
 };
 
-// 회원가입 시 rank테이블에 정보 저장
+// 회원가입 시 rank 테이블에 정보 저장
 export const addScores = async ({ userId, checking, speaking, writing }: addScoresProps) => {
   const supabase = createClient();
   const total = checking + speaking + writing;
@@ -36,7 +36,6 @@ export const addScores = async ({ userId, checking, speaking, writing }: addScor
 
   const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
 
-  // 점수 저장 후 로컬스토리지 데이터 삭제
   if (typeof window !== 'undefined') {
     localStorage.removeItem('checking');
     localStorage.removeItem('speaking');

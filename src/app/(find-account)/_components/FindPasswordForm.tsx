@@ -12,7 +12,6 @@ import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import Swal from 'sweetalert2';
 
 const FindPasswordForm = () => {
-  // 유효성 검사
   const defaultValues = {
     email: '',
   };

@@ -1,20 +1,20 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
+import { fetchCurrentUserInfo, fetchProfile, saveProfile, updateUserInfo } from '@/utils/user/client-action';
+import { FieldValues, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuth } from '@/queries/useAuth';
+import { changeProfileSchema } from '@/schemas/changeProfileSchema';
+import { User } from '@/types/mypage';
 import { Camera, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/queries/useAuth';
-import { User } from '@/types/mypage';
-import { fetchCurrentUserInfo, fetchProfile, saveProfile, updateUserInfo } from '@/utils/user/client-action';
-import { useRouter } from 'next/navigation';
-import { FieldValues, useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import DefaultButton from '@/components/DefaultButton';
 import Avatar from '@/components/Avatar';
 import DefaultInput from '@/components/DefaultInput';
-import { changeProfileSchema } from '@/schemas/changeProfileSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
 
 const ChangeProfile = () => {
   const [user, setUser] = useState<User>();
@@ -22,11 +22,6 @@ const ChangeProfile = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  if (data === null) {
-    router.push('/');
-  }
-
-  // 유효성 검사
   const currentNickname = user?.nickname || '';
   const form = useForm({
     resolver: zodResolver(changeProfileSchema(currentNickname)),
@@ -67,7 +62,6 @@ const ChangeProfile = () => {
 
       updateUserInfo(user.user_id, updatedUser.image, updatedUser.nickname, updatedUser.introduction);
 
-      // user정보 업데이트 후 최신 정보 가져오기
       const email = data?.user_metadata.email;
       queryClient.invalidateQueries({ queryKey: ['users', email] });
 
@@ -77,7 +71,6 @@ const ChangeProfile = () => {
 
   return (
     <>
-      {/* 프로필 이미지 업로드 */}
       <div className='flex items-center gap-[3.25rem]'>
         <div className='relative'>
           <Avatar
@@ -130,7 +123,6 @@ const ChangeProfile = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className='form-items'>
-            {/* 닉네임 입력 */}
             <div className='form-item'>
               <div className='form-label'>
                 <div className='form-title'>닉네임</div>
@@ -155,7 +147,7 @@ const ChangeProfile = () => {
                 />
               </div>
             </div>
-            {/* 한줄소개 입력 */}
+
             <div className='form-item'>
               <div className='form-label'>
                 <div className='form-title'>한줄소개</div>
@@ -182,7 +174,6 @@ const ChangeProfile = () => {
             </div>
           </div>
 
-          {/* 제출 버튼 */}
           <hr className='border-t-1 border-gray-200 mt-3 mb-[3.125rem]' />
           <div className='flex justify-center mt-[3.125rem]'>
             <DefaultButton className='w-full max-w-[15rem]'>저장하기</DefaultButton>

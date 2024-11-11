@@ -10,26 +10,22 @@ export const addNickname = async (userId: string) => {
 
   const { data } = await supabase.from('user').select('nickname').eq('user_id', userId).single();
 
-  // 닉네임이 없으면
   if (!data?.nickname) {
-    // 중복되지 않는 닉네임을 찾을 때까지 반복
     while (!isUnique) {
       nickname = randomNickname();
       const { data, error } = await supabase.from('user').select('nickname').eq('nickname', nickname).single();
 
+      // PGRST116 : 결과 없을 때 오류 코드
       if (error && error.code !== 'PGRST116') {
-        // PGRST116은 결과가 없을 때의 오류 코드
         console.error('닉네임 조회 중 오류:', error);
         return error;
       }
 
-      // 닉네임이 중복되지 않으면 유효성 확인 완료
       if (!data?.nickname) {
         isUnique = true;
       }
     }
 
-    // 닉네임 저장
     const { error: updateError } = await supabase.from('user').update({ nickname }).eq('user_id', userId);
 
     if (updateError) {
@@ -45,9 +41,7 @@ export const addProfileImage = async (userId: string) => {
 
   const { data } = await supabase.from('user').select('image').eq('user_id', userId).single();
 
-  // 프로필 이미지가 없으면
   if (!data?.image) {
-    // 프로필 이미지 저장
     const { error: updateError } = await supabase
       .from('user')
       .update({

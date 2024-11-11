@@ -16,7 +16,7 @@ export const fetchCurrentUser = async () => {
   return user;
 };
 
-//로그인한 유저 아이디 가져오기
+// 로그인한 유저 아이디 가져오기
 export const fetchUserId = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser();
@@ -28,7 +28,7 @@ export const fetchUserId = async () => {
   }
 };
 
-//로그인한 유저 닉네임 가져오기
+// 로그인한 유저 닉네임 가져오기
 export const fetchUserNickName = async () => {
   const supabase = createClient();
   const { data: user } = await supabase.auth.getUser();

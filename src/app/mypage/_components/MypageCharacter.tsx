@@ -23,7 +23,6 @@ const MypageCharacter = () => {
         />
       </div>
 
-      {/* 캐릭터와 말풍선 */}
       <div className='hidden justify-center items-center h-[20vh] bg-blue-50'>
         <div className='relative'>
           <div className='bg-purple-200 text-purple-800 p-4 rounded-lg w-40'>

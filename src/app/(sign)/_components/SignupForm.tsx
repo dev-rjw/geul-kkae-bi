@@ -24,7 +24,6 @@ const SignupForm = () => {
   const router = useRouter();
   const { checking, speaking, writing } = getLocalStorageValues();
 
-  // 유효성 검사
   const defaultValues = {
     email: '',
     password: '',
@@ -56,7 +55,6 @@ const SignupForm = () => {
       },
     });
 
-    // 에러 체크
     if (result instanceof AuthError || !result.user) {
       Swal.fire({
         html: `<div class="text-gray-700">${translateErrorMessage(
@@ -76,7 +74,6 @@ const SignupForm = () => {
     const userId = result.user.id;
     await addScores({ userId, checking, speaking, writing });
 
-    // 페이지 이동
     router.push('/');
   };
 
