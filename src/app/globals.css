@@ -305,8 +305,16 @@ div:where(.swal2-container) .swal2-html-container.swal-custom-text {
   font-weight: 600;
 }
 div:where(.swal2-container) div:where(.swal2-actions) {
+  flex-wrap: nowrap !important;
+  gap: 0.5rem;
   width: 100% !important;
   margin-top: 0.75rem !important;
+  padding:0 2.25rem !important
+}
+div:where(.swal2-container) div:where(.swal2-footer) {
+  border-top: 0 !important;
+  margin: 1.25em 0 0 !important;
+  padding: 0 2.25rem !important;
 }
 .swal-custom-button {
   display: block;
@@ -325,8 +333,10 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   color: #649ced;
   background-color: #134fa4;
 }
-div:where(.swal2-container) div:where(.swal2-footer) {
-  border-top: 0 !important;
-  margin: 1.25em 0 0 !important;
-  padding: 0 !important;
+.swal-custom-button.swal2-cancel{
+  background-color: #EF5252;
+}
+.swal-custom-button.swal2-cancel:hover{
+  color: #F48181;
+  background-color: #C91212;
 }

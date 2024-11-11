@@ -26,13 +26,13 @@ export async function GET(request: Request) {
           await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
         }
 
-        return NextResponse.redirect(`/auth/callback-client`);
+        return NextResponse.redirect(`${origin}/auth/callback-client`);
       } else if (forwardedHost) {
         if (user?.id) {
           await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
         }
 
-        return NextResponse.redirect(`/auth/callback-client`);
+        return NextResponse.redirect(`${origin}/auth/callback-client`);
       } else {
         return NextResponse.redirect(`${origin}${next}`);
       }

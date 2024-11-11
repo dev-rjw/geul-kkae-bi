@@ -5,7 +5,7 @@ export function randomNickname() {
   const nickname = new Array(nicknameLength)
     .fill(0)
     .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
-    .join();
+    .join('');
 
   return nickname;
 }
