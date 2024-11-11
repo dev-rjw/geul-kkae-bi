@@ -1,11 +1,7 @@
 'use client';
+import { QuizTimerProps } from '@/types/checking';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-
-interface QuizTimerProps {
-  onTimeOver: () => void;
-  isAllQuestions: boolean;
-}
 
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
   const [timeLeft, setTimeLeft] = useState(40);

@@ -1,10 +1,5 @@
+import { QuestionUnderlineProps } from '@/types/checking';
 import React from 'react';
-
-interface QuestionUnderlineProps {
-  question: string;
-  correct: string[];
-  selectedOption: string | null;
-}
 
 const QuestionUnderLine: React.FC<QuestionUnderlineProps> = ({ question, correct, selectedOption }) => {
   const parts: React.ReactNode[] = [];

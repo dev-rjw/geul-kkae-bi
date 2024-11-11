@@ -1,10 +1,5 @@
+import { CheckingButtonProps } from '@/types/checking';
 import React from 'react';
-
-interface CheckingButtonProps {
-  correctOptions: string[];
-  selectedOption: string | null;
-  onselect: (option: string) => void;
-}
 
 const CheckingButton: React.FC<CheckingButtonProps> = ({ correctOptions, selectedOption, onselect }) => {
   return (
