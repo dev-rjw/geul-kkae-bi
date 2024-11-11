@@ -22,13 +22,12 @@ export const useInsertMutation = () => {
       client.invalidateQueries({ queryKey: ['speek'] });
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 };
 
 const updateSpeekScore = async (score: { score: number; userId: string; week: number }) => {
-  console.log(score.userId);
   return await browserClient
     .from('rank')
     .update({
@@ -46,7 +45,7 @@ export const useUpdateMutation = () => {
       client.invalidateQueries({ queryKey: ['speek'] });
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 };

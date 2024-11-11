@@ -1,43 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { createClient } from '@/utils/supabase/client';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/queries/useAuth';
+import { useAuth, useUser } from '@/queries/useAuth';
 import Swal from 'sweetalert2';
 import { Award, ChevronDown, ChevronRight, Loader2, LogOut, UserRound } from 'lucide-react';
 import DefaultButton from './DefaultButton';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { fetchCurrentUserInfo } from '@/utils/user/client-action';
-
-export type User = {
-  user_id: string;
-  nickname: string;
-  introduction: string | null;
-  image: string | null;
-  email: string;
-  created_at: string;
-};
+// import { fetchCurrentUserInfo } from '@/utils/user/client-action';
+import Avatar from './Avatar';
+// import { User } from '@/types/mypage';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [user, setUser] = useState<User>();
 
   // useAuth을 통해 로그인 상태 확인
-  const { data: auth, isLoading } = useAuth();
-
-  useEffect(() => {
-    if (auth) {
-      const email = auth?.user_metadata.email;
-      fetchCurrentUserInfo(email).then((elemant) => setUser(elemant));
-    }
-  }, [auth]);
+  const { data, isLoading } = useAuth();
+  // email로 user정보 확인
+  const email = data?.user_metadata.email;
+  const { data: user } = useUser(email);
 
   // auth 변화 감지
   supabase.auth.onAuthStateChange(() => {
@@ -72,7 +58,7 @@ const HeaderInfoChange = () => {
 
   return (
     <>
-      {auth ? (
+      {data ? (
         <Popover>
           <PopoverTrigger>
             <div className='flex items-center gap-[0.625rem]'>
@@ -82,17 +68,12 @@ const HeaderInfoChange = () => {
                   <span className='text-lg text-primary-500'>{user?.nickname}</span>님
                 </div>
               </div>
-              <Avatar className='w-12 h-12 border border-gray-100'>
-                <AvatarImage
-                  src={user?.image ?? '/default-avatar.png'}
-                  alt={user?.nickname}
-                  className='object-cover'
-                />
-                <AvatarFallback
-                  className='w-full h-full object-cover'
-                  style={{ backgroundImage: 'url(/default_img.jpg)' }}
-                ></AvatarFallback>
-              </Avatar>
+
+              <Avatar
+                size='3rem'
+                src={user?.image}
+                className='border border-gray-100'
+              />
               <ChevronDown className='text-gray-600' />
             </div>
           </PopoverTrigger>
@@ -105,17 +86,11 @@ const HeaderInfoChange = () => {
               href='/mypage/information'
             >
               <div className='flex items-center gap-[0.625rem]'>
-                <Avatar className='w-12 h-12 border border-gray-100'>
-                  <AvatarImage
-                    src={user?.image ?? '/default-avatar.png'}
-                    alt={user?.nickname}
-                    className='object-cover'
-                  />
-                  <AvatarFallback
-                    className='w-full h-full object-cover'
-                    style={{ backgroundImage: 'url(/default_img.jpg)' }}
-                  ></AvatarFallback>
-                </Avatar>
+                <Avatar
+                  size='3rem'
+                  src={user?.image}
+                  className='border border-gray-100'
+                />
                 <div>
                   <div className='flex items-center'>
                     <span className='text-lg font-bold text-primary-500'>{user?.nickname}</span>

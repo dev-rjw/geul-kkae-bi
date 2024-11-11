@@ -1,13 +1,13 @@
-.top_rank:nth-child(1) {
+.top-rank:nth-child(1) {
   background-color: #3e5ae5;
   color: #fff;
 }
 
-.top_rank:nth-child(1) strong,
-.top_rank:nth-child(1) span {
+.top-rank:nth-child(1) strong,
+.top-rank:nth-child(1) span {
   color: #fff;
 }
 
-.top_rank:nth-child(2) {
+.top-rank:nth-child(2) {
   background-color: #6b80eb;
 }

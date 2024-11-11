@@ -25,7 +25,7 @@ https://geul-kkae-bi.vercel.app/
 
 ### 금오갤(Gold쪽이 Of Galaxy)
 
-|   류지원   |      조아영      |        김진우         |      이보영      |     임기철     |    권현정    |    조애리    |
+|   류지원   |      조아영      |        송진우         |      이보영      |     임기철     |    권현정    |    조애리    |
 | :--------: | :--------------: | :-------------------: | :--------------: | :------------: | :----------: | :----------: |
 |  **리더**  |    **부리더**    |       **팀원**        |     **팀원**     |    **팀원**    | **디자이너** | **디자이너** |
 | 메인페이지 | 회원가입, 로그인 | 게임(wrting,checking) | 결과, 랭킹페이지 | 게임(speaking) |    디자인    |    디자인    |
@@ -277,7 +277,7 @@ const onSubmit = async (values: FieldValues) => {
     options: {
       data: {
         nickname,
-        image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.jpg`,
+        image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.webp`,
       },
     },
   });
