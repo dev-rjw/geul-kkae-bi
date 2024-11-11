@@ -86,11 +86,15 @@ const Speak = () => {
     setIsRecording(false);
   };
 
+  const handleStart = () => {
+    setIsDelay(true);
+  };
+
   return (
     <div className='h-screen bg-[#FCFBF9]'>
       {!isDelay ? (
         <div className='w-screen h-screen'>
-          <Tutorial setIsDelay={setIsDelay} />
+          <Tutorial handleStart={handleStart} />
         </div>
       ) : (
         <div className='flex flex-col items-center'>
