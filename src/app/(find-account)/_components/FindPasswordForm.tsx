@@ -35,10 +35,22 @@ const FindPasswordForm = () => {
           htmlContainer: 'swal-custom-text',
         },
         showConfirmButton: false,
-        footer:`<a href="/signin" class='swal-custom-button'>로그인하기</a>`
+        footer: `<a href="/signin" class='swal-custom-button'>로그인하기</a>`,
       });
     } else {
-      findPassword(email);
+      const result = await findPassword(email);
+
+      if (result instanceof Error) {
+        Swal.fire({
+          html: `<div class="text-gray-700">해당 이메일로 비밀번호 <br/>변경링크를 보내드렸어요!</div>`,
+          customClass: {
+            title: 'swal-custom-title',
+            htmlContainer: 'swal-custom-text',
+            confirmButton: 'swal-custom-button',
+          },
+          confirmButtonText: '확인',
+        });
+      }
     }
   };
 
