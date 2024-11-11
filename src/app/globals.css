@@ -84,6 +84,32 @@
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #363635 !important;
   }
+
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3); /* 스크롤바 색상 */
+    border-radius: 15px; /* 스크롤바 둥근 테두리 */
+    background-clip: padding-box;
+    border: 3px solid transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent; /* 스크롤바 뒷 배경 색상 */
+  }
+
+  .scrollbar-primary ::-webkit-scrollbar {
+    width: 15px;
+  }
+  .scrollbar-primary ::-webkit-scrollbar-thumb {
+    background: #92b9f2; /* 스크롤바 색상 */
+    border-radius: 15px; /* 스크롤바 둥근 테두리 */
+    background-clip: padding-box;
+    border: 3px solid transparent;
+  }
+  .scrollbar-primary ::-webkit-scrollbar-track {
+    background: transparent; /* 스크롤바 뒷 배경 색상 */
+  }
 }
 @layer components {
   .title-56 {
@@ -274,7 +300,7 @@ div:where(.swal2-container) .swal2-html-container {
 div:where(.swal2-container) .swal2-html-container.swal-custom-title,
 div:where(.swal2-container) .swal2-html-container.swal-custom-text {
   font-size: 1.5rem;
-  color: #1965D2;
+  color: #1965d2;
   line-height: 150%;
   font-weight: 600;
 }
@@ -291,7 +317,7 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   font-size: 1.125rem;
   font-weight: 700;
   border-radius: 0.75rem;
-  background-color: #357EE7;
+  background-color: #357ee7;
 }
 div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover {
   color: #649ced;
