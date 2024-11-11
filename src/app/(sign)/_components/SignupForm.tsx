@@ -63,7 +63,7 @@ const SignupForm = () => {
       options: {
         data: {
           nickname,
-          image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.jpg`,
+          image: `${process.env.NEXT_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/profile/default_img.webp`,
         },
       },
     });
@@ -150,6 +150,7 @@ const SignupForm = () => {
                     <FormControl>
                       <DefaultInput
                         type='text'
+                        maxLength={8}
                         placeholder='닉네임을 입력해주세요'
                         {...field}
                       />

@@ -91,7 +91,7 @@ export const fetchCurrentUser = async () => {
   if (error || !user) {
     return null;
   }
-
+  
   return user;
 };
 

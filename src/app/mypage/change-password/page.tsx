@@ -6,6 +6,7 @@ import { fetchCurrentUser } from '@/utils/auth/server-action';
 import { redirect } from 'next/navigation';
 import DefaultButton from '@/components/DefaultButton';
 import Link from 'next/link';
+import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '마이페이지 - 비밀번호 변경',
@@ -21,9 +22,9 @@ const ChangePasswordPage = async () => {
   }
 
   return (
-    <div className='container py-[2.5rem]'>
+    <div className='container py-10'>
       <Tabs />
-      <Suspense>
+      <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
         {user?.app_metadata?.provider === 'google' || user?.app_metadata?.provider === 'kakao' ? (
           <>
             <p className='body-20 text-center text-gray-700 mb-10'>
