@@ -8,7 +8,6 @@ export const fetchUserRank = async (user_id: string, beforeWeek: number) => {
   const standardDate: Date = new Date('2024-10-28');
   const todayDate: Date = new Date();
 
-  // 기준 일자와 오늘 일자간 몇 주가 지났는지 계산
   let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
   diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
   diff = Math.floor(diff / 7) + (diff % 7 === 0 ? 0 : 1);
