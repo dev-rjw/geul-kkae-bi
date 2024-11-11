@@ -1,7 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import React from 'react';
-// import Image from 'next/image';
-import { Rank, RankIncludingUserInfo } from '@/types/result';
+import { Rank, RankIncludingUserInfo, userProfile } from '@/types/rank';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
@@ -11,17 +10,7 @@ const RankingPage = async () => {
   const serverClient = createClient();
   const userId = await fetchUserId();
 
-  interface userProfile {
-    user_id: string;
-    nickname: string;
-    introduction: string;
-    image: string;
-    created_at: string;
-    email: string;
-    provider: null;
-  }
-
-  // 현재 유저
+  // 현재 유저 프로필
   const { data: userProfile }: { data: userProfile[] | null } = await serverClient
     .from('user')
     .select()
