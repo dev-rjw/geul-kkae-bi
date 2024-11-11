@@ -1,4 +1,4 @@
-import { JustEndedGameProp, Rank } from '@/types/result';
+import { JustEndedGameProp, matchedGameArrayForUser, Rank } from '@/types/result';
 import { createClient } from '@/utils/supabase/server';
 import { fetchUserId, fetchUserNickName } from '@/utils/auth/server-action';
 import Link from 'next/link';
@@ -24,7 +24,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   }
 
   //가장 최신 week 가져오기(숫자가 클수록 최신)->기준이 되는 week
-  //null이 있으면 가장 위에 null이 들어와서 오류가뜸
   const { data: latestWeekData }: { data: Rank[] | null } = await serverClient
     .from('rank')
     .select()
@@ -123,14 +122,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
     updateTotalScore();
   }
 
-  interface matchedGameArray {
-    type: string;
-    score: number | null;
-    color: string;
-    name: string;
-  }
-
-  const game = (matchedGame: matchedGameArray) => {
+  const game = (matchedGame: matchedGameArrayForUser) => {
     switch (true) {
       case matchedGame.type === 'speaking':
         return 'bg-[#Fbd498]';
