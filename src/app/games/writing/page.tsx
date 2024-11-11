@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/writing-fetchQuestions';
 import { useInsertWritingMutation, useUpdateWritingMutation } from '@/mutations/writing-mutation';
+import { weekNumber } from '@/utils/week/weekNumber';
 
 const WritingQuizPage = () => {
   const { data: user } = useAuth();
@@ -58,10 +59,6 @@ const WritingQuizPage = () => {
 
   // 점수 저장 - 로그인 상태는 Supabase에 저장, 비로그인 시 로컬 스토리지에 저장
   const saveScore = async (score: number) => {
-    const startSeason = new Date(2024, 9, 27);
-    const now = new Date();
-    const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
-
     if (userId) {
       const { data: currentScore, error } = await browserClient
         .from('rank')
@@ -79,7 +76,7 @@ const WritingQuizPage = () => {
           updateScoreMutation.mutate({ score, userId, week: weekNumber });
         }
       } else {
-        insertScoreMutation.mutate({ score, userId, weekNumber });
+        insertScoreMutation.mutate({ score, userId, weekNumber: weekNumber });
       }
     } else {
       localStorage.setItem('writing', score.toString());
