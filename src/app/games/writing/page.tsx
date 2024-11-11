@@ -1,6 +1,6 @@
 'use client';
 import browserClient from '@/utils/supabase/client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -17,17 +17,17 @@ interface Qusetion {
   meaning: string;
 }
 
-interface AnswerRecord {
-  qustion: string;
-  corectAnswer: string;
-  userAnswer: string;
-}
+//interface AnswerRecord {
+//  qustion: string;
+//  corectAnswer: string;
+//  userAnswer: string;
+//}
 
 const WritingQuizPage = () => {
   const [questions, setQuestions] = useState<Qusetion[]>([]);
   const [userInput, setUserInput] = useState('');
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-  const [score, setScore] = useState(0);
+  const scoreRef = useRef(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
@@ -70,20 +70,20 @@ const WritingQuizPage = () => {
   // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(question);
-    if (isTimeOver) return;
+    setUserInput('');
+    if (isTimeOver || isAllQuestions) return;
 
     handleCheckAnswer();
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
-      setUserInput('');
     } else {
-      saveScore();
+      saveScore(scoreRef.current);
+      moveToWritingResultPage(scoreRef.current);
       setIsAllQuestions(true);
     }
   };
   // result페이지 이동
-  const moveToWritingResultPage = () => {
+  const moveToWritingResultPage = (score: number) => {
     if (userId) {
       router.push(`/games/user?key=writing&score=${score}`);
     } else {
@@ -93,20 +93,19 @@ const WritingQuizPage = () => {
 
   //정답 확인, 점수 추가
   const handleCheckAnswer = () => {
-    const answerRecord: AnswerRecord = {
-      qustion: question.question,
-      corectAnswer: question.answer,
-      userAnswer: userInput,
-    };
+    //const answerRecord: AnswerRecord = {
+    //  qustion: question.question,
+    //  corectAnswer: question.answer,
+    //  userAnswer: userInput,
+    //};
 
     if (userInput === question.answer) {
-      setScore((prevScore) => prevScore + 10);
-      //
+      scoreRef.current += 10;
     }
   };
 
   // 점수 저장 -  로그인 상태는 수퍼베이스에 저장, 비로그인 시 로컬 스토리지에 저장
-  const saveScore = async () => {
+  const saveScore = async (score: number) => {
     const startSeason = new Date(2024, 9, 27);
     const now = new Date();
     const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
@@ -157,7 +156,7 @@ const WritingQuizPage = () => {
   // 시간 초과 시 페이지 이동
   const handleTimeOver = () => {
     if (!isTimeOver) {
-      saveScore();
+      saveScore(scoreRef.current);
       setIsTimeOver(true);
       Swal.fire({
         html: '<p class="swal-custom-text">시간이 다 됐다 깨비!</p><p class="swal-custom-text">다음에 다시 도전하라 깨비</p>',
@@ -168,7 +167,7 @@ const WritingQuizPage = () => {
         },
         confirmButtonText: '확인',
         willClose: () => {
-          moveToWritingResultPage();
+          moveToWritingResultPage(scoreRef.current);
         },
       });
     }
@@ -226,7 +225,7 @@ const WritingQuizPage = () => {
           </div>
         ) : (
           <button
-            onClick={moveToWritingResultPage}
+            onClick={() => moveToWritingResultPage(scoreRef.current)}
             className={`text-2xl font-medium`}
           >
             결과 보기
