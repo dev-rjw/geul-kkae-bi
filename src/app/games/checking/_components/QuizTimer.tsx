@@ -10,14 +10,12 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const onTimeOverRef = useRef(onTimeOver);
 
   useEffect(() => {
-    // onTimeOver가 변경될 때마다 ref 업데이트
     onTimeOverRef.current = onTimeOver;
   }, [onTimeOver]);
 
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
-    // 퀴즈 타이머 시작
     const timer: NodeJS.Timeout = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {

@@ -26,7 +26,6 @@ const CheckingQuizPage = () => {
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
 
-  // 다음 문제로 넘어가기, 퀴즈 클리어
   const moveToNextQuiz = () => {
     if (isTimeOver || isAllQuestions) return;
 
@@ -49,14 +48,12 @@ const CheckingQuizPage = () => {
     }
   };
 
-  // 정답 확인
   const handleCheckAnswer = () => {
     if (selectedOption === questions[currentQuizIndex].answer) {
       scoreRef.current += 10;
     }
   };
 
-  // 점수 저장
   const saveScore = async (score: number) => {
     if (userId) {
       const { data: currentScore, error } = await browserClient
@@ -82,7 +79,6 @@ const CheckingQuizPage = () => {
     }
   };
 
-  // 시간 초과
   const handleTimeOver = () => {
     if (!isTimeOver) {
       saveScore(scoreRef.current);

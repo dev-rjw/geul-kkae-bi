@@ -9,12 +9,10 @@ const QuestionUnderLine: React.FC<QuestionUnderlineProps> = ({ question, correct
     const phraseIndex = question.indexOf(phrase, lastIndex);
 
     if (phraseIndex !== -1) {
-      // phrase 전의 일반 텍스트 추가
       if (lastIndex < phraseIndex) {
         parts.push(<span key={lastIndex}>{question.slice(lastIndex, phraseIndex)}</span>);
       }
 
-      // phrase에 밑줄과 번호 추가
       const isSelected = selectedOption === phrase;
       parts.push(
         <span
@@ -38,7 +36,6 @@ const QuestionUnderLine: React.FC<QuestionUnderlineProps> = ({ question, correct
     }
   });
 
-  // 마지막 남은 텍스트 추가
   if (lastIndex < question.length) {
     parts.push(<span key='end'>{question.slice(lastIndex)}</span>);
   }
