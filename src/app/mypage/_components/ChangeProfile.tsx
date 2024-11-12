@@ -32,10 +32,6 @@ const ChangeProfile = () => {
   });
   const { setValue } = form;
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
   const fetchUserInfo = async () => {
     const email = data?.user_metadata.email;
     const info = await fetchCurrentUserInfo(email);
@@ -47,6 +43,10 @@ const ChangeProfile = () => {
       setValue('introduction', info.introduction || '');
     }
   };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   const uploadImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

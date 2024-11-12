@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Speak from './_components/Speak';
+import './style.css';
 
 export const metadata: Metadata = {
   title: '주어진 문장 읽기 게임',
