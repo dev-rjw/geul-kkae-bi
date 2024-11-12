@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Avatar from '@/components/Avatar';
 import { User, Rank } from '@/types/mypage';
-import { fetchUserRank } from '@/utils/rank/client-action';
+import { fetchUserRank, weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
 import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 
 const MypageMyRank = () => {
   const [user, setUser] = useState<User>();
   const [rank, setRank] = useState<Rank>();
+  const [beforeRank, setBeforeRank] = useState<Rank>();
   const { data } = useAuth();
 
   useEffect(() => {
@@ -23,15 +24,36 @@ const MypageMyRank = () => {
   useEffect(() => {
     if (data) {
       const user_id = data?.user_metadata.sub;
-      fetchUserRank(user_id).then((element) => setRank(element));
+      fetchUserRank(user_id, weekCalculate(0)).then((element) => setRank(element));
+      fetchUserRank(user_id, weekCalculate(-1)).then((element) => setBeforeRank(element));
     }
-  }, []);
+  }, [data]);
+
+  // 금주 일자를 알려주는 알고리즘
+  const currentDay = new Date();
+  const theYear = currentDay.getFullYear();
+  const theMonth = currentDay.getMonth();
+  const theDate = currentDay.getDate();
+  const theDayOfWeek = currentDay.getDay();
+  const thisWeek = [];
+
+  for (let i = 0; i < 7; i++) {
+    const resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek + 1));
+    const yyyy = resultDay.getFullYear();
+    let mm = String(Number(resultDay.getMonth()) + 1);
+    let dd = String(resultDay.getDate());
+
+    mm = mm.length === 1 ? '0' + mm : mm;
+    dd = dd.length === 1 ? '0' + dd : dd;
+
+    thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+  }
 
   return (
     <div className='flex flex-col min-w-[16.125rem] bg-primary-300 rounded-3xl text-center'>
       <div className='py-5'>
         <h3 className='title-24 text-primary-800'>내 랭킹</h3>
-        <p className='caption-12 text-primary-500'>24.10.13 - 24.10.19</p>
+        <p className='caption-12 text-primary-500'>{thisWeek[0] + ' - ' + thisWeek[6]}</p>
       </div>
       <div className='h-2 bg-primary-200 border-t-2 border-primary-400 opacity-40' />
 
@@ -58,7 +80,7 @@ const MypageMyRank = () => {
       <div className='flex justify-center items-center py-4'>
         <h3>
           <span className='title-16 text-primary-500'>지난주 순위</span>
-          <span className='body-22 ml-[3.25rem] text-primary-700'>{rank?.ranking || '-'}위</span>
+          <span className='body-22 ml-[3.25rem] text-primary-700'>{beforeRank?.ranking || '-'}위</span>
         </h3>
       </div>
     </div>

@@ -1,22 +1,34 @@
 import { createClient } from '../supabase/client';
 import { addScoresProps } from '@/types/user';
 
+const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
+
+export const weekCalculate = (beforeWeek: number) => {
+  const standardDate: Date = new Date('2024-10-28');
+  const todayDate: Date = new Date();
+
+  let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
+  diff = Math.ceil(diff / ONE_WEEK);
+
+  return diff + beforeWeek;
+};
+
 // 랭킹 가져오기
-export const fetchUserRank = async (user_id: string) => {
+export const fetchUserRank = async (user_id: string, week: number) => {
   const supabase = createClient();
-  const { data } = await supabase.from('rank').select('*').eq('user_id', user_id).single();
+
+  const { data } = await supabase.from('rank').select('*').eq('week', week).eq('user_id', user_id).single();
 
   return data;
 };
 
-// 랭킹 TOP 3
-// TODO: week 2로 고정시키면 안됨
-export const fetchRank3 = async () => {
+export const fetchRankTop3 = async (week: number) => {
   const supabase = createClient();
+
   const { data } = await supabase
     .from('rank')
     .select(`*, user(nickname)`)
-    .eq('week', 2)
+    .eq('week', week)
     .gte('total', 0)
     .order('total', { ascending: false })
     .limit(3);

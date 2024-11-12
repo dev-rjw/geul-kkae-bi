@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import speekStore from '@/store/speekStore';
-import { timeStore } from '@/store/timeStore';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import Tutorial from './Tutorial';
 import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
+import { useSpeakStore } from '@/store/speakStore';
+import { useTimeStore } from '@/store/timeStore';
 
 type Upsert = {
   handleUpsertScore: () => void;
@@ -16,8 +15,8 @@ type Upsert = {
 };
 
 const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
-  const { time, isDelay, setIsDelay, setTimer } = timeStore();
-  const { index } = speekStore();
+  const { time, isDelay, setTimer } = useTimeStore();
+  const { index } = useSpeakStore();
   const router = useRouter();
 
   const handleAlert = () => {
