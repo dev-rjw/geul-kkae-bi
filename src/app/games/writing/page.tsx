@@ -35,6 +35,7 @@ const WritingQuizPage = () => {
 
     handleCheckAnswer(userInput);
     if (userInputRef.current) {
+      userInputRef.current.value = '';
     }
 
     if (currentQuizIndex < questions.length - 1) {
