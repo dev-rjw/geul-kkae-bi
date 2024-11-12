@@ -23,7 +23,7 @@ const WritingQuizPage = () => {
   const scoreRef = useRef(0);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const [isTimeOver, setIsTimeOver] = useState(false);
-  const [allResults, setAllResults] = useState<PartialQuestion[]>([]);
+  const allResults = useRef<PartialQuestion[]>([]);
   const question: Question = questions[currentQuizIndex];
   const router = useRouter();
   const insertScoreMutation = useInsertWritingMutation();
@@ -44,7 +44,8 @@ const WritingQuizPage = () => {
       setCurrentQuizIndex((index) => index + 1);
     } else {
       saveScore(scoreRef.current);
-      addWritingResult(allResults);
+      addWritingResult([...allResults.current]);
+      console.log('Stored results in Zustand:', useWritingQuizStore.getState().results);
       moveToWritingResultPage(scoreRef.current);
       setIsAllQuestions(true);
     }
@@ -65,7 +66,7 @@ const WritingQuizPage = () => {
       answer: question.answer,
       userAnswer: userAnswer,
     };
-    setAllResults((prevResults) => [...prevResults, currentResult]);
+    allResults.current.push(currentResult);
 
     if (userAnswer === question.answer) {
       scoreRef.current += 10;

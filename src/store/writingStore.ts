@@ -8,5 +8,5 @@ type WritingQuizStore = {
 
 export const useWritingQuizStore = create<WritingQuizStore>((set) => ({
   results: [],
-  addWritingResult: (allResult) => set(() => ({ results: allResult })),
+  addWritingResult: (results) => set(() => ({ results })),
 }));
