@@ -47,8 +47,6 @@ export const addScores = async ({ userId, checking, speaking, writing }: addScor
 
   const { data } = await supabase.from('rank').select('*').eq('user_id', userId).eq('week', week).single();
 
-  console.log('data>>>>>>>>>>', data, isAllNone, checking, speaking, writing);
-
   if (!data && !isAllNone) {
     const { error: insertError } = await supabase
       .from('rank')
@@ -59,9 +57,9 @@ export const addScores = async ({ userId, checking, speaking, writing }: addScor
     }
   }
 
-  // if (typeof window !== 'undefined') {
-  //   localStorage.removeItem('checking');
-  //   localStorage.removeItem('speaking');
-  //   localStorage.removeItem('writing');
-  // }
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('checking');
+    localStorage.removeItem('speaking');
+    localStorage.removeItem('writing');
+  }
 };
