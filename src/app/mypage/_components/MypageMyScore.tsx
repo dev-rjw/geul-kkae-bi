@@ -7,8 +7,8 @@ import { useUserRank } from '@/queries/useRank';
 
 const MypageMyScore = () => {
   const { data } = useAuth();
-  const user_id = data?.user_metadata.sub;
-  const { data: rank } = useUserRank(user_id, weekCalculate(0));
+  const user_id = data?.id;
+  const { data: rank } = useUserRank(user_id!, weekCalculate(0));
 
   return (
     <div className='rounded-3xl w-full h-full bg-primary-50'>

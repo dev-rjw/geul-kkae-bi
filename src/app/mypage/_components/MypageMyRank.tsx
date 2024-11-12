@@ -10,11 +10,11 @@ import { useUser } from '@/queries/useUser';
 const MypageMyRank = () => {
   const { data } = useAuth();
   const email = data?.user_metadata.email;
-  const user_id = data?.user_metadata.sub;
+  const user_id = data?.id;
 
   const { data: user } = useUser(email);
-  const { data: rank } = useUserRank(user_id, weekCalculate(0));
-  const { data: beforeRank } = useUserRank(user_id, weekCalculate(-1));
+  const { data: rank } = useUserRank(user_id!, weekCalculate(0));
+  const { data: beforeRank } = useUserRank(user_id!, weekCalculate(-1));
 
   const fetchThisWeek = () => {
     // 금주 일자를 알려주는 알고리즘
