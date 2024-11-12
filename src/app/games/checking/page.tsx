@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-import './style.css';
 import Image from 'next/image';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
@@ -31,6 +30,7 @@ const CheckingQuizPage = () => {
 
     handleCheckAnswer();
 
+    handleCheckAnswer();
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
       setSelectedOption(null);

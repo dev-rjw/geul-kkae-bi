@@ -6,7 +6,7 @@ import { getPasswordSchema } from './commonSchema';
 export const signinSchema = z.object({
   email: z.string().email({ message: '이메일을 올바르게 입력해 주세요.' }),
   password: getPasswordSchema(),
-  rememberedEmail: z.boolean().optional(), // 선택
+  rememberedEmail: z.boolean().optional(),
 });
 
 // 회원가입
