@@ -1,5 +1,6 @@
 import { createClient } from '../supabase/client';
 import { addScoresProps } from '@/types/user';
+import { weekNumber } from '@/utils/week/weekNumber';
 
 const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 
@@ -40,10 +41,6 @@ export const fetchRankTop3 = async (week: number) => {
 export const addScores = async ({ userId, checking, speaking, writing }: addScoresProps) => {
   const supabase = createClient();
   const total = checking + speaking + writing;
-  // week 계산
-  const startSeason = new Date(2024, 9, 27);
-  const now = new Date();
-  const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
   const week = weekNumber;
 
   const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
