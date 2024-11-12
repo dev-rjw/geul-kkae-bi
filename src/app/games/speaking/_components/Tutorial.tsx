@@ -4,13 +4,13 @@ type Delay = {
 
 const Tutorial = ({ handleStart }: Delay) => {
   return (
-    <div className='w-full mx-auto bg-[#858584]'>
+    <div className='w-full mx-auto bg-[#252424]'>
       <div className="bg-center h-screen bg-[url('/speak_tutorial.svg')] bg-contain bg-no-repeat">
         <button
           onClick={handleStart}
-          className='bg-[#92B9F2] absolute bottom-8 right-[62px] w-[258px] py-[17px] rounded-[80px]'
+          className='start_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
         >
-          <span className='text-[38px] font-bold'>시작하기</span>
+          <span className='relative z-10 title-20 text-secondary-800'>GAME START</span>
         </button>
       </div>
     </div>
