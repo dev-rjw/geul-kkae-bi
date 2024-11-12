@@ -23,3 +23,17 @@ export const getLocalStorageValues = () => {
   // 기본값 반환하여 컴파일 에러 방지
   return { checking: null, speaking: null, writing: null };
 };
+
+// 리다이렉션 주소
+export const getURL = () => {
+  let url =
+    process?.env?.NEXT_PUBLIC_SITE_URL ?? // 이를 프로덕션 환경의 사이트 URL로 설정합니다.
+    process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Vercel에 의해 자동으로 설정됩니다.
+    'http://localhost:3000/';
+  // localhost가 아닌 경우 `https://`를 포함해야 합니다.
+  url = url.startsWith('http') ? url : `https://${url}`;
+  // 후행 `/`를 포함해야 합니다.
+  url = url.endsWith('/') ? url : `${url}/`;
+
+  return url;
+};

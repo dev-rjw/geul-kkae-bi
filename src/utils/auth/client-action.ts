@@ -1,5 +1,6 @@
 import { SignUpWithPasswordCredentials, SignInWithPasswordCredentials } from '@supabase/supabase-js';
 import { createClient } from '../supabase/client';
+import { getURL } from '@/app/(sign)/utils/sign';
 
 // 회원가입
 export const signup = async (formData: SignUpWithPasswordCredentials) => {
@@ -26,10 +27,11 @@ export const signin = async (formData: SignInWithPasswordCredentials) => {
 // 구글 회원가입 및 로그인
 export const googleSignin = async () => {
   const supabase = createClient();
+  const redirectUrl = getURL();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
+      redirectTo: `${redirectUrl}auth/callback`,
     },
   });
 
@@ -42,10 +44,11 @@ export const googleSignin = async () => {
 // 카카오 회원가입 및 로그인
 export const kakaoSignin = async () => {
   const supabase = createClient();
+  const redirectUrl = getURL();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
+      redirectTo: `${redirectUrl}auth/callback`,
     },
   });
 
@@ -72,8 +75,9 @@ export const fetchCurrentUser = async () => {
 // 비밀번호 찾기(비밀번호 재설정 메일발송)
 export const findPassword = async (email: string) => {
   const supabase = createClient();
+  const redirectUrl = getURL();
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/change-password`,
+    redirectTo: `${redirectUrl}change-password`,
   });
 
   if (error) {
