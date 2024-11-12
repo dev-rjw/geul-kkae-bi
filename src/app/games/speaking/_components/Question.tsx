@@ -13,9 +13,10 @@ import { useTimeStore } from '@/store/timeStore';
 type QuestionProps = {
   text: string;
   randomText: string[];
+  getWrongAnswer: () => void;
 };
 
-const Question = ({ text, randomText }: QuestionProps) => {
+const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
   const [result, setResult] = useState(false);
   const {
     index,
@@ -28,6 +29,7 @@ const Question = ({ text, randomText }: QuestionProps) => {
     resetPercent,
     addIndex,
     addTotalPercent,
+    setIsGame,
   } = useSpeakStore();
   const { time } = useTimeStore();
   const { data } = useAuth();
@@ -62,6 +64,7 @@ const Question = ({ text, randomText }: QuestionProps) => {
     } else if (index === 9) {
       handleUpsertScore();
       setResult(true);
+      setIsGame(true);
     }
   };
 
@@ -80,6 +83,7 @@ const Question = ({ text, randomText }: QuestionProps) => {
   };
 
   const handleNextButton = () => {
+    getWrongAnswer();
     addTotalPercent(percent);
     resetPercent();
     resetText();
