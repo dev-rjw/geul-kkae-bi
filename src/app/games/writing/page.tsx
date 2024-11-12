@@ -18,7 +18,7 @@ const WritingQuizPage = () => {
   const { data: user } = useAuth();
   const userId = user?.id ?? null;
   const { data: questions = [], isLoading } = useFetchQuestions();
-  const [userInput, setUserInput] = useState('');
+  const userInputRef = useRef<HTMLInputElement | null>(null);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const scoreRef = useRef(0);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
@@ -30,10 +30,13 @@ const WritingQuizPage = () => {
   const updateScoreMutation = useUpdateWritingMutation();
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
-    setUserInput('');
+    const userInput = userInputRef.current?.value || '';
     if (isTimeOver || isAllQuestions) return;
 
-    handleCheckAnswer();
+    handleCheckAnswer(userInput);
+    if (userInputRef.current) {
+    }
+
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
     } else {
@@ -51,15 +54,15 @@ const WritingQuizPage = () => {
     }
   };
 
-  const handleCheckAnswer = () => {
+  const handleCheckAnswer = (userAnswer: string) => {
     addWritingResult({
       question: question.question,
       meaning: question.meaning,
       answer: question.answer,
-      userAnswer: userInput,
+      userAnswer: userAnswer,
     });
 
-    if (userInput === question.answer) {
+    if (userAnswer === question.answer) {
       scoreRef.current += 10;
     }
   };
@@ -94,7 +97,7 @@ const WritingQuizPage = () => {
       saveScore(scoreRef.current);
       setIsTimeOver(true);
       Swal.fire({
-        html: '<p class="swal-custom-text">시간이 다 됐다 깨비!</p><p class="swal-custom-text">다음에 다시 도전하라 깨비</p>',
+        html: '<div>시간이 다 됐다 깨비!<br/>다음에 다시 도전하라 깨비</div>',
         customClass: {
           title: 'swal-custom-title',
           htmlContainer: 'swal-custom-text',
@@ -134,8 +137,7 @@ const WritingQuizPage = () => {
           <input
             type='text'
             placeholder='정답을 입력하고 엔터를 치세요'
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
+            ref={userInputRef}
             className='pt-16 border-b border-black focus:outline-none text-xl font-medium w-80 font-yangjin'
           />
         </form>
