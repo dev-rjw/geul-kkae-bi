@@ -6,6 +6,7 @@ import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
 import { fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
+import { redirect } from 'next/navigation';
 
 const RankingPage = async () => {
   const serverClient = createClient();
@@ -32,7 +33,9 @@ const RankingPage = async () => {
       .gte('total', 0)
       .order('total', { ascending: false });
 
-    if (data && data.length > 0) {
+    if (!data || data.length === 0) {
+      redirect('/');
+    } else {
       //이번주 전체 등수
       countRanking = data.map((item, index) => ({ ...item, ranking: index + 1 }));
       //이번주 내 등수

@@ -53,7 +53,6 @@ const MypageProfile = () => {
           </LineTitle>
         </div>
 
-        {/* 프로필 이미지 */}
         <Avatar
           size='17rem'
           src={user?.image}
@@ -81,7 +80,7 @@ const MypageProfile = () => {
             <Link href='/mypage/change-password'>비밀번호 변경</Link>
           </DefaultButton>
         </div>
-        <div className='mt-auto text-center'>
+        <div className='flex items-center justify-center gap-4 mt-auto text-center'>
           <DefaultButton
             variant='text'
             className='text-white'
