@@ -28,7 +28,7 @@ export const checkNicknameExists = async (nickname: string) => {
 export const confirmNickname = async (nickname: string, currentNickname?: string) => {
   const supabase = createClient();
 
-  if (nickname === currentNickname) return false; // 현재 닉네임과 같다면 중복으로 간주하지 않음
+  if (nickname === currentNickname) return false;
 
   const { data, error } = await supabase.from('user').select('nickname').eq('nickname', nickname);
 
