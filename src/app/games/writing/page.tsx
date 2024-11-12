@@ -11,6 +11,8 @@ import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/writing-fetchQuestions';
 import { useInsertWritingMutation, useUpdateWritingMutation } from '@/mutations/writing-mutation';
 import { weekNumber } from '@/utils/week/weekNumber';
+import { useWritingQuizStore } from '@/store/writingStore';
+import { Question } from '@/types/writing';
 
 const WritingQuizPage = () => {
   const { data: user } = useAuth();
@@ -21,11 +23,11 @@ const WritingQuizPage = () => {
   const scoreRef = useRef(0);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const [isTimeOver, setIsTimeOver] = useState(false);
-  const question = questions[currentQuizIndex];
+  const addWritingResult = useWritingQuizStore((state) => state.addWritingResult);
+  const question: Question = questions[currentQuizIndex];
   const router = useRouter();
   const insertScoreMutation = useInsertWritingMutation();
   const updateScoreMutation = useUpdateWritingMutation();
-
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
     setUserInput('');
@@ -50,6 +52,13 @@ const WritingQuizPage = () => {
   };
 
   const handleCheckAnswer = () => {
+    addWritingResult({
+      question: question.question,
+      meaning: question.meaning,
+      answer: question.answer,
+      userAnswer: userInput,
+    });
+
     if (userInput === question.answer) {
       scoreRef.current += 10;
     }
