@@ -25,7 +25,7 @@ const MypageProfile = () => {
     }
   }, [data]);
 
-  const signout = async (e: React.FormEvent) => {
+  const handleSignout = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const { error } = await supabase.auth.signOut();
@@ -91,7 +91,7 @@ const MypageProfile = () => {
           <DefaultButton
             variant='text'
             className='text-white'
-            onClick={signout}
+            onClick={handleSignout}
           >
             로그아웃
           </DefaultButton>

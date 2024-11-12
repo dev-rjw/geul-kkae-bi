@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-import './style.css';
 import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 
 interface Qusetion {
   id: string;
@@ -56,9 +56,9 @@ const CheckingQuizPage = () => {
   const moveToNextQuiz = () => {
     if (isTimeOver) return;
 
+    handleCheckAnswer();
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
-      handleCheckAnswer();
       setSelectedOption(null);
     } else {
       saveScore();
@@ -156,7 +156,7 @@ const CheckingQuizPage = () => {
       saveScore();
       setIsTimeOver(true);
       Swal.fire({
-        html: '<p class="swal-custom-text">시간이 다 됐다 깨비!</p><p class="swal-custom-text">다음에 다시 도전하라 깨비</p>',
+        html: '<div>시간이 다 됐다 깨비!<br/>다음에 다시 도전하라 깨비</div>',
         customClass: {
           title: 'swal-custom-title',
           htmlContainer: 'swal-custom-text',
@@ -217,7 +217,11 @@ const CheckingQuizPage = () => {
   };
 
   if (loading) {
-    return <p>로딩중</p>;
+    return (
+      <div className='w-screen h-screen flex items-center justify-center'>
+        <Loader2 className='mr-2 h-12 w-12 animate-spin text-primary-400' />
+      </div>
+    );
   }
 
   return (

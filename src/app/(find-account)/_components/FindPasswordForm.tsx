@@ -12,7 +12,6 @@ import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import Swal from 'sweetalert2';
 
 const FindPasswordForm = () => {
-  // 유효성 검사
   const defaultValues = {
     email: '',
   };
@@ -30,16 +29,28 @@ const FindPasswordForm = () => {
 
     if (user?.provider === 'google' || user?.provider === 'kakao') {
       Swal.fire({
-        html: `<div class="text-gray-700">해당 계정은 ${user?.provider} 소셜 로그인으로 가입되었습니다. <br />${user?.provider} 계정으로 로그인해주세요.</div>`,
+        html: `<div class="text-gray-700">해당 계정은 ${user?.provider} <br />소셜 로그인으로 가입되었습니다. <br />${user?.provider} 계정으로 로그인해주세요.</div>`,
         customClass: {
           title: 'swal-custom-title',
           htmlContainer: 'swal-custom-text',
-          confirmButton: 'swal-custom-button',
         },
-        confirmButtonText: '로그인하기',
+        showConfirmButton: false,
+        footer: `<a href="/signin" class='swal-custom-button'>로그인하기</a>`,
       });
     } else {
-      findPassword(email);
+      const result = await findPassword(email);
+
+      if (result instanceof Error) {
+        Swal.fire({
+          html: `<div class="text-gray-700">해당 이메일로 비밀번호 <br/>변경링크를 보내드렸어요!</div>`,
+          customClass: {
+            title: 'swal-custom-title',
+            htmlContainer: 'swal-custom-text',
+            confirmButton: 'swal-custom-button',
+          },
+          confirmButtonText: '확인',
+        });
+      }
     }
   };
 
