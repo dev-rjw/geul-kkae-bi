@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { fetchRankTop3 } from '@/utils/rank/client-action';
+import { fetchRankTop3, weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
 import { useRouter } from 'next/navigation';
 
@@ -28,7 +28,7 @@ const MainRank = () => {
   // Tanstack쿼리 사용하기
   const [ranks, setRanks] = useState<Rank[]>([]);
   useEffect(() => {
-    fetchRankTop3().then((elemant) => setRanks(elemant!));
+    fetchRankTop3(weekCalculate(0)).then((elemant) => setRanks(elemant!));
   }, []);
 
   return (

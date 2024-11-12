@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Rank } from '@/types/mypage';
-import { fetchUserRank } from '@/utils/rank/client-action';
+import { fetchUserRank, weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
 
 const MypageMyScore = () => {
@@ -13,7 +13,7 @@ const MypageMyScore = () => {
   useEffect(() => {
     if (data) {
       const user_id = data?.user_metadata.sub;
-      fetchUserRank(user_id, 0).then((element) => setRank(element));
+      fetchUserRank(user_id, weekCalculate(0)).then((element) => setRank(element));
     }
   }, [data]);
 

@@ -1,42 +1,34 @@
 import Swal from 'sweetalert2';
 import { createClient } from '../supabase/client';
 
-// 랭킹 가져오기
-export const fetchUserRank = async (user_id: string, beforeWeek: number) => {
-  const supabase = createClient();
+const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 
+export const weekCalculate = (beforeWeek: number) => {
   const standardDate: Date = new Date('2024-10-28');
   const todayDate: Date = new Date();
 
   let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
-  diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  diff = Math.floor(diff / 7) + (diff % 7 === 0 ? 0 : 1);
+  diff = Math.ceil(diff / ONE_WEEK);
 
-  const { data } = await supabase
-    .from('rank')
-    .select('*')
-    .eq('week', diff + beforeWeek)
-    .eq('user_id', user_id)
-    .single();
+  return diff + beforeWeek;
+};
+
+// 랭킹 가져오기
+export const fetchUserRank = async (user_id: string, week: number) => {
+  const supabase = createClient();
+
+  const { data } = await supabase.from('rank').select('*').eq('week', week).eq('user_id', user_id).single();
 
   return data;
 };
 
-export const fetchRankTop3 = async () => {
+export const fetchRankTop3 = async (week: number) => {
   const supabase = createClient();
-
-  const standardDate: Date = new Date('2024-10-28');
-  const todayDate: Date = new Date();
-
-  // 기준 일자와 오늘 일자간 몇 주가 지났는지 계산
-  let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
-  diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  diff = Math.floor(diff / 7) + (diff % 7 === 0 ? 0 : 1);
 
   const { data } = await supabase
     .from('rank')
     .select(`*, user(nickname)`)
-    .eq('week', diff)
+    .eq('week', week)
     .gte('total', 0)
     .order('total', { ascending: false })
     .limit(3);

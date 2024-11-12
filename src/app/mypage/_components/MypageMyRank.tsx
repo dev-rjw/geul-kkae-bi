@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Avatar from '@/components/Avatar';
 import { User, Rank } from '@/types/mypage';
-import { fetchUserRank } from '@/utils/rank/client-action';
+import { fetchUserRank, weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
 import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 
@@ -24,8 +24,8 @@ const MypageMyRank = () => {
   useEffect(() => {
     if (data) {
       const user_id = data?.user_metadata.sub;
-      fetchUserRank(user_id, 0).then((element) => setRank(element));
-      fetchUserRank(user_id, -1).then((element) => setBeforeRank(element));
+      fetchUserRank(user_id, weekCalculate(0)).then((element) => setRank(element));
+      fetchUserRank(user_id, weekCalculate(-1)).then((element) => setBeforeRank(element));
     }
   }, [data]);
 
