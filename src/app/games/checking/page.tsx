@@ -21,7 +21,7 @@ const CheckingQuizPage = () => {
   const { data: questions = [], isLoading } = useFetchQuestions();
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const scoreRef = useRef(0);
-  const [allResults, setAllResults] = useState<CheckingResult[]>([]);
+  const allResults = useRef<CheckingResult[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isTimeOver, setIsTimeOver] = useState(false);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
@@ -39,7 +39,7 @@ const CheckingQuizPage = () => {
       setSelectedOption(null);
     } else {
       saveScore(scoreRef.current);
-      addCheckingResults(allResults);
+      addCheckingResults([...allResults.current]);
       setIsAllQuestions(true);
     }
   };
@@ -61,7 +61,7 @@ const CheckingQuizPage = () => {
       userAnswer: selectedOption,
     };
 
-    setAllResults((prevResults) => [...prevResults, currentResult]);
+    allResults.current.push(currentResult);
     if (selectedOption === questions[currentQuizIndex].answer) {
       scoreRef.current += 10;
     }
