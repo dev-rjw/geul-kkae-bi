@@ -16,7 +16,7 @@ const MypageMyScore = () => {
         <div className='flex flex-col w-1/3 min-w-[10.375rem] rounded-3xl items-center justify-center p-4 bg-primary-100'>
           <h2 className='title-24 text-primary-800'>게임별 점수</h2>
           <p className='title-20 text-primary-400 mt-6'>총점</p>
-          <p className='body-32 text-primary-700 mt-1'>{rank?.total || '-'}점</p>
+          <p className='body-32 text-primary-700 mt-1'>{rank?.total === null ? '-' : rank?.total}점</p>
         </div>
 
         <div className='flex flex-col w-2/3'>
@@ -29,7 +29,7 @@ const MypageMyScore = () => {
             />
             <div className='flex flex-col'>
               <span className='title-16 pb-2 text-primary-400'>주어진 문장 읽기</span>
-              <span className='body-30 text-primary-700'>{rank?.speaking || '-'}점</span>
+              <span className='body-30 text-primary-700'>{rank?.speaking === null ? '-' : rank?.speaking}점</span>
             </div>
           </div>
           <div className='h-1 bg-primary-100 border-t-2 border-primary-200 opacity-40' />
@@ -43,7 +43,7 @@ const MypageMyScore = () => {
             />
             <div className='flex flex-col'>
               <span className='title-16 pb-2 text-primary-400'>틀린 것 맞추기</span>
-              <span className='body-30 text-primary-700'>{rank?.checking || '-'}점</span>
+              <span className='body-30 text-primary-700'>{rank?.checking === null ? '-' : rank?.checking}점</span>
             </div>
           </div>
           <div className='h-1 bg-primary-100 border-t-2 border-primary-200 opacity-40' />
@@ -57,7 +57,7 @@ const MypageMyScore = () => {
             />
             <div className='flex flex-col'>
               <span className='title-16 pb-2 text-primary-400'>빈칸 채우기</span>
-              <span className='body-30 text-primary-700'>{rank?.writing || '-'}점</span>
+              <span className='body-30 text-primary-700'>{rank?.writing === null ? '-' : rank?.writing}점</span>
             </div>
           </div>
         </div>
