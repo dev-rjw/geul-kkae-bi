@@ -1,10 +1,30 @@
-.custom-char-style {
-  color: #000;
-  text-align: center;
-  font-size: 56px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 84px;
-  letter-spacing: -1.12px;
-  padding-top: 16px;
+.start_writing_btn {
+  border: 10px solid #d4f7ef;
+  background-color: #2ad4af;
+  box-shadow: inset 0 -6px #18b08f, inset 0 6px #55ddbf, 0 6px #2ad4af;
+}
+
+.start_writing_btn::before {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: -45px;
+  left: -46px;
+  width: 46px;
+  height: 51px;
+  background: url(/ico_star.svg);
+}
+.start_writing_btn::after {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 45px;
+  right: -46px;
+  width: 46px;
+  height: 51px;
+  background: url(/ico_star.svg);
+}
+
+.start_writing_btn span {
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
