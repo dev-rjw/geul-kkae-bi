@@ -1,29 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Avatar from '@/components/Avatar';
 import LineTitle from '@/components/LineTitle';
 import { useAuth } from '@/queries/useAuth';
-import { User } from '@/types/mypage';
-import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import DefaultButton from '@/components/DefaultButton';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import Swal from 'sweetalert2';
+import { useUser } from '@/queries/useUser';
 
 const MypageProfile = () => {
   const supabase = createClient();
-  const [user, setUser] = useState<User>();
-  const { data } = useAuth();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (data) {
-      const email = data?.user_metadata.email;
-      fetchCurrentUserInfo(email).then((elemant) => setUser(elemant));
-    }
-  }, [data]);
+  const { data } = useAuth();
+  const email = data?.user_metadata.email;
+  const { data: user } = useUser(email);
+
+  const router = useRouter();
 
   const signout = async (e: React.FormEvent) => {
     e.preventDefault();

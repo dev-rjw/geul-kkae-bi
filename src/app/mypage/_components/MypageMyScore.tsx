@@ -1,21 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Rank } from '@/types/mypage';
-import { fetchUserRank, weekCalculate } from '@/utils/rank/client-action';
+import { weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
+import { useUserRank } from '@/queries/useRank';
 
 const MypageMyScore = () => {
-  const [rank, setRank] = useState<Rank>();
   const { data } = useAuth();
-
-  useEffect(() => {
-    if (data) {
-      const user_id = data?.user_metadata.sub;
-      fetchUserRank(user_id, weekCalculate(0)).then((element) => setRank(element));
-    }
-  }, [data]);
+  const user_id = data?.user_metadata.sub;
+  const { data: rank } = useUserRank(user_id, weekCalculate(0));
 
   return (
     <div className='rounded-3xl w-full h-full bg-primary-50'>
