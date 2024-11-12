@@ -15,16 +15,9 @@ export interface GamesArray {
   name: string;
 }
 
-export interface MatchedGameArrayForGuest {
+export interface MatchedGameArray {
   type: string;
-  score: string | null;
-  color: string;
-  name: string;
-}
-
-export interface MatchedGameArrayForUser {
-  type: string;
-  score: number | null;
+  score: string | number | null;
   color: string;
   name: string;
 }

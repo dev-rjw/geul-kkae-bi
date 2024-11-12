@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { GamesArray, GamesScore, JustEndedGameProp, MatchedGameArrayForGuest } from '@/types/result';
+import { GamesArray, GamesScore, JustEndedGameProp } from '@/types/result';
 import ResultSide from '../_components/ResultSide';
 import '../style.css';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
+import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
 
 const GuestPage = ({ searchParams }: JustEndedGameProp) => {
   const [games, setGames] = useState<GamesArray[]>();
@@ -130,17 +131,3 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
 };
 
 export default GuestPage;
-
-//score의 type이 user랑 달라서 같이 쓸 수 없음.
-const highlightScoreForMatchedGame = (matchedGame: MatchedGameArrayForGuest) => {
-  switch (matchedGame.type) {
-    case 'speaking':
-      return 'bg-[#Fbd498]';
-    case 'checking':
-      return 'bg-[#BFA5ED]';
-    case 'writing':
-      return 'bg-[#7FE6CF]';
-    default:
-      return '';
-  }
-};

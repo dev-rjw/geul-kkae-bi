@@ -1,4 +1,4 @@
-import { JustEndedGameProp, MatchedGameArrayForUser } from '@/types/result';
+import { JustEndedGameProp } from '@/types/result';
 import { Rank } from '@/types/rank';
 import { createClient } from '@/utils/supabase/server';
 import { fetchUserId, fetchUserNickName } from '@/utils/auth/server-action';
@@ -9,6 +9,7 @@ import '../style.css';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
+import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
@@ -189,19 +190,3 @@ const extractGames = (game: Rank) => {
     },
   ];
 };
-
-//score의 type이 guest랑 달라서 같이 쓸 수 없음
-const highlightScoreForMatchedGame = (matchedGame: MatchedGameArrayForUser) => {
-  switch (matchedGame.type) {
-    case 'speaking':
-      return 'bg-[#Fbd498]';
-    case 'checking':
-      return 'bg-[#BFA5ED]';
-    case 'writing':
-      return 'bg-[#7FE6CF]';
-    default:
-      return '';
-  }
-};
-
-// ${game.color}
