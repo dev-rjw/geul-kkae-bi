@@ -16,32 +16,20 @@ import DefaultButton from '@/components/DefaultButton';
 import EmailInput from '@/components/EmailInput';
 import DefaultInput from '@/components/DefaultInput';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { addScoresRank } from '@/utils/rank/client-action';
+import { addScores } from '@/utils/rank/client-action';
 import { AuthError } from '@supabase/supabase-js';
+import { getLocalStorageValues } from '../utils/sign';
 
 const SignupForm = () => {
   const router = useRouter();
+  const { checking, speaking, writing } = getLocalStorageValues();
 
-  // 유효성 검사
   const defaultValues = {
     email: '',
     password: '',
     confirmPassword: '',
     nickname: '',
     agreeToTerms: false,
-  };
-
-  const getLocalStorageValues = () => {
-    if (typeof window !== 'undefined') {
-      const checking = localStorage.getItem('checking') ? Number(localStorage.getItem('checking')) : 0;
-      const speaking = localStorage.getItem('speaking') ? Number(localStorage.getItem('speaking')) : 0;
-      const writing = localStorage.getItem('writing') ? Number(localStorage.getItem('writing')) : 0;
-
-      return { checking, speaking, writing };
-    }
-
-    // 기본값을 반환하여 컴파일 에러를 방지
-    return { checking: 0, speaking: 0, writing: 0 };
   };
 
   const form = useForm<z.infer<typeof signupSchema>>({
@@ -55,7 +43,6 @@ const SignupForm = () => {
 
   const onSubmit = async (values: FieldValues) => {
     const { email, password, nickname } = values;
-    const { checking, speaking, writing } = getLocalStorageValues();
 
     const result = await signup({
       email,
@@ -68,7 +55,6 @@ const SignupForm = () => {
       },
     });
 
-    // 에러 체크
     if (result instanceof AuthError || !result.user) {
       Swal.fire({
         html: `<div class="text-gray-700">${translateErrorMessage(
@@ -86,21 +72,8 @@ const SignupForm = () => {
     }
 
     const userId = result.user.id;
-    const total = checking + speaking + writing;
-    // week 계산
-    const startSeason = new Date(2024, 9, 27);
-    const now = new Date();
-    const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
-    const week = weekNumber;
+    await addScores({ userId, checking, speaking, writing });
 
-    await addScoresRank({ userId, checking, speaking, writing, total, week });
-
-    // 점수 저장 후 로컬스토리지 데이터 삭제
-    localStorage.removeItem('checking');
-    localStorage.removeItem('speaking');
-    localStorage.removeItem('writing');
-
-    // 페이지 이동
     router.push('/');
   };
 

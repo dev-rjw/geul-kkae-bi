@@ -291,7 +291,7 @@ const onSubmit = async (values: FieldValues) => {
   const week = weekNumber;
 
   // 회원가입 시 rank 테이블에 정보 저장
-  await addScoresRank({ userId, checking, speaking, writing, total, week });
+  await addScores({ userId, checking, speaking, writing, total, week });
 
   // 점수 저장 후 로컬스토리지 데이터 삭제
   localStorage.removeItem("checking");
@@ -346,9 +346,7 @@ if (isLocalEnv) {
   // 로컬환경
   // 닉네임, 프로필 이미지, Provider 추가
   if (user?.id) {
-    await addNickname(user.id);
-    await addProfileImage(user.id);
-    await addProvider(user);
+    await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
   }
 
   // 그 사이에 로드 밸런서가 없으므로 X-포워드 호스트를 지켜볼 필요가 없습니다
@@ -357,9 +355,7 @@ if (isLocalEnv) {
   // 배포환경
   // 닉네임, 프로필 이미지, Provider 추가
   if (user?.id) {
-    await addNickname(user.id);
-    await addProfileImage(user.id);
-    await addProvider(user);
+    await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
   }
 
   return NextResponse.redirect(`https://${forwardedHost}${next}`);

@@ -15,9 +15,9 @@ export const translateErrorMessage = (error: string): string => {
 export function getPasswordSchema() {
   return z
     .string()
-    .refine((value) => value !== '', { message: '비밀번호를 입력해주세요.' }) // 빈 문자열 체크
-    .refine((value) => value.length >= 8, { message: '비밀번호는 최소 8자 이상이어야 합니다.' }) // 최소 길이 체크
-    .refine((value) => value.length <= 16, { message: '비밀번호는 16자리 이하이어야 합니다.' }) // 최대 길이 체크
-    .refine((value) => /[a-zA-Z]/.test(value), { message: '문자를 포함해야 합니다.' }) // 문자 포함 체크
-    .refine((value) => /\d/.test(value), { message: '숫자를 포함해야 합니다.' }); // 숫자 포함 체크
+    .refine((value) => value !== '', { message: '비밀번호를 입력해주세요.' })
+    .refine((value) => value.length >= 8, { message: '비밀번호는 최소 8자 이상이어야 합니다.' })
+    .refine((value) => value.length <= 16, { message: '비밀번호는 16자리 이하이어야 합니다.' })
+    .refine((value) => /[a-zA-Z]/.test(value), { message: '문자를 포함해야 합니다.' })
+    .refine((value) => /\d/.test(value), { message: '숫자를 포함해야 합니다.' });
 }

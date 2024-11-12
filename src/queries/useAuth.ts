@@ -15,6 +15,6 @@ export const useUser = (email: string) => {
   return useQuery({
     queryKey: ['users', email], // 각 user 고유한 쿼리 키
     queryFn: () => fetchCurrentUserInfo(email),
-    enabled: !!email, // email이 있을 때만 쿼리를 실행
+    enabled: !!email, // email이 있을 때만 쿼리 실행
   });
 };

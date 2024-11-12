@@ -1,12 +1,12 @@
-import { Metadata } from 'next';
-import ChangePasswordForm from '@/app/(find)/_components/ChangePasswordForm';
 import React, { Suspense } from 'react';
-import Tabs from '../_components/Tabs';
-import { fetchCurrentUser } from '@/utils/auth/server-action';
-import { redirect } from 'next/navigation';
-import DefaultButton from '@/components/DefaultButton';
+import { Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
+import { fetchCurrentUser } from '@/utils/auth/server-action';
+import Tabs from '../_components/Tabs';
+import DefaultButton from '@/components/DefaultButton';
+import ChangePasswordForm from '@/app/(find-account)/_components/ChangePasswordForm';
 
 export const metadata: Metadata = {
   title: '마이페이지 - 비밀번호 변경',
@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 const ChangePasswordPage = async () => {
   const user = await fetchCurrentUser();
 
-  // 로그인 안했으면 로그인 페이지로
   if (!user?.id) {
     redirect('/signin');
   }
