@@ -11,6 +11,8 @@ import Link from 'next/link';
 import PasswordInput from '@/components/PasswordInput';
 import PasswordValidationInput from '@/components/PasswordValidationInput';
 import DefaultButton from '@/components/DefaultButton';
+import Swal from 'sweetalert2';
+import { translateErrorMessage } from '@/schemas/commonSchema';
 
 const ChangePasswordForm = () => {
   const router = useRouter();
@@ -19,7 +21,6 @@ const ChangePasswordForm = () => {
 
   const error = params.get('error');
 
-  // 유효성 검사
   const defaultValues = {
     password: '',
     confirmPassword: '',
@@ -36,12 +37,37 @@ const ChangePasswordForm = () => {
 
   const onSubmit = async (values: FieldValues) => {
     const { password } = values;
-    const success = await changePassword(password); // 변경 결과를 확인
+    const result = await changePassword(password);
 
-    if (success) {
-      router.push('/'); // 비밀번호 변경 성공 시에만 이동
+    if (result instanceof Error) {
+      const errorMessage = result.message || '알 수 없는 오류가 발생했습니다.';
+
+      Swal.fire({
+        html: `<div class="text-gray-700">${translateErrorMessage(errorMessage)}</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
+      });
+    } else {
+      Swal.fire({
+        html: `<div class="text-gray-700">비밀번호 변경 완료!</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
+      });
+
+      router.push('/');
     }
   };
+
+  const isPasswordSame =
+    passwordValue === confirmPasswordValue && !getFieldState('confirmPassword').invalid && passwordValue !== '';
 
   return (
     <>
@@ -111,10 +137,7 @@ const ChangePasswordForm = () => {
                             field={field}
                           />
                         </FormControl>
-                        {passwordValue === confirmPasswordValue &&
-                        !getFieldState('confirmPassword').invalid &&
-                        passwordValue !== '' &&
-                        field.value !== '' ? (
+                        {isPasswordSame && field.value !== '' ? (
                           <div className='caption-14 text-primary-400'>비밀번호가 일치합니다.</div>
                         ) : (
                           <FormMessage />

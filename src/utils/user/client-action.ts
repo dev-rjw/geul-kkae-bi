@@ -28,7 +28,7 @@ export const checkNicknameExists = async (nickname: string) => {
 export const confirmNickname = async (nickname: string, currentNickname?: string) => {
   const supabase = createClient();
 
-  if (nickname === currentNickname) return false; // 현재 닉네임과 같다면 중복으로 간주하지 않음
+  if (nickname === currentNickname) return false;
 
   const { data, error } = await supabase.from('user').select('nickname').eq('nickname', nickname);
 
@@ -39,7 +39,7 @@ export const confirmNickname = async (nickname: string, currentNickname?: string
   return data && data.length > 0;
 };
 
-// 현재 사용자 정보 조회
+// email로 현재 사용자 정보 조회
 export const fetchCurrentUserInfo = async (email: string) => {
   const supabase = createClient();
   const { data, error } = await supabase.from('user').select('*').eq('email', email).single();
@@ -86,19 +86,6 @@ export const updateUserInfo = async (
     })
     .eq('user_id', userId)
     .select();
-
-  return data;
-};
-
-// email로 사용자 정보 조회
-export const fetchEmailUserInfo = async (email: string) => {
-  const supabase = createClient();
-  const { data, error } = await supabase.from('user').select('*').eq('email', email).single();
-
-  if (error) {
-    console.error('Error fetching user info:', error);
-    return null;
-  }
 
   return data;
 };

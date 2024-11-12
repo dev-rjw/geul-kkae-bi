@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { fetchRank3 } from '@/utils/rank/client-action';
+import { weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
 import { useRouter } from 'next/navigation';
+import { useRank } from '@/queries/useRank';
 
 export type Rank = {
   user_id: string;
@@ -23,12 +23,8 @@ export type Rank = {
 
 const MainRank = () => {
   const { data } = useAuth();
-  const [ranks, setRanks] = useState<Rank[]>([]);
+  const { data: ranks } = useRank(weekCalculate(0));
   const router = useRouter();
-
-  useEffect(() => {
-    fetchRank3().then((elemant) => setRanks(elemant!));
-  }, []);
 
   return (
     <Card className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden'>
@@ -62,7 +58,7 @@ const MainRank = () => {
         onClick={() => router.push('/games/rank')}
       >
         <div className='w-full pb-5'>
-          {ranks.map((rank, index) => {
+          {ranks?.map((rank, index) => {
             return (
               <div
                 key={index}

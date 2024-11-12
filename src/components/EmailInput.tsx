@@ -18,14 +18,13 @@ const EmailInput = ({ field, domainOptions }: Props) => {
   const [customDomain, setCustomDomain] = useState('');
   const [email, setEmail] = useState('');
 
-  // userId와 domain이 변경될 때 email 값을 업데이트
   useEffect(() => {
     if (userId && domain && domain !== '직접 입력') {
       setEmail(`${userId}@${domain}`);
     } else if (userId && customDomain) {
       setEmail(`${userId}@${customDomain}`);
     }
-    field.onChange(email); // react-hook-form에 값 반영
+    field.onChange(email);
   }, [userId, domain, customDomain]);
 
   return (

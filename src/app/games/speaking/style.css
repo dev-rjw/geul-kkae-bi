@@ -1,19 +1,30 @@
-.swal2-popup {
-  width: 369px;
-  padding: 32px 0;
-  border-radius: 20px;
+.start_btn {
+  border: 10px solid #fdeace;
+  background-color: #f7a62c;
+  box-shadow: inset 0 -6px #e78f09, inset 0 6px #f6c06d, 0 6px #f6c06d;
 }
 
-.swal-custom-text p {
-  font-size: 24px;
-  color: #357ee7;
-  line-height: 150%;
-  font-weight: 600;
+.start_btn::before {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: -45px;
+  left: -46px;
+  width: 46px;
+  height: 51px;
+  background: url(/ico_star.svg);
+}
+.start_btn::after {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 45px;
+  right: -46px;
+  width: 46px;
+  height: 51px;
+  background: url(/ico_star.svg);
 }
 
-.swal-custom-button {
-  background-color: #357ee7;
-  width: 240px;
-  padding: 12.5px;
-  border-radius: 12px;
+.start_btn span {
+  text-shadow: 0 2px 0 #e78f09;
 }

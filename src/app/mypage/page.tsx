@@ -10,34 +10,27 @@ import { fetchCurrentUser } from '@/utils/auth/server-action';
 const MyPage = async () => {
   const user = await fetchCurrentUser();
 
-  // 로그인 안했으면 로그인 페이지로
   if (!user?.id) {
     redirect('/signin');
   }
 
   return (
     <div className='container py-10'>
-      {/* 전체 박스 */}
       <div className='flex flex-wrap lg:flex-nowrap w-full max-w-[67.5rem] rounded-lg gap-4'>
-        {/* 프로필 섹션 */}
         <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
           <MypageProfile />
         </Suspense>
 
-        {/* 랭킹 섹션 */}
         <div className='w-full max-w[44.75rem] lg:w-2/3 flex flex-col gap-4'>
           <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
             <MypageCharacter />
           </Suspense>
 
-          {/* 랭킹 정보 */}
           <div className='flex gap-4 rounded-xl'>
-            {/* 내 랭킹 */}
             <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
               <MypageMyRank />
             </Suspense>
 
-            {/* 게임별 점수 */}
             <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
               <MypageMyScore />
             </Suspense>

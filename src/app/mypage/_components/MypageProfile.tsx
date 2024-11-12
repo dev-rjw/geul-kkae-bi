@@ -1,31 +1,25 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Avatar from '@/components/Avatar';
 import LineTitle from '@/components/LineTitle';
 import { useAuth } from '@/queries/useAuth';
-import { User } from '@/types/mypage';
-import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import DefaultButton from '@/components/DefaultButton';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import Swal from 'sweetalert2';
+import { useUser } from '@/queries/useUser';
 
 const MypageProfile = () => {
   const supabase = createClient();
-  const [user, setUser] = useState<User>();
+
   const { data } = useAuth();
+  const email = data?.user_metadata.email;
+  const { data: user } = useUser(email);
+
   const router = useRouter();
 
-  useEffect(() => {
-    if (data) {
-      const email = data?.user_metadata.email;
-      fetchCurrentUserInfo(email).then((elemant) => setUser(elemant));
-    }
-  }, [data]);
-
-  const signout = async (e: React.FormEvent) => {
+  const handleSignout = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const { error } = await supabase.auth.signOut();
@@ -59,7 +53,6 @@ const MypageProfile = () => {
           </LineTitle>
         </div>
 
-        {/* 프로필 이미지 */}
         <Avatar
           size='17rem'
           src={user?.image}
@@ -87,11 +80,11 @@ const MypageProfile = () => {
             <Link href='/mypage/change-password'>비밀번호 변경</Link>
           </DefaultButton>
         </div>
-        <div className='mt-auto text-center'>
+        <div className='flex items-center justify-center gap-4 mt-auto text-center'>
           <DefaultButton
             variant='text'
             className='text-white'
-            onClick={signout}
+            onClick={handleSignout}
           >
             로그아웃
           </DefaultButton>

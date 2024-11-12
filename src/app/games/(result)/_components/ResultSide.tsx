@@ -25,12 +25,12 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
     }
   };
   const game = (justEndedGame: string) => {
-    switch (true) {
-      case justEndedGame === 'speaking':
+    switch (justEndedGame) {
+      case 'speaking':
         return 'speak';
-      case justEndedGame === 'checking':
+      case 'checking':
         return 'check';
-      case justEndedGame === 'writing':
+      case 'writing':
         return 'write';
       default:
         return '';
