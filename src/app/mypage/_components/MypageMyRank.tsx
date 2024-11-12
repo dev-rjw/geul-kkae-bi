@@ -1,59 +1,49 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Avatar from '@/components/Avatar';
-import { User, Rank } from '@/types/mypage';
-import { fetchUserRank, weekCalculate } from '@/utils/rank/client-action';
+import { weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
-import { fetchCurrentUserInfo } from '@/utils/user/client-action';
+import { useUserRank } from '@/queries/useRank';
+import { useUser } from '@/queries/useUser';
 
 const MypageMyRank = () => {
-  const [user, setUser] = useState<User>();
-  const [rank, setRank] = useState<Rank>();
-  const [beforeRank, setBeforeRank] = useState<Rank>();
   const { data } = useAuth();
+  const email = data?.user_metadata.email;
+  const user_id = data?.id;
 
-  useEffect(() => {
-    if (data) {
-      const email = data?.user_metadata.email;
-      fetchCurrentUserInfo(email).then((elemant) => setUser(elemant));
+  const { data: user } = useUser(email);
+  const { data: rank } = useUserRank(user_id!, weekCalculate(0));
+  const { data: beforeRank } = useUserRank(user_id!, weekCalculate(-1));
+
+  const fetchThisWeek = () => {
+    // 금주 일자를 알려주는 알고리즘
+    const currentDay = new Date();
+    const theYear = currentDay.getFullYear();
+    const theMonth = currentDay.getMonth();
+    const theDate = currentDay.getDate();
+    const theDayOfWeek = currentDay.getDay();
+    const thisWeek = [];
+
+    for (let i = 0; i < 7; i++) {
+      const resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek + 1));
+      const yyyy = resultDay.getFullYear();
+      let mm = String(Number(resultDay.getMonth()) + 1);
+      let dd = String(resultDay.getDate());
+
+      mm = mm.length === 1 ? '0' + mm : mm;
+      dd = dd.length === 1 ? '0' + dd : dd;
+
+      thisWeek[i] = yyyy + '-' + mm + '-' + dd;
     }
-  }, [data]);
-
-  useEffect(() => {
-    if (data) {
-      const user_id = data?.user_metadata.sub;
-      fetchUserRank(user_id, weekCalculate(0)).then((element) => setRank(element));
-      fetchUserRank(user_id, weekCalculate(-1)).then((element) => setBeforeRank(element));
-    }
-  }, [data]);
-
-  // 금주 일자를 알려주는 알고리즘
-  const currentDay = new Date();
-  const theYear = currentDay.getFullYear();
-  const theMonth = currentDay.getMonth();
-  const theDate = currentDay.getDate();
-  const theDayOfWeek = currentDay.getDay();
-  const thisWeek = [];
-
-  for (let i = 0; i < 7; i++) {
-    const resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek + 1));
-    const yyyy = resultDay.getFullYear();
-    let mm = String(Number(resultDay.getMonth()) + 1);
-    let dd = String(resultDay.getDate());
-
-    mm = mm.length === 1 ? '0' + mm : mm;
-    dd = dd.length === 1 ? '0' + dd : dd;
-
-    thisWeek[i] = yyyy + '-' + mm + '-' + dd;
-  }
+    return thisWeek;
+  };
 
   return (
     <div className='flex flex-col min-w-[16.125rem] bg-primary-300 rounded-3xl text-center'>
       <div className='py-5'>
         <h3 className='title-24 text-primary-800'>내 랭킹</h3>
-        <p className='caption-12 text-primary-500'>{thisWeek[0] + ' - ' + thisWeek[6]}</p>
+        <p className='caption-12 text-primary-500'>{fetchThisWeek()[0] + ' - ' + fetchThisWeek()[6]}</p>
       </div>
       <div className='h-2 bg-primary-200 border-t-2 border-primary-400 opacity-40' />
 
