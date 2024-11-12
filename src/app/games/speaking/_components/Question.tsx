@@ -13,9 +13,10 @@ import { useTimeStore } from '@/store/timeStore';
 type QuestionProps = {
   text: string;
   randomText: string[];
+  getWrongAnswer: () => void;
 };
 
-const Question = ({ text, randomText }: QuestionProps) => {
+const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
   const [result, setResult] = useState(false);
   const {
     index,
@@ -80,6 +81,7 @@ const Question = ({ text, randomText }: QuestionProps) => {
   };
 
   const handleNextButton = () => {
+    getWrongAnswer();
     addTotalPercent(percent);
     resetPercent();
     resetText();

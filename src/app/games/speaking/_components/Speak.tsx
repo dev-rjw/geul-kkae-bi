@@ -10,6 +10,11 @@ import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
 
+type Answer = {
+  text: string;
+  score: number;
+};
+
 function getRandomQuestion(textArray: string[]) {
   return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
 }
@@ -18,12 +23,33 @@ const Speak = () => {
   const [randomText, setRandomText] = useState<string[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
-  const { text, isRecording, setText, setIsRecording, setIsLoading, resetText, resetPercent, resetIndex } =
-    useSpeakStore();
+  const {
+    index,
+    text,
+    isRecording,
+    percent,
+    setText,
+    setIsRecording,
+    setIsLoading,
+    resetText,
+    resetPercent,
+    resetIndex,
+  } = useSpeakStore();
   const { isDelay, resetTimer, setIsDelay } = useTimeStore();
+  const [answer, setAnswer] = useState<Answer[]>([]);
 
   const ondataavailable = (event: { data: Blob }) => {
     audioChunks.current = [event.data];
+  };
+
+  const getWrongAnswer = () => {
+    if (percent < 30) {
+      setAnswer((prevQuestion) =>
+        !prevQuestion.some((item) => item.text === randomText[index])
+          ? [...prevQuestion, { text: randomText[index], score: percent }]
+          : prevQuestion,
+      );
+    }
   };
 
   const onStop = async () => {
@@ -32,10 +58,10 @@ const Speak = () => {
     const pcmData = await convertAudioToPCM(audioBlob);
     const data = await sendToAudio(pcmData);
     if (data) {
-      const jsonText = await data.trim().split(/\n(?={)/);
+      const jsonText = data.trim().split(/\n(?={)/);
       const jsonArray = jsonText.map((part) => JSON.parse(part.trim()));
       const text = jsonArray[jsonArray.length - 1];
-      await setText(text.text);
+      setText(text.text);
     }
     setIsLoading(false);
   };
@@ -101,6 +127,7 @@ const Speak = () => {
           <Question
             text={text}
             randomText={randomText}
+            getWrongAnswer={getWrongAnswer}
           />
           <div className='flex flex-col items-center mt-20 text-center'>
             <button onClick={isRecording ? stopRecording : startRecording}>
