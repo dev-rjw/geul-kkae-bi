@@ -6,7 +6,7 @@ import Avatar from '@/components/Avatar';
 import LineTitle from '@/components/LineTitle';
 import { useAuth } from '@/queries/useAuth';
 import { User } from '@/types/mypage';
-import { fetchCurrentUserInfoByEmail } from '@/utils/user/client-action';
+import { fetchCurrentUserInfo } from '@/utils/user/client-action';
 import DefaultButton from '@/components/DefaultButton';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
@@ -21,7 +21,7 @@ const MypageProfile = () => {
   useEffect(() => {
     if (data) {
       const email = data?.user_metadata.email;
-      fetchCurrentUserInfoByEmail(email).then((elemant) => setUser(elemant));
+      fetchCurrentUserInfo(email).then((elemant) => setUser(elemant));
     }
   }, [data]);
 

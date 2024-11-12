@@ -40,7 +40,7 @@ export const fetchRankTop3 = async (week: number) => {
 // 회원가입 시 rank 테이블에 정보 저장
 export const addScores = async ({ userId, checking, speaking, writing }: addScoresProps) => {
   const supabase = createClient();
-  const total = checking + speaking + writing;
+  const total = checking !== null && speaking !== null && writing !== null ? checking + speaking + writing : null;
   const week = weekNumber;
 
   const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
