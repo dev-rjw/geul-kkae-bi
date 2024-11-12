@@ -14,3 +14,11 @@ export interface CheckingButtonProps {
   selectedOption: string | null;
   onselect: (option: string) => void;
 }
+
+export type CheckingResult = {
+  question: string;
+  answer: string;
+  option: string[];
+  userAnswer: string | null;
+  right: string;
+};

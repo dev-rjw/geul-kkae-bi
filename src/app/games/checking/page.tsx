@@ -12,6 +12,8 @@ import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutation
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
+import { useCheckingQuizStore } from '@/store/checkingStore';
+import { CheckingResult } from '@/types/checking';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
@@ -19,17 +21,17 @@ const CheckingQuizPage = () => {
   const { data: questions = [], isLoading } = useFetchQuestions();
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const scoreRef = useRef(0);
+  const [allResults, setAllResults] = useState<CheckingResult[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isTimeOver, setIsTimeOver] = useState(false);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
+  const addCheckingResults = useCheckingQuizStore((state) => state.addCheckingResults);
 
   const moveToNextQuiz = () => {
     if (isTimeOver || isAllQuestions) return;
-
-    handleCheckAnswer();
 
     handleCheckAnswer();
     if (currentQuizIndex < questions.length - 1) {
@@ -37,6 +39,7 @@ const CheckingQuizPage = () => {
       setSelectedOption(null);
     } else {
       saveScore(scoreRef.current);
+      addCheckingResults(allResults);
       setIsAllQuestions(true);
     }
   };
@@ -50,6 +53,15 @@ const CheckingQuizPage = () => {
   };
 
   const handleCheckAnswer = () => {
+    const currentResult: CheckingResult = {
+      question: questions[currentQuizIndex].question,
+      option: questions[currentQuizIndex].correct,
+      answer: questions[currentQuizIndex].answer,
+      right: questions[currentQuizIndex].meaning,
+      userAnswer: selectedOption,
+    };
+
+    setAllResults((prevResults) => [...prevResults, currentResult]);
     if (selectedOption === questions[currentQuizIndex].answer) {
       scoreRef.current += 10;
     }
