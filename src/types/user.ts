@@ -1,6 +1,6 @@
 export type addScoresProps = {
   userId: string | undefined;
-  checking: number;
-  speaking: number;
-  writing: number;
+  checking: number | null;
+  speaking: number | null;
+  writing: number | null;
 };
