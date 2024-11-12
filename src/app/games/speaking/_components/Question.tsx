@@ -29,6 +29,7 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
     resetPercent,
     addIndex,
     addTotalPercent,
+    setIsGame,
   } = useSpeakStore();
   const { time } = useTimeStore();
   const { data } = useAuth();
@@ -63,6 +64,7 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
     } else if (index === 9) {
       handleUpsertScore();
       setResult(true);
+      setIsGame(true);
     }
   };
 
