@@ -1,3 +1,14 @@
+.custom-char-style {
+  color: #000;
+  text-align: center;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 84px;
+  letter-spacing: -1.12px;
+  padding-top: 16px;
+}
+
 .start_writing_btn {
   border: 10px solid #d4f7ef;
   background-color: #2ad4af;
