@@ -47,58 +47,6 @@ const MypageProfile = () => {
     }
   };
 
-  const deleteUser = async () => {
-    try {
-      console.log('try>>>>>>> ');
-      await supabase.functions.invoke('user-self-deletion');
-
-      Swal.fire({
-        html: `<div class="text-gray-700">회원탈퇴가 완료되었습니다.</div>`,
-        customClass: {
-          title: 'swal-custom-title',
-          htmlContainer: 'swal-custom-text',
-          confirmButton: 'swal-custom-button',
-        },
-        confirmButtonText: '확인',
-      });
-    } catch (error) {
-      Swal.fire({
-        html: `<div class="text-gray-700">회원탈퇴에 실패했습니다. 다시 시도해 주세요.</div>`,
-        customClass: {
-          title: 'swal-custom-title',
-          htmlContainer: 'swal-custom-text',
-          confirmButton: 'swal-custom-button',
-        },
-        confirmButtonText: '확인',
-      });
-      console.error('회원탈퇴 중 오류 발생:', error);
-    } finally {
-      console.log('finally>>>>>>> 성공');
-
-      // await supabase.auth.signOut();
-      // router.push('/');
-    }
-  };
-
-  const handleDeleteUser = async () => {
-    Swal.fire({
-      html: `<div class="text-gray-700">정말 탈퇴하시겠습니까?</div><div class="text-lg text-gray-500 mt-2">탈퇴 버튼 선택 시, <br />계정은 삭제되며 복구되지 않습니다.</div>`,
-      customClass: {
-        title: 'swal-custom-title',
-        htmlContainer: 'swal-custom-text',
-        confirmButton: 'swal-custom-button',
-        cancelButton: 'swal-custom-button',
-      },
-      confirmButtonText: '탈퇴',
-      showCancelButton: true,
-      cancelButtonText: '취소',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteUser();
-      }
-    });
-  };
-
   return (
     <>
       <div className='flex flex-col items-stretch min-w-[21.75rem] w-full lg:w-1/3 px-[2.375rem] py-8 bg-primary-400 rounded-3xl text-white'>
@@ -111,7 +59,6 @@ const MypageProfile = () => {
           </LineTitle>
         </div>
 
-        {/* 프로필 이미지 */}
         <Avatar
           size='17rem'
           src={user?.image}
@@ -140,14 +87,6 @@ const MypageProfile = () => {
           </DefaultButton>
         </div>
         <div className='flex items-center justify-center gap-4 mt-auto text-center'>
-          <DefaultButton
-            variant='text'
-            className='text-white'
-            onClick={handleDeleteUser}
-          >
-            회원탈퇴
-          </DefaultButton>
-
           <DefaultButton
             variant='text'
             className='text-white'
