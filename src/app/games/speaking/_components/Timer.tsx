@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import speekStore from '@/store/speekStore';
-import { timeStore } from '@/store/timeStore';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import Tutorial from './Tutorial';
 import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
+import { useSpeakStore } from '@/store/speakStore';
+import { useTimeStore } from '@/store/timeStore';
 
 type Upsert = {
   handleUpsertScore: () => void;
@@ -16,13 +15,13 @@ type Upsert = {
 };
 
 const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
-  const { time, isDelay, setIsDelay, setTimer } = timeStore();
-  const { index } = speekStore();
+  const { time, isDelay, setTimer } = useTimeStore();
+  const { index } = useSpeakStore();
   const router = useRouter();
 
   const handleAlert = () => {
     Swal.fire({
-      html: '<p>시간이 다 됐다 깨비!<br>다음에 다시 도전하라 깨비</p>',
+      html: '<div>시간이 다 됐다 깨비!<br>다음에 다시 도전하라 깨비</div>',
       confirmButtonText: '확인',
       customClass: {
         title: 'swal-custom-title',

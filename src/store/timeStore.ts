@@ -9,7 +9,7 @@ type time = {
   setIsDelay: (value: boolean) => void;
 };
 
-export const timeStore = create<time>((set) => ({
+export const useTimeStore = create<time>((set) => ({
   time: 120,
   isDelay: false,
   // 상태 업데이트 함수
