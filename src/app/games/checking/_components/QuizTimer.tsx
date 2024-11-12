@@ -35,7 +35,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className='fixed inset-0 z-10 bg-[#858584]'>
+        <div className='fixed inset-0 z-10 bg-[#252424]'>
           <Image
             src='/checking_tutorial.svg'
             alt='Tutorial'
@@ -47,7 +47,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
             className='start_checking_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
             onClick={handleStartGame}
           >
-            <span className='relative z-10 title-20 text-secondary-800'>GAME START</span>
+            <span className='relative z-10 title-20 text-[#3b187c]'>GAME START</span>
           </button>
         </div>
       ) : (

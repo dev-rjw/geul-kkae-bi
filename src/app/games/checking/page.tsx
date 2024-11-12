@@ -5,6 +5,7 @@ import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import Image from 'next/image';
+import './style.css';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
 import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutations/checking-mutation';
