@@ -15,41 +15,15 @@ export interface GamesArray {
   name: string;
 }
 
-export interface RankIncludingUserInfo {
-  user_id: string;
-  checking: number;
-  speaking: number;
-  writing: number;
-  created_at: string;
-  id: string;
-  total: number;
-  week: number;
-  ranking: number;
-  user: { image: string; nickname: string; introduction: string };
-}
-
-export interface Rank {
-  user_id: string;
-  checking: number;
-  speaking: number;
-  writing: number;
-  created_at: string;
-  id: string;
-  total: number;
-  week: number;
-  ranking: number;
-}
-
-export interface matchedGameArrayForGuest {
+export interface MatchedGameArray {
   type: string;
-  score: string | null;
+  score: string | number | null;
   color: string;
   name: string;
 }
 
-export interface matchedGameArrayForUser {
-  type: string;
-  score: number | null;
-  color: string;
-  name: string;
+export interface TotalScore {
+  user_id: string;
+  id: string;
+  total: number;
 }
