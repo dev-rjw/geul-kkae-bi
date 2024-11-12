@@ -1,20 +1,21 @@
 'use client';
 import { useInsertMutation, useUpdateMutation } from '@/mutations/speek-mutation';
 import { useAuth } from '@/queries/useAuth';
-import speekStore from '@/store/speekStore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Timer from './Timer';
-import { timeStore } from '@/store/timeStore';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
 import Image from 'next/image';
+import { weekNumber } from '@/utils/week/weekNumber';
+import { useSpeakStore } from '@/store/speakStore';
+import { useTimeStore } from '@/store/timeStore';
 
-type Question = {
+type QuestionProps = {
   text: string;
   randomText: string[];
 };
 
-const Question = ({ text, randomText }: Question) => {
+const Question = ({ text, randomText }: QuestionProps) => {
   const [result, setResult] = useState(false);
   const {
     index,
@@ -27,27 +28,23 @@ const Question = ({ text, randomText }: Question) => {
     resetPercent,
     addIndex,
     addTotalPercent,
-  } = speekStore();
-  const { time } = timeStore();
+  } = useSpeakStore();
+  const { time } = useTimeStore();
   const { data } = useAuth();
-  const { mutate } = useInsertMutation();
+  const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
   const finalPercent = Math.round(totlaPercent / 10);
-  const startSeason = new Date(2024, 9, 27);
-  const now = new Date();
-  const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
   const { data: game } = useGetSpeekDataUser(data?.id, weekNumber);
 
   useEffect(() => {
-    // text와 randomText가 모두 설정된 후에만 정확도 계산 실행
     if (text && randomText[index]) {
-      onclickAccuracy(text, randomText[index]);
+      handleAccuracy(text, randomText[index]);
     }
   }, [text, randomText, index]);
 
-  const onclickAccuracy = function calculateAccuracy(text: string | null, randomText: string) {
+  const handleAccuracy = (text: string | null, randomText: string) => {
     if (text === null) {
-      text = '';
+      return;
     }
     const maxLength = Math.max(text.length, randomText.length);
     const matchText = text
@@ -75,11 +72,18 @@ const Question = ({ text, randomText }: Question) => {
           update({ score: finalPercent, userId: game[0].user_id, week: weekNumber });
         }
       } else {
-        mutate({ userId: data.id, score: finalPercent, weekNumber: weekNumber });
+        insert({ userId: data.id, score: finalPercent, weekNumber: weekNumber });
       }
     } else {
       localStorage.setItem('speaking', finalPercent.toString());
     }
+  };
+
+  const handleNextButton = () => {
+    addTotalPercent(percent);
+    resetPercent();
+    resetText();
+    handleIndex();
   };
 
   return (
@@ -131,12 +135,7 @@ const Question = ({ text, randomText }: Question) => {
                   <p className='text-[1.5rem]'>{index + 1}/10</p>
                   <button
                     className='mt-[16px]'
-                    onClick={() => {
-                      addTotalPercent(percent);
-                      resetPercent();
-                      resetText();
-                      handleIndex();
-                    }}
+                    onClick={handleNextButton}
                   >
                     <Image
                       src='/ico_speak_next_btn.svg'

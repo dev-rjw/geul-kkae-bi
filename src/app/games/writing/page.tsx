@@ -142,7 +142,7 @@ const WritingQuizPage = () => {
       saveScore();
       setIsTimeOver(true);
       Swal.fire({
-        html: '<p class="swal-custom-text">시간이 다 됐다 깨비!</p><p class="swal-custom-text">다음에 다시 도전하라 깨비</p>',
+        html: '<div>시간이 다 됐다 깨비!<br/>다음에 다시 도전하라 깨비</div>',
         customClass: {
           title: 'swal-custom-title',
           htmlContainer: 'swal-custom-text',

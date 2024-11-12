@@ -10,7 +10,7 @@ function makeQueryClient() {
       queries: {
         // With SSR, we usually want to set some default staleTime
         // above 0 to avoid refetching immediately on the client
-        staleTime: Infinity, // 새로고침 마다 갱신
+        staleTime: 0, // 새로고침 마다 갱신
       },
     },
   });

@@ -66,7 +66,6 @@ const MypageMyRank = () => {
         <div className='title-40 text-white mt-2'>{rank?.ranking || '-'}위</div>
       </div>
 
-      {/* 지난주 순위 */}
       <div className='h-1 bg-primary-100 border-t-2 border-primary-400 opacity-40' />
       <div className='flex justify-center items-center py-4'>
         <h3>

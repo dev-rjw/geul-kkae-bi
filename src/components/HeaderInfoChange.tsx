@@ -8,19 +8,17 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/queries/useAuth';
 import Swal from 'sweetalert2';
 import { Award, ChevronDown, ChevronRight, Loader2, LogOut, UserRound } from 'lucide-react';
-import DefaultButton from './DefaultButton';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import Avatar from './Avatar';
 import { useUser } from '@/queries/useUser';
+import DefaultButton from './DefaultButton';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  // useAuth을 통해 로그인 상태 확인
   const { data, isLoading } = useAuth();
-  // email로 user정보 확인
   const email = data?.user_metadata.email;
   const { data: user } = useUser(email);
 
@@ -29,7 +27,8 @@ const HeaderInfoChange = () => {
     queryClient.invalidateQueries({ queryKey: ['user', 'client'] });
   });
 
-  const signout = async (e: React.FormEvent) => {
+  // 로그아웃
+  const handleSignout = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const { error } = await supabase.auth.signOut();
@@ -122,7 +121,7 @@ const HeaderInfoChange = () => {
             </div>
             <Button
               className='flex gap-[0.375rem] w-full justify-start text-sm font-bold rounded-none bg-primary-50 text-gray-500 hover:bg-primary-100'
-              onClick={signout}
+              onClick={handleSignout}
             >
               <LogOut className='text-base' />
               로그아웃
