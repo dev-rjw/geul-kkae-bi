@@ -10,7 +10,6 @@ import { weekNumber } from '@/utils/week/weekNumber';
 import { useSpeakStore } from '@/store/speakStore';
 import { useTimeStore } from '@/store/timeStore';
 import { SpeekResult } from '@/types/speeking';
-import { useGameStore } from '@/store/gameStore';
 
 type QuestionProps = {
   text: string;
@@ -36,7 +35,6 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     setIsGame,
   } = useSpeakStore();
   const { time } = useTimeStore();
-  const { setSpeekResult } = useGameStore();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
   const finalPercent = Math.round(totlaPercent / 10);
@@ -69,7 +67,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
       handleUpsertScore();
       setResult(true);
       setIsGame(true);
-      setSpeekResult(wrongAnswer);
+      localStorage.setItem('speakingResult', JSON.stringify(wrongAnswer));
     }
   };
 
