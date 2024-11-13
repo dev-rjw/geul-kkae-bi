@@ -16,7 +16,7 @@ type Upsert = {
 
 const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
   const { time, isDelay, setTimer } = useTimeStore();
-  const { index } = useSpeakStore();
+  const { index, setIsGame } = useSpeakStore();
   const router = useRouter();
 
   const handleAlert = () => {
@@ -53,6 +53,7 @@ const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
     }
     if (time === 0) {
       handleAlert();
+      setIsGame(true);
     }
     return () => clearInterval(countdown);
   }, [isDelay, time]);
