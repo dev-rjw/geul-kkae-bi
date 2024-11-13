@@ -16,8 +16,8 @@ export interface CheckingButtonProps {
 }
 
 export type CheckingResult = {
-  question: string;
   answer: string;
+  test: string;
   option: string[];
   userAnswer: string | null;
   right: string;
