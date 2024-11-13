@@ -9,14 +9,18 @@ import Image from 'next/image';
 import { weekNumber } from '@/utils/week/weekNumber';
 import { useSpeakStore } from '@/store/speakStore';
 import { useTimeStore } from '@/store/timeStore';
+import { SpeekResult } from '@/types/speeking';
+import { useGameStore } from '@/store/gameStore';
 
 type QuestionProps = {
   text: string;
   randomText: string[];
+  wrongAnswer: SpeekResult[];
   getWrongAnswer: () => void;
 };
 
-const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
+const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionProps) => {
+  const { data } = useAuth();
   const [result, setResult] = useState(false);
   const {
     index,
@@ -32,7 +36,7 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
     setIsGame,
   } = useSpeakStore();
   const { time } = useTimeStore();
-  const { data } = useAuth();
+  const { setSpeekResult } = useGameStore();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
   const finalPercent = Math.round(totlaPercent / 10);
@@ -65,6 +69,7 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
       handleUpsertScore();
       setResult(true);
       setIsGame(true);
+      setSpeekResult(wrongAnswer);
     }
   };
 
