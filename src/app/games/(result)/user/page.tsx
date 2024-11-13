@@ -88,11 +88,11 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
             </div>
 
             {/* 테스트 중 */}
-            <div className='mt-6'>
+            {/* <div className='mt-6'>
               <Button asChild>
                 <Link href={`/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nickName}`}>공유하기</Link>
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
