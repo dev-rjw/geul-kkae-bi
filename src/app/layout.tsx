@@ -51,7 +51,7 @@ export default function RootLayout({
     <QueryProvider>
       <html lang='ko'>
         <body
-          className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen bg-secondary-50`}
+          className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen bg-secondary-50 text-gray-800`}
         >
           {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
             <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
