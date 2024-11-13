@@ -64,6 +64,7 @@ const CheckingQuizPage = () => {
       answer: questions[currentQuizIndex].answer,
       right: questions[currentQuizIndex].meaning,
       userAnswer: selectedOption,
+      isCorrect: selectedOption === questions[currentQuizIndex].answer,
     };
 
     allResults.current.push(currentResult);

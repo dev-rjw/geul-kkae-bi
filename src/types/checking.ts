@@ -21,4 +21,5 @@ export type CheckingResult = {
   option: string[];
   userAnswer: string | null;
   right: string;
+  isCorrect: boolean;
 };
