@@ -1,8 +1,8 @@
 'use client';
-import { useInsertMutation, useUpdateMutation } from '@/mutations/speek-mutation';
+import { useInsertMutation, useInsertResultMutation, useUpdateMutation } from '@/mutations/speek-mutation';
 import { useAuth } from '@/queries/useAuth';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Timer from './Timer';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { weekNumber } from '@/utils/week/weekNumber';
 import { useSpeakStore } from '@/store/speakStore';
 import { useTimeStore } from '@/store/timeStore';
 import { SpeekResult } from '@/types/speeking';
+import { throttle } from 'lodash';
 
 type QuestionProps = {
   text: string;
@@ -37,6 +38,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
   const { time } = useTimeStore();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
+  const { mutate: insertResult } = useInsertResultMutation();
   const finalPercent = Math.round(totlaPercent / 10);
   const { data: game } = useGetSpeekDataUser(data?.id, weekNumber);
 
@@ -64,10 +66,8 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     if (index < 9) {
       addIndex();
     } else if (index === 9) {
-      handleUpsertScore();
       setResult(true);
       setIsGame(true);
-      localStorage.setItem('speakingResult', JSON.stringify(wrongAnswer));
     }
   };
 
@@ -85,9 +85,19 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     }
   };
 
+  const handleResult = useCallback(
+    throttle(() => {
+      handleUpsertScore();
+      const dataAnswer = JSON.stringify(wrongAnswer);
+      insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
+      localStorage.setItem('speakingResult', JSON.stringify(wrongAnswer));
+    }, 1500),
+    [handleUpsertScore, insertResult],
+  );
+
   const handleNextButton = () => {
-    getWrongAnswer();
     addTotalPercent(percent);
+    getWrongAnswer();
     resetPercent();
     resetText();
     handleIndex();
@@ -117,6 +127,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
           </div>
           <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem]'>
             <Link
+              onClick={handleResult}
               className='mt-[16px] flex flex-col items-center'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`

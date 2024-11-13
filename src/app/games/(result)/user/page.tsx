@@ -10,7 +10,6 @@ import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
-import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
@@ -86,7 +85,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                 } absolute w-full -bottom-5 z-10`}
               />
             </div>
-            <Modal />
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>

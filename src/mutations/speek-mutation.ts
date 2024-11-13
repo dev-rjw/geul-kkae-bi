@@ -50,7 +50,17 @@ export const useUpdateMutation = () => {
   });
 };
 
-const insertSpeekResult = async (result: { answer: string; userId: string; game: string; weekNumber: number }) => {
+const insertSpeekResult = async (result: {
+  userId: string | undefined;
+  answer: string;
+  game: string;
+  weekNumber: number;
+}) => {
+  if (!result.userId) {
+    console.error('userId가 확인이 불가능 합니다');
+    return { error: 'User ID is undefined. Cannot insert data.' };
+  }
+
   return await browserClient
     .from('answer')
     .insert({
