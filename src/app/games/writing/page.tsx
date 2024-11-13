@@ -11,7 +11,7 @@ import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/writing-fetchQuestions';
 import { useInsertWritingMutation, useUpdateWritingMutation } from '@/mutations/writing-mutation';
 import { weekNumber } from '@/utils/week/weekNumber';
-import { useWritingQuizStore } from '@/store/writingStore';
+//import { useWritingQuizStore } from '@/store/writingStore';
 import { PartialQuestion, Question } from '@/types/writing';
 
 const WritingQuizPage = () => {
@@ -28,7 +28,7 @@ const WritingQuizPage = () => {
   const router = useRouter();
   const insertScoreMutation = useInsertWritingMutation();
   const updateScoreMutation = useUpdateWritingMutation();
-  const addWritingResult = useWritingQuizStore((state) => state.addWritingResult);
+  //const addWritingResult = useWritingQuizStore((state) => state.addWritingResult);
 
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +44,8 @@ const WritingQuizPage = () => {
       setCurrentQuizIndex((index) => index + 1);
     } else {
       saveScore(scoreRef.current);
-      addWritingResult([...allResults.current]);
+      //addWritingResult([...allResults.current]);
+      saveResultsToLocalStorage(allResults.current);
       moveToWritingResultPage(scoreRef.current);
       setIsAllQuestions(true);
     }
@@ -60,8 +61,9 @@ const WritingQuizPage = () => {
 
   const handleCheckAnswer = (userAnswer: string) => {
     const currentResult = {
-      question: question.question,
+      test: question.question,
       meaning: question.meaning,
+      keyword: question.consonant,
       answer: question.answer,
       userAnswer: userAnswer,
     };
@@ -70,6 +72,9 @@ const WritingQuizPage = () => {
     if (userAnswer === question.answer) {
       scoreRef.current += 10;
     }
+  };
+  const saveResultsToLocalStorage = (results: PartialQuestion[]) => {
+    localStorage.setItem('writingQuizResults', JSON.stringify(results));
   };
 
   const saveScore = async (score: number) => {

@@ -8,6 +8,7 @@ import '../style.css';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
+import Modal from './Modal';
 
 const GuestPage = ({ searchParams }: JustEndedGameProp) => {
   const [games, setGames] = useState<GamesArray[]>();
@@ -80,6 +81,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
                 } absolute w-full -bottom-5 z-10`}
               />
             </div>
+            <Modal />
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
