@@ -76,6 +76,8 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
       if (game && game.length > 0) {
         if (finalPercent > game[0].speaking || game[0].speaking === null) {
           update({ score: finalPercent, userId: game[0].user_id, week: weekNumber });
+        } else {
+          localStorage.setItem('speaking', finalPercent.toString());
         }
       } else {
         insert({ userId: data.id, score: finalPercent, weekNumber: weekNumber });
@@ -85,16 +87,6 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     }
   };
 
-  const handleResult = useCallback(
-    throttle(() => {
-      handleUpsertScore();
-      const dataAnswer = JSON.stringify(wrongAnswer);
-      insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
-      localStorage.setItem('speakingResult', JSON.stringify(wrongAnswer));
-    }, 1500),
-    [handleUpsertScore, insertResult],
-  );
-
   const handleNextButton = () => {
     addTotalPercent(percent);
     getWrongAnswer();
@@ -102,6 +94,17 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     resetText();
     handleIndex();
   };
+
+  const handleResult = useCallback(
+    throttle(() => {
+      const dataAnswer = JSON.stringify(wrongAnswer);
+      handleUpsertScore();
+      console.log(dataAnswer);
+      insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
+      localStorage.setItem('speakingResult', dataAnswer);
+    }, 1500),
+    [insertResult],
+  );
 
   return (
     <>
