@@ -18,7 +18,11 @@ export const weekCalculate = (beforeWeek: number) => {
 export const fetchUserRank = async (user_id: string, week: number) => {
   const supabase = createClient();
 
-  const { data } = await supabase.from('rank').select('*').eq('week', week).eq('user_id', user_id).single();
+  const { data, error } = await supabase.from('rank').select('*').eq('week', week).eq('user_id', user_id).single();
+
+  if (error) {
+    return { total: null, speaking: null, checking: null, writing: null };
+  }
 
   return data;
 };
