@@ -97,11 +97,11 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
         data={data}
         finalPercent={finalPercent}
       />
-      <strong className='bg-[#F9BC5F] mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center'>
+      <strong className='bg-[#F9BC5F] mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
         {index + 1}번문제
       </strong>
-      <div className='bg-[#fdeace] flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-24 py-[2.875rem] text-[#855205] rounded-[30px]'>
-        <p className='text-[36px] font-bold'>{randomText[index]}</p>
+      <div className='bg-[#fdeace] flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-[1.625rem] py-[2.875rem] text-[#855205] rounded-[30px] max-md:w-full max-md:py-[1.625rem] max-md:rounded-[16px]'>
+        <p className='text-[36px] font-bold max-md:text-[16px]'>{randomText[index]}</p>
       </div>
       {result || time === 0 ? (
         <>
@@ -125,14 +125,14 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
         </>
       ) : (
         <>
-          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
+          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
             {!isLoading ? (
               <>
                 <div className='text-center'>
-                  <p className='leading-normal text-[36px] text-[#6a6967]'>정확도</p>
-                  <p className='leading-[1.35] text-[56px] text-[#357ee7]'>
+                  <p className='leading-normal text-[36px] text-[#6a6967] max-md:text-[16px]'>정확도</p>
+                  <p className='leading-[1.35] text-[56px] text-[#357ee7] max-md:text-[32px]'>
                     {percent}
-                    <span className='text-[36px]'>%</span>
+                    <span className='text-[36px] max-md:text-[16px]'>%</span>
                   </p>
                 </div>
                 <div className='absolute right-[30px] flex flex-col items-center top-[40%]'>
