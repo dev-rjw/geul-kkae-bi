@@ -99,11 +99,10 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     throttle(() => {
       const dataAnswer = JSON.stringify(wrongAnswer);
       handleUpsertScore();
-      console.log(dataAnswer);
       insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
       localStorage.setItem('speakingResult', dataAnswer);
-    }, 1500),
-    [insertResult],
+    }, 2000),
+    [wrongAnswer, insertResult],
   );
 
   return (
