@@ -110,7 +110,7 @@ const WritingQuizPage = () => {
         isAllQuestions={isAllQuestions}
       />
       <div className='flex flex-col items-center justify-center mt-20'>
-        <p className='inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#2AD4AF] text-2xl font-medium rounded-full font-Pretendard'>{`${
+        <p className='inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-g-500 text-2xl font-medium rounded-full font-Pretendard'>{`${
           currentQuizIndex + 1
         }번문제`}</p>
         <p className='mt-[4.25rem] mb-10 text-4xl font-medium font-yangjin'>
@@ -119,7 +119,7 @@ const WritingQuizPage = () => {
         <ConsonantCard consonants={question.consonant} />
         <div className='flex flex-col justify-center items-center h-[12.5rem] mt-10 p-2.5 font-yangjin'>
           <p className='text-4xl font-medium mb-[1.6875rem]'>{question.question}</p>
-          <p className='text-2xl font-medium text-[#2AD4AF]'>{`**${question.meaning}`}</p>
+          <p className='text-2xl font-medium text-tertiary-g-500'>{`**${question.meaning}`}</p>
         </div>
         <form onSubmit={moveToNextQuiz}>
           <input

@@ -153,7 +153,7 @@ const ChangeProfile = () => {
 
             <div className='form-item'>
               <div className='form-label'>
-                <div className='form-title'>한줄소개</div>
+                <div className='form-title'>한 줄 소개</div>
               </div>
               <div className='form-field'>
                 <FormField
@@ -164,8 +164,8 @@ const ChangeProfile = () => {
                       <FormControl>
                         <DefaultInput
                           type='text'
-                          maxLength={20}
-                          placeholder='한줄소개를 입력해주세요'
+                          maxLength={16}
+                          placeholder='한 줄 소개를 입력해주세요'
                           {...field}
                         />
                       </FormControl>

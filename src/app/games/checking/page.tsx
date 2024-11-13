@@ -84,7 +84,7 @@ const CheckingQuizPage = () => {
             key={index}
             onClick={() => setSelectedOption(option)}
             className={`w-[18.75rem] h-[6.25rem] text-[2.5rem] font-medium rounded-[1.25rem] ${
-              selectedOption === option ? 'bg-[#A07BE5] text-white' : 'bg-white'
+              selectedOption === option ? 'bg-tertiary-p-300 text-white' : 'bg-white'
             }`}
           >
             <span className='relative top-1 inline-block'>{option}</span>
@@ -190,13 +190,13 @@ const CheckingQuizPage = () => {
           <span
             key={phraseIndex}
             className={`underline underline-offset-8 ${
-              isSelected ? 'decoration-[#A07BE5]' : 'decoration-[#357EE7] '
+              isSelected ? 'decoration-tertiary-p-300' : 'decoration-primary-400 '
             } relative`}
           >
             {phrase}
             <span
               className={`font-pretendard absolute -bottom-7 left-1/2 transform -translate-x-1/2 flex w-[1.625rem] h-[1.625rem] ${
-                isSelected ? 'bg-[#A07BE5]' : 'bg-[#357EE7]'
+                isSelected ? 'bg-tertiary-p-300' : 'bg-primary-400'
               } text-[1.3125rem] text-white items-center justify-center rounded-full`}
             >
               {index + 1}
@@ -231,7 +231,7 @@ const CheckingQuizPage = () => {
         isAllQuestions={isAllQuestions}
       />
       <div className='flex-1 flex flex-col items-center justify-center mt-20'>
-        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#A07BE5] text-2xl font-medium rounded-full'>{`${
+        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번 문제`}</p>
         <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>

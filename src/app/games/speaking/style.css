@@ -1,7 +1,7 @@
 .start_btn {
-  border: 10px solid #fdeace;
-  background-color: #f7a62c;
-  box-shadow: inset 0 -6px #e78f09, inset 0 6px #f6c06d, 0 6px #f6c06d;
+  border: 10px solid var(--color-secondary-100);
+  background-color: var(--color-secondary-400);
+  box-shadow: inset 0 -6px var(--color-secondary-500), inset 0 6px #f6c06d, 0 6px #f6c06d;
 }
 
 .start_btn::before {
@@ -26,5 +26,5 @@
 }
 
 .start_btn span {
-  text-shadow: 0 2px 0 #e78f09;
+  text-shadow: 0 2px 0 var(--color-secondary-500);
 }

@@ -8,7 +8,7 @@ const MypageCharacter = () => {
         <div className='flex justify-center mb-6 mt-8'>
           <LineTitle
             className='text-[2rem] text-primary-500'
-            lineClassName='bg-[#BFD6F7]'
+            lineClassName='bg-primary-100'
           >
             RANKING
           </LineTitle>

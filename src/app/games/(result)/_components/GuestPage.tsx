@@ -22,16 +22,16 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
         {
           type: 'checking',
           score: checkingScore,
-          color: 'bg-[#Ddd0f6]',
+          color: 'bg-tertiary-p-100',
           name: '틀린 말 탐정단',
         },
         {
           type: 'speaking',
           score: speakingScore,
-          color: 'bg-[#FEEFD7]',
+          color: 'bg-secondary-100',
           name: '나야, 발음왕',
         },
-        { type: 'writing', score: writingScore, color: 'bg-[#D4F7EF]', name: '빈칸 한입' },
+        { type: 'writing', score: writingScore, color: 'bg-tertiary-g-100', name: '빈칸 한입' },
       ];
     };
 
@@ -68,8 +68,8 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
           />
           <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
             <div className={`${matchedGame?.type} `}>
-              <span className='title-20 text-[#1965D2]'>당신은</span>
-              <span className='query body-16 '>님의</span>
+              <span className='title-20 text-primary-500'>당신은</span>
+              <span className='query body-16'>님의</span>
               <div className='query title-32'>국어 문해력은?</div>
             </div>
             <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline  relative`}>
@@ -113,9 +113,9 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
       <div className='flex justify-center items-center  h-[138px]'>
         <div className='flex items-center gap-[221.04px]'>
           <div>
-            <div className='body-22 text-[#838281]'>종합 랭킹을 확인하려면</div>
-            <div className='body-30 text-[#504F4E]'>
-              꼬옥 <span className='text-[#EF5252]'>로그인</span> 후 게임을 모두 플레이해 깨비!
+            <div className='body-22 text-gray-500'>종합 랭킹을 확인하려면</div>
+            <div className='body-30 text-gray-700'>
+              꼬옥 <span className='text-warning-300'>로그인</span> 후 게임을 모두 플레이해 깨비!
             </div>
           </div>
           <Image

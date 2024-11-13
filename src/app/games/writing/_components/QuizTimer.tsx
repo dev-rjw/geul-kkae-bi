@@ -66,7 +66,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
           />
           <button
             onClick={handleStartGame}
-            className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
+            className='absolute bottom-[32px] right-[62px] bg-primary-200 px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px]'
           >
             시작하기
           </button>
@@ -74,7 +74,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
       ) : null}
       <div className='w-full bg-[#BAF1E5] h-[28px]'>
         <div
-          className=' bg-[#2AD4AF] h-[28px] transition-all ease-linear rounded-r-lg'
+          className=' bg-tertiary-g-500 h-[28px] transition-all ease-linear rounded-r-lg'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>

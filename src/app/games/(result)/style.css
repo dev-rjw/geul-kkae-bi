@@ -1,11 +1,11 @@
 .speak {
-  background: #fbd498;
+  background: var(--color-secondary-200);
 }
 .check {
-  background: #bfa5ed;
+  background: var(--color-tertiary-p-200);
 }
 .write {
-  background: #7fe6cf;
+  background: var(--color-tertiary-g-300);
 }
 
 /* progress_bar */
@@ -37,34 +37,34 @@
 }
 
 .speak h3 {
-  color: #b67007;
+  color: var(--color-secondary-600);
 }
 .speak .txt {
-  color: #855205;
+  color: var(--color-secondary-700);
 }
 .write h3 {
-  color: #22aa8d;
+  color: var(--color-tertiary-g-600);
 }
 .write .txt {
-  color: #198069;
+  color: var(--color-tertiary-g-700);
 }
 .check h3 {
-  color: #4f21a6;
+  color: var(--color-tertiary-p-600);
 }
 .check .txt {
-  color: #3b187c;
+  color: var(--color-tertiary-p-700);
 }
 .speak .game_image_box {
   box-shadow: 4px 4px #c98010;
-  border-color: #f9bc5f;
+  border-color: var(--color-secondary-300);
 }
 .write .game_image_box {
-  box-shadow: 4px 4px #198069;
-  border-color: #2ad4af;
+  box-shadow: 4px 4px var(--color-tertiary-g-700);
+  border-color: var(--color-tertiary-g-500);
 }
 .check .game_image_box {
   box-shadow: 4px 4px #814be7;
-  border-color: #a07be5;
+  border-color: var(--color-tertiary-p-300);
 }
 .game_image_box::before {
   content: '';
@@ -79,59 +79,59 @@
   box-shadow: inset 4px 4px #c98010;
 }
 .write .game_image_box::before {
-  box-shadow: inset 4px 4px #198069;
+  box-shadow: inset 4px 4px var(--color-tertiary-g-700);
 }
 .game_image_box::before {
   box-shadow: inset 4px 4px #814be7;
 }
 
 .speaking {
-  background: url(/game_result_card_speaking.svg) #fdeace;
-  color: #e78f09;
+  background: url(/game_result_card_speaking.svg) var(--color-secondary-100);
+  color: var(--color-secondary-500);
 }
 
 .checking {
-  background: url(/game_result_card_checking.svg) #ddd0f6;
-  color: #8150dd;
+  background: url(/game_result_card_checking.svg) var(--color-tertiary-p-100);
+  color: var(--color-tertiary-p-400);
 }
 
 .writing {
-  background: url(/game_result_card_writing.svg) #d4f7ef;
-  color: #22aa8d;
+  background: url(/game_result_card_writing.svg) var(--color-tertiary-g-100);
+  color: var(--color-tertiary-g-600);
 }
 
 .speaking p {
-  color: #f9bc5f;
+  color: var(--color-secondary-300);
 }
 
 .checking p {
-  color: #a07be5;
+  color: var(--color-tertiary-p-300);
 }
 
 .writing p {
-  color: #55ddbf;
+  color: var(--color-tertiary-g-400);
 }
 
 .speaking .score {
-  color: #543403;
+  color: var(--color-secondary-800);
 }
 
 .checking .score {
-  color: #271051;
+  color: var(--color-tertiary-p-800);
 }
 
 .writing .score {
-  color: #115546;
+  color: var(--color-tertiary-g-800);
 }
 
 .speaking .query {
-  color: #855205;
+  color: var(--color-secondary-700);
 }
 
 .checking .query {
-  color: #3b187c;
+  color: var(--color-tertiary-p-700);
 }
 
 .writing .query {
-  color: #198069;
+  color: var(--color-tertiary-g-700);
 }

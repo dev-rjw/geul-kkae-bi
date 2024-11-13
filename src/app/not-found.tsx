@@ -14,12 +14,12 @@ const NotFound = () => {
         ></Image>
       </div>
       <div className='text-center font-bold mt-[2.687rem]'>
-        <h1 className='text-[2.5rem] text-[#134FA4]'>죄송해요! 요청하신 페이지를 불러올수없어요</h1>
-        <p className='text-xl text-[#357EE7] leading-normal mt-[1.563rem]'>
+        <h1 className='text-[2.5rem] text-primary-600'>죄송해요! 요청하신 페이지를 불러올수없어요</h1>
+        <p className='text-xl text-primary-400 leading-normal mt-[1.563rem]'>
           페이지의 주소가 잘못입력 되었거나<br></br> 요청하신 주소가 변경 혹은 삭제되어 찾을수 없습니다.
         </p>
         <Link
-          className='block w-[23.875rem] mx-auto mt-[2.688rem] rounded-lg py-[0.813rem] bg-[#498BE9] body-18 text-white'
+          className='block w-[23.875rem] mx-auto mt-[2.688rem] rounded-lg py-[0.813rem] bg-primary-400 body-18 text-white'
           href='/'
         >
           홈으로
