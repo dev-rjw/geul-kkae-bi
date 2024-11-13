@@ -12,7 +12,7 @@ import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutation
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
-import { useCheckingQuizStore } from '@/store/checkingStore';
+//import { useCheckingQuizStore } from '@/store/checkingStore';
 import { CheckingResult } from '@/types/checking';
 
 const CheckingQuizPage = () => {
@@ -28,7 +28,11 @@ const CheckingQuizPage = () => {
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
-  const addCheckingResults = useCheckingQuizStore((state) => state.addCheckingResults);
+  //const addCheckingResults = useCheckingQuizStore((state) => state.addCheckingResults);
+
+  const saveResultsToLocalStorage = (results: CheckingResult[]) => {
+    localStorage.setItem('checkingQuizResults', JSON.stringify(results));
+  };
 
   const moveToNextQuiz = () => {
     if (isTimeOver || isAllQuestions) return;
@@ -39,7 +43,8 @@ const CheckingQuizPage = () => {
       setSelectedOption(null);
     } else {
       saveScore(scoreRef.current);
-      addCheckingResults([...allResults.current]);
+      //addCheckingResults([...allResults.current]);
+      saveResultsToLocalStorage(allResults.current);
       setIsAllQuestions(true);
     }
   };
@@ -54,7 +59,7 @@ const CheckingQuizPage = () => {
 
   const handleCheckAnswer = () => {
     const currentResult: CheckingResult = {
-      question: questions[currentQuizIndex].question,
+      test: questions[currentQuizIndex].question,
       option: questions[currentQuizIndex].correct,
       answer: questions[currentQuizIndex].answer,
       right: questions[currentQuizIndex].meaning,
