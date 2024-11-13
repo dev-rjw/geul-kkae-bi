@@ -1,7 +1,7 @@
 'use client';
-
 import ModalPortal from '@/components/ModalPortal';
 import { useState } from 'react';
+import CheckingModal from './CheckingModal';
 import WritingModal from './WritingModal';
 
 const Modal = () => {
@@ -9,12 +9,13 @@ const Modal = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <div className='z-10'>
+    <div className='z-10 '>
       <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
       <ModalPortal
         open={isModalOpen}
         onClose={handleCloseModal}
       >
+        <CheckingModal />
         <WritingModal />
 
         <button onClick={handleCloseModal}>모달 닫기</button>
