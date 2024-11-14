@@ -54,29 +54,48 @@ export const useUpdateWritingMutation = () => {
 
 const insertWritingResult = async (answer: {
   userId: string;
-  id: string;
   answer: string;
   question: string;
   game: string;
   week: number;
   consonant: string;
   meaning: string;
-  correct: string[];
   useranswer: string;
 }) => {
-  return await browserClient
+  const { data: existingData, error: fetchError } = await browserClient
+    .from('answer')
+    .select('*')
+    .eq('user_id', answer.userId)
+    .eq('question', answer.question)
+    .eq('week', answer.week);
+
+  if (fetchError) {
+    throw new Error(`Error checking for duplicates: ${fetchError.message}`);
+  }
+
+  if (existingData && existingData.length > 0) {
+    console.log('Duplicate entry found, skipping insertion.');
+    return null;
+  }
+
+  const { data, error } = await browserClient
     .from('answer')
     .insert({
+      user_id: answer.userId,
       answer: answer.answer,
       question: answer.question,
       game: answer.game,
       consonant: answer.consonant,
       week: answer.week,
       meaning: answer.meaning,
-      correct: answer.correct,
       user_answer: answer.useranswer,
     })
     .select();
+
+  if (error) {
+    throw new Error(`Error inserting data: ${error.message}`);
+  }
+  return data;
 };
 
 export const useInsertWritingResultMutation = () => {
@@ -88,7 +107,7 @@ export const useInsertWritingResultMutation = () => {
       await client.invalidateQueries({ queryKey: ['answer'] });
     },
     onError: (error) => {
-      console.error('Error updating writing score:', error);
+      console.error('Error inserting writing answer:', error);
     },
   });
 };

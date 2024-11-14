@@ -9,7 +9,11 @@ import './style.css';
 import Image from 'next/image';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/writing-fetchQuestions';
-import { useInsertWritingMutation, useUpdateWritingMutation } from '@/mutations/writing-mutation';
+import {
+  useInsertWritingMutation,
+  useInsertWritingResultMutation,
+  useUpdateWritingMutation,
+} from '@/mutations/writing-mutation';
 import { weekNumber } from '@/utils/week/weekNumber';
 //import { useWritingQuizStore } from '@/store/writingStore';
 import { PartialQuestion, Question } from '@/types/writing';
@@ -28,6 +32,7 @@ const WritingQuizPage = () => {
   const router = useRouter();
   const insertScoreMutation = useInsertWritingMutation();
   const updateScoreMutation = useUpdateWritingMutation();
+  const insertWritingResultMutation = useInsertWritingResultMutation();
   //const addWritingResult = useWritingQuizStore((state) => state.addWritingResult);
 
   const moveToNextQuiz = (e: React.FormEvent) => {
@@ -69,6 +74,19 @@ const WritingQuizPage = () => {
       isCorrect: userAnswer === question.answer,
     };
     allResults.current.push(currentResult);
+
+    if (!currentResult.isCorrect && userId) {
+      insertWritingResultMutation.mutate({
+        userId: userId,
+        answer: question.answer,
+        question: question.question,
+        game: 'writing',
+        consonant: question.consonant,
+        week: weekNumber,
+        meaning: question.meaning,
+        useranswer: userAnswer,
+      });
+    }
 
     if (userAnswer === question.answer) {
       scoreRef.current += 10;
