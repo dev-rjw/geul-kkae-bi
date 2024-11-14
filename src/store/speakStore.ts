@@ -7,6 +7,7 @@ type speek = {
   text: string;
   isRecording: boolean;
   isLoading: boolean;
+  isGame: boolean;
   addIndex: () => void;
   resetIndex: () => void;
   resetPercent: () => void;
@@ -16,6 +17,7 @@ type speek = {
   addTotalPercent: (value: number) => void;
   setIsRecording: (value: boolean) => void;
   setIsLoading: (value: boolean) => void;
+  setIsGame: (value: boolean) => void;
 };
 
 export const useSpeakStore = create<speek>((set) => ({
@@ -26,6 +28,7 @@ export const useSpeakStore = create<speek>((set) => ({
   isRecording: false,
   time: 40,
   isLoading: false,
+  isGame: false,
   // 상태 업데이트 함수
   addIndex: () => set((state) => ({ index: state.index + 1 })),
   resetIndex: () => set(() => ({ index: 0 })),
@@ -36,4 +39,5 @@ export const useSpeakStore = create<speek>((set) => ({
   addTotalPercent: (value) => set((state) => ({ totlaPercent: state.totlaPercent + value })),
   setIsRecording: (value) => set(() => ({ isRecording: value })),
   setIsLoading: (value) => set(() => ({ isLoading: value })),
+  setIsGame: (value) => set(() => ({ isGame: value })),
 }));

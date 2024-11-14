@@ -123,7 +123,7 @@ const RankingPage = async () => {
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
-                    <strong className='title-20 w-[8.625rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
+                    <strong className='title-20 w-[8.875rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
                     <p className=' grow title-20 text-[#647BEE] -mb-1'>{item.user.introduction}</p>
                   </div>
                   <span className='body-36 ml-auto text-primary-700'>{item.total}점</span>
@@ -145,7 +145,7 @@ const RankingPage = async () => {
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
-                    <strong className='title-20 w-[8.625rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
+                    <strong className='title-20 w-[8.875rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
                     <p className=' grow title-20 text-[#647BEE] -mb-1'>{item.user.introduction}</p>
                   </div>
                   <span className='body-32 ml-auto text-primary-700'>{item.total}점</span>
