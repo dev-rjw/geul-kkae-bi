@@ -13,13 +13,15 @@ import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
 //import { useCheckingQuizStore } from '@/store/checkingStore';
-import { CheckingResult } from '@/types/checking';
+import { CheckingQuestion, CheckingResult } from '@/types/checking';
+import { useInserCheckingResultMutation } from '@/mutations/writing-mutation';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
   const userId = user?.id ?? null;
   const { data: questions = [], isLoading } = useFetchQuestions();
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+  const question: CheckingQuestion = questions[currentQuizIndex];
   const scoreRef = useRef(0);
   const allResults = useRef<CheckingResult[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -28,7 +30,7 @@ const CheckingQuizPage = () => {
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
-  //const addCheckingResults = useCheckingQuizStore((state) => state.addCheckingResults);
+  const inserCheckingResultMutation = useInserCheckingResultMutation();
 
   const saveResultsToLocalStorage = (results: CheckingResult[]) => {
     localStorage.setItem('checkingQuizResults', JSON.stringify(results));
@@ -43,7 +45,6 @@ const CheckingQuizPage = () => {
       setSelectedOption(null);
     } else {
       saveScore(scoreRef.current);
-      //addCheckingResults([...allResults.current]);
       saveResultsToLocalStorage(allResults.current);
       setIsAllQuestions(true);
     }
@@ -68,6 +69,21 @@ const CheckingQuizPage = () => {
     };
 
     allResults.current.push(currentResult);
+
+    if (!currentResult.isCorrect && userId) {
+      inserCheckingResultMutation.mutate({
+        userId: userId,
+        answer: question.answer,
+        question: question.question,
+        game: 'writing',
+        consonant: question.consonant,
+        week: weekNumber,
+        meaning: question.meaning,
+        useranswer: selectedOption,
+        correct: question.correct,
+      });
+    }
+
     if (selectedOption === questions[currentQuizIndex].answer) {
       scoreRef.current += 10;
     }

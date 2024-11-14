@@ -51,3 +51,64 @@ export const useUpdateWritingMutation = () => {
     },
   });
 };
+
+const insertCheckingResult = async (answer: {
+  userId: string;
+  answer: string;
+  question: string;
+  game: string;
+  week: number;
+  consonant: string;
+  meaning: string;
+  useranswer: string | null;
+  correct: string[];
+}) => {
+  const { data: existingData, error: fetchError } = await browserClient
+    .from('answer')
+    .select('*')
+    .eq('user_id', answer.userId)
+    .eq('question', answer.question)
+    .eq('week', answer.week);
+
+  if (fetchError) {
+    throw new Error(`중복 확인 오류: ${fetchError.message}`);
+  }
+
+  if (existingData && existingData.length > 0) {
+    return null;
+  }
+
+  const { data, error } = await browserClient
+    .from('answer')
+    .insert({
+      user_id: answer.userId,
+      answer: answer.answer,
+      question: answer.question,
+      game: 'checking',
+      consonant: answer.consonant,
+      week: answer.week,
+      meaning: answer.meaning,
+      user_answer: answer.useranswer,
+      correct: answer.correct,
+    })
+    .select();
+
+  if (error) {
+    throw new Error(`데이터를 삽입하는 중에 오류가 발생했습니다.: ${error.message}`);
+  }
+  return data;
+};
+
+export const useInserCheckingResultMutation = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: insertCheckingResult,
+    onSuccess: async () => {
+      await client.invalidateQueries({ queryKey: ['answer'] });
+    },
+    onError: (error) => {
+      console.error('오류 발생:', error);
+    },
+  });
+};

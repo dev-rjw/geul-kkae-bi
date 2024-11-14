@@ -15,6 +15,20 @@ export interface CheckingButtonProps {
   onselect: (option: string) => void;
 }
 
+export type CheckingQuestion = {
+  id: string;
+  game_kind: string;
+  question: string;
+  test: string;
+  answer: string;
+  consonant: string;
+  meaning: string;
+  correct: string[];
+  userAnswer: string;
+  keyword: string;
+  isCorrect: boolean;
+};
+
 export type CheckingResult = {
   answer: string;
   test: string;
