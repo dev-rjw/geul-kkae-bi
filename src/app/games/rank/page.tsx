@@ -128,7 +128,7 @@ const RankingPage = async () => {
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
-                    <strong className='title-20 w-[8.625rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
+                    <strong className='title-20 w-[8.875rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
                     <p className=' grow title-20 text-[#647BEE] -mb-1'>{item.user.introduction}</p>
                   </div>
                   <span className='body-36 ml-auto text-primary-700'>{item.total}점</span>
@@ -150,7 +150,7 @@ const RankingPage = async () => {
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
-                    <strong className='title-20 w-[8.625rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
+                    <strong className='title-20 w-[8.875rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
                     <p className=' grow title-20 text-[#647BEE] -mb-1'>{item.user.introduction}</p>
                   </div>
                   <span className='body-32 ml-auto text-primary-700'>{item.total}점</span>
@@ -192,15 +192,15 @@ const RankingPage = async () => {
                 </div>
                 <div className='flex flex-col justify-between self-stretch w-full max-w-[15.25rem] title-16'>
                   <div className='flex items-center justify-between'>
-                    <div className='text-primary-700'>주어진 문장읽기</div>
+                    <div className='text-primary-700'>나야, 발음왕</div>
                     <div className='text-primary-600'>{userTable?.[0]?.speaking}점</div>
                   </div>
                   <div className='flex items-center justify-between'>
-                    <div className='text-primary-700'>빈칸채우기</div>
+                    <div className='text-primary-700'>빈칸 한 입</div>
                     <div className='text-primary-600'>{userTable?.[0]?.writing}점</div>
                   </div>
                   <div className='flex items-center justify-between'>
-                    <div className='text-primary-700'>틀린것 맞추기</div>
+                    <div className='text-primary-700'>틀린 말 탐정단</div>
                     <div className='text-primary-600'>{userTable?.[0]?.checking}점</div>
                   </div>
                   <div className='flex items-center justify-between'>

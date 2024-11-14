@@ -1,4 +1,3 @@
-// Modal.tsx
 import ReactDOM from 'react-dom';
 interface ModalProps {
   open: boolean;

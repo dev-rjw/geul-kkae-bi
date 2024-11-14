@@ -12,9 +12,9 @@ import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutation
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
-//import { useCheckingQuizStore } from '@/store/checkingStore';
-import { CheckingQuestion, CheckingResult } from '@/types/checking';
-import { useInserCheckingResultMutation } from '@/mutations/writing-mutation';
+import { useCheckingQuizStore } from '@/store/checkingStore';
+import { CheckingResult } from '@/types/checking';
+import { Loader2 } from 'lucide-react';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
@@ -138,7 +138,11 @@ const CheckingQuizPage = () => {
   };
 
   if (isLoading) {
-    return <p>로딩중</p>;
+    return (
+      <div className='w-screen h-screen flex items-center justify-center'>
+        <Loader2 className='mr-2 h-12 w-12 animate-spin text-primary-400' />
+      </div>
+    );
   }
 
   return (
@@ -148,7 +152,7 @@ const CheckingQuizPage = () => {
         isAllQuestions={isAllQuestions}
       />
       <div className='flex-1 flex flex-col items-center justify-center mt-20'>
-        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#A07BE5] text-2xl font-medium rounded-full'>{`${
+        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번 문제`}</p>
         <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>

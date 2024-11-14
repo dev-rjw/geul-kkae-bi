@@ -47,15 +47,15 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
             className='start_checking_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
             onClick={handleStartGame}
           >
-            <span className='relative z-10 title-20 text-[#3b187c]'>GAME START</span>
+            <span className='relative z-10 title-20 text-tertiary-p-700'>GAME START</span>
           </button>
         </div>
       ) : (
         <></>
       )}
-      <div className='w-full bg-checking-100 h-7'>
+      <div className='w-full bg-tertiary-p-100 h-7'>
         <div
-          className=' bg-checking-300 h-7 transition-all ease-linear rounded-r-lg'
+          className=' bg-tertiary-p-300 h-7 transition-all ease-linear rounded-r-lg'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>
