@@ -51,3 +51,44 @@ export const useUpdateWritingMutation = () => {
     },
   });
 };
+
+const insertWritingResult = async (answer: {
+  userId: string;
+  id: string;
+  answer: string;
+  question: string;
+  game: string;
+  week: number;
+  consonant: string;
+  meaning: string;
+  correct: string[];
+  useranswer: string;
+}) => {
+  return await browserClient
+    .from('answer')
+    .insert({
+      answer: answer.answer,
+      question: answer.question,
+      game: answer.game,
+      consonant: answer.consonant,
+      week: answer.week,
+      meaning: answer.meaning,
+      correct: answer.correct,
+      user_answer: answer.useranswer,
+    })
+    .select();
+};
+
+export const useInsertWritingResultMutation = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: insertWritingResult,
+    onSuccess: async () => {
+      await client.invalidateQueries({ queryKey: ['answer'] });
+    },
+    onError: (error) => {
+      console.error('Error updating writing score:', error);
+    },
+  });
+};
