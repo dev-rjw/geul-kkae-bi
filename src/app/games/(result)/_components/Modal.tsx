@@ -1,7 +1,7 @@
 'use client';
 import ModalPortal from '@/components/ModalPortal';
 import { useState } from 'react';
-import CheckingModal from './CheckingModal';
+import ModalChecking from './ModalChecking';
 
 const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +14,7 @@ const Modal = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <CheckingModal />
+        <ModalChecking />
 
         <button onClick={handleCloseModal}>모달 닫기</button>
       </ModalPortal>
