@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { CheckingResult } from '@/types/checking';
 
-const CheckingModal = () => {
+const ModalChecking = () => {
   const [result, setResult] = useState<CheckingResult[]>([]);
   const [openResult, setOpenResult] = useState<number | null>(null);
 
@@ -86,4 +86,4 @@ const CheckingModal = () => {
   );
 };
 
-export default CheckingModal;
+export default ModalChecking;

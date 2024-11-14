@@ -1,7 +1,7 @@
 import { PartialQuestion } from '@/types/writing';
 import React, { useEffect, useState } from 'react';
 
-const WritingModal = () => {
+const ModalWriting = () => {
   const [result, setResult] = useState<PartialQuestion[]>([]);
   const [openResult, setOpenResult] = useState<number | null>(null);
 
@@ -67,4 +67,4 @@ const WritingModal = () => {
   );
 };
 
-export default WritingModal;
+export default ModalWriting;
