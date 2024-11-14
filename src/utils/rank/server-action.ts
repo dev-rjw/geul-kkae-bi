@@ -2,7 +2,7 @@
 
 import { TotalScore } from '@/types/result';
 import { createClient } from '../supabase/server';
-import { Rank } from '@/types/rank';
+import { Rank, RankIncludingUserInfo } from '@/types/rank';
 
 export const updateTotalScore = async (totalScore: TotalScore) => {
   const supabase = createClient();
@@ -33,6 +33,21 @@ export const fetchLatestWeekData = async () => {
     .single();
   if (latestWeekData) {
     return latestWeekData;
+  } else {
+    return null;
+  }
+};
+
+export const fetchLatestWeek = async (latestWeek: number) => {
+  const supabase = createClient();
+  const { data }: { data: RankIncludingUserInfo[] | null } = await supabase
+    .from('rank')
+    .select(`*,user(nickname, introduction, image)`)
+    .eq('week', latestWeek)
+    .gte('total', 0)
+    .order('total', { ascending: false });
+  if (data) {
+    return data;
   } else {
     return null;
   }

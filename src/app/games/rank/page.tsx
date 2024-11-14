@@ -1,11 +1,11 @@
 import { createClient } from '@/utils/supabase/server';
 import React from 'react';
-import { Rank, RankIncludingUserInfo, UserProfile } from '@/types/rank';
+import { Rank, UserProfile } from '@/types/rank';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
-import { fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
+import { fetchLatestWeek, fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
 import { redirect } from 'next/navigation';
 
 const RankingPage = async () => {
@@ -26,12 +26,7 @@ const RankingPage = async () => {
   if (latestWeekData) {
     const latestWeek = latestWeekData.week;
 
-    const { data }: { data: RankIncludingUserInfo[] | null } = await serverClient
-      .from('rank')
-      .select(`*,user(nickname, introduction, image)`)
-      .eq('week', latestWeek)
-      .gte('total', 0)
-      .order('total', { ascending: false });
+    const data = await fetchLatestWeek(latestWeek);
 
     if (!data || data.length === 0) {
       redirect('/');
