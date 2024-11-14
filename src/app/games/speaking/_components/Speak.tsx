@@ -125,7 +125,7 @@ const Speak = () => {
   };
 
   return (
-    <div className='h-screen bg-[#FCFBF9] max-md:px-4'>
+    <div className='h-screen bg-secondary-50 max-md:px-4'>
       {!isDelay ? (
         <div className='w-screen h-screen'>
           {!isMobile ? <Tutorial handleStart={handleStart} /> : <TurtorialMobile handleStart={handleStart} />}
