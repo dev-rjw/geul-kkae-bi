@@ -5,11 +5,12 @@ import { fetchUserId } from '@/utils/auth/server-action';
 import Link from 'next/link';
 import React from 'react';
 import ResultSide from '../_components/ResultSide';
-import '../style.css';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
+// import { Button } from '@/components/ui/button';
+import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
@@ -72,7 +73,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           />
           <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
             <div className={`${matchedGame?.type} `}>
-              <span className='title-20 text-[#1965D2]'>{userTable?.user.nickname}</span>
+              <span className='title-20 text-primary-500'>{userTable?.user.nickname}</span>
               <span className='query body-16 '>님의</span>
               <div className='query title-32'>국어 문해력은?</div>
             </div>
@@ -84,6 +85,14 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                 } absolute w-full -bottom-5 z-10`}
               />
             </div>
+
+            {/* 테스트 중 */}
+            {/* <div className='mt-6'>
+              <Button asChild>
+                <Link href={`/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${userTable?.user.nickname}`}>공유하기</Link>
+              </Button>
+            </div> */}
+            <Modal />
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
@@ -124,15 +133,15 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
               alt='랭킹보러가기 아이콘'
             />
             <div className='flex flex-col items-center'>
-              <div className='body-22 text-[#838281]'>게임을 모두 완료했으니</div>
+              <div className='body-22 text-gray-500'>게임을 모두 완료했으니</div>
               <div>
-                <div className='body-30 text-[#504F4E]'>
-                  <span className='text-[#EF5252]'>종합 랭킹</span>을 확인하러 가볼 깨비!
+                <div className='body-30 text-gray-700'>
+                  <span className='text-warning-300'>종합 랭킹</span>을 확인하러 가볼 깨비!
                 </div>
               </div>
             </div>
             <Link href={'/games/rank'}>
-              <div className='flex justify-center items-center gap-3  w-[176px] h-[43px] rounded-[99px] border-2 border-[#B6B5B4] body-18 text-[#9D9C9A]'>
+              <div className='flex justify-center items-center gap-3  w-[176px] h-[43px] rounded-[99px] border-2 border-gray-300 body-18 text-gray-400'>
                 랭킹 보러가기
                 <Image
                   width={24}
@@ -146,9 +155,9 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
         ) : (
           <div className='flex gap-[221.04px]'>
             <div>
-              <div className='body-22 text-[#838281]'>종합 랭킹을 확인하려면</div>
-              <div className='body-30 text-[#504F4E]'>
-                나머지 게임 <span className='text-[#EF5252]'>{remainingGamesCount === 1 ? '1개' : '2개'}</span>를 모두
+              <div className='body-22 text-gray-500'>종합 랭킹을 확인하려면</div>
+              <div className='body-30 text-gray-700'>
+                나머지 게임 <span className='text-warning-300'>{remainingGamesCount === 1 ? '1개' : '2개'}</span>를 모두
                 플레이 해야해 깨비!
               </div>
             </div>
@@ -172,19 +181,19 @@ const extractGames = (game: Rank) => {
     {
       type: 'checking',
       score: checking,
-      color: 'bg-[#Ddd0f6]',
+      color: 'bg-tertiary-p-100',
       name: '틀린 말 탐정단',
     },
     {
       type: 'speaking',
       score: speaking,
-      color: 'bg-[#FEEFD7]',
+      color: 'bg-secondary-100',
       name: '나야, 발음왕',
     },
     {
       type: 'writing',
       score: writing,
-      color: 'bg-[#D4F7EF]',
+      color: 'bg-tertiary-g-100',
       name: '빈칸 한입',
     },
   ];
