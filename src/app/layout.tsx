@@ -57,6 +57,7 @@ export default function RootLayout({
             <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
           ) : null}
           {children}
+          <div id='global-modal' />
         </body>
       </html>
     </QueryProvider>
