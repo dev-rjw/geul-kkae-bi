@@ -1,22 +1,26 @@
 'use client';
-import { useInsertMutation, useUpdateMutation } from '@/mutations/speek-mutation';
+import { useInsertMutation, useInsertResultMutation, useUpdateMutation } from '@/mutations/speek-mutation';
 import { useAuth } from '@/queries/useAuth';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Timer from './Timer';
 import { useGetSpeekDataUser } from '@/queries/useGetSpeekQuery';
 import Image from 'next/image';
 import { weekNumber } from '@/utils/week/weekNumber';
 import { useSpeakStore } from '@/store/speakStore';
 import { useTimeStore } from '@/store/timeStore';
+import { SpeekResult } from '@/types/speeking';
+import { throttle } from 'lodash';
 
 type QuestionProps = {
   text: string;
   randomText: string[];
+  wrongAnswer: SpeekResult[];
   getWrongAnswer: () => void;
 };
 
-const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
+const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionProps) => {
+  const { data } = useAuth();
   const [result, setResult] = useState(false);
   const {
     index,
@@ -32,9 +36,9 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
     setIsGame,
   } = useSpeakStore();
   const { time } = useTimeStore();
-  const { data } = useAuth();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
+  const { mutate: insertResult } = useInsertResultMutation();
   const finalPercent = Math.round(totlaPercent / 10);
   const { data: game } = useGetSpeekDataUser(data?.id, weekNumber);
 
@@ -62,7 +66,6 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
     if (index < 9) {
       addIndex();
     } else if (index === 9) {
-      handleUpsertScore();
       setResult(true);
       setIsGame(true);
     }
@@ -73,6 +76,8 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
       if (game && game.length > 0) {
         if (finalPercent > game[0].speaking || game[0].speaking === null) {
           update({ score: finalPercent, userId: game[0].user_id, week: weekNumber });
+        } else {
+          localStorage.setItem('speaking', finalPercent.toString());
         }
       } else {
         insert({ userId: data.id, score: finalPercent, weekNumber: weekNumber });
@@ -83,12 +88,22 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
   };
 
   const handleNextButton = () => {
-    getWrongAnswer();
     addTotalPercent(percent);
+    getWrongAnswer();
     resetPercent();
     resetText();
     handleIndex();
   };
+
+  const handleResult = useCallback(
+    throttle(() => {
+      const dataAnswer = JSON.stringify(wrongAnswer);
+      handleUpsertScore();
+      insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
+      localStorage.setItem('speakingResult', dataAnswer);
+    }, 2000),
+    [wrongAnswer, insertResult],
+  );
 
   return (
     <>
@@ -97,15 +112,15 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
         data={data}
         finalPercent={finalPercent}
       />
-      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center'>
+      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
         {index + 1}번문제
       </strong>
-      <div className='bg-secondary-100 flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-24 py-[2.875rem] text-secondary-700 rounded-[30px]'>
-        <p className='text-[36px] font-bold'>{randomText[index]}</p>
+      <div className='bg-secondary-100 flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-[1.625rem] py-[2.875rem] text-secondary-700 rounded-[30px] max-md:w-full max-md:py-[1.625rem] max-md:rounded-[16px]'>
+        <p className='text-[36px] font-bold max-md:text-[16px]'>{randomText[index]}</p>
       </div>
       {result || time === 0 ? (
         <>
-          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
+          <div className='bg-white font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
             <p className='leading-normal text-[36px] text-gray-600'>정확도 총점</p>
             <p className='leading-[1.35] text-[56px] text-primary-400'>
               {finalPercent}
@@ -114,6 +129,7 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
           </div>
           <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem]'>
             <Link
+              onClick={handleResult}
               className='mt-[16px] flex flex-col items-center'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`
@@ -125,14 +141,14 @@ const Question = ({ text, randomText, getWrongAnswer }: QuestionProps) => {
         </>
       ) : (
         <>
-          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
+          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
             {!isLoading ? (
               <>
                 <div className='text-center'>
-                  <p className='leading-normal text-[36px] text-gray-600'>정확도</p>
-                  <p className='leading-[1.35] text-[56px] text-primary-400'>
+                  <p className='leading-normal text-[36px] text-gray-600 max-md:text-[16px]'>정확도</p>
+                  <p className='leading-[1.35] text-[56px] text-primary-400 max-md:text-[32px]'>
                     {percent}
-                    <span className='text-[36px]'>%</span>
+                    <span className='text-[36px] max-md:text-[16px]'>%</span>
                   </p>
                 </div>
                 <div className='absolute right-[30px] flex flex-col items-center top-[40%]'>
