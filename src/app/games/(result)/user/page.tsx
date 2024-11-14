@@ -1,7 +1,7 @@
 import { JustEndedGameProp } from '@/types/result';
-import { Rank } from '@/types/rank';
+import { Rank, RankIncludingUserInfo } from '@/types/rank';
 import { createClient } from '@/utils/supabase/server';
-import { fetchUserId, fetchUserNickName } from '@/utils/auth/server-action';
+import { fetchUserId } from '@/utils/auth/server-action';
 import Link from 'next/link';
 import React from 'react';
 import ResultSide from '../_components/ResultSide';
@@ -9,11 +9,11 @@ import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
+import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
-  const nickName = await fetchUserNickName();
   const userId = await fetchUserId();
   const latestWeekData = await fetchLatestWeekData();
 
@@ -22,9 +22,9 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   }
 
   const latestWeek = latestWeekData?.week;
-  const { data: userTable }: { data: Rank | null } = await serverClient
+  const { data: userTable }: { data: RankIncludingUserInfo | null } = await serverClient
     .from('rank')
-    .select()
+    .select(`*,user(nickname)`)
     .eq('week', latestWeek)
     .eq('user_id', userId)
     .single();
@@ -73,7 +73,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           />
           <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
             <div className={`${matchedGame?.type} `}>
-              <span className='title-20 text-primary-500'>{nickName}</span>
+              <span className='title-20 text-primary-500'>{userTable?.user.nickname}</span>
               <span className='query body-16 '>님의</span>
               <div className='query title-32'>국어 문해력은?</div>
             </div>
@@ -87,11 +87,12 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
             </div>
 
             {/* 테스트 중 */}
-            <div className='mt-6'>
+            {/* <div className='mt-6'>
               <Button asChild>
-                <Link href={`/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nickName}`}>공유하기</Link>
+                <Link href={`/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${userTable?.user.nickname}`}>공유하기</Link>
               </Button>
-            </div>
+            </div> */}
+            <Modal />
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
