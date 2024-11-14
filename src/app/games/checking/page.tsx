@@ -12,9 +12,9 @@ import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutation
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
-import { useCheckingQuizStore } from '@/store/checkingStore';
-import { CheckingResult } from '@/types/checking';
+import { CheckingQuestion, CheckingResult } from '@/types/checking';
 import { Loader2 } from 'lucide-react';
+import { useInserCheckingResultMutation } from '@/mutations/writing-mutation';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
