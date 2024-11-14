@@ -9,6 +9,8 @@ import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
+import { useMediaQuery } from 'use-media-query-react';
+import TurtorialMobile from './TurtorialMobile';
 
 type Answer = {
   text: string;
@@ -20,6 +22,7 @@ function getRandomQuestion(textArray: string[]) {
 }
 
 const Speak = () => {
+  const isMobile = useMediaQuery('(max-width: 750px)');
   const [randomText, setRandomText] = useState<string[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
@@ -38,6 +41,7 @@ const Speak = () => {
     setIsGame,
   } = useSpeakStore();
   const { isDelay, resetTimer, setIsDelay } = useTimeStore();
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [wrongAnswer, setWrongAnswer] = useState<Answer[]>([]);
 
@@ -121,10 +125,10 @@ const Speak = () => {
   };
 
   return (
-    <div className='h-screen bg-[#FCFBF9]'>
+    <div className='h-screen bg-[#FCFBF9] max-md:px-4'>
       {!isDelay ? (
         <div className='w-screen h-screen'>
-          <Tutorial handleStart={handleStart} />
+          {!isMobile ? <Tutorial handleStart={handleStart} /> : <TurtorialMobile handleStart={handleStart} />}
         </div>
       ) : (
         <div className='flex flex-col items-center'>
@@ -132,6 +136,7 @@ const Speak = () => {
             text={text}
             randomText={randomText}
             getWrongAnswer={getWrongAnswer}
+            wrongAnswer={wrongAnswer}
           />
           <div className='flex flex-col items-center mt-20 text-center'>
             <button
