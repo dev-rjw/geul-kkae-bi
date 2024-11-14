@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { createClient } from '@/utils/supabase/client';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/queries/useAuth';
 import Swal from 'sweetalert2';
 import { Award, ChevronDown, ChevronRight, Loader2, LogOut, UserRound } from 'lucide-react';
-import { useAuth, useUser } from '@/queries/useAuth';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { Button } from '@/components/ui/button';
-import DefaultButton from './DefaultButton';
 import Avatar from './Avatar';
+import { useUser } from '@/queries/useUser';
+import DefaultButton from './DefaultButton';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();

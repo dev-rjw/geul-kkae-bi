@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import QueryProvider from '@/utils/QueryProvider';
+import GoogleAnalytics from '@/lib/GoogleAnalytics';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -48,10 +49,13 @@ export default function RootLayout({
 }>) {
   return (
     <QueryProvider>
-      <html lang='en'>
+      <html lang='ko'>
         <body
           className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen bg-secondary-50`}
         >
+          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+          ) : null}
           {children}
           <div id='global-modal' />
         </body>

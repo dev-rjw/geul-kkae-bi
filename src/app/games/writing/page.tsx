@@ -11,31 +11,41 @@ import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/writing-fetchQuestions';
 import { useInsertWritingMutation, useUpdateWritingMutation } from '@/mutations/writing-mutation';
 import { weekNumber } from '@/utils/week/weekNumber';
+//import { useWritingQuizStore } from '@/store/writingStore';
+import { PartialQuestion, Question } from '@/types/writing';
 
 const WritingQuizPage = () => {
   const { data: user } = useAuth();
   const userId = user?.id ?? null;
   const { data: questions = [], isLoading } = useFetchQuestions();
-  const [userInput, setUserInput] = useState('');
+  const userInputRef = useRef<HTMLInputElement | null>(null);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const scoreRef = useRef(0);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const [isTimeOver, setIsTimeOver] = useState(false);
-  const question = questions[currentQuizIndex];
+  const allResults = useRef<PartialQuestion[]>([]);
+  const question: Question = questions[currentQuizIndex];
   const router = useRouter();
   const insertScoreMutation = useInsertWritingMutation();
   const updateScoreMutation = useUpdateWritingMutation();
+  //const addWritingResult = useWritingQuizStore((state) => state.addWritingResult);
 
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
-    setUserInput('');
+    const userInput = userInputRef.current?.value || '';
     if (isTimeOver || isAllQuestions) return;
 
-    handleCheckAnswer();
+    handleCheckAnswer(userInput);
+    if (userInputRef.current) {
+      userInputRef.current.value = '';
+    }
+
     if (currentQuizIndex < questions.length - 1) {
       setCurrentQuizIndex((index) => index + 1);
     } else {
       saveScore(scoreRef.current);
+      //addWritingResult([...allResults.current]);
+      saveResultsToLocalStorage(allResults.current);
       moveToWritingResultPage(scoreRef.current);
       setIsAllQuestions(true);
     }
@@ -49,10 +59,22 @@ const WritingQuizPage = () => {
     }
   };
 
-  const handleCheckAnswer = () => {
-    if (userInput === question.answer) {
+  const handleCheckAnswer = (userAnswer: string) => {
+    const currentResult = {
+      test: question.question,
+      meaning: question.meaning,
+      keyword: question.consonant,
+      answer: question.answer,
+      userAnswer: userAnswer,
+    };
+    allResults.current.push(currentResult);
+
+    if (userAnswer === question.answer) {
       scoreRef.current += 10;
     }
+  };
+  const saveResultsToLocalStorage = (results: PartialQuestion[]) => {
+    localStorage.setItem('writingQuizResults', JSON.stringify(results));
   };
 
   const saveScore = async (score: number) => {
@@ -125,8 +147,7 @@ const WritingQuizPage = () => {
           <input
             type='text'
             placeholder='정답을 입력하고 엔터를 치세요'
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
+            ref={userInputRef}
             className='pt-16 border-b border-black focus:outline-none text-xl font-medium w-80 font-yangjin'
           />
         </form>

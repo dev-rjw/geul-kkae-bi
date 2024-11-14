@@ -1,11 +1,10 @@
-import ReactDOM from 'react-dom';
 
+import ReactDOM from 'react-dom';
 interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
-
 const ModalPortal = ({ open, onClose, children }: ModalProps) => {
   if (!open) return null;
   return ReactDOM.createPortal(
@@ -15,9 +14,9 @@ const ModalPortal = ({ open, onClose, children }: ModalProps) => {
         onClick={onClose}
       />
       <div className='fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] z-[80]'>{children}</div>
+
     </>,
     document.getElementById('global-modal') as HTMLElement,
   );
 };
-
 export default ModalPortal;

@@ -7,6 +7,9 @@ const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCloseModal = () => setIsModalOpen(false);
 
+const Modal = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleCloseModal = () => setIsModalOpen(false);
   return (
     <div className='z-10'>
       <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
@@ -15,11 +18,9 @@ const Modal = () => {
         onClose={handleCloseModal}
       >
         <ModalSpeaking />
-
         <button onClick={handleCloseModal}>모달 닫기</button>
       </ModalPortal>
     </div>
   );
 };
-
 export default Modal;

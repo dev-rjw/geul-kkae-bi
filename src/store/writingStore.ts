@@ -1,19 +1,12 @@
-// import { create } from 'zustand';
+import { PartialQuestion } from '@/types/writing';
+import { create } from 'zustand';
 
-// // 타입 정의
-// interface AnswerRecord {
-//   question: string;
-//   correctAnswer: string;
-//   userAnswer: string;
-// }
+type WritingQuizStore = {
+  results: PartialQuestion[];
+  addWritingResult: (allResult: PartialQuestion[]) => void;
+};
 
-// interface WritingStore {
-//   correctAnswers: AnswerRecord[];
-//   incorrectAnswers: AnswerRecord[];
-//   addCorrectAnswer: (answer: AnswerRecord) => void;
-//   addIncorrectAnswer: (answer: AnswerRecord) => void;
-// }
-
-// const useWritingStore = create<WritingStore>((set) => ({}));
-
-// export default useWritingStore;
+export const useWritingQuizStore = create<WritingQuizStore>((set) => ({
+  results: [],
+  addWritingResult: (results) => set(() => ({ results })),
+}));
