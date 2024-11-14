@@ -9,5 +9,6 @@ export type Question = {
   correct: string[];
   userAnswer: string;
   keyword: string;
+  isCorrect: boolean;
 };
-export type PartialQuestion = Pick<Question, 'test' | 'meaning' | 'answer' | 'userAnswer' | 'keyword'>;
+export type PartialQuestion = Pick<Question, 'test' | 'meaning' | 'answer' | 'userAnswer' | 'keyword' | 'isCorrect'>;

@@ -15,7 +15,6 @@ const Modal = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <CheckingModal />
         <WritingModal />
 
         <button onClick={handleCloseModal}>모달 닫기</button>

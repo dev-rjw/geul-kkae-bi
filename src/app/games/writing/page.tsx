@@ -66,6 +66,7 @@ const WritingQuizPage = () => {
       keyword: question.consonant,
       answer: question.answer,
       userAnswer: userAnswer,
+      isCorrect: userAnswer === question.answer,
     };
     allResults.current.push(currentResult);
 
