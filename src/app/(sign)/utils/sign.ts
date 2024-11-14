@@ -23,3 +23,13 @@ export const getLocalStorageValues = () => {
   // 기본값 반환하여 컴파일 에러 방지
   return { checking: null, speaking: null, writing: null };
 };
+
+// 리다이렉션 주소
+export const getURL = () => {
+  let url = process?.env?.NEXT_PUBLIC_SITE_URL ?? process?.env?.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000/';
+
+  url = url.startsWith('http') ? url : `https://${url}`;
+  url = url.endsWith('/') ? url : `${url}/`;
+
+  return url;
+};

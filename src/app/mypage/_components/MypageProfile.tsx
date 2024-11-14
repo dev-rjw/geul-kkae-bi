@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import Swal from 'sweetalert2';
 import { useUser } from '@/queries/useUser';
+import { deleteUser } from '@/utils/auth/server-action';
 
 const MypageProfile = () => {
   const supabase = createClient();
@@ -19,6 +20,7 @@ const MypageProfile = () => {
 
   const router = useRouter();
 
+  // 로그아웃
   const handleSignout = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -39,6 +41,52 @@ const MypageProfile = () => {
 
       router.push('/');
     }
+  };
+
+  // 회원탈퇴
+  const handleDeleteUser = async () => {
+    Swal.fire({
+      html: `<div class="text-gray-700">정말 탈퇴하시겠습니까?</div><div class="text-lg text-gray-500 mt-2">탈퇴 버튼 선택 시, <br />계정은 삭제되며 복구되지 않습니다.</div>`,
+      customClass: {
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text',
+        confirmButton: 'swal-custom-button',
+        cancelButton: 'swal-custom-button',
+      },
+      confirmButtonText: '탈퇴',
+      showCancelButton: true,
+      cancelButtonText: '취소',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteUser();
+
+          Swal.fire({
+            html: `<div class="text-gray-700">탈퇴가 완료되었습니다.</div>`,
+            customClass: {
+              title: 'swal-custom-title',
+              htmlContainer: 'swal-custom-text',
+              confirmButton: 'swal-custom-button',
+            },
+            confirmButtonText: '확인',
+          });
+
+          router.push('/');
+        } catch (error) {
+          console.error(error);
+
+          Swal.fire({
+            html: `<div class="text-gray-700">탈퇴에 실패했습니다.</div>`,
+            customClass: {
+              title: 'swal-custom-title',
+              htmlContainer: 'swal-custom-text',
+              confirmButton: 'swal-custom-button',
+            },
+            confirmButtonText: '확인',
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -80,7 +128,15 @@ const MypageProfile = () => {
             <Link href='/mypage/change-password'>비밀번호 변경</Link>
           </DefaultButton>
         </div>
-        <div className='flex items-center justify-center gap-4 mt-auto text-center'>
+        <div className='flex items-center justify-center gap-4 mt-auto pt-[2.5rem] text-center'>
+          <DefaultButton
+            variant='text'
+            className='text-white'
+            onClick={handleDeleteUser}
+          >
+            회원탈퇴
+          </DefaultButton>
+
           <DefaultButton
             variant='text'
             className='text-white'

@@ -13,5 +13,5 @@ export const changeProfileSchema = (currentNickname: string) => z.object({
       },
       { message: '중복된 닉네임입니다.' },
     ),
-  introduction: z.string().max(20, '한줄소개는 20자리 이하이어야 합니다.').optional(),
+  introduction: z.string().max(16, '한줄소개는 16자 이하이어야 합니다.').optional(),
 });
