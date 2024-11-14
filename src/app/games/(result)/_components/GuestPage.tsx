@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GamesArray, GamesScore, JustEndedGameProp } from '@/types/result';
 import ResultSide from '../_components/ResultSide';
-import '../style.css';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
@@ -56,7 +55,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
   return (
     <div>
       <div className='flex justify-center pt-7 pb-[1.875rem] '>
-        <div className='title-32 inline  relative'>
+        <div className='title-32 inline relative'>
           {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
         </div>
       </div>
@@ -73,7 +72,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
               <span className='query body-16'>님의</span>
               <div className='query title-32'>국어 문해력은?</div>
             </div>
-            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline  relative`}>
+            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline relative`}>
               <span className='score relative z-20'>{GameScore}점</span>
               <div
                 className={`h-[2.688rem] ${
@@ -112,7 +111,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
           })}
         </div>
       </div>
-      <div className='flex justify-center items-center  h-[138px]'>
+      <div className='flex justify-center items-center h-[138px]'>
         <div className='flex items-center gap-[221.04px]'>
           <div>
             <div className='body-22 text-gray-500'>종합 랭킹을 확인하려면</div>
