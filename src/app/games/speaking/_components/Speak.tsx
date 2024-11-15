@@ -9,8 +9,8 @@ import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
-import { useMediaQuery } from 'use-media-query-react';
 import TurtorialMobile from './TurtorialMobile';
+import { useIsMobile } from '@/utils/mediaquery/useMediaQuery';
 
 type Answer = {
   text: string;
@@ -22,7 +22,7 @@ function getRandomQuestion(textArray: string[]) {
 }
 
 const Speak = () => {
-  const isMobile = useMediaQuery('(max-width: 750px)');
+  const isMobile = useIsMobile();
   const [randomText, setRandomText] = useState<string[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
@@ -125,20 +125,20 @@ const Speak = () => {
   };
 
   return (
-    <div className='h-screen bg-[#FCFBF9] max-md:px-4'>
+    <div className='h-screen bg-[#FCFBF9]'>
       {!isDelay ? (
         <div className='w-screen h-screen'>
           {!isMobile ? <Tutorial handleStart={handleStart} /> : <TurtorialMobile handleStart={handleStart} />}
         </div>
       ) : (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center max-md:px-4'>
           <Question
             text={text}
             randomText={randomText}
             getWrongAnswer={getWrongAnswer}
             wrongAnswer={wrongAnswer}
           />
-          <div className='flex flex-col items-center mt-20 text-center'>
+          <div className='flex flex-col items-center mt-20 text-center max-md:mt-[5.188rem]'>
             <button
               disabled={isGame}
               onClick={isRecording ? stopRecording : startRecording}
@@ -149,14 +149,15 @@ const Speak = () => {
                 height={160}
                 alt='Audio'
                 priority
+                className='max-md:w-[5.375rem] max-md:h-[5.375rem] '
               />
             </button>
             {isGame ? (
-              <p className='text-[1.5rem] leading-normal mt-5'>게임이 종료 되었습니다</p>
+              <p className='text-[1.5rem] leading-normal mt-5 max-md:body-14'>게임이 종료 되었습니다</p>
             ) : isRecording ? (
-              <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 종료하기</p>
+              <p className='text-[1.5rem] leading-normal mt-5 max-md:body-14'>마이크 버튼을 눌러 종료하기</p>
             ) : (
-              <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 시작하기</p>
+              <p className='text-[1.5rem] leading-normal mt-5 max-md:body-14'>마이크 버튼을 눌러 시작하기</p>
             )}
           </div>
         </div>
