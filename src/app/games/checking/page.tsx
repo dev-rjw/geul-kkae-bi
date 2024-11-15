@@ -1,6 +1,6 @@
 'use client';
 import browserClient from '@/utils/supabase/client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -26,11 +26,20 @@ const CheckingQuizPage = () => {
   const allResults = useRef<CheckingResult[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isTimeOver, setIsTimeOver] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
   const inserCheckingResultMutation = useInserCheckingResultMutation();
+
+  const handleResize = () => setIsMobile(window.innerWidth <= 750);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const saveResultsToLocalStorage = (results: CheckingResult[]) => {
     localStorage.setItem('checkingQuizResults', JSON.stringify(results));
@@ -150,6 +159,7 @@ const CheckingQuizPage = () => {
       <QuizTimer
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
+        isMobile={isMobile}
       />
       <div className='flex-1 flex flex-col items-center justify-center mt-20'>
         <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl font-medium rounded-full'>{`${

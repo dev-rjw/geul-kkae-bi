@@ -1,6 +1,7 @@
 export interface QuizTimerProps {
   onTimeOver: () => void;
   isAllQuestions: boolean;
+  isMobile: boolean;
 }
 
 export interface QuestionUnderlineProps {
