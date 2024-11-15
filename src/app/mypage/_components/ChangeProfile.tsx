@@ -3,7 +3,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { fetchCurrentUserInfo, fetchProfile, saveProfile, updateUserInfo } from '@/utils/user/client-action';
+import { fetchCurrentUserInfoByEmail, fetchProfile, saveProfile, updateUserInfo } from '@/utils/user/client-action';
 import { FieldValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/queries/useAuth';
@@ -32,13 +32,9 @@ const ChangeProfile = () => {
   });
   const { setValue } = form;
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
   const fetchUserInfo = async () => {
     const email = data?.user_metadata.email;
-    const info = await fetchCurrentUserInfo(email);
+    const info = await fetchCurrentUserInfoByEmail(email);
 
     setUser(info);
 
@@ -47,6 +43,10 @@ const ChangeProfile = () => {
       setValue('introduction', info.introduction || '');
     }
   };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   const uploadImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -153,7 +153,7 @@ const ChangeProfile = () => {
 
             <div className='form-item'>
               <div className='form-label'>
-                <div className='form-title'>한줄소개</div>
+                <div className='form-title'>한 줄 소개</div>
               </div>
               <div className='form-field'>
                 <FormField
@@ -164,8 +164,8 @@ const ChangeProfile = () => {
                       <FormControl>
                         <DefaultInput
                           type='text'
-                          maxLength={20}
-                          placeholder='한줄소개를 입력해주세요'
+                          maxLength={16}
+                          placeholder='한 줄 소개를 입력해주세요'
                           {...field}
                         />
                       </FormControl>

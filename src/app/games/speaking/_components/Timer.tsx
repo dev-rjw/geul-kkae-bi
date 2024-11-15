@@ -16,7 +16,7 @@ type Upsert = {
 
 const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
   const { time, isDelay, setTimer } = useTimeStore();
-  const { index } = useSpeakStore();
+  const { index, setIsGame } = useSpeakStore();
   const router = useRouter();
 
   const handleAlert = () => {
@@ -53,15 +53,16 @@ const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
     }
     if (time === 0) {
       handleAlert();
+      setIsGame(true);
     }
     return () => clearInterval(countdown);
   }, [isDelay, time]);
 
   return (
     <div className='w-[100%]'>
-      <div className='w-full bg-[#fdeace] h-[28px] dark:bg-gray-700'>
+      <div className='w-full bg-secondary-100 h-[28px] dark:bg-gray-700 max-md:h-[14px]'>
         <div
-          className='bg-[#f9bc5f] h-[28px] rounded-r-[10px] transition-all ease-linear'
+          className='bg-bg-secondary-300 h-[28px] rounded-r-[10px] transition-all ease-linear max-md:h-[14px]'
           style={{ width: `${(time / 120) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>

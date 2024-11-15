@@ -9,8 +9,8 @@ interface QuizTimerProps {
 
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
   const [timeLeft, setTimeLeft] = useState(40);
-  const [isTutorial, setIstutorial] = useState(true);
-
+  const [isTutorial, setIsTutorial] = useState(true);
+  const workerRef = useRef<Worker | null>(null);
   const onTimeOverRef = useRef(onTimeOver);
 
   useEffect(() => {
@@ -18,29 +18,45 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   }, [onTimeOver]);
 
   useEffect(() => {
+    if (!workerRef.current) {
+      workerRef.current = new Worker(new URL('../util/TimerWorker.js', import.meta.url));
+
+      workerRef.current.onmessage = (e) => {
+        if (e.data === 'timeover') {
+          setTimeout(() => {
+            onTimeOverRef.current();
+          }, 1000);
+        } else if (typeof e.data === 'number') {
+          setTimeLeft(e.data);
+        }
+      };
+    }
+
+    return () => {
+      workerRef.current?.terminate();
+      workerRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
-    // 퀴즈 타이머 시작
-    const timer: NodeJS.Timeout = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(timer);
-          setTimeout(() => onTimeOverRef.current(), 0);
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [onTimeOver, isAllQuestions, isTutorial]);
+    workerRef.current?.postMessage('start');
+
+    return () => {
+      workerRef.current?.postMessage('stop');
+    };
+  }, [isAllQuestions, isTutorial]);
 
   const handleStartGame = () => {
-    setIstutorial(false);
+    setIsTutorial(false);
+    workerRef.current?.postMessage('start');
   };
 
   return (
     <div>
       {isTutorial ? (
-        <div className='fixed inset-0 z-50 bg-[#858584]'>
+        <div className='fixed inset-0 z-50 bg-[#2f2f2f] flex justify-center items-center'>
           <Image
             src='/writing_tutorial.svg'
             alt='Tutorial'
@@ -50,17 +66,15 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
           />
           <button
             onClick={handleStartGame}
-            className='absolute bottom-[32px] right-[62px] bg-[#92B9F2] px-[62px] py-[18px] rounded-full font-bold text-[38px] leading-[57px] '
+            className='start_writing_btn absolute bottom-[4.375rem] right-[62px] w-[209px] py-[15px] rounded-[80px]'
           >
-            시작하기
+            <span className='relative z-10 title-20 text-tertiary-g-800 text-shadow'>GAME START</span>
           </button>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <div className='w-full bg-[#BAF1E5] h-[28px]'>
         <div
-          className=' bg-[#2AD4AF] h-[28px] transition-all ease-linear rounded-r-lg'
+          className=' bg-tertiary-g-500 h-[28px] transition-all ease-linear rounded-r-lg'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>

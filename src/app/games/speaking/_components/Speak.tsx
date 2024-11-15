@@ -9,21 +9,54 @@ import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
+import { useMediaQuery } from 'use-media-query-react';
+import TurtorialMobile from './TurtorialMobile';
+
+type Answer = {
+  text: string;
+  score: number;
+};
 
 function getRandomQuestion(textArray: string[]) {
   return textArray.sort(() => Math.random() - 0.5).slice(0, 10);
 }
 
 const Speak = () => {
+  const isMobile = useMediaQuery('(max-width: 750px)');
   const [randomText, setRandomText] = useState<string[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
-  const { text, isRecording, setText, setIsRecording, setIsLoading, resetText, resetPercent, resetIndex } =
-    useSpeakStore();
+  const {
+    index,
+    text,
+    isRecording,
+    percent,
+    isGame,
+    setText,
+    setIsRecording,
+    setIsLoading,
+    resetText,
+    resetPercent,
+    resetIndex,
+    setIsGame,
+  } = useSpeakStore();
   const { isDelay, resetTimer, setIsDelay } = useTimeStore();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [wrongAnswer, setWrongAnswer] = useState<Answer[]>([]);
 
   const ondataavailable = (event: { data: Blob }) => {
     audioChunks.current = [event.data];
+  };
+
+  const getWrongAnswer = () => {
+    if (percent < 30) {
+      setWrongAnswer((prevQuestion) =>
+        !prevQuestion.some((item) => item.text === randomText[index])
+          ? [...prevQuestion, { text: randomText[index], score: percent }]
+          : prevQuestion,
+      );
+    }
   };
 
   const onStop = async () => {
@@ -32,10 +65,10 @@ const Speak = () => {
     const pcmData = await convertAudioToPCM(audioBlob);
     const data = await sendToAudio(pcmData);
     if (data) {
-      const jsonText = await data.trim().split(/\n(?={)/);
+      const jsonText = data.trim().split(/\n(?={)/);
       const jsonArray = jsonText.map((part) => JSON.parse(part.trim()));
       const text = jsonArray[jsonArray.length - 1];
-      await setText(text.text);
+      setText(text.text);
     }
     setIsLoading(false);
   };
@@ -63,6 +96,7 @@ const Speak = () => {
       resetPercent();
       resetTimer();
       resetIndex();
+      setIsGame(false);
     };
   }, []);
 
@@ -91,19 +125,24 @@ const Speak = () => {
   };
 
   return (
-    <div className='h-screen bg-[#FCFBF9]'>
+    <div className='h-screen bg-secondary-50 max-md:px-4'>
       {!isDelay ? (
         <div className='w-screen h-screen'>
-          <Tutorial handleStart={handleStart} />
+          {!isMobile ? <Tutorial handleStart={handleStart} /> : <TurtorialMobile handleStart={handleStart} />}
         </div>
       ) : (
         <div className='flex flex-col items-center'>
           <Question
             text={text}
             randomText={randomText}
+            getWrongAnswer={getWrongAnswer}
+            wrongAnswer={wrongAnswer}
           />
           <div className='flex flex-col items-center mt-20 text-center'>
-            <button onClick={isRecording ? stopRecording : startRecording}>
+            <button
+              disabled={isGame}
+              onClick={isRecording ? stopRecording : startRecording}
+            >
               <Image
                 src={icon}
                 width={160}
@@ -112,7 +151,9 @@ const Speak = () => {
                 priority
               />
             </button>
-            {isRecording ? (
+            {isGame ? (
+              <p className='text-[1.5rem] leading-normal mt-5'>게임이 종료 되었습니다</p>
+            ) : isRecording ? (
               <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 종료하기</p>
             ) : (
               <p className='text-[1.5rem] leading-normal mt-5'>마이크 버튼을 눌러 시작하기</p>

@@ -1,11 +1,7 @@
 'use client';
+import { QuizTimerProps } from '@/types/checking';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-
-interface QuizTimerProps {
-  onTimeOver: () => void;
-  isAllQuestions: boolean;
-}
 
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
   const [timeLeft, setTimeLeft] = useState(40);
@@ -14,14 +10,12 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   const onTimeOverRef = useRef(onTimeOver);
 
   useEffect(() => {
-    // onTimeOver가 변경될 때마다 ref 업데이트
     onTimeOverRef.current = onTimeOver;
   }, [onTimeOver]);
 
   useEffect(() => {
     if (isAllQuestions || isTutorial) return;
 
-    // 퀴즈 타이머 시작
     const timer: NodeJS.Timeout = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
@@ -41,7 +35,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className='fixed inset-0 z-50 bg-[#858584]'>
+        <div className='fixed inset-0 z-10 bg-[#252424]'>
           <Image
             src='/checking_tutorial.svg'
             alt='Tutorial'
@@ -50,18 +44,18 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
             priority
           />
           <button
-            className='absolute bottom-[2rem] right-[3.875rem] bg-[#92B9F2] px-[3.875rem] py-[1.125rem] rounded-full font-bold text-[2.375rem] leading-[3.563rem]'
+            className='start_checking_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
             onClick={handleStartGame}
           >
-            시작하기
+            <span className='relative z-10 title-20 text-tertiary-p-700'>GAME START</span>
           </button>
         </div>
       ) : (
         <></>
       )}
-      <div className='w-full bg-checking-100 h-7'>
+      <div className='w-full bg-tertiary-p-100 h-7'>
         <div
-          className=' bg-checking-300 h-7 transition-all ease-linear rounded-r-lg'
+          className=' bg-tertiary-p-300 h-7 transition-all ease-linear rounded-r-lg'
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>

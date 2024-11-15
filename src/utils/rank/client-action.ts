@@ -1,5 +1,6 @@
 import { createClient } from '../supabase/client';
 import { addScoresProps } from '@/types/user';
+import { weekNumber } from '@/utils/week/weekNumber';
 
 const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 
@@ -39,22 +40,26 @@ export const fetchRankTop3 = async (week: number) => {
 // 회원가입 시 rank 테이블에 정보 저장
 export const addScores = async ({ userId, checking, speaking, writing }: addScoresProps) => {
   const supabase = createClient();
-  const total = checking + speaking + writing;
-  // week 계산
-  const startSeason = new Date(2024, 9, 27);
-  const now = new Date();
-  const weekNumber = Math.floor((now.getTime() - startSeason.getTime()) / 604800000) + 1;
+  const isAllNone = checking === null && speaking === null && writing === null;
+  const isAllPresent = checking !== null && speaking !== null && writing !== null;
+  const total = isAllPresent ? checking + speaking + writing : null;
   const week = weekNumber;
 
-  const { error } = await supabase.from('rank').insert([{ user_id: userId, checking, speaking, writing, total, week }]);
+  const { data } = await supabase.from('rank').select('*').eq('user_id', userId).eq('week', week).single();
+
+  if (!data && !isAllNone) {
+    const { error: insertError } = await supabase
+      .from('rank')
+      .insert([{ user_id: userId, checking, speaking, writing, total, week }]);
+
+    if (insertError) {
+      return insertError;
+    }
+  }
 
   if (typeof window !== 'undefined') {
     localStorage.removeItem('checking');
     localStorage.removeItem('speaking');
     localStorage.removeItem('writing');
-  }
-
-  if (error) {
-    return error;
   }
 };

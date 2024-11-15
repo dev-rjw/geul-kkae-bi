@@ -32,7 +32,7 @@ export async function GET(request: Request) {
           await Promise.all([addNickname(user.id), addProfileImage(user.id), addProvider(user)]);
         }
 
-        return NextResponse.redirect(`${origin}/auth/callback-client`);
+        return NextResponse.redirect(`https://${forwardedHost}/auth/callback-client`);
       } else {
         return NextResponse.redirect(`${origin}${next}`);
       }
