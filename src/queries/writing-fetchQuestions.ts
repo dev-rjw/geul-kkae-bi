@@ -18,7 +18,7 @@ export const useFetchQuestions = () => {
   });
 };
 
-export const fetchWritingWrongAnswer = async (userId: string, weekNumber: number) => {
+export const fetchWritingWrongAnswer = async (userId: string | null, weekNumber: number) => {
   const { data, error } = await browserClient
     .from('answer')
     .select('*')
@@ -31,7 +31,7 @@ export const fetchWritingWrongAnswer = async (userId: string, weekNumber: number
   return data;
 };
 
-export const useFetchhWritingWrongAnswer = (userId: string, weekNumber: number) => {
+export const useFetchhWritingWrongAnswer = (userId: string | null, weekNumber: number) => {
   return useQuery({
     queryKey: ['WritingWrongAnswer'],
     queryFn: () => fetchWritingWrongAnswer(userId, weekNumber),
