@@ -1,6 +1,6 @@
 'use client';
 import browserClient from '@/utils/supabase/client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -15,7 +15,6 @@ import {
   useUpdateWritingMutation,
 } from '@/mutations/writing-mutation';
 import { weekNumber } from '@/utils/week/weekNumber';
-//import { useWritingQuizStore } from '@/store/writingStore';
 import { PartialQuestion, Question } from '@/types/writing';
 
 const WritingQuizPage = () => {
@@ -27,13 +26,21 @@ const WritingQuizPage = () => {
   const scoreRef = useRef(0);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const [isTimeOver, setIsTimeOver] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const allResults = useRef<PartialQuestion[]>([]);
   const question: Question = questions[currentQuizIndex];
   const router = useRouter();
   const insertScoreMutation = useInsertWritingMutation();
   const updateScoreMutation = useUpdateWritingMutation();
   const insertWritingResultMutation = useInsertWritingResultMutation();
-  //const addWritingResult = useWritingQuizStore((state) => state.addWritingResult);
+
+  const handleResize = () => setIsMobile(window.innerWidth <= 750);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const moveToNextQuiz = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +56,6 @@ const WritingQuizPage = () => {
       setCurrentQuizIndex((index) => index + 1);
     } else {
       saveScore(scoreRef.current);
-      //addWritingResult([...allResults.current]);
       saveResultsToLocalStorage(allResults.current);
       moveToWritingResultPage(scoreRef.current);
       setIsAllQuestions(true);
@@ -149,6 +155,7 @@ const WritingQuizPage = () => {
       <QuizTimer
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
+        isMobile={isMobile}
       />
       <div className='flex flex-col items-center justify-center mt-20'>
         <p className='inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-g-500 text-2xl font-medium rounded-full font-Pretendard'>{`${
