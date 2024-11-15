@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
 // import { Button } from '@/components/ui/button';
-import Modal from '../_components/Modal';
+// import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
