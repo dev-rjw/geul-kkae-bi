@@ -1,6 +1,7 @@
 import { User } from '@supabase/supabase-js';
 import { createClient } from '../supabase/server';
 import { randomNickname } from '@/app/(sign)/utils/sign';
+import { UserProfile } from '@/types/rank';
 
 // 소셜 회원에 닉네임 추가
 export const addNickname = async (userId: string) => {
@@ -67,5 +68,15 @@ export const addProvider = async (user: User) => {
         provider: user.app_metadata.provider,
       })
       .eq('user_id', user.id);
+  }
+};
+
+export const fetchUserProfile = async (userId: string | null | undefined) => {
+  const supabase = createClient();
+  const { data }: { data: UserProfile | null } = await supabase.from('user').select().eq('user_id', userId).single();
+  if (data) {
+    return data;
+  } else {
+    return null;
   }
 };
