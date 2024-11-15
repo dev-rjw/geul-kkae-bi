@@ -1,11 +1,8 @@
 'use client';
 
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { MobileTutorialProps } from '@/types/checking';
 import Image from 'next/image';
-
-type MobileTutorialProps = {
-  onStartGame: () => void;
-};
 
 const MobileTutorial: React.FC<MobileTutorialProps> = ({ onStartGame }) => {
   return (
