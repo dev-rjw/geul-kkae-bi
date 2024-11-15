@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 export const fetchWritingQuestions = async () => {
   const { data, error } = await browserClient.rpc('get_writing_questions');
   if (error) {
-    throw new Error('문제 데이터를 가져오지 못했습니다.');
+    throw new Error('문제 데이터를 가져오지 못했습니다.', error);
   }
   return data;
 };
@@ -13,6 +13,29 @@ export const useFetchQuestions = () => {
   return useQuery({
     queryKey: ['writingQuestions'],
     queryFn: fetchWritingQuestions,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+  });
+};
+
+export const fetchWritingWrongAnswer = async (userId: string, weekNumber: number) => {
+  const { data, error } = await browserClient
+    .from('answer')
+    .select('*')
+    .eq('game', 'writing')
+    .eq('user_id', userId)
+    .eq('week', weekNumber);
+  if (error) {
+    throw new Error('틀린 문제를 가져오지 못했습니다.', error);
+  }
+  return data;
+};
+
+export const useFetchhWritingWrongAnswer = (userId: string, weekNumber: number) => {
+  return useQuery({
+    queryKey: ['WritingWrongAnswer'],
+    queryFn: () => fetchWritingWrongAnswer(userId, weekNumber),
+    enabled: !userId,
     staleTime: 0,
     refetchOnWindowFocus: true,
   });
