@@ -1,23 +1,23 @@
-import { createClient } from '@/utils/supabase/server';
 import React from 'react';
-import { Rank, RankIncludingUserInfo, UserProfile } from '@/types/rank';
+import { Rank } from '@/types/rank';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
-import { fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
+import {
+  fetchLastWeek,
+  fetchLatestWeek,
+  fetchLatestWeekData,
+  fetchUserLastRank,
+  insertLastRankingData,
+} from '@/utils/rank/server-action';
 import { redirect } from 'next/navigation';
+import { fetchUserProfile } from '@/utils/user/server-action';
 
 const RankingPage = async () => {
-  const serverClient = createClient();
   const userId = await fetchUserId();
   const latestWeekData = await fetchLatestWeekData();
-
-  const { data: userProfile }: { data: UserProfile | null } = await serverClient
-    .from('user')
-    .select()
-    .eq('user_id', userId)
-    .single();
+  const userProfile = await fetchUserProfile(userId);
 
   //이번주 랭킹 로직
   let userTable;
@@ -26,12 +26,7 @@ const RankingPage = async () => {
   if (latestWeekData) {
     const latestWeek = latestWeekData.week;
 
-    const { data }: { data: RankIncludingUserInfo[] | null } = await serverClient
-      .from('rank')
-      .select(`*,user(nickname, introduction, image)`)
-      .eq('week', latestWeek)
-      .gte('total', 0)
-      .order('total', { ascending: false });
+    const data = await fetchLatestWeek(latestWeek);
 
     if (!data || data.length === 0) {
       redirect('/');
@@ -47,12 +42,7 @@ const RankingPage = async () => {
   if (latestWeekData && latestWeekData.week - 1 > 0) {
     const lastWeek = latestWeekData.week - 1;
 
-    const { data: lastWeekData } = await serverClient
-      .from('rank')
-      .select()
-      .eq('week', lastWeek)
-      .not('total', 'is', null)
-      .order('total', { ascending: false });
+    const lastWeekData = await fetchLastWeek(lastWeek);
 
     if (lastWeekData?.[0].ranking === null) {
       const countRanking: Rank[] | undefined = lastWeekData?.map((item, index) => ({
@@ -65,12 +55,7 @@ const RankingPage = async () => {
       }
     }
 
-    const { data: myLastrank }: { data: Rank | null } = await serverClient
-      .from('rank')
-      .select()
-      .eq('user_id', userId)
-      .eq('week', lastWeek)
-      .single();
+    const myLastRank = await fetchUserLastRank(userId, lastWeek);
 
     return (
       <div className='container pt-10 pb-4'>
@@ -187,7 +172,7 @@ const RankingPage = async () => {
                   </div>
                   <div className='flex items-center justify-between'>
                     <div className='text-primary-700'>지난주 순위</div>
-                    <div className='text-primary-600'>{myLastrank ? myLastrank?.ranking : ''}등</div>
+                    <div className='text-primary-600'>{myLastRank ? myLastRank?.ranking : ''}등</div>
                   </div>
                 </div>
                 <div className='flex flex-col justify-between self-stretch w-full max-w-[15.25rem] title-16'>
