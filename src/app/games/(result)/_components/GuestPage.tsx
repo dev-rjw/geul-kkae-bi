@@ -7,7 +7,7 @@ import ResultSide from '../_components/ResultSide';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
-import Modal from './Modal';
+// import Modal from './Modal';
 
 const GuestPage = ({ searchParams }: JustEndedGameProp) => {
   const [games, setGames] = useState<GamesArray[]>();
