@@ -1,23 +1,23 @@
-import { createClient } from '@/utils/supabase/server';
 import React from 'react';
-import { Rank, RankIncludingUserInfo, UserProfile } from '@/types/rank';
+import { Rank } from '@/types/rank';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
-import { fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
+import {
+  fetchLastWeek,
+  fetchLatestWeek,
+  fetchLatestWeekData,
+  fetchUserLastRank,
+  insertLastRankingData,
+} from '@/utils/rank/server-action';
 import { redirect } from 'next/navigation';
+import { fetchUserProfile } from '@/utils/user/server-action';
 
 const RankingPage = async () => {
-  const serverClient = createClient();
   const userId = await fetchUserId();
   const latestWeekData = await fetchLatestWeekData();
-
-  const { data: userProfile }: { data: UserProfile | null } = await serverClient
-    .from('user')
-    .select()
-    .eq('user_id', userId)
-    .single();
+  const userProfile = await fetchUserProfile(userId);
 
   //이번주 랭킹 로직
   let userTable;
@@ -26,12 +26,7 @@ const RankingPage = async () => {
   if (latestWeekData) {
     const latestWeek = latestWeekData.week;
 
-    const { data }: { data: RankIncludingUserInfo[] | null } = await serverClient
-      .from('rank')
-      .select(`*,user(nickname, introduction, image)`)
-      .eq('week', latestWeek)
-      .gte('total', 0)
-      .order('total', { ascending: false });
+    const data = await fetchLatestWeek(latestWeek);
 
     if (!data || data.length === 0) {
       redirect('/');
@@ -47,12 +42,7 @@ const RankingPage = async () => {
   if (latestWeekData && latestWeekData.week - 1 > 0) {
     const lastWeek = latestWeekData.week - 1;
 
-    const { data: lastWeekData } = await serverClient
-      .from('rank')
-      .select()
-      .eq('week', lastWeek)
-      .not('total', 'is', null)
-      .order('total', { ascending: false });
+    const lastWeekData = await fetchLastWeek(lastWeek);
 
     if (lastWeekData?.[0].ranking === null) {
       const countRanking: Rank[] | undefined = lastWeekData?.map((item, index) => ({
@@ -65,12 +55,7 @@ const RankingPage = async () => {
       }
     }
 
-    const { data: myLastrank }: { data: Rank | null } = await serverClient
-      .from('rank')
-      .select()
-      .eq('user_id', userId)
-      .eq('week', lastWeek)
-      .single();
+    const myLastRank = await fetchUserLastRank(userId, lastWeek);
 
     return (
       <div className='container pt-10 pb-4'>
@@ -128,7 +113,7 @@ const RankingPage = async () => {
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
-                    <strong className='title-20 w-[8.625rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
+                    <strong className='title-20 w-[8.875rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
                     <p className=' grow title-20 text-[#647BEE] -mb-1'>{item.user.introduction}</p>
                   </div>
                   <span className='body-36 ml-auto text-primary-700'>{item.total}점</span>
@@ -150,7 +135,7 @@ const RankingPage = async () => {
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
-                    <strong className='title-20 w-[8.625rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
+                    <strong className='title-20 w-[8.875rem] text-primary-700 -mb-1'>{item.user.nickname}</strong>
                     <p className=' grow title-20 text-[#647BEE] -mb-1'>{item.user.introduction}</p>
                   </div>
                   <span className='body-32 ml-auto text-primary-700'>{item.total}점</span>
@@ -187,20 +172,20 @@ const RankingPage = async () => {
                   </div>
                   <div className='flex items-center justify-between'>
                     <div className='text-primary-700'>지난주 순위</div>
-                    <div className='text-primary-600'>{myLastrank ? myLastrank?.ranking : ''}등</div>
+                    <div className='text-primary-600'>{myLastRank ? myLastRank?.ranking : ''}등</div>
                   </div>
                 </div>
                 <div className='flex flex-col justify-between self-stretch w-full max-w-[15.25rem] title-16'>
                   <div className='flex items-center justify-between'>
-                    <div className='text-primary-700'>주어진 문장읽기</div>
+                    <div className='text-primary-700'>나야, 발음왕</div>
                     <div className='text-primary-600'>{userTable?.[0]?.speaking}점</div>
                   </div>
                   <div className='flex items-center justify-between'>
-                    <div className='text-primary-700'>빈칸채우기</div>
+                    <div className='text-primary-700'>빈칸 한 입</div>
                     <div className='text-primary-600'>{userTable?.[0]?.writing}점</div>
                   </div>
                   <div className='flex items-center justify-between'>
-                    <div className='text-primary-700'>틀린것 맞추기</div>
+                    <div className='text-primary-700'>틀린 말 탐정단</div>
                     <div className='text-primary-600'>{userTable?.[0]?.checking}점</div>
                   </div>
                   <div className='flex items-center justify-between'>
