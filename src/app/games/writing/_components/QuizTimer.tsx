@@ -2,12 +2,7 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import MobileTutorial from './MobileTutorial';
-
-interface QuizTimerProps {
-  onTimeOver: () => void;
-  isAllQuestions: boolean;
-  isMobile: boolean;
-}
+import { QuizTimerProps } from '@/types/writing';
 
 const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile }) => {
   const [timeLeft, setTimeLeft] = useState(40);

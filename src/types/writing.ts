@@ -1,3 +1,13 @@
+export interface QuizTimerProps {
+  onTimeOver: () => void;
+  isAllQuestions: boolean;
+  isMobile: boolean;
+}
+
+export type MobileTutorialProps = {
+  onStartGame: () => void;
+};
+
 export type Question = {
   id: string;
   game_kind: string;
