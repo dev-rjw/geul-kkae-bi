@@ -52,3 +52,33 @@ export const fetchLatestWeek = async (latestWeek: number) => {
     return null;
   }
 };
+
+export const fetchLastWeek = async (lastWeek: number) => {
+  const supabase = createClient();
+  const { data } = await supabase
+    .from('rank')
+    .select()
+    .eq('week', lastWeek)
+    .not('total', 'is', null)
+    .order('total', { ascending: false });
+  if (data) {
+    return data;
+  } else {
+    return null;
+  }
+};
+
+export const fetchUserLastRank = async (userId: string | null | undefined, lastWeek: number) => {
+  const supabase = createClient();
+  const { data }: { data: Rank | null } = await supabase
+    .from('rank')
+    .select()
+    .eq('user_id', userId)
+    .eq('week', lastWeek)
+    .single();
+  if (data) {
+    return data;
+  } else {
+    return null;
+  }
+};
