@@ -40,7 +40,7 @@ export const confirmNickname = async (nickname: string, currentNickname?: string
 };
 
 // email로 현재 사용자 정보 조회
-export const fetchCurrentUserInfo = async (email: string) => {
+export const fetchCurrentUserInfoByEmail = async (email: string) => {
   const supabase = createClient();
   const { data, error } = await supabase.from('user').select('*').eq('email', email).single();
 

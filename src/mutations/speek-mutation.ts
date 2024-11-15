@@ -49,3 +49,33 @@ export const useUpdateMutation = () => {
     },
   });
 };
+
+const insertSpeekResult = async (result: {
+  userId: string | undefined;
+  answer: string;
+  game: string;
+  weekNumber: number;
+}) => {
+  return await browserClient
+    .from('answer')
+    .insert({
+      user_id: result.userId,
+      answer: result.answer,
+      game: result.game,
+      week: result.weekNumber,
+    })
+    .select();
+};
+export const useInsertResultMutation = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: insertSpeekResult,
+    onSuccess: async () => {
+      client.invalidateQueries({ queryKey: ['speekResult'] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};

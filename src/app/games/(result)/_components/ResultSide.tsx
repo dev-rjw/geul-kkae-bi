@@ -43,7 +43,7 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
       <div className='max-w-[402px] mt-9 mx-auto'>
         <h3 className='text-center title-20'>작품명</h3>
         <p className='txt text-center title-24'>{text}</p>
-        <div className='game_image_box rounded-[18px] relative border-8 border-solid inline-block mt-8'>
+        <div className='game-image-box rounded-[18px] relative border-8 border-solid inline-block mt-8'>
           <Image
             width={396}
             height={272}
@@ -53,8 +53,8 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
         </div>
         <div className='bg-white rounded-[90px] px-2.5 py-2 mt-[3.063rem]'>
           <div
-            className='progress_bar relative h-11 rounded-[90px] transition-all ease-linear'
-            style={{ width: `${score}%`, transitionDuration: '1s' }}
+            className='progress-bar relative h-11 rounded-[90px] transition-all ease-linear'
+            style={{ width: `${score}%`, maxWidth: '100%', transitionDuration: '1s' }}
           >
             <div className='progress absolute top-1/2 right-0 translate-y-[-50%]'></div>
           </div>

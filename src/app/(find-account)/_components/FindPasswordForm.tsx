@@ -8,7 +8,7 @@ import { findPasswordSchema } from '@/schemas/findSchema';
 import { findPassword } from '@/utils/auth/client-action';
 import DefaultButton from '@/components/DefaultButton';
 import EmailInput from '@/components/EmailInput';
-import { fetchCurrentUserInfo } from '@/utils/user/client-action';
+import { fetchCurrentUserInfoByEmail } from '@/utils/user/client-action';
 import Swal from 'sweetalert2';
 
 const FindPasswordForm = () => {
@@ -25,7 +25,7 @@ const FindPasswordForm = () => {
   const onSubmit = async (values: FieldValues) => {
     const { email } = values;
 
-    const user = await fetchCurrentUserInfo(email);
+    const user = await fetchCurrentUserInfoByEmail(email);
 
     if (user?.provider === 'google' || user?.provider === 'kakao') {
       Swal.fire({
