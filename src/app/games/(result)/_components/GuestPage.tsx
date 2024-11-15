@@ -80,7 +80,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
                 } absolute w-full -bottom-5 z-10`}
               />
             </div>
-            <Modal />
+{/*             <Modal /> */}
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
