@@ -6,6 +6,10 @@ import { weekCalculate } from '@/utils/rank/client-action';
 import { useAuth } from '@/queries/useAuth';
 import { useUserRank } from '@/queries/useRank';
 import { useUser } from '@/queries/useUser';
+import { fetchLatestWeekData } from '@/utils/rank/server-action';
+import { RankIncludingUserInfo } from '@/types/rank';
+import { createClient } from '@/utils/supabase/client';
+import { useEffect, useState } from 'react';
 
 const MypageMyRank = () => {
   const { data } = useAuth();
@@ -13,8 +17,36 @@ const MypageMyRank = () => {
   const user_id = data?.id;
 
   const { data: user } = useUser(email);
-  const { data: rank } = useUserRank(user_id!, weekCalculate(0));
   const { data: beforeRank } = useUserRank(user_id!, weekCalculate(-1));
+
+  const [rank, setRank] = useState<number>(0);
+
+  const fetchLatestWeekRank = async () => {
+    const latestWeekData = await fetchLatestWeekData();
+    if (latestWeekData) {
+      const latestWeek = latestWeekData.week;
+
+      const { data }: { data: RankIncludingUserInfo[] | null } = await createClient()
+        .from('rank')
+        .select(`*,user(nickname, introduction, image)`)
+        .eq('week', latestWeek)
+        .gte('total', 0)
+        .order('total', { ascending: false });
+
+      //이번주 전체 등수
+      const countRanking = data?.map((item, index) => ({ ...item, ranking: index + 1 }));
+      //이번주 내 등수
+      const userTable = countRanking?.filter((user) => user.user_id === user_id);
+
+      return userTable?.[0]?.ranking;
+    }
+  };
+
+  useEffect(() => {
+    fetchLatestWeekRank().then((element) => {
+      setRank(element!);
+    });
+  }, [rank]);
 
   const fetchThisWeek = () => {
     // 금주 일자를 알려주는 알고리즘
@@ -63,7 +95,7 @@ const MypageMyRank = () => {
             className='mx-auto'
           />
         </div>
-        <div className='title-40 text-white mt-2'>{rank?.ranking || '-'}위</div>
+        <div className='title-40 text-white mt-2'>{rank || ''}위</div>
       </div>
 
       <div className='h-1 bg-primary-100 border-t-2 border-primary-400 opacity-40' />
