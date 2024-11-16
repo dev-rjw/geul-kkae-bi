@@ -22,13 +22,13 @@ export type Rank = {
 };
 
 const MainRank = () => {
-  const { data } = useAuth();
+  const { data: user } = useAuth();
   const { data: ranks } = useRank(weekCalculate(0));
   const router = useRouter();
 
   return (
     <Card className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden'>
-      {!data?.id && (
+      {!user?.id && (
         <div
           className='absolute top-0 left-0 z-10 w-full h-full flex items-center justify-center'
           style={{ backdropFilter: 'blur(10px)' }}

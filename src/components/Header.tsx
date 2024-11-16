@@ -218,8 +218,15 @@ const Header = () => {
               )}
             </div>
 
-            {infoPaths.includes(pathname) && <HeaderInfoChange />}
+            <div className='max-md:hidden'>
+              <HeaderInfoChange />
+            </div>
             <div className='header-mobile-right'>
+              {infoPaths.includes(pathname) && (
+                <div className='pr-4'>
+                  <HeaderInfoChange />
+                </div>
+              )}
               {homePaths.includes(pathname) && (
                 <Button
                   size='icon'

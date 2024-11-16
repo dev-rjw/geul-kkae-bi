@@ -327,7 +327,7 @@ const SignupForm = () => {
           />
         </div>
         <hr className='border-t-1 border-gray-200 mt-[3.125rem] max-md:hidden' />
-        <div className='flex justify-center mt-14 max-sm:mt-6'>
+        <div className='flex justify-center mt-14 max-md:mt-6'>
           <DefaultButton
             disabled={!formState.isValid}
             className='w-full max-w-[15rem] max-md:max-w-none'

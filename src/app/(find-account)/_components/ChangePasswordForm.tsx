@@ -31,7 +31,7 @@ const ChangePasswordForm = () => {
     resolver: zodResolver(changePasswordSchema),
     defaultValues,
   });
-  const { getFieldState, watch } = form;
+  const { getFieldState, watch, formState } = form;
   const passwordValue = watch('password');
   const confirmPasswordValue = watch('confirmPassword');
 
@@ -69,20 +69,20 @@ const ChangePasswordForm = () => {
   return (
     <>
       {error ? (
-        <div>
+        <div className='max-md:mt-12'>
           <p className='body-20 text-center text-gray-700 mb-10'>
             비밀번호 변경을 위한 이메일 링크가 <br />
             유효하지 않거나 만료 되었어요.
             <br />
             다시 시도해주세요!
           </p>
-          <hr className='border-t-1 border-gray-200 my-[3.125rem]' />
-          <div className='flex justify-center mt-[3.125rem]'>
+          <hr className='border-t-1 border-gray-200 my-[3.125rem] mb-[3.125rem] max-md:hidden' />
+          <div className='flex justify-center mt-[3.125rem] max-md:mt-[5rem]'>
             <DefaultButton
               asChild
-              className='w-full max-w-[15rem]'
+              className='w-full max-w-[15rem] max-md:max-w-none'
             >
-              <Link href='/find-password'>확인</Link>
+              <Link href='/find-password'>돌아가기</Link>
             </DefaultButton>
           </div>
         </div>
@@ -162,9 +162,14 @@ const ChangePasswordForm = () => {
               </div>
             </div>
 
-            <hr className='border-t-1 border-gray-200 mt-[2.5rem] mb-[3.125rem]' />
-            <div className='flex justify-center mt-[3.125rem]'>
-              <DefaultButton className='w-full max-w-[15rem]'>확인</DefaultButton>
+            <hr className='border-t-1 border-gray-200 mt-[2.5rem] mb-[3.125rem] max-md:hidden' />
+            <div className='flex justify-center mt-[3.125rem] max-md:mt-[3.75rem]'>
+              <DefaultButton
+                disabled={!formState.isValid}
+                className='w-full max-w-[15rem] max-md:max-w-none'
+              >
+                변경하기
+              </DefaultButton>
             </div>
           </form>
         </Form>

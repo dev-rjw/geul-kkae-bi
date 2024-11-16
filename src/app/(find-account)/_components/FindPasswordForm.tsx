@@ -22,6 +22,8 @@ const FindPasswordForm = () => {
     defaultValues,
   });
 
+  const { getFieldState, formState } = form;
+
   const onSubmit = async (values: FieldValues) => {
     const { email } = values;
 
@@ -64,23 +66,35 @@ const FindPasswordForm = () => {
           <FormField
             control={form.control}
             name='email'
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <EmailInput
-                    field={field}
-                    domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
-                  />
-                </FormControl>
-                <FormMessage className='form-message' />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const fieldState = getFieldState('email');
+              return (
+                <FormItem>
+                  <FormControl>
+                    <EmailInput
+                      field={field}
+                      domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
+                      inputClassName={`
+                      ${fieldState.invalid ? 'border-red-500' : 'border-gray-300'}
+                      ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                    `}
+                    />
+                  </FormControl>
+                  <FormMessage className='form-message' />
+                </FormItem>
+              );
+            }}
           />
         </div>
 
-        <hr className='border-t-1 border-gray-200 my-[3.125rem]' />
-        <div className='flex justify-center mt-[3.125rem]'>
-          <DefaultButton className='w-full max-w-[15rem]'>메일 받기</DefaultButton>
+        <hr className='border-t-1 border-gray-200 my-[3.125rem] max-md:hidden' />
+        <div className='flex justify-center mt-[3.125rem] max-md:mt-[3.75rem]'>
+          <DefaultButton
+            disabled={!formState.isValid}
+            className='w-full max-w-[15rem] max-md:max-w-none'
+          >
+            메일 전송
+          </DefaultButton>
         </div>
       </form>
     </Form>

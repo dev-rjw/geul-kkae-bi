@@ -4,13 +4,13 @@ import Swal from 'sweetalert2';
 import { HeaderMobileMenuProps } from '@/types/header';
 import { useAuth } from '@/queries/useAuth';
 
-const HeaderMobileItem = ({ item }: HeaderMobileMenuProps) => {
+const HeaderMobileMenuItem = ({ item }: HeaderMobileMenuProps) => {
   const router = useRouter();
-  const { data } = useAuth();
+  const { data: user } = useAuth();
   const restrictedLink = ['/games/rank', '/answer'];
 
   const handleMenuClick = (link: string | undefined) => {
-    if (restrictedLink.includes(link || '') && !data) {
+    if (restrictedLink.includes(link || '') && !user) {
       Swal.fire({
         html: `<div class="text-gray-600">글깨비의 다양한 기능은 <br/>로그인을 하시면 이용하실 수 있어요!</div>`,
         customClass: {
@@ -36,17 +36,13 @@ const HeaderMobileItem = ({ item }: HeaderMobileMenuProps) => {
 
   return (
     <li className='heaber-mobile-menu-item'>
-      {item.link ? (
-        <span
-          className='heaber-mobile-menu-title'
-          onClick={() => handleMenuClick(item.link)}
-        >
-          <div className='heaber-mobile-menu-icon'>{item.icon && <item.icon />}</div>
-          {item.title}
-        </span>
-      ) : (
-        <span className='heaber-mobile-menu-title'>{item.title}</span>
-      )}
+      <span
+        className='heaber-mobile-menu-title'
+        onClick={() => handleMenuClick(item.link)}
+      >
+        <div className='heaber-mobile-menu-icon'>{item.icon && <item.icon />}</div>
+        {item.title}
+      </span>
 
       <div className='heaber-mobile-menu-content'>
         <ul className='heaber-mobile-menu-children'>
@@ -68,4 +64,4 @@ const HeaderMobileItem = ({ item }: HeaderMobileMenuProps) => {
   );
 };
 
-export default HeaderMobileItem;
+export default HeaderMobileMenuItem;

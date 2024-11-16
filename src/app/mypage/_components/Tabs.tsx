@@ -17,7 +17,7 @@ const Tabs = () => {
 
   return (
     <div>
-      <div className='pb-14'>
+      <div className='pb-14 max-md:pb-7'>
         <div className='flex items-center justify-between border-b border-gray-500'>
           <div>
             <button
@@ -41,6 +41,7 @@ const Tabs = () => {
           <DefaultButton
             asChild
             size='sm'
+            className='max-md:hidden'
           >
             <Link href='/mypage'>
               <UserRound />

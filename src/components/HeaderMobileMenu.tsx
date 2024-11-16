@@ -4,7 +4,7 @@ import { useAuth } from '@/queries/useAuth';
 import { useSignout } from '@/utils/sign/signout';
 import { HeaderMobileMenuData } from '@/types/header';
 import { Button } from './ui/button';
-import HeaderMobileItem from './HeaderMobileItem';
+import HeaderMobileMenuItem from './HeaderMobileMenuItem';
 
 const HEADER_MOBILE_MENU_DATA: HeaderMobileMenuData[] = [
   {
@@ -70,12 +70,12 @@ const HEADER_MOBILE_MENU_DATA: HeaderMobileMenuData[] = [
 ];
 
 const HeaderMobileMenu = () => {
-  const { data } = useAuth();
+  const { data: user } = useAuth();
   const { handleSignout } = useSignout();
 
   return (
     <div className='heaber-moblie-menu'>
-      {data && (
+      {user && (
         <>
           <MyProfileInfo />
           <div className='h-[0.375rem] bg-primary-50 border-t-2 border-primary-100' />
@@ -85,8 +85,8 @@ const HeaderMobileMenu = () => {
       <div className='grow p-3'>
         <ul className='flex flex-col gap-1'>
           {HEADER_MOBILE_MENU_DATA.map((item) =>
-            item.link === '/mypage' && !data ? null : (
-              <HeaderMobileItem
+            item.link === '/mypage' && !user ? null : (
+              <HeaderMobileMenuItem
                 key={item.id}
                 item={item}
               />
@@ -94,7 +94,7 @@ const HeaderMobileMenu = () => {
           )}
         </ul>
       </div>
-      {data && (
+      {user && (
         <>
           <div className='h-[0.375rem] bg-primary-50 border-t-2 border-primary-100 mt-auto' />
           <Button

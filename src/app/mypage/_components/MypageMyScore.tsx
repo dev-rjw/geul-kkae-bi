@@ -6,8 +6,8 @@ import { useAuth } from '@/queries/useAuth';
 import { useUserRank } from '@/queries/useRank';
 
 const MypageMyScore = () => {
-  const { data } = useAuth();
-  const user_id = data?.id;
+  const { data: user } = useAuth();
+  const user_id = user?.id;
   const { data: rank } = useUserRank(user_id!, weekCalculate(0));
 
   return (
