@@ -68,7 +68,7 @@ const SigninForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 max-md:gap-[0.375rem]'>
           <FormField
             control={form.control}
             name='email'
@@ -112,7 +112,7 @@ const SigninForm = () => {
           />
         </div>
 
-        <div className='mt-[0.625rem]'>
+        <div className='mt-3 max-md:mt-4'>
           <FormField
             control={form.control}
             name='rememberedEmail'

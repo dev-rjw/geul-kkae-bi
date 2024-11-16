@@ -214,7 +214,7 @@ const Header = () => {
               ) : gamePaths.includes(pathname) ? (
                 <span className={getGameClass(pathname)}>{header.title}</span>
               ) : (
-                <span className='body-18'>{header.title}</span>
+                <span className='body-18 text-gray-700'>{header.title}</span>
               )}
             </div>
 

@@ -22,8 +22,8 @@ const SigninPage = async () => {
 
   return (
     <div className='container min-h-content flex py-16 max-md:py-10'>
-      <div className='w-full max-w-[23.875rem] m-auto'>
-        <div className='flex justify-center mb-16'>
+      <div className='w-full max-w-[23.875rem] m-auto max-sm:max-w-[24.875rem] max-md:my-0'>
+        <div className='flex justify-center mb-16 max-md:mb-[3.75rem]'>
           <Link
             href='/'
             className='relative flex items-center w-[16.375rem] aspect-[190/62] max-lg:w-[11.875rem]'
