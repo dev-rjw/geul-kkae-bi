@@ -4,7 +4,7 @@ import React from 'react';
 
 const NotFound = () => {
   return (
-    <div className='w-screen h-screen flex flex-col items-center justify-center'>
+    <div className='w-screen min-h-content py-10 flex flex-col items-center justify-center'>
       <div>
         <Image
           src='/character_404.svg'

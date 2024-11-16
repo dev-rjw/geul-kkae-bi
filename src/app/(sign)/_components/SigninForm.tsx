@@ -126,7 +126,7 @@ const SigninForm = () => {
                   />
                   <label
                     htmlFor='rememberedEmail'
-                    className='text-sm font-bold text-gray-500 ml-[0.375rem] leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                    className='text-sm font-bold text-gray-500 ml-[0.188rem]] leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                   >
                     아이디 기억하기
                   </label>

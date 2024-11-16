@@ -6,42 +6,18 @@ import LineTitle from '@/components/LineTitle';
 import { useAuth } from '@/queries/useAuth';
 import DefaultButton from '@/components/DefaultButton';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
 import Swal from 'sweetalert2';
 import { useUser } from '@/queries/useUser';
 import { deleteUser } from '@/utils/auth/server-action';
+import { useSignout } from '@/utils/sign/signout';
 
 const MypageProfile = () => {
-  const supabase = createClient();
-
   const { data } = useAuth();
   const email = data?.user_metadata.email;
   const { data: user } = useUser(email);
+  const { handleSignout } = useSignout();
 
   const router = useRouter();
-
-  // 로그아웃
-  const handleSignout = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error('로그아웃에 실패했습니다.');
-    } else {
-      Swal.fire({
-        html: `<div class="text-gray-700">로그아웃 되었습니다.</div>`,
-        customClass: {
-          title: 'swal-custom-title',
-          htmlContainer: 'swal-custom-text',
-          confirmButton: 'swal-custom-button',
-        },
-        confirmButtonText: '확인',
-      });
-
-      router.push('/');
-    }
-  };
 
   // 회원탈퇴
   const handleDeleteUser = async () => {
@@ -102,8 +78,9 @@ const MypageProfile = () => {
         </div>
 
         <Avatar
-          size='17rem'
           src={user?.image}
+          size='17rem'
+          className='w-[17rem] h-[17rem]'
         />
         <div className='mt-[2.5rem] text-center'>
           <h2 className='text-[1.75rem] font-bold'>{user?.nickname ? user?.nickname : '닉네임'}</h2>

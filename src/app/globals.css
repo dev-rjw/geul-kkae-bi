@@ -6,9 +6,9 @@
   :root {
     --background: 40 33.33% 98.24%;
     --foreground: 60 0.93% 20.98%;
-    --card: 40 33.33% 98.24%;
+    --card: 0 0% 100%;
     --card-foreground: 60 0.93% 20.98%;
-    --popover: 40 33.33% 98.24%;
+    --popover: 0 0% 100%;
     --popover-foreground: 60 0.93% 20.98%;
     --primary: 215 79% 56%;
     --primary-foreground: 210 20% 98%;
@@ -30,6 +30,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     --gutter: 1rem;
+    --header-height: 5rem;
 
     --color-primary-50: #edf3fd;
     --color-primary-100: #bfd6f7;
@@ -117,6 +118,11 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+  }
+  @media (max-width: 768px) {
+    :root {
+      --header-height: 3.125rem;
+    }
   }
   * {
     @apply border-border;
@@ -312,6 +318,179 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .min-h-content {
+    min-height: calc(100vh - var(--header-height));
+  }
+
+  .header {
+    @apply sticky top-0 z-[1000] w-full bg-secondary-50 flex items-center;
+    height: var(--header-height);
+  }
+  .heaber-pc-menu {
+    @apply flex items-center gap-[0.625rem];
+  }
+  .heaber-pc-menu-item {
+    @apply relative;
+  }
+  .heaber-pc-menu-title {
+    @apply flex items-center justify-center text-xl font-semibold text-gray-600 px-[0.625rem] border-b-4 border-transparent cursor-pointer transition-all max-lg:text-base;
+    height: var(--header-height);
+  }
+  .heaber-pc-menu-content {
+    @apply absolute left-0 hidden pt-2;
+    top: var(--header-height);
+  }
+  .menu-on .heaber-pc-menu-title,
+  .heaber-pc-menu-item:hover .heaber-pc-menu-title {
+    @apply font-bold text-primary-500 border-primary-400;
+  }
+  .menu-on .heaber-pc-menu-content {
+    @apply !flex;
+  }
+  .heaber-pc-menu-children {
+    @apply flex gap-1 min-w-[21rem] p-2 bg-white;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  }
+  .heaber-pc-menu-children-title {
+    @apply flex items-center justify-center min-w-[6.5rem] p-[0.625rem] text-sm font-semibold text-gray-600 rounded-lg transition-all hover:font-bold hover:bg-primary-50 hover:text-primary-400;
+  }
+
+  .header-mobile-left {
+    @apply hidden max-md:flex absolute top-0 left-0 z-10 h-[3.125rem] items-center justify-center;
+  }
+  .header-mobile-right {
+    @apply hidden max-md:flex absolute top-0 right-0 z-10 h-[3.125rem] items-center justify-center;
+  }
+  .heaber-moblie-menu {
+    @apply fixed flex flex-col w-[11.75rem] bg-white rounded-r-md overflow-hidden;
+    top: var(--header-height);
+    left: 0;
+    height: calc(100vh - var(--header-height));
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease-out;
+    transform: translateX(-101%);
+  }
+  header.menu-open .heaber-moblie-menu {
+    transform: translateX(0);
+  }
+  .heaber-mobile-menu-title {
+    @apply flex items-center gap-[0.375rem] h-8 rounded-md p-[0.375rem] text-sm font-bold text-gray-600 cursor-pointer hover:text-primary-400 hover:bg-primary-100 transition-colors;
+  }
+  .heaber-mobile-menu-icon {
+    @apply flex items-center justify-center w-[1.375rem] h-[1.375rem] rounded-full bg-primary-50 text-primary-200;
+  }
+  .heaber-mobile-menu-title:hover .heaber-mobile-menu-icon {
+    @apply text-primary-400;
+  }
+  .heaber-mobile-menu-icon > svg {
+    @apply w-4 h-4;
+  }
+  .heaber-mobile-menu-content {
+    @apply pt-1 pl-9;
+  }
+  .heaber-mobile-menu-children {
+    @apply flex flex-col gap-1;
+  }
+  .heaber-mobile-menu-children-title {
+    @apply flex items-center gap-[0.375rem] h-8 rounded-md p-[0.375rem] text-sm font-bold text-gray-400 hover:text-primary-400 hover:bg-primary-100;
+  }
+  .heaber-mobile-menu-children-dot {
+    @apply w-1 h-1 rounded-full bg-primary-100;
+  }
+  .heaber-mobile-menu-children-title:hover .heaber-mobile-menu-children-dot {
+    @apply bg-primary-300;
+  }
+
+  .heaber-moblie-title,
+  .heaber-moblie-title-speaking,
+  .heaber-moblie-title-checking,
+  .heaber-moblie-title-writing {
+    @apply relative text-xl font-bold leading-tight;
+  }
+  .heaber-moblie-title:before,
+  .heaber-moblie-title-speaking:before,
+  .heaber-moblie-title-checking:before,
+  .heaber-moblie-title-writing:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 8px;
+  }
+  .heaber-moblie-title-speaking {
+    @apply text-secondary-700;
+  }
+  .heaber-moblie-title-checking {
+    @apply text-tertiary-p-600;
+  }
+  .heaber-moblie-title-writing {
+    @apply text-tertiary-g-700;
+  }
+  .heaber-moblie-title-speaking:before {
+    @apply bg-secondary-200;
+  }
+  .heaber-moblie-title-checking:before {
+    @apply bg-tertiary-p-100;
+  }
+  .heaber-moblie-title-writing:before {
+    @apply bg-tertiary-g-200;
+  }
+}
+
+.hamburger-btn {
+  position: relative;
+  z-index: 6;
+  width: 3.125rem;
+  height: 3.125rem;
+  cursor: pointer;
+}
+.hamburger-btn span,
+.hamburger-btn span:before,
+.hamburger-btn span:after {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 2px;
+  margin: auto;
+  background-color: var(--color-gray-700);
+  border-radius: 999px;
+}
+.hamburger-btn span:before,
+.hamburger-btn span:after {
+  position: absolute;
+  content: '';
+  left: auto;
+  right: 0;
+  transition-property: margin, transform;
+  transition-duration: 0.2s;
+}
+.hamburger-btn span:before {
+  margin-top: -0.375rem;
+}
+.hamburger-btn span:after {
+  margin-top: 0.375rem;
+}
+.menu-open .hamburger-btn span:before,
+.menu-open .hamburger-btn span:after {
+  left: auto;
+  right: auto;
+  margin-top: 0;
+  transition-delay: 0s, 0.2s;
+}
+.menu-open .hamburger-btn span {
+  background-color: rgba(0, 0, 0, 0) !important;
+  transition: all ease-out 0.2s;
+}
+.menu-open .hamburger-btn span::before {
+  transform: rotate(45deg);
+}
+.menu-open .hamburger-btn span::after {
+  transform: rotate(-45deg);
 }
 
 .form-items {
@@ -474,6 +653,10 @@
   color: var(--color-tertiary-g-700);
 }
 
+div:where(.swal2-container) {
+  width: 100vw;
+  height: 100vh !important;
+}
 .swal2-popup {
   width: 100%;
   max-width: 23.125rem;

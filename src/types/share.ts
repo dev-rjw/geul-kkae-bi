@@ -3,10 +3,12 @@ export type ShareUrlProps = {
 };
 
 export type GameData = {
-  name: string;
-  type: string;
-  styles: {
-    color: string;
-    highlightScoreColor: string;
+  [key: string]: {
+    name: string;
+    type: string;
+    styles: {
+      color: string;
+      highlightScoreColor: string;
+    };
   };
 };

@@ -58,9 +58,9 @@ const MypageMyRank = () => {
             />
           </div>
           <Avatar
-            size='6.625rem'
             src={user?.image}
-            className='mx-auto'
+            size='6.625rem'
+            className='mx-auto w-[6.625rem] h-[6.625rem]'
           />
         </div>
         <div className='title-40 text-white mt-2'>{rank?.ranking || '-'}위</div>

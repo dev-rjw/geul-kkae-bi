@@ -21,26 +21,26 @@ const SigninPage = async () => {
   }
 
   return (
-    <div className='container min-h-screen flex py-16'>
+    <div className='container min-h-content flex py-16 max-md:py-10'>
       <div className='w-full max-w-[23.875rem] m-auto'>
-        <div className='flex mb-16'>
+        <div className='flex justify-center mb-16'>
           <Link
             href='/'
-            className='mx-auto'
+            className='relative flex items-center w-[16.375rem] aspect-[190/62] max-lg:w-[11.875rem]'
           >
             <Image
-              src='/logo_kkaebi.svg'
-              width={262}
-              height={82}
-              alt='글깨비'
-            ></Image>
+              src='/logo.svg'
+              alt='Profile'
+              fill
+              sizes='100%'
+            />
           </Link>
         </div>
 
         <SigninForm />
 
-        <div className='mt-16'>
-          <div className='line-title mb-8'>
+        <div className='mt-16 max-md:mt-11'>
+          <div className='line-title mb-8 max-md:mb-6'>
             <span>간편로그인</span>
           </div>
           <ul className='w-full flex flex-col gap-3'>

@@ -77,9 +77,9 @@ const ChangeProfile = () => {
       <div className='flex items-center gap-[3.25rem]'>
         <div className='relative'>
           <Avatar
-            size='11rem'
             src={user?.image}
-            className='mx-auto'
+            size='11rem'
+            className='mx-auto w-[11rem] h-[11rem]'
             style={{ boxShadow: '0 0 8px rgba(0,0,0,0.25)' }}
           />
           <button
