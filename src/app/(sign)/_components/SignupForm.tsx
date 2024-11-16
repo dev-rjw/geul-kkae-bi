@@ -15,7 +15,6 @@ import PasswordValidationInput from '@/components/PasswordValidationInput';
 import DefaultButton from '@/components/DefaultButton';
 import EmailInput from '@/components/EmailInput';
 import DefaultInput from '@/components/DefaultInput';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { addScores } from '@/utils/rank/client-action';
 import { AuthError } from '@supabase/supabase-js';
 import { getLocalStorageValues } from '../utils/sign';
@@ -37,7 +36,7 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
     defaultValues,
   });
-  const { getFieldState, watch } = form;
+  const { getFieldState, watch, formState } = form;
   const passwordValue = watch('password');
   const confirmPasswordValue = watch('confirmPassword');
 
@@ -92,17 +91,24 @@ const SignupForm = () => {
               <FormField
                 control={form.control}
                 name='email'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <EmailInput
-                        field={field}
-                        domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
-                      />
-                    </FormControl>
-                    <FormMessage className='text-sm font-bold' />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const fieldState = getFieldState('email');
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <EmailInput
+                          field={field}
+                          domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
+                          inputClassName={`
+                            ${fieldState.invalid ? 'border-red-500' : 'border-gray-300'}
+                            ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                          `}
+                        />
+                      </FormControl>
+                      <FormMessage className='form-message' />
+                    </FormItem>
+                  );
+                }}
               />
             </div>
           </div>
@@ -118,23 +124,30 @@ const SignupForm = () => {
               <FormField
                 control={form.control}
                 name='nickname'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <DefaultInput
-                        type='text'
-                        maxLength={8}
-                        placeholder='닉네임을 입력해주세요'
-                        {...field}
-                      />
-                    </FormControl>
-                    {!getFieldState('nickname').invalid && field.value ? (
-                      <FormMessage className='text-primary-400'>사용 가능한 닉네임입니다.</FormMessage>
-                    ) : (
-                      <FormMessage className='text-sm font-bold' />
-                    )}
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const fieldState = getFieldState('nickname');
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <DefaultInput
+                          type='text'
+                          maxLength={8}
+                          placeholder='닉네임을 입력해주세요'
+                          className={`
+                            ${fieldState.invalid ? 'border-red-500' : 'border-gray-300'}
+                            ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                          `}
+                          {...field}
+                        />
+                      </FormControl>
+                      {!getFieldState('nickname').invalid && field.value ? (
+                        <FormMessage className='form-message text-primary-400'>사용 가능한 닉네임입니다.</FormMessage>
+                      ) : (
+                        <FormMessage className='form-message' />
+                      )}
+                    </FormItem>
+                  );
+                }}
               />
             </div>
           </div>
@@ -150,16 +163,23 @@ const SignupForm = () => {
               <FormField
                 control={form.control}
                 name='password'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <PasswordValidationInput
-                        placeholder='비밀번호를 입력해주세요'
-                        field={field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const fieldState = getFieldState('password');
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <PasswordValidationInput
+                          placeholder='비밀번호를 입력해주세요'
+                          inputClassName={`
+                            ${fieldState.invalid ? 'border-red-500' : 'border-gray-300'}
+                            ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                          `}
+                          field={field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
               />
             </div>
           </div>
@@ -175,23 +195,30 @@ const SignupForm = () => {
               <FormField
                 control={form.control}
                 name='confirmPassword'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <PasswordInput
-                        placeholder='한 번 더 비밀번호를 입력해주세요'
-                        field={field}
-                      />
-                    </FormControl>
-                    {(passwordValue === confirmPasswordValue || !getFieldState('confirmPassword').invalid) &&
-                    passwordValue !== '' &&
-                    field.value !== '' ? (
-                      <div className='caption-14 text-primary-400'>비밀번호가 일치합니다.</div>
-                    ) : (
-                      <FormMessage className='text-sm font-bold' />
-                    )}
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const fieldState = getFieldState('confirmPassword');
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <PasswordInput
+                          placeholder='한 번 더 비밀번호를 입력해주세요'
+                          inputClassName={`
+                            ${passwordValue === confirmPasswordValue ? 'border-gray-300' : 'border-red-500'}
+                            ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                          `}
+                          field={field}
+                        />
+                      </FormControl>
+                      {passwordValue && confirmPasswordValue ? (
+                        passwordValue === confirmPasswordValue ? (
+                          <div className='form-message text-primary-400'>비밀번호가 일치합니다.</div>
+                        ) : (
+                          <FormMessage className='form-message' />
+                        )
+                      ) : null}
+                    </FormItem>
+                  );
+                }}
               />
             </div>
           </div>
@@ -203,7 +230,7 @@ const SignupForm = () => {
             name='agreeToTerms'
             render={({ field }) => (
               <FormItem>
-                <div className='mb-4'>
+                <div className='mb-4 max-md:mb-2'>
                   <FormControl>
                     <div className='flex items-center gap-2'>
                       <Checkbox
@@ -213,15 +240,15 @@ const SignupForm = () => {
                       />
                       <label
                         htmlFor='agreeToTerms'
-                        className='body-20 text-gray-400 cursor-pointer'
+                        className='body-20 text-gray-400 cursor-pointer max-md:body-16'
                       >
                         <span className='text-gray-900'>[필수]</span> 글깨비 이용약관 동의
                       </label>
                     </div>
                   </FormControl>
-                  <FormMessage className='text-sm font-bold mt-2' />
+                  <FormMessage className='form-message mt-2' />
                 </div>
-                <ScrollArea className='h-[10rem] w-full rounded-lg py-5 px-6 bg-[#F2F2F2]'>
+                <div className='h-[10rem] w-full rounded-lg py-5 px-6 bg-[#F2F2F2] overflow-y-auto max-md:h-[9rem]'>
                   <div className='caption-14 text-gray-400'>
                     제1장 총칙
                     <br />
@@ -294,14 +321,19 @@ const SignupForm = () => {
                     <br />
                     회원은 랭킹 페이지에서 자신의 문해력 테스트 결과에 따른 순위를 확인할 수 있습니다.
                   </div>
-                </ScrollArea>
+                </div>
               </FormItem>
             )}
           />
         </div>
-        <hr className='border-t-1 border-gray-200 mt-[3.125rem]' />
-        <div className='flex justify-center mt-14'>
-          <DefaultButton className='w-full max-w-[15rem]'>확인</DefaultButton>
+        <hr className='border-t-1 border-gray-200 mt-[3.125rem] max-md:hidden' />
+        <div className='flex justify-center mt-14 max-sm:mt-6'>
+          <DefaultButton
+            disabled={!formState.isValid}
+            className='w-full max-w-[15rem] max-md:max-w-none'
+          >
+            확인
+          </DefaultButton>
         </div>
       </form>
     </Form>

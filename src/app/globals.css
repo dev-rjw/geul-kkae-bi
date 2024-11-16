@@ -20,8 +20,8 @@
     --accent-foreground: 220.9 39.3% 11%;
     --destructive: 0 83.07% 62.94%;
     --destructive-foreground: 210 20% 98%;
-    --border: 60 1.03% 80.98%;
-    --input: 60 1.03% 80.98%;
+    --border: 30 1.35% 70.98%;
+    --input: 30 1.35% 70.98%;
     --ring: 60 0.93% 20.98%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -118,11 +118,6 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-  }
-  @media (max-width: 768px) {
-    :root {
-      --header-height: 3.125rem;
-    }
   }
   * {
     @apply border-border;
@@ -528,6 +523,10 @@
 .form-field {
   width: calc(100% - 11rem);
 }
+.form-message {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
 
 .speak {
   background: var(--color-secondary-200);
@@ -708,4 +707,32 @@ div:where(.swal2-container) div:where(.swal2-footer) {
 .swal-custom-button.swal2-cancel:hover {
   color: var(--color-warning-200);
   background-color: var(--color-warning-500);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 3.125rem;
+  }
+  .form-items {
+    gap: 1.5rem;
+  }
+  .form-item {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .form-label,
+  .form-field {
+    width: 100%;
+  }
+  .form-label {
+    margin-bottom: 0.25rem;
+  }
+  .form-title {
+    font-size: 1rem;
+  }
+  .form-message {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.25rem !important;
+  }
 }

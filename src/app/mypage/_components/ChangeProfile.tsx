@@ -144,7 +144,7 @@ const ChangeProfile = () => {
                           placeholder='닉네임을 입력해주세요'
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='form-message' />
                     </FormItem>
                   )}
                 />
@@ -169,7 +169,7 @@ const ChangeProfile = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='form-message' />
                     </FormItem>
                   )}
                 />

@@ -16,7 +16,7 @@ const FindPasswordPage = async () => {
   }
 
   return (
-    <div className='container py-[3.125rem]'>
+    <div className='container py-[3.125rem] max-md:pt-[0.875rem]'>
       <h2 className='body-32 text-gray-700 mb-[0.625rem]'>비밀번호 찾기</h2>
       <hr className='border-t-2 border-gray-500 mb-10' />
       <p className='body-20 text-gray-700 mb-10'>

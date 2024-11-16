@@ -80,11 +80,11 @@ const SigninForm = () => {
                     <DefaultInput
                       placeholder='이메일 아이디를 입력해주세요'
                       {...field}
-                      className='pl-[3.375rem] max-w-none'
+                      className='!pl-[3.375rem] max-w-none max-md:h-12'
                     />
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className='form-message' />
               </FormItem>
             )}
           />
@@ -101,12 +101,12 @@ const SigninForm = () => {
                       placeholder='비밀번호를 입력해주세요'
                       field={field}
                       className='max-w-none'
-                      inputClassName='px-[3.375rem] max-w-none'
+                      inputClassName='!px-[3.375rem] max-w-none max-md:h-12'
                       buttonClassName='!pr-5'
                     />
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className='form-message' />
               </FormItem>
             )}
           />

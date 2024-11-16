@@ -66,9 +66,6 @@ const ChangePasswordForm = () => {
     }
   };
 
-  const isPasswordSame =
-    passwordValue === confirmPasswordValue && !getFieldState('confirmPassword').invalid && passwordValue !== '';
-
   return (
     <>
       {error ? (
@@ -104,16 +101,23 @@ const ChangePasswordForm = () => {
                   <FormField
                     control={form.control}
                     name='password'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <PasswordValidationInput
-                            placeholder='비밀번호를 입력해주세요'
-                            field={field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
+                    render={({ field }) => {
+                      const fieldState = getFieldState('password');
+                      return (
+                        <FormItem>
+                          <FormControl>
+                            <PasswordValidationInput
+                              placeholder='비밀번호를 입력해주세요'
+                              inputClassName={`
+                            ${fieldState.invalid ? 'border-red-500' : 'border-gray-300'}
+                            ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                          `}
+                              field={field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      );
+                    }}
                   />
                 </div>
               </div>
@@ -129,21 +133,30 @@ const ChangePasswordForm = () => {
                   <FormField
                     control={form.control}
                     name='confirmPassword'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <PasswordInput
-                            placeholder='한 번 더 비밀번호를 입력해주세요'
-                            field={field}
-                          />
-                        </FormControl>
-                        {isPasswordSame && field.value !== '' ? (
-                          <div className='caption-14 text-primary-400'>비밀번호가 일치합니다.</div>
-                        ) : (
-                          <FormMessage />
-                        )}
-                      </FormItem>
-                    )}
+                    render={({ field }) => {
+                      const fieldState = getFieldState('confirmPassword');
+                      return (
+                        <FormItem>
+                          <FormControl>
+                            <PasswordInput
+                              placeholder='한 번 더 비밀번호를 입력해주세요'
+                              inputClassName={`
+                            ${passwordValue === confirmPasswordValue ? 'border-gray-300' : 'border-red-500'}
+                            ${!fieldState.invalid && field.value ? 'border-primary-400' : ''}
+                          `}
+                              field={field}
+                            />
+                          </FormControl>
+                          {passwordValue && confirmPasswordValue ? (
+                            passwordValue === confirmPasswordValue ? (
+                              <div className='form-message text-primary-400'>비밀번호가 일치합니다.</div>
+                            ) : (
+                              <FormMessage className='form-message' />
+                            )
+                          ) : null}
+                        </FormItem>
+                      );
+                    }}
                   />
                 </div>
               </div>

@@ -72,7 +72,7 @@ const FindPasswordForm = () => {
                     domainOptions={['gmail.com', 'naver.com', 'daum.net', 'nate.com', 'hotmail.com', '직접 입력']}
                   />
                 </FormControl>
-                <FormMessage className='text-sm font-bold' />
+                <FormMessage className='form-message' />
               </FormItem>
             )}
           />
