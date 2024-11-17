@@ -53,7 +53,7 @@ const WritingAnswer = () => {
 
   return (
     <div className='flex justify-center items-center h-screen'>
-      <div className='w-[1080px] h-[719px] flex flex-col border rounded-[20px] px-[1.188rem] py-[1.875rem] bg-gray-50'>
+      <div className='w-[1080px] h-[719px] flex flex-col border rounded-[20px] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center mb-6'>
           <h3 className='text-lg font-bold'>완료한 문장은 체크해서 지워주세요!</h3>
@@ -73,55 +73,59 @@ const WritingAnswer = () => {
           </button>
 
           {/* 카드 영역 */}
-          <div className='w-full'>
-            <div className='grid grid-cols-2 gap-6'>
-              {paginatedAnswers?.map((answer, index) => (
-                <div
-                  key={index}
-                  className='relative card rounded-lg bg-[#E8F9F3] p-4 flex flex-col gap-4'
-                >
-                  {/* 체크박스 */}
-                  <input
-                    type='checkbox'
-                    className='absolute top-2 left-2 w-5 h-5'
-                    checked={selectedQuestions.includes(answer.question)}
-                    onChange={() => handleSelect(answer.question)}
-                  />
-
-                  {/* 상단 - 내 오답 */}
-                  <div className='flex justify-between items-center'>
-                    <div className='flex items-center gap-2'>
-                      <p className='bg-[#FFE6E6] text-[#FF6B6B] font-semibold px-3 py-1 rounded-lg text-sm'>내 오답</p>
-                      <p className='text-[#FF6B6B] font-semibold'>{answer.user_answer}</p>
-                    </div>
+          <div className='grid grid-cols-2 gap-x-4 gap-y-3 mx-4'>
+            {paginatedAnswers?.map((answer, index) => (
+              <div
+                key={index}
+                className='relative card rounded-lg bg-[#E8F9F3] p-4 flex flex-col w-[440px] h-[246px]'
+              >
+                {/* 상단 - 내 오답 */}
+                <div className='flex justify-between items-center h-[52px]'>
+                  {/* 왼쪽: "내 오답"과 사용자의 오답 텍스트 */}
+                  <div className='flex items-center gap-2'>
+                    <p className='bg-[#FFE6E6] text-[#FF6B6B] font-semibold px-3 py-1 rounded-lg text-sm flex items-center gap-1'>
+                      <span className='text-[18px] font-bold'>✖</span> {/* X 아이콘 */}내 오답
+                    </p>
+                    <p className='text-[#FF6B6B] font-semibold'>{answer.user_answer}</p>
                   </div>
 
-                  {/* 키워드 및 정답 */}
-                  <div className='bg-white rounded-lg shadow-md p-3'>
-                    <div className='flex justify-between items-center'>
-                      <p className='text-[#2AC769] font-semibold'>키워드</p>
-                      <h3 className='text-[#2AC769] text-xl font-bold'>{answer.keyword}</h3>
-                    </div>
-                    <div className='flex justify-center gap-2 mt-2'>
-                      {answer.answer?.split('').map((char: string, idx: number) => (
-                        <span
-                          key={idx}
-                          className='bg-[#F8F8F8] text-[#333] text-lg font-bold px-3 py-2 rounded-lg'
-                        >
-                          {char}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 질문 및 힌트 */}
-                  <div className='bg-[#D7F6EE] rounded-lg p-4'>
-                    <p className='text-[#333] text-base font-medium'>{answer.question}</p>
-                    <p className='text-[#666] text-sm italic mt-2'>*** {answer.meaning}</p>
+                  {/* 오른쪽: 체크박스 */}
+                  <div className='flex items-center justify-center w-6 h-6 bg-[#198069] rounded-md'>
+                    <input
+                      type='checkbox'
+                      className='appearance-none w-full h-full cursor-pointer'
+                      checked={selectedQuestions.includes(answer.question)}
+                      onChange={() => handleSelect(answer.question)}
+                    />
+                    <span className='text-white font-bold text-lg cursor-pointer'>✓</span> {/* 체크 표시 */}
                   </div>
                 </div>
-              ))}
-            </div>
+
+                {/* 키워드 및 정답 */}
+                <div className='bg-white rounded-lg shadow-md p-5 flex items-start gap-5'>
+                  <div className='flex flex-col items-start mb-3'>
+                    <p className='bg-[#B7E7CF] text-[#2AC769] font-semibold px-3 py-1 rounded-lg text-sm'>키워드</p>
+                    <p className='text-[#333] font-medium text-lg'>{answer.consonant}</p>
+                  </div>
+                  <div className='flex justify-start gap-[0.375rem]'>
+                    {answer.answer?.split('').map((char: string, idx: number) => (
+                      <span
+                        key={idx}
+                        className='bg-[#d4f7ef] text-[#333] text-4xl font-bold w-[4rem] h-[4rem] flex items-center justify-center rounded-lg'
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 질문 및 힌트 */}
+                <div className='bg-[#D7F6EE] rounded-lg'>
+                  <p className='text-[#333] text-base font-medium'>{answer.question}</p>
+                  <p className='text-[#666] text-sm italic mt-2'>*** {answer.meaning}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* 오른쪽 버튼 */}
@@ -137,14 +141,18 @@ const WritingAnswer = () => {
             다음 →
           </button>
         </div>
-        <div>
+        <div className='flex justify-center items-center '>
           {/* 삭제 버튼 */}
           <button
             onClick={handleDelete}
-            disabled={isLoading}
-            className={`p-2 ${isLoading ? 'bg-gray-300' : 'bg-red-500'} text-white`}
+            disabled={selectedQuestions.length === 0}
+            className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg duration-300 ${
+              selectedQuestions.length === 0
+                ? 'bg-[#2AD4AF] text-[#AAEEDF] cursor-not-allowed'
+                : 'bg-[#198069] text-[#f6fdfc]'
+            }`}
           >
-            {isLoading ? '삭제 중...' : '선택된 문장 삭제'}
+            {selectedQuestions.length === 0 ? '지우기' : `${selectedQuestions.length}개 지우기`}
           </button>
         </div>
       </div>
