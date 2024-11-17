@@ -127,10 +127,10 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
               <span className='text-[36px]'>%</span>
             </p>
           </div>
-          <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem]'>
+          <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem] max-md:hidden'>
             <Link
               onClick={handleResult}
-              className='mt-[16px] flex flex-col items-center'
+              className='mt-[16px] flex flex-col items-center max-md:hidden'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`
               }`}
@@ -151,17 +151,19 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
                     <span className='text-[36px] max-md:text-[16px]'>%</span>
                   </p>
                 </div>
-                <div className='absolute right-[30px] flex flex-col items-center top-[40%]'>
-                  <p className='text-[1.5rem]'>{index + 1}/10</p>
+                <div className='absolute right-[30px] flex flex-col items-center top-[40%] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto] '>
+                  <p className='text-[1.5rem] max-md:hidden'>{index + 1}/10</p>
                   <button
-                    className='mt-[16px]'
+                    className='mt-[16px] max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
                     onClick={handleNextButton}
                   >
+                    <span className='md:hidden title-16 '>넘어가기</span>
                     <Image
                       src='/ico_speak_next_btn.svg'
                       width={30}
                       height={30}
                       alt='넘어가기'
+                      className='max-md:hidden'
                     ></Image>
                   </button>
                 </div>

@@ -9,8 +9,6 @@ import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
-import TurtorialMobile from './TurtorialMobile';
-import { useIsMobile } from '@/utils/mediaquery/useMediaQuery';
 
 type Answer = {
   text: string;
@@ -22,7 +20,6 @@ function getRandomQuestion(textArray: string[]) {
 }
 
 const Speak = () => {
-  const isMobile = useIsMobile();
   const [randomText, setRandomText] = useState<string[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
@@ -128,7 +125,7 @@ const Speak = () => {
     <div className='h-screen bg-[#FCFBF9]'>
       {!isDelay ? (
         <div className='w-screen h-screen'>
-          {!isMobile ? <Tutorial handleStart={handleStart} /> : <TurtorialMobile handleStart={handleStart} />}
+          <Tutorial handleStart={handleStart} />
         </div>
       ) : (
         <div className='flex flex-col items-center max-md:px-4'>
@@ -153,11 +150,11 @@ const Speak = () => {
               />
             </button>
             {isGame ? (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:body-14'>게임이 종료 되었습니다</p>
+              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>게임이 종료 되었습니다</p>
             ) : isRecording ? (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:body-14'>마이크 버튼을 눌러 종료하기</p>
+              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>마이크 버튼을 눌러 종료하기</p>
             ) : (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:body-14'>마이크 버튼을 눌러 시작하기</p>
+              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>마이크 버튼을 눌러 시작하기</p>
             )}
           </div>
         </div>

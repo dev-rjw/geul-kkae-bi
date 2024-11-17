@@ -62,9 +62,11 @@ const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
     <div className='w-[100%]'>
       <div className='w-full bg-[#fdeace] h-[28px] dark:bg-gray-700 max-md:h-[14px]'>
         <div
-          className='bg-[#f9bc5f] h-[28px] rounded-r-[10px] transition-all ease-linear max-md:h-[14px]'
+          className='bg-[#f9bc5f] h-[28px] rounded-r-[10px] transition-all ease-linear max-md:h-[14px] max-md:relative'
           style={{ width: `${(time / 120) * 100}%`, transitionDuration: '1s' }}
-        ></div>
+        >
+          <p className='md:hidden max-md:text-4 absolute bottom-[-1.5rem] text-gray-800'>{index + 1}/10</p>
+        </div>
       </div>
     </div>
   );
