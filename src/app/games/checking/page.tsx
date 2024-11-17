@@ -8,7 +8,11 @@ import Image from 'next/image';
 import './style.css';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
-import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutations/checking-mutation';
+import {
+  useInsertCheckingMutation,
+  useInsertCheckingResultMutation,
+  useUpdateCheckingMutation,
+} from '@/mutations/checking-mutation';
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
@@ -30,7 +34,7 @@ const CheckingQuizPage = () => {
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
-  const inserCheckingResultMutation = useInsertCheckingMutation();
+  const inserCheckingResultMutation = useInsertCheckingResultMutation();
 
   const handleResize = () => setIsMobile(window.innerWidth <= 750);
 
@@ -58,7 +62,7 @@ const CheckingQuizPage = () => {
     }
   };
 
-  const moveToWritingResultPage = (score: number) => {
+  const moveToCheckingResultPage = (score: number) => {
     if (userId) {
       router.push(`/games/user?key=checking&score=${score}`);
     } else {
@@ -83,8 +87,7 @@ const CheckingQuizPage = () => {
         userId: userId,
         answer: question.answer,
         question: question.question,
-        game: 'writing',
-        consonant: question.consonant,
+        game: 'checking',
         week: weekNumber,
         meaning: question.meaning,
         useranswer: selectedOption,
@@ -139,7 +142,7 @@ const CheckingQuizPage = () => {
         },
         confirmButtonText: '확인',
         willClose: () => {
-          moveToWritingResultPage(scoreRef.current);
+          moveToCheckingResultPage(scoreRef.current);
         },
       });
     }
@@ -197,7 +200,7 @@ const CheckingQuizPage = () => {
           </div>
         ) : (
           <button
-            onClick={() => moveToWritingResultPage(scoreRef.current)}
+            onClick={() => moveToCheckingResultPage(scoreRef.current)}
             className={'text-2xl font-medium'}
           >
             결과 보기

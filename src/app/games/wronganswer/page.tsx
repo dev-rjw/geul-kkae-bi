@@ -1,10 +1,11 @@
 import React from 'react';
-import WritingAnswer from './_components/WritingAnswer';
+
+import CheckingAnswer from './_components/CheckingAnswer';
 
 const WrongAnswerPage = () => {
   return (
     <div>
-      <WritingAnswer />
+      <CheckingAnswer />
     </div>
   );
 };
