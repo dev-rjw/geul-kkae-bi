@@ -111,3 +111,27 @@ export const useInsertWritingResultMutation = () => {
     },
   });
 };
+
+const deleteSelectedAnswers = async (questions: string[], userId: string | null): Promise<void> => {
+  if (!userId) {
+    throw new Error('User ID is required for deletion.');
+  }
+
+  const { error } = await browserClient.from('answer').delete().in('question', questions).eq('user_id', userId);
+
+  if (error) {
+    throw new Error(`Error deleting answers: ${error.message}`);
+  }
+};
+
+export const useDeleteWritingAnswersMutation = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (variables: { questions: string[]; userId: string }) =>
+      deleteSelectedAnswers(variables.questions, variables.userId),
+    onSuccess: async () => {
+      await client.invalidateQueries({ queryKey: ['WritingWrongAnswer'] });
+    },
+  });
+};

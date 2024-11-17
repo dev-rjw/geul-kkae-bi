@@ -24,18 +24,19 @@ export const fetchWritingWrongAnswer = async (userId: string | null, weekNumber:
     .select('*')
     .eq('game', 'writing')
     .eq('user_id', userId)
-    .eq('week', weekNumber);
+    .eq('week', weekNumber)
+    .order('created_at', { ascending: false });
   if (error) {
     throw new Error('틀린 문제를 가져오지 못했습니다.', error);
   }
   return data;
 };
 
-export const useFetchhWritingWrongAnswer = (userId: string | null, weekNumber: number) => {
+export const useFetchWritingWrongAnswer = (userId: string | null, weekNumber: number) => {
   return useQuery({
     queryKey: ['WritingWrongAnswer'],
     queryFn: () => fetchWritingWrongAnswer(userId, weekNumber),
-    enabled: !userId,
+    enabled: !!userId,
     staleTime: 0,
     refetchOnWindowFocus: true,
   });
