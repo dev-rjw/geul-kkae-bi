@@ -52,7 +52,7 @@ export const useUpdateWritingMutation = () => {
   });
 };
 
-const insertCheckingResult = async (answer: {
+const insertWritingResult = async (answer: {
   userId: string;
   answer: string;
   question: string;
@@ -60,8 +60,7 @@ const insertCheckingResult = async (answer: {
   week: number;
   consonant: string;
   meaning: string;
-  useranswer: string | null;
-  correct: string[];
+  useranswer: string;
 }) => {
   const { data: existingData, error: fetchError } = await browserClient
     .from('answer')
@@ -71,10 +70,11 @@ const insertCheckingResult = async (answer: {
     .eq('week', answer.week);
 
   if (fetchError) {
-    throw new Error(`중복 확인 오류: ${fetchError.message}`);
+    throw new Error(`Error checking for duplicates: ${fetchError.message}`);
   }
 
   if (existingData && existingData.length > 0) {
+    console.log('Duplicate entry found, skipping insertion.');
     return null;
   }
 
@@ -84,31 +84,54 @@ const insertCheckingResult = async (answer: {
       user_id: answer.userId,
       answer: answer.answer,
       question: answer.question,
-      game: 'checking',
+      game: answer.game,
       consonant: answer.consonant,
       week: answer.week,
       meaning: answer.meaning,
       user_answer: answer.useranswer,
-      correct: answer.correct,
     })
     .select();
 
   if (error) {
-    throw new Error(`데이터를 삽입하는 중에 오류가 발생했습니다.: ${error.message}`);
+    throw new Error(`Error inserting data: ${error.message}`);
   }
   return data;
 };
 
-export const useInserCheckingResultMutation = () => {
+export const useInsertWritingResultMutation = () => {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: insertCheckingResult,
+    mutationFn: insertWritingResult,
     onSuccess: async () => {
       await client.invalidateQueries({ queryKey: ['answer'] });
     },
     onError: (error) => {
-      console.error('오류 발생:', error);
+      console.error('Error inserting writing answer:', error);
+    },
+  });
+};
+
+const deleteSelectedAnswers = async (questions: string[], userId: string | null): Promise<void> => {
+  if (!userId) {
+    throw new Error('User ID is required for deletion.');
+  }
+
+  const { error } = await browserClient.from('answer').delete().in('question', questions).eq('user_id', userId);
+
+  if (error) {
+    throw new Error(`Error deleting answers: ${error.message}`);
+  }
+};
+
+export const useDeleteWritingAnswersMutation = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (variables: { questions: string[]; userId: string }) =>
+      deleteSelectedAnswers(variables.questions, variables.userId),
+    onSuccess: async () => {
+      await client.invalidateQueries({ queryKey: ['WritingWrongAnswer'] });
     },
   });
 };
