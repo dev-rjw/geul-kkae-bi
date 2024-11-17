@@ -28,3 +28,15 @@
 .start_btn span {
   text-shadow: 0 2px 0 #e78f09;
 }
+
+.tutorial-bg {
+  background: url(/speak_tutorial.svg) no-repeat center;
+  background-size: contain;
+}
+.mb-tutorial-bg {
+  background: url(/speak_mobile_tutorial1.svg) no-repeat center;
+  background-size: contain;
+}
+.mb-tutorial-bg.ty2 {
+  background-image: url(/speak_mobile_tutorial2.svg);
+}
