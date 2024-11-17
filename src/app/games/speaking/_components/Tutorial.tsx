@@ -11,7 +11,7 @@ const Tutorial = ({ handleStart }: Delay) => {
       <div className='hidden md:block h-screen tutorial-bg'>
         <button
           onClick={handleStart}
-          className='start_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
+          className='start-btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
         >
           <span className='relative z-10 title-20 text-secondary-800'>GAME START</span>
         </button>
@@ -30,7 +30,7 @@ const Tutorial = ({ handleStart }: Delay) => {
               <CardContent>
                 <button
                   onClick={handleStart}
-                  className='start_btn absolute top-[3.687rem] left-1/2 translate-x-[-50%] w-[13.063rem] py-[15px] rounded-[80px] '
+                  className='start-btn absolute top-[3.687rem] left-1/2 translate-x-[-50%] w-[13.063rem] py-[15px] rounded-[80px] '
                 >
                   <span className='relative z-10 title-20 text-secondary-800'>GAME START</span>
                 </button>
