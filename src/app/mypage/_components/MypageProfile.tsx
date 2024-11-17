@@ -29,9 +29,10 @@ const MypageProfile = () => {
         confirmButton: 'swal-custom-button',
         cancelButton: 'swal-custom-button',
       },
-      confirmButtonText: '탈퇴',
+      reverseButtons: true,
       showCancelButton: true,
       cancelButtonText: '취소',
+      confirmButtonText: '탈퇴',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {

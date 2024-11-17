@@ -21,6 +21,8 @@ export type CardData = {
 export type GameCardProps = {
   card: CardData;
   hoveredCard: number | null;
+  selectedCard: number | null;
   onHover: () => void;
   onLeave: () => void;
+  onClick: () => void;
 };

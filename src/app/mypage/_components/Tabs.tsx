@@ -18,20 +18,20 @@ const Tabs = () => {
   return (
     <div>
       <div className='pb-14 max-md:pb-7'>
-        <div className='flex items-center justify-between border-b border-gray-500'>
+        <div className='flex items-center justify-between border-b border-gray-200'>
           <div>
             <button
               onClick={() => moveTabs('프로필 변경', '/mypage/information')}
-              className={`inline-flex items-center h-16 px-6 py-[0.625rem] -mb-[1px] body-24 text-gray-400 hover:bg-gray-100 transition-colors ${
-                activeTab === '프로필 변경' && ' border-b-4 border-primary-400 text-gray-700'
+              className={`inline-flex items-center h-16 px-6 py-[0.625rem] -mb-[1px] body-24 text-gray-400 hover:bg-gray-100 transition-colors max-md:h-[2.375rem] max-md:p-[0.625rem] max-md:text-sm max-md:font-medium ${
+                activeTab === '프로필 변경' && ' border-b-4 border-primary-400 text-gray-700 max-md:border-b-2'
               }`}
             >
               프로필 변경
             </button>
             <button
               onClick={() => moveTabs('비밀번호 변경', '/mypage/change-password')}
-              className={`inline-flex items-center h-16 px-6 py-[0.625rem] -mb-[1px] body-24 text-gray-400 hover:bg-gray-100 transition-colors ${
-                activeTab === '비밀번호 변경' && ' border-b-4 border-primary-400 text-gray-700'
+              className={`inline-flex items-center h-16 px-6 py-[0.625rem] -mb-[1px] body-24 text-gray-400 hover:bg-gray-100 transition-colors max-md:h-[2.375rem] max-md:p-[0.625rem] max-md:text-sm max-md:font-medium ${
+                activeTab === '비밀번호 변경' && ' border-b-4 border-primary-400 text-gray-700 max-md:border-b-2'
               }`}
             >
               비밀번호 변경

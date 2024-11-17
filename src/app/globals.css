@@ -435,6 +435,19 @@
   .heaber-moblie-title-writing:before {
     @apply bg-tertiary-g-200;
   }
+
+  .game-card {
+    @apply w-full min-h-[26.25rem] p-[2.375rem] !border-0 !rounded-[1.25rem] transition-all duration-500 bg-cover bg-no-repeat bg-right-bottom max-lg:min-h-[auto] max-lg:h-[6.875rem] max-lg:!opacity-100 max-lg:p-[1.625rem] max-lg:!rounded-2xl max-lg:cursor-pointer max-lg:transition-all max-lg:overflow-hidden max-lg:bg-[length:0];
+  }
+  .game-card.card-on {
+    @apply max-lg:h-[15.5rem] max-lg:bg-[length:15.625rem_auto];
+  }
+  .game-card-text {
+    @apply body-16 mt-4 transition-opacity max-lg:text-sm max-lg:mt-2 max-lg:opacity-0;
+  }
+  .game-card.card-on .game-card-text{
+    @apply max-lg:opacity-100;
+  }
 }
 
 .hamburger-btn {
@@ -709,10 +722,20 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   background-color: var(--color-warning-500);
 }
 
+/* @media (max-width: 1024px) {
+  .game-card {
+    background-size: 0;
+  }
+  .game-card.card-on {
+    background-size: 101.7045454545455% auto;
+  }
+} */
+
 @media (max-width: 768px) {
   :root {
     --header-height: 3.125rem;
   }
+
   .form-items {
     gap: 1.5rem;
   }

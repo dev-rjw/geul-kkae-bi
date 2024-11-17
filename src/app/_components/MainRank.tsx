@@ -27,7 +27,7 @@ const MainRank = () => {
   const router = useRouter();
 
   return (
-    <Card className='relative flex flex-col rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden'>
+    <Card className='relative flex flex-col h-full min-h-64 rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden max-lg:rounded-2xl'>
       {!user?.id && (
         <div
           className='absolute top-0 left-0 z-10 w-full h-full flex items-center justify-center'
@@ -45,37 +45,36 @@ const MainRank = () => {
       )}
 
       <div
-        className='pt-7 pb-4 text-center cursor-pointer'
+        className='pt-7 pb-4 text-center cursor-pointer max-lg:pt-[1.125rem] max-lg:pb-[0.875rem]'
         onClick={() => router.push('/games/rank')}
       >
-        <div className='text-[1.75rem] font-yangjin text-primary-600 leading-none'>랭킹 TOP 3</div>
-        <div className='body-18 text-primary-300 mt-1'>이번주 랭킹을 확인해보세요!</div>
+        <div className='text-[1.75rem] font-yangjin text-primary-600 leading-none max-lg:text-xl'>랭킹 TOP 3</div>
+        <div className='body-18 text-primary-300 mt-1 max-lg:text-sm'>이번주 랭킹을 확인해보세요!</div>
       </div>
-      <hr className='border-t-2 border-primary-100' />
-      <hr className='border-t-8 border-primary-50' />
+      <div className='h-[0.625rem] bg-primary-50 border-t-2 border-primary-100 max-lg:h-2' />
       <div
         className='flex grow items-center cursor-pointer'
         onClick={() => router.push('/games/rank')}
       >
-        <div className='w-full pb-5'>
+        <div className='w-full pb-5 max-lg:pt-[0.625rem] max-lg:pb-3'>
           {ranks?.map((rank, index) => {
             return (
               <div
                 key={index}
-                className='flex items-center py-[0.625rem] pr-[1.25rem]'
+                className='flex items-center py-[0.625rem] pr-[1.25rem] max-lg:py-[0.375rem] max-lg:pr-[1.875rem]'
               >
                 <div
                   className={`${
                     (index === 0 && ' bg-primary-400') ||
                     (index === 1 && ' bg-primary-300') ||
                     (index === 2 && ' bg-primary-200')
-                  } flex items-center h-[2.625rem] pl-6 pr-[1.125rem] rounded-r-[0.875rem]`}
+                  } flex items-center h-[2.625rem] pl-6 pr-[1.125rem] rounded-r-[0.875rem] max-lg:h-[2.375rem] max-lg:pl-10 max-lg:pr-4 max-lg:rounded-r-lg`}
                 >
-                  <span className='title-24 text-primary-50 translate-y-[5%]'>{index + 1}위</span>
+                  <span className='title-24 text-primary-50 translate-y-[5%] max-lg:text-lg'>{index + 1}위</span>
                 </div>
-                <div className='flex flex-grow items-center justify-between pl-[0.938rem]'>
-                  <div className='title-24 text-primary-700 translate-y-[5%]'>{rank.user.nickname} </div>
-                  <div className='title-20 text-primary-300 translate-y-[5%]'>{rank.total}점</div>
+                <div className='flex flex-grow items-center justify-between pl-6 max-lg:pl-4'>
+                  <div className='title-24 text-primary-700 translate-y-[5%] max-lg:text-lg max-sm:text-ellipsis'>{rank.user.nickname} </div>
+                  <div className='title-20 text-primary-300 translate-y-[5%] max-lg:text-lg'>{rank.total}점</div>
                 </div>
               </div>
             );
