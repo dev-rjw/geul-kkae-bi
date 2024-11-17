@@ -79,11 +79,11 @@ const ChangeProfile = () => {
           <Avatar
             src={user?.image}
             size='11rem'
-            className='mx-auto w-[11rem] h-[11rem]'
+            className='mx-auto w-[11rem] h-[11rem] max-md:w-[7.875rem] max-md:h-[7.875rem]'
             style={{ boxShadow: '0 0 8px rgba(0,0,0,0.25)' }}
           />
           <button
-            className='absolute top-0 right-0 flex items-center justify-center w-10 h-10 bg-primary-300 rounded-full'
+            className='absolute top-0 right-0 flex items-center justify-center w-10 h-10 bg-primary-300 rounded-full max-md:w-7 max-md:h-7'
             onClick={() =>
               setUser(
                 (prev) =>
@@ -94,7 +94,7 @@ const ChangeProfile = () => {
               )
             }
           >
-            <X className='text-primary-50' />
+            <X className='text-primary-50 max-md:w-4 max-md:h-4' />
           </button>
         </div>
 
@@ -108,20 +108,20 @@ const ChangeProfile = () => {
             />
             <label
               htmlFor='picture'
-              className='flex items-center justify-center gap-2 w-[10rem] h-[2.75rem] border-2 border-gray-300 text-gray-400 rounded-full cursor-pointer'
+              className='flex items-center justify-center gap-2 w-[10rem] h-[2.75rem] border-2 border-gray-300 text-gray-400 rounded-full cursor-pointer max-md:w-[7.25rem] max-md:h-8 max-md:border-[1px]'
             >
-              <span className='body-18'>사진 업로드</span>
-              <Camera />
+              <span className='body-18 max-md:text-sm'>사진 업로드</span>
+              <Camera className='max-md:w-4 max-md:h-4' />
             </label>
           </div>
-          <p className='body-16 text-gray-300 mt-4'>
+          <p className='body-16 text-gray-300 mt-4 max-md:text-xs max-md:mt-3'>
             사진은 240px X 240px 이상,
             <br /> PNG or JPG 파일로 업로드해주세요
           </p>
         </div>
       </div>
 
-      <hr className='border-t-1 border-gray-200 mt-10 mb-[3.125rem]' />
+      <div className='h-2 bg-white border-t-2 border-gray-200 mt-10 mb-[3.125rem] max-md:h-[0.375rem] max-md:border-t-1 max-md:my-7' />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -177,9 +177,9 @@ const ChangeProfile = () => {
             </div>
           </div>
 
-          <hr className='border-t-1 border-gray-200 mt-3 mb-[3.125rem]' />
+          <hr className='border-t-1 border-gray-200 mt-3 mb-[3.125rem] max-md:hidden' />
           <div className='flex justify-center mt-[3.125rem]'>
-            <DefaultButton className='w-full max-w-[15rem]'>저장하기</DefaultButton>
+            <DefaultButton className='w-full max-w-[15rem] max-md:max-w-none'>저장하기</DefaultButton>
           </div>
         </form>
       </Form>

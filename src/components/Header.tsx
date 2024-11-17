@@ -229,10 +229,13 @@ const Header = () => {
               )}
               {homePaths.includes(pathname) && (
                 <Button
+                  asChild
                   size='icon'
                   className='w-[3.125rem] h-[3.125rem] bg-transparent text-gray-700 rounded-none hover:bg-transparent [&_svg]:size-6'
                 >
-                  <House />
+                  <Link href='/'>
+                    <House />
+                  </Link>
                 </Button>
               )}
               {sharePaths.includes(pathname) && (
