@@ -318,7 +318,7 @@
   }
 
   .header {
-    @apply sticky top-0 z-[1000] w-full bg-secondary-50 flex items-center;
+    @apply sticky top-0 z-[1000] w-full flex items-center bg-secondary-50 text-gray-700;
     height: var(--header-height);
   }
   .heaber-pc-menu {
@@ -465,7 +465,7 @@
   width: 1.125rem;
   height: 2px;
   margin: auto;
-  background-color: var(--color-gray-700);
+  background-color: currentColor;
   border-radius: 999px;
 }
 .hamburger-btn span:before,

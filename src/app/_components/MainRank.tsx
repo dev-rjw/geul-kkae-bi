@@ -28,7 +28,7 @@ const MainRank = () => {
 
   return (
     <Card className='relative flex flex-col h-full min-h-64 rounded-[1.25rem] border-0 bg-[#DCE8FA] shadow-none overflow-hidden max-lg:rounded-2xl'>
-      {!user?.id && (
+      {!user?.id ? (
         <div
           className='absolute top-0 left-0 z-10 w-full h-full flex items-center justify-center'
           style={{ backdropFilter: 'blur(10px)' }}
@@ -42,6 +42,22 @@ const MainRank = () => {
             로그인해주세요
           </div>
         </div>
+      ) : ranks?.[0] === undefined ? (
+        <div
+          className='absolute top-0 left-0 z-10 w-full h-full flex items-center justify-center'
+          style={{ backdropFilter: 'blur(10px)' }}
+        >
+          <div
+            className='text-[2.5rem] font-yangjin text-white text-center'
+            style={{ textShadow: '0 0 12px rgb(27,99,203)' }}
+          >
+            아직 랭킹이 <br />
+            등록되지 <br />
+            않았습니다
+          </div>
+        </div>
+      ) : (
+        ''
       )}
 
       <div
@@ -73,7 +89,9 @@ const MainRank = () => {
                   <span className='title-24 text-primary-50 translate-y-[5%] max-lg:text-lg'>{index + 1}위</span>
                 </div>
                 <div className='flex flex-grow items-center justify-between pl-6 max-lg:pl-4'>
-                  <div className='title-24 text-primary-700 translate-y-[5%] max-lg:text-lg max-sm:text-ellipsis'>{rank.user.nickname} </div>
+                  <div className='title-24 text-primary-700 translate-y-[5%] max-lg:text-lg max-sm:text-ellipsis'>
+                    {rank.user.nickname}
+                  </div>
                   <div className='title-20 text-primary-300 translate-y-[5%] max-lg:text-lg'>{rank.total}점</div>
                 </div>
               </div>

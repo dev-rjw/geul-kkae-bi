@@ -11,7 +11,7 @@ type Props = {
 const Avatar = ({ src, size, className, style }: Props) => {
   return (
     <div
-      className={`relative rounded-full overflow-hidden bg-primary-100 bg-cover ${className}`}
+      className={`relative rounded-full aspect-square overflow-hidden bg-primary-100 bg-cover ${className}`}
       style={style}
     >
       <Image

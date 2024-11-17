@@ -16,7 +16,7 @@ const commonStyle: HeaderData = {
   pcVisible: 'flex',
   mobileVisible: 'flex',
   headerClassName: '',
-  titleclassName: '',
+  titleClassName: '',
 };
 
 const HEADER_DATA: { [key: string]: HeaderData } = {
@@ -36,6 +36,8 @@ const HEADER_DATA: { [key: string]: HeaderData } = {
   '/mypage': {
     ...commonStyle,
     title: '마이페이지',
+    headerClassName: 'max-md:bg-primary-400 max-md:text-white',
+    titleClassName: 'max-md:text-white',
   },
   '/mypage/information': {
     ...commonStyle,
@@ -163,7 +165,7 @@ const Header = () => {
               {backPaths.includes(pathname) ? (
                 <Button
                   size='icon'
-                  className='w-[3.125rem] h-[3.125rem] bg-transparent text-gray-700 rounded-none hover:bg-transparent [&_svg]:size-6'
+                  className='w-[3.125rem] h-[3.125rem] bg-transparent text-[currentColor] rounded-none hover:bg-transparent [&_svg]:size-6'
                   onClick={() => router.back()}
                 >
                   <ChevronLeft />
@@ -214,7 +216,7 @@ const Header = () => {
               ) : gamePaths.includes(pathname) ? (
                 <span className={getGameClass(pathname)}>{header.title}</span>
               ) : (
-                <span className='body-18 text-gray-700'>{header.title}</span>
+                <span className={`body-18 text-gray-700 ${header.titleClassName}`}>{header.title}</span>
               )}
             </div>
 

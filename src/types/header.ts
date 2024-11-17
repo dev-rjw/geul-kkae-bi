@@ -3,7 +3,7 @@ export type HeaderData = {
   pcVisible: string;
   mobileVisible: string;
   headerClassName: string;
-  titleclassName: string;
+  titleClassName: string;
 };
 
 export type HeaderPcMenuData = {
