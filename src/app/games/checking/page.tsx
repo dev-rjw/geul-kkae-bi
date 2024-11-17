@@ -14,7 +14,6 @@ import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
 import { CheckingQuestion, CheckingResult } from '@/types/checking';
 import { Loader2 } from 'lucide-react';
-import { useInserCheckingResultMutation } from '@/mutations/writing-mutation';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
@@ -31,7 +30,7 @@ const CheckingQuizPage = () => {
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
-  const inserCheckingResultMutation = useInserCheckingResultMutation();
+  const inserCheckingResultMutation = useInsertCheckingMutation();
 
   const handleResize = () => setIsMobile(window.innerWidth <= 750);
 

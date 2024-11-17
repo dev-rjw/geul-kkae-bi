@@ -31,7 +31,7 @@ export const fetchCheckingWrongAnswer = async (userId: string | null, weekNumber
   return data;
 };
 
-export const useFetchhWritingWrongAnswer = (userId: string | null, weekNumber: number) => {
+export const useFetchCheckingWrongAnswer = (userId: string | null, weekNumber: number) => {
   return useQuery({
     queryKey: ['CheckingWrongAnswer'],
     queryFn: () => fetchCheckingWrongAnswer(userId, weekNumber),
