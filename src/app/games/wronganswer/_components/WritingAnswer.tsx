@@ -45,7 +45,7 @@ const WritingAnswer = () => {
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='w-[1080px] h-[719px] flex flex-col rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
+      <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center'>
           <h3 className='text-[1.5rem] font-bold text-[#198069]'>
@@ -68,18 +68,18 @@ const WritingAnswer = () => {
           </button>
 
           {/* 카드 영역 */}
-          <div className='grid grid-cols-2 gap-x-4 gap-y-[0.625rem]'>
+          <div className='grid grid-cols-2 gap-x-4 gap-y-[0.625rem] max-auto'>
             {paginatedAnswers?.map((answer, index) => (
               <div
                 key={index}
-                className='relative card rounded-lg flex flex-col w-[440px] h-[246px]'
+                className='relative card rounded-lg flex flex-col w-[27.5rem] h-[15.375rem]'
               >
                 {/* 상단 - 내 오답 */}
-                <div className='flex justify-between items-center px-[1.063rem] py-3 bg-white h-[52px] mb-[0.188rem] rounded-t-xl'>
+                <div className='flex justify-between items-center px-[1.063rem] py-3 bg-white h-[3.25rem] mb-[0.188rem] rounded-t-xl'>
                   {/* 왼쪽: "내 오답"과 사용자의 오답 텍스트 */}
                   <div className='flex items-center gap-[0.625rem]'>
                     <p className='bg-[#FCDEDE] text-[#EF5252] font-bold px-[0.875rem] py-[0.125rem] rounded-lg text-lg flex items-center gap-1'>
-                      <span className='text-[18px] font-light'>✖</span> {/* X 아이콘 */}내 오답
+                      <span className='text-lg font-light'>✖</span> {/* X 아이콘 */}내 오답
                     </p>
                     <p className='text-[#EF5252] text-[1.375rem] font-semibold'>{answer.user_answer}</p>
                   </div>
@@ -109,7 +109,7 @@ const WritingAnswer = () => {
                 </div>
 
                 {/* 키워드 및 정답 */}
-                <div className='bg-white h-[104px] px-[0.625rem] flex justify-center items-center gap-10'>
+                <div className='bg-white h-[6.5rem] px-[0.625rem] flex justify-center items-center gap-10'>
                   <div className='flex flex-col justify-center items-center mb-3'>
                     <p className='bg-[#7FE6CF] text-[#115546] font-semibold px-[0.875rem] py-[0.125rem] rounded-lg text-lg mb-[0.563rem] mt-[1.188rem]'>
                       키워드
@@ -147,7 +147,7 @@ const WritingAnswer = () => {
                 : 'bg-[#55DDBF] text-white'
             }`}
           >
-            &gt;
+            <span className='text-2xl'>&gt;</span>
           </button>
         </div>
         <div className='flex justify-center items-center '>

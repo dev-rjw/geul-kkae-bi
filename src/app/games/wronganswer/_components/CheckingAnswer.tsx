@@ -49,7 +49,7 @@ const CheckingAnswer = () => {
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='w-[1080px] h-[719px] flex flex-col border rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
+      <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center mb-6'>
           <h3 className='text-[1.5rem] font-bold text-[#4f21a6]'>
@@ -76,7 +76,7 @@ const CheckingAnswer = () => {
             {paginatedAnswers?.map((answer, index) => (
               <div
                 key={index}
-                className='relative card rounded-2xl bg-[#fcfbfe] p-5 flex flex-col border h-[509px] w-[442px]'
+                className='relative card rounded-2xl bg-[#fcfbfe] p-5 flex flex-col h-[31.813rem] w-[27.625rem]'
               >
                 <div className='flex justify-between items-center'></div>
 
