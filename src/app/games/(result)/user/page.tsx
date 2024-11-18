@@ -60,7 +60,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   return (
     <div>
       <div className='flex justify-center pt-7 pb-[1.875rem] '>
-        <div className='title-32 inline  relative'>
+        <div className='title-32 inline relative'>
           {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
         </div>
       </div>
@@ -176,19 +176,19 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 export default ResultPageForUser;
 
 const extractGames = (game: Rank) => {
-  const { checking, speaking, writing } = game;
+  const { speaking, checking, writing } = game;
   return [
+    {
+      type: 'speaking',
+      score: speaking,
+      color: 'bg-secondary-[#FEEFD7]',
+      name: '나야, 발음왕',
+    },
     {
       type: 'checking',
       score: checking,
       color: 'bg-tertiary-p-100',
       name: '틀린 말 탐정단',
-    },
-    {
-      type: 'speaking',
-      score: speaking,
-      color: 'bg-secondary-100',
-      name: '나야, 발음왕',
     },
     {
       type: 'writing',

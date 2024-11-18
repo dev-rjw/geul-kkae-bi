@@ -81,6 +81,7 @@ const HEADER_DATA: { [key: string]: HeaderData } = {
   '/games/rank': {
     ...commonStyle,
     title: '랭킹',
+    headerClassName: 'max-md:bg-primary-100',
   },
 };
 

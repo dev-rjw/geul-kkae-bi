@@ -445,8 +445,15 @@
   .game-card-text {
     @apply body-16 mt-4 transition-opacity max-lg:text-sm max-lg:mt-2 max-lg:opacity-0;
   }
-  .game-card.card-on .game-card-text{
+  .game-card.card-on .game-card-text {
     @apply max-lg:opacity-100;
+  }
+
+  .rank-my-info {
+    @apply container fixed bottom-4 left-1/2 -translate-x-1/2 max-md:px-0 max-md:bottom-auto;
+  }
+  .rank-my-info-card {
+    @apply h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem] max-md:h-[12.5rem] max-md:rounded-t-none max-md:rounded-b-[1.25rem];
   }
 }
 
@@ -722,15 +729,6 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   background-color: var(--color-warning-500);
 }
 
-/* @media (max-width: 1024px) {
-  .game-card {
-    background-size: 0;
-  }
-  .game-card.card-on {
-    background-size: 101.7045454545455% auto;
-  }
-} */
-
 @media (max-width: 768px) {
   :root {
     --header-height: 3.125rem;
@@ -757,5 +755,9 @@ div:where(.swal2-container) div:where(.swal2-footer) {
     font-size: 0.75rem;
     font-weight: 600;
     margin-top: 0.25rem !important;
+  }
+
+  .rank-my-info {
+    top: var(--header-height);
   }
 }
