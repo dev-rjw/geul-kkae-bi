@@ -11,15 +11,21 @@ export interface GamesScore {
 export interface GamesArray {
   type: string;
   score: string | null;
-  color: string;
   name: string;
+  backgroundColor: string;
+  titleColor1: string;
+  titleColor2: string;
+  lineColor: string;
 }
 
 export interface MatchedGameArray {
   type: string;
   score: string | number | null;
-  color: string;
   name: string;
+  backgroundColor: string;
+  titleColor1: string;
+  titleColor2: string;
+  lineColor: string;
 }
 
 export interface TotalScore {

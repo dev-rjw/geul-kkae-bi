@@ -39,22 +39,25 @@ const ResultSide = ({ GameScore, justEndedGame }: gameInfo) => {
   const { image, text } = scoreImage(score);
 
   return (
-    <div className={`w-[504px] rounded-l-[1.25rem] rounded-r-[3rem] ${game(justEndedGame)}`}>
-      <div className='max-w-[402px] mt-9 mx-auto'>
+    <div className={`w-[31.5rem] rounded-l-[1.25rem] rounded-r-[3rem] ${game(justEndedGame)}`}>
+      <div className='px-[2.875rem] py-9'>
         <h3 className='text-center title-20'>작품명</h3>
-        <p className='txt text-center title-24'>{text}</p>
-        <div className='game-image-box rounded-[18px] relative border-8 border-solid inline-block mt-8'>
-          <Image
-            width={396}
-            height={272}
-            src={image}
-            alt='점수에 맞는 이미지'
-          />
+        <p className='result-text text-center title-24'>{text}</p>
+        <div className='game-image-box'>
+          <div className='relative flex items-center w-[24.75rem] aspect-[396/260] rounded-xl overflow-hidden max-md:w-full max-md:max-w-[21.25rem] max-md:hidden'>
+            <Image
+              src={image}
+              alt='점수에 맞는 이미지'
+              fill
+              sizes='100%'
+              className='object-cover'
+            />
+          </div>
         </div>
-        <div className='bg-white rounded-[90px] px-2.5 py-2 mt-[3.063rem]'>
+        <div className='bg-white rounded-full px-2.5 py-2 mt-[3.063rem]'>
           <div
-            className='progress-bar relative h-11 rounded-[90px] transition-all ease-linear'
-            style={{ width: `${score}%`, maxWidth: '100%', transitionDuration: '1s' }}
+            className='progress-bar'
+            style={{ width: `${score}%` }}
           >
             <div className='progress absolute top-1/2 right-0 translate-y-[-50%]'></div>
           </div>
