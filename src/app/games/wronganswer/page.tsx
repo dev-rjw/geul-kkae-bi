@@ -7,7 +7,7 @@ import WritingAnswer from './_components/WritingAnswer';
 const WrongAnswerPage = () => {
   const [selectedTab, setSelectedTab] = useState('checking');
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
+    <div className='flex flex-col items-center mt-[30px]'>
       <div className='w-full max-w-[1080px] max-h-[719px] rounded-lg'>
         <div className='relative'>
           <div className='flex justify-start items-center'>

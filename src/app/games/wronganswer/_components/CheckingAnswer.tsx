@@ -57,7 +57,10 @@ const CheckingAnswer = () => {
       <div className='w-[1080px] h-[719px] flex flex-col border rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center mb-6'>
-          <h3 className='text-[1.5rem] font-bold text-[#4f21a6]'>완료한 문장은 체크해서 지워주세요!✓</h3>
+          <h3 className='text-[1.5rem] font-bold text-[#4f21a6]'>
+            완료한 문장은 체크해서 지워주세요!
+            <span className='text-[1.5rem] ml-2'>✓</span>
+          </h3>
         </div>
 
         {/* 콘텐츠 영역 */}

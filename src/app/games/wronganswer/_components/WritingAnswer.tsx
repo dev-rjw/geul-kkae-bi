@@ -53,7 +53,7 @@ const WritingAnswer = () => {
       <div className='w-[1080px] h-[719px] flex flex-col rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center mb-6'>
-          <h3 className='text-lg font-bold'>완료한 문장은 체크해서 지워주세요!</h3>
+          <h3 className='text-[1.5rem] font-bold text[#198069]'>완료한 문장은 체크해서 지워주세요!✓</h3>
         </div>
 
         {/* 콘텐츠 영역 */}
@@ -66,7 +66,7 @@ const WritingAnswer = () => {
               currentPage === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-700'
             }`}
           >
-            ← 이전
+            ←
           </button>
 
           {/* 카드 영역 */}
