@@ -122,9 +122,9 @@ const Speak = () => {
   };
 
   return (
-    <div className='h-screen bg-secondary-50 max-md:px-4'>
+    <div className='h-screen bg-secondary-50 max-md:h-[calc(100vh-50px)]'>
       {!isDelay ? (
-        <div className='w-screen h-screen'>
+        <div className='w-screen'>
           <Tutorial handleStart={handleStart} />
         </div>
       ) : (

@@ -19,14 +19,14 @@ const Tutorial = ({ handleStart }: Delay) => {
       <Carousel className='w-full hidden max-md:block'>
         <CarouselContent>
           <CarouselItem>
-            <Card className='bg-[#2F2F2F] h-screen mb-tutorial-bg'>
+            <Card className='bg-[#2F2F2F] h-screen mb-tutorial-bg max-md:h-[calc(100vh-50px)]'>
               <CardContent>
                 <div></div>
               </CardContent>
             </Card>
           </CarouselItem>
           <CarouselItem>
-            <Card className='relative bg-[#2F2F2F] h-screen mb-tutorial-bg ty2'>
+            <Card className='relative bg-[#2F2F2F] h-screen mb-tutorial-bg ty2 max-md:h-[calc(100vh-50px)]'>
               <CardContent>
                 <button
                   onClick={handleStart}
