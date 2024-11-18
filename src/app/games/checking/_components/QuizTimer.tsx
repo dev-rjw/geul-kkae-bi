@@ -2,8 +2,9 @@
 import { QuizTimerProps } from '@/types/checking';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import MobileTutorial from './MobileTutorial';
 
-const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
+const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile }) => {
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIsTutorial] = useState(true);
 
@@ -35,24 +36,26 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className='fixed inset-0 z-10 bg-[#252424]'>
-          <Image
-            src='/checking_tutorial.svg'
-            alt='Tutorial'
-            fill
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-          <button
-            className='start_checking_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
-            onClick={handleStartGame}
-          >
-            <span className='relative z-10 title-20 text-tertiary-p-700'>GAME START</span>
-          </button>
-        </div>
-      ) : (
-        <></>
-      )}
+        isMobile ? (
+          <MobileTutorial onStartGame={handleStartGame} />
+        ) : (
+          <div className='fixed inset-0 z-10 bg-[#252424]'>
+            <Image
+              src='/checking_tutorial.svg'
+              alt='Tutorial'
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+            <button
+              className='start_checking_btn absolute bottom-[4.375rem] right-[62px] w-[13.063rem] py-[15px] rounded-[80px]'
+              onClick={handleStartGame}
+            >
+              <span className='relative z-10 title-20 text-tertiary-p-700'>GAME START</span>
+            </button>
+          </div>
+        )
+      ) : null}
       <div className='w-full bg-tertiary-p-100 h-7'>
         <div
           className=' bg-tertiary-p-300 h-7 transition-all ease-linear rounded-r-lg'
