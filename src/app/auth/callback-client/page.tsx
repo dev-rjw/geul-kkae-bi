@@ -25,7 +25,7 @@ const CallbackClientPage = () => {
   }, []);
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center'>
+    <div className='w-screen min-h-content py-10 flex items-center justify-center'>
       <Loader2 className='mr-2 h-12 w-12 animate-spin text-primary-400' />
     </div>
   );
