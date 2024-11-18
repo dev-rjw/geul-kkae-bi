@@ -450,10 +450,84 @@
   }
 
   .rank-my-info {
-    @apply container fixed bottom-4 left-1/2 -translate-x-1/2 max-md:px-0 max-md:bottom-auto;
+    @apply container fixed bottom-4 left-1/2 -translate-x-1/2 z-10 max-md:px-0 max-md:bottom-auto;
   }
   .rank-my-info-card {
     @apply h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem] max-md:h-[12.5rem] max-md:rounded-t-none max-md:rounded-b-[1.25rem];
+  }
+
+  .rank-ranking {
+    @apply w-[4rem] text-primary-700 -mb-1 max-md:w-[2.5rem];
+  }
+  .rank-nickname {
+    @apply text-primary-700 -mb-1;
+  }
+  .rank-total {
+    @apply ml-auto text-primary-700;
+  }
+
+  .game-image-box {
+    @apply w-full rounded-[1.125rem] relative border-8 inline-block overflow-hidden mt-8;
+  }
+  .game-image-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    box-shadow: inset 4px 4px #814be7;
+  }
+  .speak .game-image-box {
+    box-shadow: 4px 4px #c98010;
+    border-color: var(--color-secondary-300);
+  }
+  .check .game-image-box {
+    box-shadow: 4px 4px #814be7;
+    border-color: var(--color-tertiary-p-300);
+  }
+  .write .game-image-box {
+    box-shadow: 4px 4px var(--color-tertiary-g-700);
+    border-color: var(--color-tertiary-g-500);
+  }
+  .speak .game-image-box::before {
+    box-shadow: inset 4px 4px #c98010;
+  }
+  .write .game-image-box::before {
+    box-shadow: inset 4px 4px var(--color-tertiary-g-700);
+  }
+
+  .progress-bar {
+    @apply relative w-0 h-11 max-w-full rounded-full;
+    transition: width 1s ease-in-out;
+  }
+  .progress-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    width: 98px;
+    aspect-ratio: 72/62;
+    background-image: url(/character_speak.svg);
+    background-size: cover;
+  }
+  .speak .progress-bar {
+    background: linear-gradient(90deg, rgba(255, 217, 159, 1) 0%, rgba(255, 169, 37, 1) 100%);
+  }
+  .check .progress-bar {
+    background: linear-gradient(90deg, rgba(221, 208, 246, 1) 0%, rgba(160, 123, 229, 1) 100%);
+  }
+  .write .progress-bar {
+    background: linear-gradient(90deg, rgba(127, 230, 207, 1) 0%, rgba(42, 212, 175, 1) 100%);
+  }
+  .check .progress-bar::before {
+    background-image: url(/character_checking.svg);
+  }
+  .write .progress-bar::before {
+    background-image: url(/character_writing.svg);
   }
 }
 
@@ -554,7 +628,7 @@
 .speak h3 {
   color: var(--color-secondary-600);
 }
-.speak .txt {
+.speak .result-text {
   color: var(--color-secondary-700);
 }
 .check {
@@ -563,7 +637,7 @@
 .check h3 {
   color: var(--color-tertiary-p-600);
 }
-.check .txt {
+.check .result-text {
   color: var(--color-tertiary-p-700);
 }
 .write {
@@ -572,64 +646,8 @@
 .write h3 {
   color: var(--color-tertiary-g-600);
 }
-.write .txt {
+.write .result-text {
   color: var(--color-tertiary-g-700);
-}
-
-.progress-bar::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(50%, -50%);
-  width: 98px;
-  aspect-ratio: 72/62;
-  background-image: url(/character_speak.svg);
-  background-size: cover;
-}
-.speak .progress-bar {
-  background: linear-gradient(90deg, rgba(255, 217, 159, 1) 0%, rgba(255, 169, 37, 1) 100%);
-}
-.check .progress-bar {
-  background: linear-gradient(90deg, rgba(221, 208, 246, 1) 0%, rgba(160, 123, 229, 1) 100%);
-}
-.write .progress-bar {
-  background: linear-gradient(90deg, rgba(127, 230, 207, 1) 0%, rgba(42, 212, 175, 1) 100%);
-}
-.check .progress-bar::before {
-  background-image: url(/character_checking.svg);
-}
-.write .progress-bar::before {
-  background-image: url(/character_writing.svg);
-}
-
-.game-image-box::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  box-shadow: inset 4px 4px #814be7;
-}
-.speak .game-image-box {
-  box-shadow: 4px 4px #c98010;
-  border-color: var(--color-secondary-300);
-}
-.check .game-image-box {
-  box-shadow: 4px 4px #814be7;
-  border-color: var(--color-tertiary-p-300);
-}
-.write .game-image-box {
-  box-shadow: 4px 4px var(--color-tertiary-g-700);
-  border-color: var(--color-tertiary-g-500);
-}
-.speak .game-image-box::before {
-  box-shadow: inset 4px 4px #c98010;
-}
-.write .game-image-box::before {
-  box-shadow: inset 4px 4px var(--color-tertiary-g-700);
 }
 
 .speaking {

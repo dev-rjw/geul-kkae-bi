@@ -7,6 +7,7 @@ import ResultSide from '../_components/ResultSide';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
+import LineTitle from '@/components/LineTitle';
 import kakaoTalkShare from './kakaoTalkShare';
 // import Modal from './Modal';
 
@@ -21,18 +22,32 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
     const convertScoreToGamesArray = ({ speakingScore, checkingScore, writingScore }: GamesScore) => {
       return [
         {
-          type: 'checking',
-          score: checkingScore,
-          color: 'bg-tertiary-p-100',
-          name: '틀린 말 탐정단',
-        },
-        {
           type: 'speaking',
           score: speakingScore,
-          color: 'bg-secondary-100',
           name: '나야, 발음왕',
+          backgroundColor: 'bg-[#FEEFD7]',
+          titleColor1: 'text-secondary-700',
+          titleColor2: 'text-secondary-600',
+          lineColor: 'bg-secondary-200',
         },
-        { type: 'writing', score: writingScore, color: 'bg-tertiary-g-100', name: '빈칸 한입' },
+        {
+          type: 'checking',
+          score: checkingScore,
+          name: '틀린 말 탐정단',
+          backgroundColor: 'bg-tertiary-p-100',
+          titleColor1: 'text-tertiary-p-700',
+          titleColor2: 'text-tertiary-p-400',
+          lineColor: 'bg-tertiary-p-200',
+        },
+        {
+          type: 'writing',
+          score: writingScore,
+          name: '빈칸 한입',
+          backgroundColor: 'bg-tertiary-g-100',
+          titleColor1: 'text-tertiary-g-800',
+          titleColor2: 'text-tertiary-g-600',
+          lineColor: 'bg-tertiary-g-200',
+        },
       ];
     };
 
@@ -55,14 +70,19 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
 
   return (
     <div>
-      <div className='flex justify-center pt-7 pb-[1.875rem] '>
-        <div className='title-32 inline relative'>
-          {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
-        </div>
+      <div className='flex justify-center pb-[2.375rem]'>
+        <LineTitle
+          className='text-primary-400 title-34 font-normal'
+          lineClassName={`-bottom-2 w-[calc(100%+20px)] h-4/6 ${matchedGame?.lineColor}`}
+        >
+          <span className={matchedGame?.titleColor1}>
+            {matchedGame?.name} <span className={matchedGame?.titleColor2}>결과</span>
+          </span>
+        </LineTitle>
       </div>
 
       <div className='flex flex-row justify-center h-[36.5rem]'>
-        <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.color} `}>
+        <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.backgroundColor} `}>
           <ResultSide
             GameScore={GameScore}
             justEndedGame={justEndedGame}
@@ -89,7 +109,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
                 } absolute w-full -bottom-5 z-10`}
               />
             </div>
-            {/*             <Modal /> */}
+            {/* <Modal /> */}
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
@@ -99,7 +119,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
                 key={game.type}
                 href={`/games/${game.type}`}
               >
-                <div className={`${game.color} h-[17.938rem] rounded-[1.25rem] game ${game.type} `}>
+                <div className={`game h-[17.938rem] rounded-[1.25rem] ${game.type}`}>
                   {game.score === null ? (
                     <div className='pt-[21.79px] pl-[23.89px]'>
                       <div className='title-32'>{game.name}</div>

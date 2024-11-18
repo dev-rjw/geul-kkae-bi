@@ -9,6 +9,8 @@ import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
+import LineTitle from '@/components/LineTitle';
+// import { Button } from '@/components/ui/button';
 import kakaoTalkShare from '../_components/kakaoTalkShare';
 // import Modal from '../_components/Modal';
 
@@ -58,15 +60,20 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   }
 
   return (
-    <div>
-      <div className='flex justify-center pt-7 pb-[1.875rem] '>
-        <div className='title-32 inline relative'>
-          {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
-        </div>
+    <div className='container py-11'>
+      <div className='flex justify-center pb-[2.375rem]'>
+        <LineTitle
+          className='text-primary-400 title-34 font-normal'
+          lineClassName={`-bottom-2 w-[calc(100%+20px)] h-4/6 ${matchedGame?.lineColor}`}
+        >
+          <span className={matchedGame?.titleColor1}>
+            {matchedGame?.name} <span className={matchedGame?.titleColor2}>결과</span>
+          </span>
+        </LineTitle>
       </div>
 
-      <div className='flex flex-row justify-center h-[36.5rem]'>
-        <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.color} `}>
+      <div className='flex flex-row h-[36.5rem]'>
+        <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.backgroundColor} `}>
           <ResultSide
             GameScore={GameScore}
             justEndedGame={justEndedGame}
@@ -82,10 +89,10 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
             <div className={`${matchedGame?.type} `}>
               <span className='title-20 text-primary-500'>{userTable?.user.nickname}</span>
-              <span className='query body-16 '>님의</span>
+              <span className='query body-16'>님의</span>
               <div className='query title-32'>국어 문해력은?</div>
             </div>
-            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline  relative`}>
+            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline relative`}>
               <span className='score relative z-20'>{GameScore}점</span>
               <div
                 className={`h-[2.688rem] ${
@@ -110,7 +117,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                 key={game.type}
                 href={`/games/${game.type}`}
               >
-                <div className={`${game.type} h-[17.938rem] rounded-[1.25rem] `}>
+                <div className={`game h-[17.938rem] rounded-[1.25rem] ${game.type}`}>
                   {game.score === null ? (
                     <div className='pt-[21.79px] pl-[23.89px]'>
                       <div className='title-32'>{game.name}</div>
@@ -131,7 +138,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           })}
         </div>
       </div>
-      <div className='flex justify-center items-center  h-[138px]'>
+      <div className='flex justify-center items-center marker:h-[138px]'>
         {isDone ? (
           <div className='flex items-center gap-24'>
             <Image
@@ -149,7 +156,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
               </div>
             </div>
             <Link href={'/games/rank'}>
-              <div className='flex justify-center items-center gap-3  w-[176px] h-[43px] rounded-[99px] border-2 border-gray-300 body-18 text-gray-400'>
+              <div className='flex justify-center items-center gap-3  w-[176px] h-[43px] rounded-full border-2 border-gray-300 body-18 text-gray-400'>
                 랭킹 보러가기
                 <Image
                   width={24}
@@ -161,7 +168,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
             </Link>
           </div>
         ) : (
-          <div className='flex gap-[221.04px]'>
+          <div className='flex gap-[13.7rem]'>
             <div>
               <div className='body-22 text-gray-500'>종합 랭킹을 확인하려면</div>
               <div className='body-30 text-gray-700'>
@@ -189,20 +196,29 @@ const extractGames = (game: Rank) => {
     {
       type: 'speaking',
       score: speaking,
-      color: 'bg-secondary-[#FEEFD7]',
       name: '나야, 발음왕',
+      backgroundColor: 'bg-[#FEEFD7]',
+      titleColor1: 'text-secondary-700',
+      titleColor2: 'text-secondary-600',
+      lineColor: 'bg-secondary-200',
     },
     {
       type: 'checking',
       score: checking,
-      color: 'bg-tertiary-p-100',
       name: '틀린 말 탐정단',
+      backgroundColor: 'bg-tertiary-p-100',
+      titleColor1: 'text-tertiary-p-700',
+      titleColor2: 'text-tertiary-p-400',
+      lineColor: 'bg-tertiary-p-200',
     },
     {
       type: 'writing',
       score: writing,
-      color: 'bg-tertiary-g-100',
       name: '빈칸 한입',
+      backgroundColor: 'bg-tertiary-g-100',
+      titleColor1: 'text-tertiary-g-800',
+      titleColor2: 'text-tertiary-g-600',
+      lineColor: 'bg-tertiary-g-200',
     },
   ];
 };

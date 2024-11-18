@@ -6,7 +6,7 @@ const SUPABASE_API_URL = process.env.NEXT_PUBLIC_SUPABASE_API_URL
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
