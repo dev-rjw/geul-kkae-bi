@@ -11,7 +11,7 @@ const CheckingAnswer = () => {
   const { data: checkingWrongAnswers = [], isLoading, isError } = useFetchCheckingWrongAnswer(userId, weekNumber);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
-  const itemsPerPage = 4;
+  const itemsPerPage = 2;
 
   const paginatedAnswers = checkingWrongAnswers?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
   const { mutate: deleteAnswers } = useDeleteCheckingAnswersMutation();
@@ -53,8 +53,8 @@ const CheckingAnswer = () => {
   if (isError) return <p>에러...</p>;
 
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <div className='w-[1080px] h-[719px] flex flex-col border rounded-[20px] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
+    <div className='flex justify-center items-center'>
+      <div className='w-[1080px] h-[719px] flex flex-col border rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center mb-6'>
           <h3 className='text-[1.5rem] font-bold text-[#4f21a6]'>완료한 문장은 체크해서 지워주세요!✓</h3>
@@ -70,7 +70,7 @@ const CheckingAnswer = () => {
               currentPage === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#8E24AA] text-white hover:bg-[#6a1b9a]'
             }`}
           >
-            ← 이전
+            ←
           </button>
 
           {/* 카드 영역 */}
@@ -86,8 +86,14 @@ const CheckingAnswer = () => {
                 <div className='mt-3 flex flex-col gap-4'>
                   {/* 문제 헤더 */}
                   <div className='flex justify-between items-center gap-2'>
-                    <span className='bg-[#E6D4F2] text-[#6A1B9A] font-semibold px-3 py-1 rounded-lg text-sm'>문제</span>
-                    <div className='flex items-center justify-center w-8 h-8 bg-[#8E24AA] rounded-sm'>
+                    <span className='bg-[#E6D4F2] text-[#8150dd] font-semibold px-[0.875rem] py-1 rounded-lg text-lg'>
+                      문제
+                    </span>
+                    <div
+                      className={`flex items-center justify-center w-8 h-8 rounded-lg ${
+                        selectedQuestions.includes(answer.question) ? 'bg-[#6429d1]' : 'bg-[#ddd0f6]'
+                      }`}
+                    >
                       <input
                         type='checkbox'
                         id={`checkbox-${answer.question}`}
@@ -98,7 +104,7 @@ const CheckingAnswer = () => {
                       {/* 체크 표시 */}
                       <label
                         htmlFor={`checkbox-${answer.question}`}
-                        className='text-white font-bold text-lg absolute flex items-center justify-center w-min h-min cursor-pointer'
+                        className=' text-[#fcfbfe] font-bold text-[2rem] absolute flex items-center justify-center w-min h-min cursor-pointer'
                         style={{ padding: '2px' }}
                       >
                         ✓
@@ -115,12 +121,12 @@ const CheckingAnswer = () => {
                       answer.correct.map((option: string, idx: number) => (
                         <div
                           key={idx}
-                          className={`flex items-center gap-3 px-3 py-2 rounded-md shadow-sm ${
+                          className={`flex items-center gap-3 px-3 py-2 rounded-md text-[#504f4e] ${
                             answer.user_answer === option
-                              ? 'bg-[#fcdede] text-[#D32F2F]'
+                              ? 'bg-[#fcdede] '
                               : option === answer.answer
-                              ? 'bg-[#ddd0f6] text-[#6A1B9A]'
-                              : 'bg-[#f9f8fc] text-[#504f4e]'
+                              ? 'bg-[#ddd0f6] '
+                              : ''
                           }`}
                         >
                           {/* 번호 표시 */}
@@ -173,7 +179,7 @@ const CheckingAnswer = () => {
                 : 'bg-[#8E24AA] text-white hover:bg-[#6a1b9a]'
             }`}
           >
-            다음 →
+            &gt;
           </button>
         </div>
 

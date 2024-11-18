@@ -1,13 +1,54 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 
 import CheckingAnswer from './_components/CheckingAnswer';
+import WritingAnswer from './_components/WritingAnswer';
 
 const WrongAnswerPage = () => {
+  const [selectedTab, setSelectedTab] = useState('checking');
   return (
-    <div>
-      <CheckingAnswer />
+    <div className='flex flex-col items-center justify-center h-screen'>
+      <div className='w-full max-w-[1080px] max-h-[719px] rounded-lg'>
+        <div className='relative'>
+          <div className='flex justify-start items-center'>
+            <button
+              className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
+                selectedTab === 'checking'
+                  ? "bg-[url('/checking_btnon_wrong.svg')] bg-cover text-white"
+                  : "bg-[url('/checking_btn_wrong.svg')] bg-contain text-[#bfa5ed]"
+              }`}
+              onClick={() => setSelectedTab('checking')}
+            >
+              틀린말 탐정단
+            </button>
+            <button
+              className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
+                selectedTab === 'writing'
+                  ? "bg-[url('/speaking_btnon_wrong.svg')] bg-cover text-white"
+                  : "bg-[url('/speaking_btn_wrong.svg')] bg-contain text-[#FF8A65]"
+              }`}
+              onClick={() => setSelectedTab('writing')}
+            >
+              나야, 발음왕
+            </button>
+            <button
+              className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
+                selectedTab === 'blank'
+                  ? "bg-[url('/writing_btnon_wrong.svg')] bg-cover text-white"
+                  : "bg-[url('/writing_btn_wrong.svg')] bg-contain text-[#26C6DA]"
+              }`}
+              onClick={() => setSelectedTab('blank')}
+            >
+              빈칸 한 입
+            </button>
+          </div>
+        </div>
+        <div className='flex flex-col'>
+          {selectedTab === 'checking' && <CheckingAnswer />}
+          {selectedTab === 'writing' && <WritingAnswer />}
+        </div>
+      </div>
     </div>
   );
 };
-
 export default WrongAnswerPage;
