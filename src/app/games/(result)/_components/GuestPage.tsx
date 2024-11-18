@@ -7,6 +7,7 @@ import ResultSide from '../_components/ResultSide';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
+import kakaoTalkShare from './kakaoTalkShare';
 // import Modal from './Modal';
 
 const GuestPage = ({ searchParams }: JustEndedGameProp) => {
@@ -65,6 +66,14 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
           <ResultSide
             GameScore={GameScore}
             justEndedGame={justEndedGame}
+          />{' '}
+          <Image
+            src='/kakaotalk.png'
+            alt='카카오톡 공유 보내기 버튼'
+            onClick={kakaoTalkShare}
+            width={100}
+            height={100}
+            className='cursor-pointer'
           />
           <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
             <div className={`${matchedGame?.type} `}>
@@ -80,7 +89,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
                 } absolute w-full -bottom-5 z-10`}
               />
             </div>
-{/*             <Modal /> */}
+            {/*             <Modal /> */}
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
