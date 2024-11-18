@@ -42,6 +42,8 @@ const ModalChecking = () => {
                     />
                   )}
                 </div>
+
+                {/* 정답 확인 버튼 */}
                 <button
                   onClick={() => setOpenResult(openResult === index ? null : index)}
                   className='flex items-center py-1 px-6 text-2xl font-medium text-[#FCFBFE] bg-[#A07BE5] rounded-[0.5rem]'
@@ -54,6 +56,8 @@ const ModalChecking = () => {
                   />
                 </button>
               </div>
+
+              {/* 문제 상세 */}
               {openResult === index && (
                 <div className='mt-2 rounded-lg h-[19.938rem]'>
                   <div className='bg-[#ddd0f6] p-8 mb-[0.188rem] rounded-t-[0.5rem]'>
@@ -92,6 +96,9 @@ const ModalChecking = () => {
                         src='/icon_arrow_modal.svg'
                         alt='arrow'
                       />
+                      <span className='underline decoration-[#BFA5ED] decoration-[12px] underline-offset-[-3px] text-3xl font-bold text-[#4F21A6]'>
+                        {result.right}
+                      </span>
                       <span className='underline decoration-[#BFA5ED] decoration-[12px] underline-offset-[-3px] text-3xl font-bold text-[#4F21A6]'>
                         {result.right}
                       </span>
