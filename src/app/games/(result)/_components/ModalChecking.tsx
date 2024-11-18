@@ -26,7 +26,7 @@ const ModalChecking = () => {
                   <p className='text-[2rem] font-medium text-[#4F21A6] mr-[1.188rem]'>
                     {String(index + 1).padStart(2, '0')}번
                   </p>
-                  <span className='h-[2.5rem] border-l-2 border-[#bfa5ed] mr-[1.438rem]'></span>
+                  <span className='h-[2.5rem] border-l-[3px] border-[#bfa5ed] mr-[1.438rem]'></span>
                   <p className='text-3xl font-bold text-[#504F4E]'>{result.test.slice(0, 6)}</p>
                   {result.isCorrect ? (
                     <img

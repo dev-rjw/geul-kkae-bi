@@ -12,7 +12,9 @@ const ModalWriting = () => {
 
   return (
     <div className='w-[1008px] h-[768px] rounded-[3.125rem] bg-[#7fe6cf] flex flex-col items-center'>
-      <h2 className='mt-12 title-40 text-[#198069]'>오답공개</h2>
+      <h2 className='mt-12 title-40'>
+        <span className='text-[#22AA8D]'>빈칸 한 입</span> <span className='text-[#198069]'>오답 공개</span>
+      </h2>
       <div className='flex justify-center items-start'>
         <ul className='mt-12 w-[836px] max-h-[559px] overflow-auto'>
           {result.map((result, index) => (
@@ -23,7 +25,7 @@ const ModalWriting = () => {
               <div className='flex justify-between items-center h-[87px] px-8 py-4 rounded-[0.5rem] mb-2 bg-[#F6FDFC]'>
                 <div className='flex items-center'>
                   <p className='text-[2rem] font-medium text-[#363635] mr-4'>{String(index + 1).padStart(2, '0')}번</p>
-                  <span className='h-[2.5rem] border-l-2 border-[#AAEEDF] mr-[1.438rem]'></span>
+                  <span className='h-[2.5rem] border-l-[3px] border-[#AAEEDF] mr-[1.438rem]'></span>
                   <p className='text-[2rem] font-medium text-[#363635]'>{result.userAnswer}</p>
                   <img
                     src={result.isCorrect ? '/icon_correctanswer_modal.svg' : '/icon_wronganswer_modal.svg'}
