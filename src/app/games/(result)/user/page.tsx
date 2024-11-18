@@ -181,7 +181,7 @@ const extractGames = (game: Rank) => {
     {
       type: 'speaking',
       score: speaking,
-      color: 'bg-secondary-[#FEEFD7]',
+      color: 'bg-[#FEEFD7]',
       name: '나야, 발음왕',
     },
     {

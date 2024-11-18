@@ -450,10 +450,20 @@
   }
 
   .rank-my-info {
-    @apply container fixed bottom-4 left-1/2 -translate-x-1/2 max-md:px-0 max-md:bottom-auto;
+    @apply container fixed bottom-4 left-1/2 -translate-x-1/2 z-10 max-md:px-0 max-md:bottom-auto;
   }
   .rank-my-info-card {
     @apply h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem] max-md:h-[12.5rem] max-md:rounded-t-none max-md:rounded-b-[1.25rem];
+  }
+
+  .rank-ranking {
+    @apply w-[4rem] text-primary-700 -mb-1 max-md:w-[2.5rem];
+  }
+  .rank-nickname {
+    @apply text-primary-700 -mb-1;
+  }
+  .rank-total {
+    @apply ml-auto text-primary-700;
   }
 }
 
