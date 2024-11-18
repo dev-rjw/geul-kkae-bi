@@ -3,6 +3,8 @@ import localFont from 'next/font/local';
 import './globals.css';
 import QueryProvider from '@/utils/QueryProvider';
 import GoogleAnalytics from '@/lib/GoogleAnalytics';
+import Header from '@/components/Header';
+import { Suspense } from 'react';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -51,12 +53,15 @@ export default function RootLayout({
     <QueryProvider>
       <html lang='ko'>
         <body
-          className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen bg-secondary-50 text-gray-800`}
+          className={`${pretendard.variable} ${yangjin.variable} font-pretendard antialiased flex flex-col min-h-screen overflow-x-hidden bg-secondary-50 text-gray-800`}
         >
           {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
             <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
           ) : null}
-          {children}
+          <Suspense>
+            <Header />
+          </Suspense>
+          <main className='grow'>{children}</main>
           <div id='global-modal' />
         </body>
       </html>

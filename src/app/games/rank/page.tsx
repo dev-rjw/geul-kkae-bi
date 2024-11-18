@@ -1,23 +1,24 @@
-import { createClient } from '@/utils/supabase/server';
 import React from 'react';
-import { Rank, RankIncludingUserInfo, UserProfile } from '@/types/rank';
+import { Rank } from '@/types/rank';
 import { fetchUserId } from '@/utils/auth/server-action';
 import Image from 'next/image';
 import './style.css';
 import Link from 'next/link';
-import { fetchLatestWeekData, insertLastRankingData } from '@/utils/rank/server-action';
+import {
+  fetchLastWeek,
+  fetchLatestWeek,
+  fetchLatestWeekData,
+  fetchUserLastRank,
+  insertLastRankingData,
+} from '@/utils/rank/server-action';
 import { redirect } from 'next/navigation';
+import LineTitle from '@/components/LineTitle';
+import { fetchUserProfile } from '@/utils/user/server-action';
 
 const RankingPage = async () => {
-  const serverClient = createClient();
   const userId = await fetchUserId();
   const latestWeekData = await fetchLatestWeekData();
-
-  const { data: userProfile }: { data: UserProfile | null } = await serverClient
-    .from('user')
-    .select()
-    .eq('user_id', userId)
-    .single();
+  const userProfile = await fetchUserProfile(userId);
 
   //이번주 랭킹 로직
   let userTable;
@@ -26,12 +27,7 @@ const RankingPage = async () => {
   if (latestWeekData) {
     const latestWeek = latestWeekData.week;
 
-    const { data }: { data: RankIncludingUserInfo[] | null } = await serverClient
-      .from('rank')
-      .select(`*,user(nickname, introduction, image)`)
-      .eq('week', latestWeek)
-      .gte('total', 0)
-      .order('total', { ascending: false });
+    const data = await fetchLatestWeek(latestWeek);
 
     if (!data || data.length === 0) {
       redirect('/');
@@ -47,12 +43,7 @@ const RankingPage = async () => {
   if (latestWeekData && latestWeekData.week - 1 > 0) {
     const lastWeek = latestWeekData.week - 1;
 
-    const { data: lastWeekData } = await serverClient
-      .from('rank')
-      .select()
-      .eq('week', lastWeek)
-      .not('total', 'is', null)
-      .order('total', { ascending: false });
+    const lastWeekData = await fetchLastWeek(lastWeek);
 
     if (lastWeekData?.[0].ranking === null) {
       const countRanking: Rank[] | undefined = lastWeekData?.map((item, index) => ({
@@ -65,20 +56,15 @@ const RankingPage = async () => {
       }
     }
 
-    const { data: myLastrank }: { data: Rank | null } = await serverClient
-      .from('rank')
-      .select()
-      .eq('user_id', userId)
-      .eq('week', lastWeek)
-      .single();
+    const myLastRank = await fetchUserLastRank(userId, lastWeek);
 
     return (
-      <div className='container pt-10 pb-4'>
+      <div className='container pt-10 pb-4 max-md:px-0 max-md:pt-[14rem]'>
         <div
-          className='scrollbar-primary flex flex-col pt-8 pb-[9.375rem] rounded-[3.125rem] bg-primary-50'
+          className='scrollbar-primary flex flex-col pt-8 pb-[9.375rem] rounded-[3.125rem] bg-primary-50 '
           style={{ height: 'calc(100vh - 136px)' }}
         >
-          <div className='flex items-center justify-center gap-x-2'>
+          <div className='max-md:hidden flex items-center justify-center gap-x-2'>
             <Image
               src='/icon_rank.svg'
               width={45}
@@ -87,6 +73,21 @@ const RankingPage = async () => {
               alt='랭킹순위 옆 아이콘'
             />
             <h2 className='title-36 text-primary-400 mt-1 -mb-2'>이번주 전체 랭킹 순위</h2>
+          </div>
+          <div className='hidden max-md:inline-flex'>
+            <LineTitle
+              className='text-primary-400'
+              lineClassName='bg-primary-100'
+            >
+              <Image
+                src='/icon_rank.svg'
+                width={45}
+                height={45}
+                quality={85}
+                alt='랭킹순위 옆 아이콘'
+              />
+              이번주 전체 랭킹 순위
+            </LineTitle>
           </div>
           <div className='h-full mx-4 mt-7 overflow-y-scroll'>
             <div className='grid gap-5 pl-[4.75rem] pr-[3.813rem] pb-5'>
@@ -159,9 +160,10 @@ const RankingPage = async () => {
             </div>
           </div>
         </div>
-        <div className='container fixed bottom-4 left-1/2 -translate-x-1/2'>
-          <div className='h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem]'>
-            <div className='relative w-[6.875rem] h-[6.875rem] rounded-[1.25rem] overflow-hidden'>
+
+        <div className='rank-my-info'>
+          <div className='rank-my-info-card'>
+            <div className='relative w-[6.875rem] h-[6.875rem] border border-primary-400 rounded-[1.25rem] overflow-hidden'>
               <Image
                 src={userProfile?.image ?? ''}
                 alt='profile image for my ranking'
@@ -187,7 +189,7 @@ const RankingPage = async () => {
                   </div>
                   <div className='flex items-center justify-between'>
                     <div className='text-primary-700'>지난주 순위</div>
-                    <div className='text-primary-600'>{myLastrank ? myLastrank?.ranking : ''}등</div>
+                    <div className='text-primary-600'>{myLastRank ? myLastRank?.ranking : ''}등</div>
                   </div>
                 </div>
                 <div className='flex flex-col justify-between self-stretch w-full max-w-[15.25rem] title-16'>

@@ -40,14 +40,14 @@ const MypageMyRank = () => {
   };
 
   return (
-    <div className='flex flex-col min-w-[16.125rem] bg-primary-300 rounded-3xl text-center'>
-      <div className='py-5'>
-        <h3 className='title-24 text-primary-800'>내 랭킹</h3>
-        <p className='caption-12 text-primary-500'>{fetchThisWeek()[0] + ' - ' + fetchThisWeek()[6]}</p>
+    <div className='flex flex-col min-w-[16.125rem] bg-primary-300 rounded-3xl text-center max-md:w-full max-md:min-w-[auto] max-md:rounded-[0.875rem]'>
+      <div className='py-5 max-md:px-2 max-md:pb-4'>
+        <h3 className='title-24 text-primary-800 max-md:text-xl'>내 랭킹</h3>
+        <p className='caption-12 text-primary-500'><span className='inline-block'>{fetchThisWeek()[0]}</span> ~ <span className='inline-block'>{fetchThisWeek()[6]}</span></p>
       </div>
-      <div className='h-2 bg-primary-200 border-t-2 border-primary-400 opacity-40' />
+      <div className='h-2 bg-primary-200 border-t-2 border-primary-400 opacity-40 max-md:h-[0.375rem]' />
 
-      <div className='grow flex flex-col justify-center items-center pt-4 pb-7'>
+      <div className='grow flex flex-col justify-center items-center pt-4 pb-7 max-md:py-4'>
         <div className='relative flex pt-6'>
           <div className='absolute top-0 left-1/2 z-10 -translate-x-1/2'>
             <Image
@@ -58,20 +58,18 @@ const MypageMyRank = () => {
             />
           </div>
           <Avatar
-            size='6.625rem'
             src={user?.image}
-            className='mx-auto'
+            size='6.625rem'
+            className='mx-auto w-[6.625rem] h-[6.625rem]'
           />
         </div>
-        <div className='title-40 text-white mt-2'>{rank?.ranking || '-'}위</div>
+        <div className='title-40 text-white mt-2 max-md:title-32 max-md:mt-2'>{rank?.ranking || '-'}위</div>
       </div>
 
       <div className='h-1 bg-primary-100 border-t-2 border-primary-400 opacity-40' />
-      <div className='flex justify-center items-center py-4'>
-        <h3>
-          <span className='title-16 text-primary-500'>지난주 순위</span>
-          <span className='body-22 ml-[3.25rem] text-primary-700'>{beforeRank?.ranking || '-'}위</span>
-        </h3>
+      <div className='flex justify-center items-center py-4 max-md:px-5 max-md:justify-between'>
+        <span className='title-16 text-primary-500 max-md:text-xs'>지난주 순위</span>
+        <span className='body-22 ml-[3.25rem] text-primary-700 max-md:text-sm max-sm:ml-auto'>{beforeRank?.ranking || '-'}위</span>
       </div>
     </div>
   );

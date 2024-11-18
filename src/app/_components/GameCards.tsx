@@ -66,19 +66,36 @@ const CARD_DATA: CardData[] = [
 
 const GameCards = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+
+  const handleCardClick = (id: number) => {
+    setSelectedCard((prev) => (prev === id ? null : id));
+  };
 
   return (
-    <div className='flex gap-4'>
-      {CARD_DATA.map((card) => (
-        <GameCard
-          key={card.id}
-          card={card}
-          hoveredCard={hoveredCard}
-          onHover={() => setHoveredCard(card.id)}
-          onLeave={() => setHoveredCard(null)}
-        />
-      ))}
-    </div>
+    <>
+      <div className='flex max-lg:hidden gap-4'>
+        {CARD_DATA.map((card) => (
+          <GameCard
+            key={card.id}
+            card={card}
+            hoveredCard={hoveredCard}
+            onHover={() => setHoveredCard(card.id)}
+            onLeave={() => setHoveredCard(null)}
+          />
+        ))}
+      </div>
+      <div className='hidden max-lg:flex flex-col gap-2'>
+        {CARD_DATA.map((card) => (
+          <GameCard
+            key={card.id}
+            card={card}
+            selectedCard={selectedCard}
+            onClick={() => handleCardClick(card.id)}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

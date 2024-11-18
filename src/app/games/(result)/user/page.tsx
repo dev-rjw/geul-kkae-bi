@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-action';
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
 // import { Button } from '@/components/ui/button';
-import Modal from '../_components/Modal';
+// import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   const serverClient = createClient();
@@ -60,7 +60,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
   return (
     <div>
       <div className='flex justify-center pt-7 pb-[1.875rem] '>
-        <div className='title-32 inline  relative'>
+        <div className='title-32 inline relative'>
           {matchedGame?.name} 결과 <div className={`h-5 ${matchedGame?.color} absolute w-full -bottom-1 -z-10`} />
         </div>
       </div>
@@ -92,7 +92,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                 <Link href={`/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${userTable?.user.nickname}`}>공유하기</Link>
               </Button>
             </div> */}
-            <Modal />
+{/*             <Modal /> */}
           </div>
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
@@ -176,19 +176,19 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
 export default ResultPageForUser;
 
 const extractGames = (game: Rank) => {
-  const { checking, speaking, writing } = game;
+  const { speaking, checking, writing } = game;
   return [
+    {
+      type: 'speaking',
+      score: speaking,
+      color: 'bg-secondary-[#FEEFD7]',
+      name: '나야, 발음왕',
+    },
     {
       type: 'checking',
       score: checking,
       color: 'bg-tertiary-p-100',
       name: '틀린 말 탐정단',
-    },
-    {
-      type: 'speaking',
-      score: speaking,
-      color: 'bg-secondary-100',
-      name: '나야, 발음왕',
     },
     {
       type: 'writing',
