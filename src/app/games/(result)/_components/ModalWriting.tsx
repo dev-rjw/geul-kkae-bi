@@ -12,7 +12,7 @@ const ModalWriting = () => {
 
   return (
     <div className='w-[1008px] h-[768px] rounded-[3.125rem] bg-[#7fe6cf] flex flex-col items-center'>
-      <h2 className='mt-12 title-40'>
+      <h2 className='mt-12 title-40 font-medium'>
         <span className='text-[#22AA8D]'>빈칸 한 입</span> <span className='text-[#198069]'>오답 공개</span>
       </h2>
       <div className='flex justify-center items-start'>

@@ -13,7 +13,10 @@ const ModalChecking = () => {
 
   return (
     <div className='bg-[#BFA5ED] w-[63rem] h-[48rem] rounded-[3.125rem] flex flex-col items-center'>
-      <h2 className='mt-12 text-[2.5rem] font-bold text-[#4f21a6]'>오답 공개</h2>
+      <h2 className='mt-12 text-[2.5rem] font-medium'>
+        {' '}
+        <span className='text-[#8150DD]'>틀린 말 탐정단</span> <span className='text-[#4F21A6]'>오답 공개</span>
+      </h2>
       <div className='flex justify-center items-start'>
         <ul className='mt-12 w-[50.5rem] max-h-[34.938rem] overflow-auto'>
           {result.map((result, index) => (
