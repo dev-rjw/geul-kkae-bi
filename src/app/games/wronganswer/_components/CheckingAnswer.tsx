@@ -188,7 +188,7 @@ const CheckingAnswer = () => {
           <button
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
-            className={`w-[300px] h-[50px] font-semibold rounded-lg ${
+            className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
               selectedQuestions.length === 0
                 ? 'bg-[#D1C4E9] text-[#B39DDB] cursor-not-allowed'
                 : 'bg-[#8E24AA] text-white'

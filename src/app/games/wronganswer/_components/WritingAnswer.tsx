@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 const WritingAnswer = () => {
   const { data: user } = useAuth();
   const userId = user?.id ?? null;
-  const { data: writingWrongAnswers = [], isLoading, isError } = useFetchWritingWrongAnswer(userId, weekNumber);
+  const { data: writingWrongAnswers = [] } = useFetchWritingWrongAnswer(userId, weekNumber);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
   const itemsPerPage = 4;
@@ -47,9 +47,6 @@ const WritingAnswer = () => {
     deleteAnswers({ questions: selectedQuestions, userId });
     setSelectedQuestions([]);
   };
-
-  if (isLoading) return <p>로딩중...</p>;
-  if (isError) return <p>에러...</p>;
 
   return (
     <div className='flex justify-center items-center'>
@@ -90,14 +87,26 @@ const WritingAnswer = () => {
                   </div>
 
                   {/* 오른쪽: 체크박스 */}
-                  <div className='flex items-center justify-center w-6 h-6 bg-[#198069] rounded-md'>
+                  <div
+                    className={`flex items-center justify-center w-8 h-8 rounded-lg ${
+                      selectedQuestions.includes(answer.question) ? 'bg-[#198069]' : 'bg-[#aaeedf]'
+                    }`}
+                  >
                     <input
                       type='checkbox'
+                      id={`checkbox-${answer.question}`}
                       className='appearance-none w-full h-full cursor-pointer'
                       checked={selectedQuestions.includes(answer.question)}
                       onChange={() => handleSelect(answer.question)}
                     />
-                    <span className='text-white font-bold text-lg cursor-pointer'>✓</span> {/* 체크 표시 */}
+                    {/* 체크 표시 */}
+                    <label
+                      htmlFor={`checkbox-${answer.question}`}
+                      className=' text-[#fcfbfe] font-bold text-[2rem] absolute flex items-center justify-center w-min h-min cursor-pointer'
+                      style={{ padding: '2px' }}
+                    >
+                      ✓
+                    </label>
                   </div>
                 </div>
 
@@ -146,7 +155,7 @@ const WritingAnswer = () => {
           <button
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
-            className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg duration-300 ${
+            className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
               selectedQuestions.length === 0
                 ? 'bg-[#2AD4AF] text-[#AAEEDF] cursor-not-allowed'
                 : 'bg-[#198069] text-[#f6fdfc]'
