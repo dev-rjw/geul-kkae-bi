@@ -19,7 +19,7 @@ const ProfileEdit = async () => {
   }
 
   return (
-    <div className='container py-10'>
+    <div className='container py-10 max-md:pt-[0.625rem]'>
       <Tabs />
       <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
         <ChangeProfile />

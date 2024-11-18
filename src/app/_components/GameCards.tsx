@@ -39,7 +39,7 @@ const CARD_DATA: CardData[] = [
       difficultyIconColor: 'text-tertiary-p-400',
       titleColor: 'text-tertiary-p-600',
       contentColor: 'text-tertiary-p-500',
-      buttonColor: 'bg-tertiary-p-400 hover:bg-[#4F21A6]  hover:text-tertiary-p-300',
+      buttonColor: 'bg-tertiary-p-400 hover:bg-tertiary-p-600  hover:text-tertiary-p-300',
       buttonIconColor: 'text-[#C1ABEB] group-hover:text-[#8860D2]',
     },
   },
@@ -58,7 +58,7 @@ const CARD_DATA: CardData[] = [
       difficultyIconColor: 'text-tertiary-g-600',
       titleColor: 'text-tertiary-g-800',
       contentColor: 'text-tertiary-g-800',
-      buttonColor: 'bg-tertiary-g-600 hover:bg-[#115546] hover:text-tertiary-g-600',
+      buttonColor: 'bg-tertiary-g-600 hover:bg-tertiary-g-800 hover:text-tertiary-g-600',
       buttonIconColor: 'text-[#BCE5DD] group-hover:text-[#22AE8F]',
     },
   },
@@ -66,19 +66,36 @@ const CARD_DATA: CardData[] = [
 
 const GameCards = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+
+  const handleCardClick = (id: number) => {
+    setSelectedCard((prev) => (prev === id ? null : id));
+  };
 
   return (
-    <div className='flex gap-4'>
-      {CARD_DATA.map((card) => (
-        <GameCard
-          key={card.id}
-          card={card}
-          hoveredCard={hoveredCard}
-          onHover={() => setHoveredCard(card.id)}
-          onLeave={() => setHoveredCard(null)}
-        />
-      ))}
-    </div>
+    <>
+      <div className='flex max-lg:hidden gap-4'>
+        {CARD_DATA.map((card) => (
+          <GameCard
+            key={card.id}
+            card={card}
+            hoveredCard={hoveredCard}
+            onHover={() => setHoveredCard(card.id)}
+            onLeave={() => setHoveredCard(null)}
+          />
+        ))}
+      </div>
+      <div className='hidden max-lg:flex flex-col gap-2'>
+        {CARD_DATA.map((card) => (
+          <GameCard
+            key={card.id}
+            card={card}
+            selectedCard={selectedCard}
+            onClick={() => handleCardClick(card.id)}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

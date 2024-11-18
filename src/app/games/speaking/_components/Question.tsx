@@ -112,17 +112,17 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
         data={data}
         finalPercent={finalPercent}
       />
-      <strong className='bg-[#F9BC5F] mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
+      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
         {index + 1}번문제
       </strong>
-      <div className='bg-[#fdeace] flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-[1.625rem] py-[2.875rem] text-[#855205] rounded-[30px] max-md:w-full max-md:py-[1.625rem] max-md:rounded-[16px]'>
+      <div className='bg-secondary-100 flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-[1.625rem] py-[2.875rem] text-secondary-700 rounded-[30px] max-md:w-full max-md:py-[1.625rem] max-md:rounded-[16px]'>
         <p className='text-[36px] font-bold max-md:text-[16px]'>{randomText[index]}</p>
       </div>
       {result || time === 0 ? (
         <>
-          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
-            <p className='leading-normal text-[36px] text-[#6a6967] max-md:text-[16px]'>정확도 총점</p>
-            <p className='leading-[1.35] text-[56px] text-[#357ee7] max-md:text-[32px]'>
+          <div className='bg-white font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
+            <p className='leading-normal text-[36px] text-gray-600 max-md:text-[16px]'>정확도 총점</p>
+            <p className='leading-[1.35] text-[56px] text-primary-400 max-md:text-[32px]'>
               {finalPercent}
               <span className='text-[36px] max-md:text-[1rem]'>%</span>
             </p>

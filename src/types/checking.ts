@@ -1,6 +1,11 @@
+export type MobileTutorialProps = {
+  onStartGame: () => void;
+};
+
 export interface QuizTimerProps {
   onTimeOver: () => void;
   isAllQuestions: boolean;
+  isMobile: boolean;
 }
 
 export interface QuestionUnderlineProps {
@@ -15,10 +20,25 @@ export interface CheckingButtonProps {
   onselect: (option: string) => void;
 }
 
-export type CheckingResult = {
+export type CheckingQuestion = {
+  id: string;
+  game_kind: string;
   question: string;
+  test: string;
   answer: string;
+  consonant: string;
+  meaning: string;
+  correct: string[];
+  userAnswer: string;
+  keyword: string;
+  isCorrect: boolean;
+};
+
+export type CheckingResult = {
+  answer: string;
+  test: string;
   option: string[];
   userAnswer: string | null;
   right: string;
+  isCorrect: boolean;
 };

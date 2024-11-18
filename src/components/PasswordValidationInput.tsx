@@ -33,12 +33,12 @@ const PasswordValidationInput = ({ field, placeholder, inputClassName, buttonCla
 
   return (
     <>
-      <div className='relative max-w-[21.875rem]'>
+      <div className='relative max-w-[21.875rem] max-md:max-w-none'>
         <DefaultInput
           type={showPassword ? 'text' : 'password'}
           maxLength={16}
           placeholder={placeholder}
-          className={`pr-11 ${inputClassName}`}
+          className={`!pr-11 ${inputClassName}`}
           {...field}
         />
         <Button
@@ -52,7 +52,7 @@ const PasswordValidationInput = ({ field, placeholder, inputClassName, buttonCla
           {showPassword ? <EyeOff className='!h-6 !w-6 text-gray-300' /> : <Eye className='!h-6 !w-6 text-gray-300' />}
         </Button>
       </div>
-      <div className='flex gap-[0.375rem] caption-14'>
+      <div className='flex gap-[0.375rem] form-message'>
         <span className='flex items-center gap-[0.25rem]'>
           {validations.hasLetter ? (
             <Check className='w-[0.875rem] h-[0.875rem] text-primary-400' />

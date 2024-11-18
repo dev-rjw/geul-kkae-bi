@@ -15,10 +15,13 @@
   display: block;
   width: 1px;
   height: 0.75rem;
-  background-color: #b6b5b4;
+  background-color: var(--color-gray-300);
 }
 .signin-button-group > li:first-child:before {
   display: none;
+}
+.signin-button-group > li:last-child {
+  padding-right: 0;
 }
 
 .line-title {
@@ -26,7 +29,7 @@
   font-size: 0.875rem;
   font-weight: bold;
   text-align: center;
-  color: #9d9c9a;
+  color: var(--color-gray-400);
 }
 .line-title:before {
   content: '';
@@ -43,5 +46,5 @@
 .line-title > span {
   display: inline-block;
   padding: 0 0.5rem;
-  background-color: #fcfbf9;
+  background-color: var(--color-secondary-50);
 }

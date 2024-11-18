@@ -8,7 +8,6 @@ const SUPABASE_API_URL = process.env.NEXT_PUBLIC_SUPABASE_API_URL
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: [SUPABASE_API_URL],
     remotePatterns: [
       {
         protocol: 'https',

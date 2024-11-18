@@ -1,5 +1,5 @@
 // 랜덤 닉네임 생성
-export function randomNickname() {
+export const randomNickname = () => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const nicknameLength = Math.floor(Math.random() * (8 - 2 + 1)) + 2;
   const nickname = new Array(nicknameLength)
@@ -8,7 +8,7 @@ export function randomNickname() {
     .join('');
 
   return nickname;
-}
+};
 
 // 로컬스토리지에 저장된 점수 가져오기
 export const getLocalStorageValues = () => {

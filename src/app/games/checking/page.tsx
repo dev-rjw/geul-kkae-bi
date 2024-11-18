@@ -1,6 +1,6 @@
 'use client';
 import browserClient from '@/utils/supabase/client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import QuizTimer from './_components/QuizTimer';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -8,27 +8,45 @@ import Image from 'next/image';
 import './style.css';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchQuestions } from '@/queries/checking-fetchQuestions';
-import { useInsertCheckingMutation, useUpdateCheckingMutation } from '@/mutations/checking-mutation';
+import {
+  useInsertCheckingMutation,
+  useInsertCheckingResultMutation,
+  useUpdateCheckingMutation,
+} from '@/mutations/checking-mutation';
 import CheckingButton from './_components/CheckingButton';
 import QuestionUnderLine from './_components/QuestionUnderLine';
 import { weekNumber } from '@/utils/week/weekNumber';
-import { useCheckingQuizStore } from '@/store/checkingStore';
-import { CheckingResult } from '@/types/checking';
+import { CheckingQuestion, CheckingResult } from '@/types/checking';
+import { Loader2 } from 'lucide-react';
 
 const CheckingQuizPage = () => {
   const { data: user } = useAuth();
   const userId = user?.id ?? null;
   const { data: questions = [], isLoading } = useFetchQuestions();
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+  const question: CheckingQuestion = questions[currentQuizIndex];
   const scoreRef = useRef(0);
   const allResults = useRef<CheckingResult[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isTimeOver, setIsTimeOver] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isAllQuestions, setIsAllQuestions] = useState(false);
   const router = useRouter();
   const insertScoreMutation = useInsertCheckingMutation();
   const updateScoreMutation = useUpdateCheckingMutation();
-  const addCheckingResults = useCheckingQuizStore((state) => state.addCheckingResults);
+  const inserCheckingResultMutation = useInsertCheckingResultMutation();
+
+  const handleResize = () => setIsMobile(window.innerWidth <= 750);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const saveResultsToLocalStorage = (results: CheckingResult[]) => {
+    localStorage.setItem('checkingQuizResults', JSON.stringify(results));
+  };
 
   const moveToNextQuiz = () => {
     if (isTimeOver || isAllQuestions) return;
@@ -39,12 +57,12 @@ const CheckingQuizPage = () => {
       setSelectedOption(null);
     } else {
       saveScore(scoreRef.current);
-      addCheckingResults([...allResults.current]);
+      saveResultsToLocalStorage(allResults.current);
       setIsAllQuestions(true);
     }
   };
 
-  const moveToWritingResultPage = (score: number) => {
+  const moveToCheckingResultPage = (score: number) => {
     if (userId) {
       router.push(`/games/user?key=checking&score=${score}`);
     } else {
@@ -54,14 +72,29 @@ const CheckingQuizPage = () => {
 
   const handleCheckAnswer = () => {
     const currentResult: CheckingResult = {
-      question: questions[currentQuizIndex].question,
+      test: questions[currentQuizIndex].question,
       option: questions[currentQuizIndex].correct,
       answer: questions[currentQuizIndex].answer,
       right: questions[currentQuizIndex].meaning,
       userAnswer: selectedOption,
+      isCorrect: selectedOption === questions[currentQuizIndex].answer,
     };
 
     allResults.current.push(currentResult);
+
+    if (!currentResult.isCorrect && userId) {
+      inserCheckingResultMutation.mutate({
+        userId: userId,
+        answer: question.answer,
+        question: question.question,
+        game: 'checking',
+        week: weekNumber,
+        meaning: question.meaning,
+        useranswer: selectedOption,
+        correct: question.correct,
+      });
+    }
+
     if (selectedOption === questions[currentQuizIndex].answer) {
       scoreRef.current += 10;
     }
@@ -109,14 +142,18 @@ const CheckingQuizPage = () => {
         },
         confirmButtonText: '확인',
         willClose: () => {
-          moveToWritingResultPage(scoreRef.current);
+          moveToCheckingResultPage(scoreRef.current);
         },
       });
     }
   };
 
   if (isLoading) {
-    return <p>로딩중</p>;
+    return (
+      <div className='w-screen h-screen flex items-center justify-center'>
+        <Loader2 className='mr-2 h-12 w-12 animate-spin text-primary-400' />
+      </div>
+    );
   }
 
   return (
@@ -124,9 +161,10 @@ const CheckingQuizPage = () => {
       <QuizTimer
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
+        isMobile={isMobile}
       />
       <div className='flex-1 flex flex-col items-center justify-center mt-20'>
-        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-[#A07BE5] text-2xl font-medium rounded-full'>{`${
+        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl font-medium rounded-full'>{`${
           currentQuizIndex + 1
         }번 문제`}</p>
         <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>
@@ -162,7 +200,7 @@ const CheckingQuizPage = () => {
           </div>
         ) : (
           <button
-            onClick={() => moveToWritingResultPage(scoreRef.current)}
+            onClick={() => moveToCheckingResultPage(scoreRef.current)}
             className={'text-2xl font-medium'}
           >
             결과 보기
