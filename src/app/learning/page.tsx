@@ -7,20 +7,16 @@ export const revalidate = 86400;
 
 let firstIndex = 0;
 
-function get10Words(array: string[], index: number) {
-  return array.slice(index, index + 10);
+function get10Words(array: string[]) {
+  const words = array.slice(firstIndex, firstIndex + 10);
+  firstIndex = (firstIndex + 10) % array.length;
+  return words;
 }
-
-// function get10Words(array: string[]) {
-//   const words = array.slice(firstIndex, firstIndex + 10);
-//   firstIndex = (firstIndex + 10) % array.length;
-//   return words;
-// }
 
 const LearningPage = async () => {
   const key = process.env.KOREAN_DICTIONARY_API_KEY;
 
-  const words = get10Words(WordList, firstIndex);
+  const words = get10Words(WordList);
 
   const result = await Promise.all(
     words.map(async (word) => {
@@ -43,8 +39,6 @@ const LearningPage = async () => {
       }
     }),
   );
-
-  firstIndex = (firstIndex + 10) % WordList.length;
 
   const date = new Date();
   const today = date.getFullYear() + `.` + (date.getMonth() + 1) + `.` + date.getDate();
