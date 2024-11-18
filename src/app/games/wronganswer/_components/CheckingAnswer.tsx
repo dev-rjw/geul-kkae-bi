@@ -65,7 +65,7 @@ const CheckingAnswer = () => {
             onClick={handlePrevious}
             disabled={currentPage === 0}
             className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              currentPage === 0 ? 'bg-[#A07BE5] text-[#BFA5ED] cursor-not-allowed' : 'bg-[#A07BE5] text-white'
+              currentPage === 0 ? 'bg-[#A07BE5] text-[#BFA5ED]' : 'bg-[#A07BE5] text-white'
             }`}
           >
             &lt;
@@ -182,7 +182,7 @@ const CheckingAnswer = () => {
             disabled={(currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length}
             className={`w-[3.5rem] h-[3.5rem] rounded-full ${
               (currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length
-                ? 'bg-[#A07BE5] text-[#BFA5ED] cursor-not-allowed'
+                ? 'bg-[#A07BE5] text-[#BFA5ED]'
                 : 'bg-[#A07BE5] text-white'
             }`}
           >
@@ -196,9 +196,7 @@ const CheckingAnswer = () => {
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
             className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
-              selectedQuestions.length === 0
-                ? 'bg-[#D1C4E9] text-[#B39DDB] cursor-not-allowed'
-                : 'bg-[#8150DD] text-white'
+              selectedQuestions.length === 0 ? 'bg-[#D1C4E9] text-[#B39DDB]' : 'bg-[#8150DD] text-white'
             }`}
           >
             {selectedQuestions.length === 0 ? '지우기' : `${selectedQuestions.length}개 지우기`}
