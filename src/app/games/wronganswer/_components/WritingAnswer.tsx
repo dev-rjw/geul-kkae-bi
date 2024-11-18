@@ -34,11 +34,6 @@ const WritingAnswer = () => {
   };
 
   const handleDelete = () => {
-    if (selectedQuestions.length === 0) {
-      alert('삭제할 문장을 선택하세요.');
-      return;
-    }
-
     if (!userId) {
       alert('유저 정보가 없습니다. 다시 로그인해주세요.');
       return;
