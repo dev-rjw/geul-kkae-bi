@@ -20,6 +20,9 @@
 .signin-button-group > li:first-child:before {
   display: none;
 }
+.signin-button-group > li:last-child {
+  padding-right: 0;
+}
 
 .line-title {
   position: relative;

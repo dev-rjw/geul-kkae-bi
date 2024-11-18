@@ -68,7 +68,7 @@ const SigninForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 max-md:gap-[0.375rem]'>
           <FormField
             control={form.control}
             name='email'
@@ -80,11 +80,11 @@ const SigninForm = () => {
                     <DefaultInput
                       placeholder='이메일 아이디를 입력해주세요'
                       {...field}
-                      className='pl-[3.375rem] max-w-none'
+                      className='!pl-[3.375rem] max-w-none max-md:h-12'
                     />
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className='form-message' />
               </FormItem>
             )}
           />
@@ -101,18 +101,18 @@ const SigninForm = () => {
                       placeholder='비밀번호를 입력해주세요'
                       field={field}
                       className='max-w-none'
-                      inputClassName='px-[3.375rem] max-w-none'
+                      inputClassName='!px-[3.375rem] max-w-none max-md:h-12'
                       buttonClassName='!pr-5'
                     />
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className='form-message' />
               </FormItem>
             )}
           />
         </div>
 
-        <div className='mt-[0.625rem]'>
+        <div className='mt-3 max-md:mt-4'>
           <FormField
             control={form.control}
             name='rememberedEmail'
@@ -126,7 +126,7 @@ const SigninForm = () => {
                   />
                   <label
                     htmlFor='rememberedEmail'
-                    className='text-sm font-bold text-gray-500 ml-[0.375rem] leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                    className='text-sm font-bold text-gray-500 ml-[0.188rem]] leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                   >
                     아이디 기억하기
                   </label>

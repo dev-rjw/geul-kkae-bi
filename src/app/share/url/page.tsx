@@ -1,7 +1,7 @@
 import { GameData, ShareUrlProps } from '@/types/share';
 import ResultSide from '@/app/games/(result)/_components/ResultSide';
 
-const GAME_DATA: { [key: string]: GameData } = {
+const GAME_DATA: GameData = {
   speaking: {
     name: '나야, 발음왕',
     type: 'speaking',
@@ -32,11 +32,7 @@ const ShareUrlPage = ({ searchParams }: ShareUrlProps) => {
   const gameKey = searchParams.key;
   const gameScore = searchParams.score;
   const nickname = searchParams.nickname;
-
-  // gameKey에 맞는 `matchedGame` 데이터 가져오기
   const matchedGame = gameKey ? GAME_DATA[gameKey] : undefined;
-
-  console.log(gameKey);
 
   return (
     <div>
