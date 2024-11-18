@@ -70,7 +70,7 @@ const ModalChecking = () => {
                       </span>
                       <p className='text-3xl font-bold text-[#504F4E]'>{result.test}</p>
                     </div>
-                    <div className='grid grid-cols-2 gap-x-8 gap-y-4 ml-[94px]'>
+                    <div className='grid grid-cols-2 gap-y-[0.875rem] ml-[94px] w-[400px]'>
                       {result.option.map((item, optIndex) => (
                         <div
                           key={item}
@@ -99,9 +99,6 @@ const ModalChecking = () => {
                         src='/icon_arrow_modal.svg'
                         alt='arrow'
                       />
-                      <span className='underline decoration-[#BFA5ED] decoration-[12px] underline-offset-[-3px] text-3xl font-bold text-[#4F21A6]'>
-                        {result.right}
-                      </span>
                       <span className='underline decoration-[#BFA5ED] decoration-[12px] underline-offset-[-3px] text-3xl font-bold text-[#4F21A6]'>
                         {result.right}
                       </span>
