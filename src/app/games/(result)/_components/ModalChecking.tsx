@@ -50,7 +50,7 @@ const ModalChecking = () => {
                 >
                   정답 확인
                   <img
-                    src='/icon_btn_modal.svg'
+                    src='/icon_btn_chmodal.svg'
                     alt='btn'
                     className='ml-[0.625rem]'
                   />
