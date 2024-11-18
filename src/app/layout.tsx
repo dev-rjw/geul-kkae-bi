@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import QueryProvider from '@/utils/QueryProvider';
 import GoogleAnalytics from '@/lib/GoogleAnalytics';
+import KakaoScript from './KakaoScript';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -17,6 +18,12 @@ const yangjin = localFont({
   weight: '400',
   variable: '--font-yangjin',
 });
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 export const metadata: Metadata = {
   title: '글깨비 - 한국인을 위한 한국어 발음&맞춤법 공부',
@@ -59,6 +66,7 @@ export default function RootLayout({
           {children}
           <div id='global-modal' />
         </body>
+        <KakaoScript />
       </html>
     </QueryProvider>
   );
