@@ -14,8 +14,8 @@ const WrongAnswerPage = () => {
             <button
               className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
                 selectedTab === 'checking'
-                  ? "bg-[url('/checking_btnon_wrong.svg')] bg-cover text-white"
-                  : "bg-[url('/checking_btn_wrong.svg')] bg-contain text-[#bfa5ed]"
+                  ? "bg-[url('/checking_btnon_wrong.svg')] bg-cover text-[#4f21a6]"
+                  : "bg-[url('/checking_btn_wrong.svg')] bg-contain text-[#a07be5]"
               }`}
               onClick={() => setSelectedTab('checking')}
             >
@@ -24,8 +24,8 @@ const WrongAnswerPage = () => {
             <button
               className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
                 selectedTab === 'writing'
-                  ? "bg-[url('/speaking_btnon_wrong.svg')] bg-cover text-white"
-                  : "bg-[url('/speaking_btn_wrong.svg')] bg-contain text-[#FF8A65]"
+                  ? "bg-[url('/speaking_btnon_wrong.svg')] bg-cover text-[#855205]"
+                  : "bg-[url('/speaking_btn_wrong.svg')] bg-contain text-[#e78f09]"
               }`}
               onClick={() => setSelectedTab('writing')}
             >
@@ -34,8 +34,8 @@ const WrongAnswerPage = () => {
             <button
               className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
                 selectedTab === 'blank'
-                  ? "bg-[url('/writing_btnon_wrong.svg')] bg-cover text-white"
-                  : "bg-[url('/writing_btn_wrong.svg')] bg-contain text-[#26C6DA]"
+                  ? "bg-[url('/writing_btnon_wrong.svg')] bg-cover text-[#115546]"
+                  : "bg-[url('/writing_btn_wrong.svg')] bg-contain text-[#2ad4af]"
               }`}
               onClick={() => setSelectedTab('blank')}
             >
