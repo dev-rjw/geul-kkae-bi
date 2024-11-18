@@ -58,7 +58,7 @@ const MypageMyRank = () => {
     const thisWeek = [];
 
     for (let i = 0; i < 7; i++) {
-      const resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek + 1));
+      const resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
       const yyyy = resultDay.getFullYear();
       let mm = String(Number(resultDay.getMonth()) + 1);
       let dd = String(resultDay.getDate());
@@ -95,7 +95,7 @@ const MypageMyRank = () => {
             className='mx-auto'
           />
         </div>
-        <div className='title-40 text-white mt-2'>{rank || ''}위</div>
+        <div className='title-40 text-white mt-2'>{rank || '-'}위</div>
       </div>
 
       <div className='h-1 bg-primary-100 border-t-2 border-primary-400 opacity-40' />

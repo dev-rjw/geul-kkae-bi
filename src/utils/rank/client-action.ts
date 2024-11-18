@@ -5,11 +5,11 @@ import { weekNumber } from '@/utils/week/weekNumber';
 const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 
 export const weekCalculate = (beforeWeek: number) => {
-  const standardDate: Date = new Date('2024-10-28');
+  const standardDate: Date = new Date('2024-10-27');
   const todayDate: Date = new Date();
 
   let diff = Math.abs(standardDate.getTime() - todayDate.getTime());
-  diff = Math.ceil(diff / ONE_WEEK);
+  diff = (diff / ONE_WEEK) % 1 === 0 ? Math.ceil(diff / ONE_WEEK) + 1 : Math.ceil(diff / ONE_WEEK);
 
   return diff + beforeWeek;
 };
