@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import QueryProvider from '@/utils/QueryProvider';
 import GoogleAnalytics from '@/lib/GoogleAnalytics';
+import KakaoScript from './KakaoScript';
 import Header from '@/components/Header';
 import { Suspense } from 'react';
 
@@ -19,6 +20,13 @@ const yangjin = localFont({
   weight: '400',
   variable: '--font-yangjin',
 });
+
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Kakao: any;
+  }
+}
 
 export const metadata: Metadata = {
   title: '글깨비 - 한국인을 위한 한국어 발음&맞춤법 공부',
@@ -64,6 +72,7 @@ export default function RootLayout({
           <main className='grow'>{children}</main>
           <div id='global-modal' />
         </body>
+        <KakaoScript />
       </html>
     </QueryProvider>
   );

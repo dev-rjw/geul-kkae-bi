@@ -11,6 +11,7 @@ import { fetchLatestWeekData, updateTotalScore } from '@/utils/rank/server-actio
 import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
 import LineTitle from '@/components/LineTitle';
 // import { Button } from '@/components/ui/button';
+import kakaoTalkShare from '../_components/kakaoTalkShare';
 // import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
@@ -76,6 +77,14 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
           <ResultSide
             GameScore={GameScore}
             justEndedGame={justEndedGame}
+          />{' '}
+          <Image
+            src='/kakaotalk.png'
+            alt='카카오톡 공유 보내기 버튼'
+            onClick={kakaoTalkShare}
+            width={100}
+            height={100}
+            className='cursor-pointer'
           />
           <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
             <div className={`${matchedGame?.type} `}>
