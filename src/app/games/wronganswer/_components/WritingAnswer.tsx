@@ -109,7 +109,7 @@ const WritingAnswer = () => {
                 </div>
 
                 {/* 키워드 및 정답 */}
-                <div className='bg-white h-[6.5rem] px-[0.625rem] flex justify-center items-center gap-10'>
+                <div className='bg-white h-[6.5rem] px-[0.625rem] flex justify-center items-center gap-10 border-t-[2px] border-t-[#D4F7EF]'>
                   <div className='flex flex-col justify-center items-center mb-3'>
                     <p className='bg-[#7FE6CF] text-[#115546] font-semibold px-[0.875rem] py-[0.125rem] rounded-lg text-lg mb-[0.563rem] mt-[1.188rem]'>
                       키워드

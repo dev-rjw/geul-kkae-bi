@@ -46,6 +46,7 @@ const CheckingQuizPage = () => {
 
   const saveResultsToLocalStorage = (results: CheckingResult[]) => {
     localStorage.setItem('checkingQuizResults', JSON.stringify(results));
+    localStorage.setItem('lastGameType', 'checking');
   };
 
   const moveToNextQuiz = () => {
@@ -78,6 +79,7 @@ const CheckingQuizPage = () => {
       right: questions[currentQuizIndex].meaning,
       userAnswer: selectedOption,
       isCorrect: selectedOption === questions[currentQuizIndex].answer,
+      gameType: 'checking',
     };
 
     allResults.current.push(currentResult);

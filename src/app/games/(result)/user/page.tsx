@@ -12,6 +12,7 @@ import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedG
 import LineTitle from '@/components/LineTitle';
 // import { Button } from '@/components/ui/button';
 import kakaoTalkShare from '../_components/kakaoTalkShare';
+import Modal from '../_components/Modal';
 // import Modal from '../_components/Modal';
 
 const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
@@ -99,6 +100,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                   matchedGame ? highlightScoreForMatchedGame(matchedGame) : ''
                 } absolute w-full -bottom-5 z-10`}
               />
+              <Modal />
             </div>
 
             {/* 테스트 중 */}
