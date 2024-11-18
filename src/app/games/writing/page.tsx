@@ -78,6 +78,7 @@ const WritingQuizPage = () => {
       answer: question.answer,
       userAnswer: userAnswer,
       isCorrect: userAnswer === question.answer,
+      gameType: 'writing',
     };
     allResults.current.push(currentResult);
 
@@ -100,6 +101,7 @@ const WritingQuizPage = () => {
   };
   const saveResultsToLocalStorage = (results: PartialQuestion[]) => {
     localStorage.setItem('writingQuizResults', JSON.stringify(results));
+    localStorage.setItem('lastGameType', 'writing');
   };
 
   const saveScore = async (score: number) => {

@@ -41,4 +41,5 @@ export type CheckingResult = {
   userAnswer: string | null;
   right: string;
   isCorrect: boolean;
+  gameType: string;
 };
