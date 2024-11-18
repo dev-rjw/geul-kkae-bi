@@ -104,6 +104,7 @@ const ChangeProfile = () => {
               id='picture'
               type='file'
               className='hidden'
+              accept='image/png, image/jpeg'
               onChange={(e) => uploadImgHandler(e)}
             />
             <label
