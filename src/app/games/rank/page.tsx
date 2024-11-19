@@ -10,7 +10,6 @@ import {
   fetchUserLastRank,
   insertLastRankingData,
 } from '@/utils/rank/server-action';
-// import { redirect } from 'next/navigation';
 import { fetchUserProfile } from '@/utils/user/server-action';
 import PercentGraph from './_components/PercentGraph';
 import LineTitle from '@/components/LineTitle';

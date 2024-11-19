@@ -33,7 +33,7 @@ const HeaderPcMenu = ({ item, hoveredMenu, onHover, onLeave }: HeaderPcMenuProps
         }
       });
     } else {
-      console.log('latestWeekForAlert', latestWeekForAlert);
+      // 로그인된 사용자라면 링크로 이동
       if (!latestWeekForAlert || latestWeekForAlert.length === 0) {
         Swal.fire({
           html: `<div class="text-gray-600">아직 랭킹이 없어요. <br/>랭킹을 확인하시려면 게임을 <br/>모두 완료해주세요!</div>`,
@@ -46,7 +46,6 @@ const HeaderPcMenu = ({ item, hoveredMenu, onHover, onLeave }: HeaderPcMenuProps
         });
         router.push('/');
       } else {
-        // 로그인된 사용자라면 링크로 이동
         window.location.href = link || '#';
       }
     }
