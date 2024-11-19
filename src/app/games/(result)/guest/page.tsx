@@ -1,10 +1,10 @@
 import React from 'react';
-import GuestPage from '../_components/GuestPage';
-import { JustEndedGameProp } from '@/types/result';
 import { redirect } from 'next/navigation';
+import { JustEndedGameProp } from '@/types/result';
 import { fetchUserId } from '@/utils/auth/server-action';
+import Guest from '../_components/Guest';
 
-const page = async ({ searchParams }: JustEndedGameProp) => {
+const GuestPage = async ({ searchParams }: JustEndedGameProp) => {
   //현재 접속중인 userID
   const userId = await fetchUserId();
 
@@ -13,7 +13,7 @@ const page = async ({ searchParams }: JustEndedGameProp) => {
     redirect('/');
   }
 
-  return <GuestPage searchParams={searchParams} />;
+  return <Guest searchParams={searchParams} />;
 };
 
-export default page;
+export default GuestPage;

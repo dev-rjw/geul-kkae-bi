@@ -161,7 +161,7 @@ const Header = () => {
   };
 
   const getGameClass = (pathname: string): string => {
-    if (pathname.includes('/games/user')) {
+    if (pathname.includes('/games/user') || pathname.includes('/games/guest')) {
       if (key === 'speaking') return 'heaber-moblie-title-speaking';
       if (key === 'checking') return 'heaber-moblie-title-checking';
       if (key === 'writing') return 'heaber-moblie-title-writing';
@@ -174,7 +174,7 @@ const Header = () => {
     return '';
   };
   const getTitle = (pathname: string) => {
-    if (pathname.includes('/games/user')) {
+    if (pathname.includes('/games/user') || pathname.includes('/games/guest')) {
       if (key === 'speaking') {
         return '나야, 발음왕';
       } else if (key === 'checking') {
@@ -293,7 +293,7 @@ const Header = () => {
                     <div className='h-1 bg-gray-100 border-t border-gray-200' />
                     <div className='flex flex-col'>
                       <Button
-                        className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 bg-transparent hover:bg-primary-50'
+                        className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
                         onClick={kakaoTalkShare}
                       >
                         <div className='relative aspect-square w-7 rounded-full'>
