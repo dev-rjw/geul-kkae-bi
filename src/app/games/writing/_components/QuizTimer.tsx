@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import MobileTutorial from './MobileTutorial';
 import { QuizTimerProps } from '@/types/writing';
 
-const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile }) => {
+const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile, currentQuizIndex }) => {
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIsTutorial] = useState(true);
   const workerRef = useRef<Worker | null>(null);
@@ -78,6 +78,11 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMob
           className={`bg-tertiary-g-500 ${isMobile ? 'h-[14px]' : 'h-[28px]'} transition-all ease-linear rounded-r-lg`}
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
+        {isMobile && (
+          <p className='absolute left-4 bottom-[-1.5rem] text-[1rem] font-medium text-[#363635]'>
+            {`${currentQuizIndex + 1}/10`}
+          </p>
+        )}
       </div>
     </div>
   );

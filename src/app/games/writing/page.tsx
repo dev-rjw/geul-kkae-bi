@@ -158,6 +158,7 @@ const WritingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
         isMobile={isMobile}
+        currentQuizIndex={currentQuizIndex}
       />
       <div className={`flex flex-col items-center ${isMobile ? 'mt-10' : 'mt-20'}`}>
         <p

@@ -11,7 +11,6 @@ import LineTitle from '@/components/LineTitle';
 import ResultSide from './ResultSide';
 import kakaoTalkShare from './kakaoTalkShare';
 import LinkCopyButton from './LinkCopyButton';
-import Modal from './Modal';
 
 const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultCardProps) => {
   const pathname = usePathname();
@@ -80,9 +79,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
             </div>
             {pathname !== '/share/url' && (
               <div className='solid-button-group'>
-                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'>
-                  <Modal />
-                </Button>
+                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'></Button>
                 <Button
                   asChild
                   className='solid-button min-w-[6.75rem] max-md:w-full'
@@ -99,7 +96,10 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
             )}
             {pathname === '/share/url' && (
               <div className='mt-28 max-md:hidden'>
-                <Button asChild className='solid-button w-full'>
+                <Button
+                  asChild
+                  className='solid-button w-full'
+                >
                   <Link href='https://geul-kkae-bi.vercel.app/'>나도 하러가기</Link>
                 </Button>
               </div>
