@@ -29,7 +29,7 @@ const LinkCopyButton = ({ url }: { url: string }) => {
 
   return (
     <Button
-      className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 bg-transparent hover:bg-primary-50'
+      className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
       onClick={hanbleLinkCopy}
     >
       <div className='relative aspect-square w-7 rounded-full'>
