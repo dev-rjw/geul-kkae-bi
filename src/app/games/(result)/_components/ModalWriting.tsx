@@ -1,7 +1,12 @@
 import { PartialQuestion } from '@/types/writing';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-const ModalWriting = () => {
+type Props = {
+  handleCloseModal: () => void;
+};
+
+const ModalWriting = ({ handleCloseModal }: Props) => {
   const [result, setResult] = useState<PartialQuestion[]>([]);
   const [openResult, setOpenResult] = useState<number | null>(null);
 
@@ -24,8 +29,10 @@ const ModalWriting = () => {
             >
               <div className='flex justify-between items-center h-[87px] px-8 py-4 rounded-[0.5rem] mb-2 bg-[#F6FDFC]'>
                 <div className='flex items-center'>
-                  <p className='text-[2rem] font-medium text-[#363635] mr-4'>{String(index + 1).padStart(2, '0')}번</p>
-                  <span className='h-[2.5rem] border-l-[3px] border-[#AAEEDF] mr-[1.438rem]'></span>
+                  <p className='text-[2rem] font-medium text-[#363635] mr-[2.688rem]'>
+                    {String(index + 1).padStart(2, '0')}번
+                  </p>
+                  <span className='h-[2.5rem] border-l-[3px] border-[#AAEEDF] mr-[1.188rem]'></span>
                   <p className='text-[2rem] font-medium text-[#363635]'>{result.userAnswer}</p>
                   <img
                     src={result.isCorrect ? '/icon_correctanswer_modal.svg' : '/icon_wronganswer_modal.svg'}
@@ -79,6 +86,18 @@ const ModalWriting = () => {
           ))}
         </ul>
       </div>
+      <button
+        className='absolute right-[2.5rem] top-[2.25rem] max-md:right-4 max-md:top-4'
+        onClick={handleCloseModal}
+      >
+        <Image
+          src='/icon_close_write.svg'
+          width={48}
+          height={48}
+          alt='모달 닫기'
+          className='max-md:w-6 max-md:h-6'
+        ></Image>
+      </button>
     </div>
   );
 };

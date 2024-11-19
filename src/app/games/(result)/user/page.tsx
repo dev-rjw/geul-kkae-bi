@@ -110,6 +110,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
             </div> */}
             {/*             <Modal /> */}
           </div>
+          <Modal />
         </div>
         <div className='flex flex-col pl-2.5 justify-between w-[17.438rem]'>
           {unMatchedGames?.map((game) => {

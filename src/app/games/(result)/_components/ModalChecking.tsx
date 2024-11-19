@@ -1,8 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { CheckingResult } from '@/types/checking';
+import Image from 'next/image';
 
-const ModalChecking = () => {
+type Props = {
+  handleCloseModal: () => void;
+};
+
+const ModalChecking = ({ handleCloseModal }: Props) => {
   const [result, setResult] = useState<CheckingResult[]>([]);
   const [openResult, setOpenResult] = useState<number | null>(null);
 
@@ -26,7 +31,7 @@ const ModalChecking = () => {
             >
               <div className='flex justify-between items-center h-[5.438rem] px-8 rounded-[0.5rem] bg-[#EFE9FB]'>
                 <div className='flex items-center'>
-                  <p className='text-[2rem] font-medium text-[#4F21A6] mr-[1.188rem]'>
+                  <p className='text-[2rem] font-medium text-[#4F21A6] mr-[2.188rem]'>
                     {String(index + 1).padStart(2, '0')}번
                   </p>
                   <span className='h-[2.5rem] border-l-[3px] border-[#bfa5ed] mr-[1.438rem]'></span>
@@ -110,6 +115,18 @@ const ModalChecking = () => {
           ))}
         </ul>
       </div>
+      <button
+        className='absolute right-[2.5rem] top-[2.25rem] max-md:right-4 max-md:top-4'
+        onClick={handleCloseModal}
+      >
+        <Image
+          src='/icon_close_check.svg'
+          width={48}
+          height={48}
+          alt='모달 닫기'
+          className='max-md:w-6 max-md:h-6'
+        ></Image>
+      </button>
     </div>
   );
 };

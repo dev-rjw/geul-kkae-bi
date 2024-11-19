@@ -24,8 +24,8 @@ const Modal = () => {
         onClose={handleCloseModal}
       >
         {currentGameType === 'speaking' && <ModalSpeaking handleCloseModal={handleCloseModal} />}
-        {currentGameType === 'writing' && <ModalWriting />}
-        {currentGameType === 'checking' && <ModalChecking />}
+        {currentGameType === 'writing' && <ModalWriting handleCloseModal={handleCloseModal} />}
+        {currentGameType === 'checking' && <ModalChecking handleCloseModal={handleCloseModal} />}
         <button onClick={handleCloseModal}>모달 닫기</button>
       </ModalPortal>
     </div>
