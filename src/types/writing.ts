@@ -1,3 +1,14 @@
+export interface QuizTimerProps {
+  onTimeOver: () => void;
+  isAllQuestions: boolean;
+  isMobile: boolean;
+  currentQuizIndex: number;
+}
+
+export type MobileTutorialProps = {
+  onStartGame: () => void;
+};
+
 export type Question = {
   id: string;
   game_kind: string;
@@ -9,5 +20,6 @@ export type Question = {
   correct: string[];
   userAnswer: string;
   keyword: string;
+  isCorrect: boolean;
 };
-export type PartialQuestion = Pick<Question, 'test' | 'meaning' | 'answer' | 'userAnswer' | 'keyword'>;
+export type PartialQuestion = Pick<Question, 'test' | 'meaning' | 'answer' | 'userAnswer' | 'keyword' | 'isCorrect'>;

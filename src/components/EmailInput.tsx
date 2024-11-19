@@ -10,9 +10,10 @@ import { X } from 'lucide-react';
 interface Props {
   field: FieldValues;
   domainOptions: string[];
+  inputClassName: string;
 }
 
-const EmailInput = ({ field, domainOptions }: Props) => {
+const EmailInput = ({ field, domainOptions, inputClassName }: Props) => {
   const [userId, setUserId] = useState('');
   const [domain, setDomain] = useState('');
   const [customDomain, setCustomDomain] = useState('');
@@ -28,11 +29,12 @@ const EmailInput = ({ field, domainOptions }: Props) => {
   }, [userId, domain, customDomain]);
 
   return (
-    <div className='flex items-center gap-[0.625rem]'>
+    <div className='flex items-center gap-[0.625rem] max-md:gap-1'>
       <DefaultInput
         type='text'
         placeholder='이메일 아이디'
         value={userId}
+        className={inputClassName}
         onChange={(e) => {
           setUserId(e.target.value);
           if (domain && domain !== '직접 입력') {
@@ -40,8 +42,8 @@ const EmailInput = ({ field, domainOptions }: Props) => {
           }
         }}
       />
-      <span className='body-20 text-gray-600'>@</span>
-      <div className='relative w-full max-w-[21.875rem]'>
+      <span className='body-20 text-gray-600 max-md:caption-14 max-md:text-gray-800'>@</span>
+      <div className='relative w-full max-w-[21.875rem] max-md:max-w-none'>
         <Select
           value={domain}
           onValueChange={(value) => {
@@ -54,15 +56,19 @@ const EmailInput = ({ field, domainOptions }: Props) => {
             }
           }}
         >
-          <SelectTrigger className='h-[3.25rem] w-full rounded-[0.625rem] px-[0.625rem] py-[0.875rem] text-base font-bold placeholder:text-gray-300 focus:ring-0 focus:ring-offset-0'>
+          <SelectTrigger
+            className={`h-[3.25rem] w-full rounded-[0.625rem] px-[0.625rem] py-[0.875rem] text-base font-bold bg-white placeholder:text-gray-300 focus:ring-0 focus:ring-offset-0 max-md:h-11 max-md:text-sm max-md:px-[0.875rem] max-md:py-2 max-md:rounded-sm ${
+              !domain ? 'text-gray-300' : 'text-gray-800'
+            }`}
+          >
             <SelectValue placeholder='선택해주세요' />
           </SelectTrigger>
-          <SelectContent className='rounded-[0.625rem]'>
+          <SelectContent className='rounded-[0.625rem] max-md:rounded-sm'>
             {domainOptions.map((option, index) => (
               <SelectItem
                 key={index}
                 value={option}
-                className='text-base font-semibold text-gray-500 rounded-[0.5rem] hover:font-semibold'
+                className='text-base font-semibold text-gray-500 rounded-[0.5rem] hover:font-semibold max-md:text-sm max-md:rounded-sm'
               >
                 {option}
               </SelectItem>
@@ -75,7 +81,7 @@ const EmailInput = ({ field, domainOptions }: Props) => {
               placeholder='직접 입력'
               value={customDomain ?? ''}
               onChange={(e) => setCustomDomain(e.target.value)}
-              className='w-full pr-11'
+              className='w-full !pr-11'
             />
             <Button
               type='button'

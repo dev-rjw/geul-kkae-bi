@@ -2,19 +2,30 @@
 import ModalPortal from '@/components/ModalPortal';
 import ModalSpeaking from './ModalSpeaking';
 import { useState } from 'react';
+import ModalWriting from './ModalWriting';
+import ModalChecking from './ModalChecking';
 
 const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentGameType, setCurrentGameType] = useState<string | null>(null);
+
+  const handleOpenModal = () => {
+    const gameType = localStorage.getItem('lastGameType');
+    setCurrentGameType(gameType);
+    setIsModalOpen(true);
+  };
+
   const handleCloseModal = () => setIsModalOpen(false);
   return (
-    <div className='z-10'>
-      <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
+    <div className='z-10 '>
+      <button onClick={handleOpenModal}>오답 확인</button>
       <ModalPortal
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <ModalSpeaking />
-        <button onClick={handleCloseModal}>모달 닫기</button>
+        {currentGameType === 'speaking' && <ModalSpeaking handleCloseModal={handleCloseModal} />}
+        {currentGameType === 'writing' && <ModalWriting handleCloseModal={handleCloseModal} />}
+        {currentGameType === 'checking' && <ModalChecking handleCloseModal={handleCloseModal} />}
       </ModalPortal>
     </div>
   );

@@ -17,3 +17,27 @@ export const useFetchQuestions = () => {
     refetchOnWindowFocus: true,
   });
 };
+
+export const fetchCheckingWrongAnswer = async (userId: string | null, weekNumber: number) => {
+  const { data, error } = await browserClient
+    .from('answer')
+    .select('*')
+    .eq('game', 'checking')
+    .eq('user_id', userId)
+    .eq('week', weekNumber)
+    .order('created_at', { ascending: false });
+  if (error) {
+    throw new Error('틀린것 맞추기의 오답을 가져오지 못했습니다.', error);
+  }
+  return data;
+};
+
+export const useFetchCheckingWrongAnswer = (userId: string | null, weekNumber: number) => {
+  return useQuery({
+    queryKey: ['CheckingWrongAnswer'],
+    queryFn: () => fetchCheckingWrongAnswer(userId, weekNumber),
+    enabled: !!userId,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+  });
+};

@@ -120,22 +120,22 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
       </div>
       {result || time === 0 ? (
         <>
-          <div className='bg-white font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px]'>
-            <p className='leading-normal text-[36px] text-gray-600'>정확도 총점</p>
-            <p className='leading-[1.35] text-[56px] text-primary-400'>
+          <div className='bg-white font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
+            <p className='leading-normal text-[36px] text-gray-600 max-md:text-[16px]'>정확도 총점</p>
+            <p className='leading-[1.35] text-[56px] text-primary-400 max-md:text-[32px]'>
               {finalPercent}
-              <span className='text-[36px]'>%</span>
+              <span className='text-[36px] max-md:text-[1rem]'>%</span>
             </p>
           </div>
-          <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem]'>
+          <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
             <Link
               onClick={handleResult}
-              className='mt-[16px] flex flex-col items-center'
+              className='mt-[16px] flex flex-col items-center max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`
               }`}
             >
-              <span className='block mt-[12px]'>결과보기</span>
+              <span className='mt-[12px] title-16 max-md:mt-0'>결과보기</span>
             </Link>
           </div>
         </>
@@ -151,17 +151,19 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
                     <span className='text-[36px] max-md:text-[16px]'>%</span>
                   </p>
                 </div>
-                <div className='absolute right-[30px] flex flex-col items-center top-[40%]'>
-                  <p className='text-[1.5rem]'>{index + 1}/10</p>
+                <div className='absolute right-[30px] flex flex-col items-center top-[40%] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
+                  <p className='text-[1.5rem] max-md:hidden'>{index + 1}/10</p>
                   <button
-                    className='mt-[16px]'
+                    className='mt-[16px] max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
                     onClick={handleNextButton}
                   >
+                    <span className='md:hidden title-16 '>넘어가기</span>
                     <Image
                       src='/ico_speak_next_btn.svg'
                       width={30}
                       height={30}
                       alt='넘어가기'
+                      className='max-md:hidden'
                     ></Image>
                   </button>
                 </div>
@@ -169,9 +171,9 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
             ) : (
               <>
                 {isRecording ? (
-                  <p className='text-[36px] text-gray-600'>녹음중</p>
+                  <p className='text-[36px] text-gray-600'>녹음 중입니다</p>
                 ) : (
-                  <p className='text-[36px] text-gray-600'>정확도 계산중입니다</p>
+                  <p className='text-[36px] text-gray-600'>녹음이 완료되었습니다</p>
                 )}
                 <div className='absolute right-[30px]'>
                   <p>{index + 1}/10</p>

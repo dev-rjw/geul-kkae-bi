@@ -18,12 +18,12 @@ const PasswordInput = ({ field, placeholder, className, inputClassName, buttonCl
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className={`relative max-w-[21.875rem] ${className}`}>
+    <div className={`relative max-w-[21.875rem] max-md:max-w-none ${className}`}>
       <DefaultInput
         type={showPassword ? 'text' : 'password'}
         maxLength={16}
         placeholder={placeholder}
-        className={`pr-11 ${inputClassName}`}
+        className={`!pr-11 !max-md:pr-16 ${inputClassName}`}
         {...field}
       />
       <Button

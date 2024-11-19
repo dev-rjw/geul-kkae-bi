@@ -1,13 +1,10 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import MobileTutorial from './MobileTutorial';
+import { QuizTimerProps } from '@/types/writing';
 
-interface QuizTimerProps {
-  onTimeOver: () => void;
-  isAllQuestions: boolean;
-}
-
-const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => {
+const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile, currentQuizIndex }) => {
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIsTutorial] = useState(true);
   const workerRef = useRef<Worker | null>(null);
@@ -56,27 +53,36 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions }) => 
   return (
     <div>
       {isTutorial ? (
-        <div className='fixed inset-0 z-50 bg-[#2f2f2f] flex justify-center items-center'>
-          <Image
-            src='/writing_tutorial.svg'
-            alt='Tutorial'
-            fill
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-          <button
-            onClick={handleStartGame}
-            className='start_writing_btn absolute bottom-[4.375rem] right-[62px] w-[209px] py-[15px] rounded-[80px]'
-          >
-            <span className='relative z-10 title-20 text-tertiary-g-800 text-shadow'>GAME START</span>
-          </button>
-        </div>
+        isMobile ? (
+          <MobileTutorial onStartGame={handleStartGame} />
+        ) : (
+          <div className='fixed inset-0 z-50 bg-[#2f2f2f] flex flex-col justify-center items-center'>
+            <Image
+              src='/writing_tutorial.svg'
+              alt='Tutorial'
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+            <button
+              onClick={handleStartGame}
+              className='start_writing_btn absolute bottom-[4.375rem] right-[62px] w-[209px] py-[15px] rounded-[80px]'
+            >
+              <span className='relative z-10 title-20 text-tertiary-g-800 text-shadow'>GAME START</span>
+            </button>
+          </div>
+        )
       ) : null}
-      <div className='w-full bg-[#BAF1E5] h-[28px]'>
+      <div className={`w-full bg-[#BAF1E5] ${isMobile ? 'h-[14px]' : 'h-[28px]'}`}>
         <div
-          className=' bg-tertiary-g-500 h-[28px] transition-all ease-linear rounded-r-lg'
+          className={`bg-tertiary-g-500 ${isMobile ? 'h-[14px]' : 'h-[28px]'} transition-all ease-linear rounded-r-lg`}
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
+        {isMobile && (
+          <p className='absolute left-4 bottom-[-1.5rem] text-[1rem] font-medium text-[#363635]'>
+            {`${currentQuizIndex + 1}/10`}
+          </p>
+        )}
       </div>
     </div>
   );
