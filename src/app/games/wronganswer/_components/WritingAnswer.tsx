@@ -45,26 +45,26 @@ const WritingAnswer = () => {
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
+      <div className='w-full md:w-[67.5rem] h-auto md:h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-4 py-4 md:px-[1.188rem] md:py-[1.875rem] bg-[#7FE6CF]'>
         {/* 상단 텍스트 */}
-        <div className='flex justify-center items-center'>
-          <h3 className='text-[1.5rem] font-bold text-[#198069] flex items-center'>
+        <div className='flex justify-center items-center mb-4 md:mb-0'>
+          <h3 className=' text-[1rem] md:text-[1.5rem] font-bold text-[#198069] flex items-center'>
             완료한 문장은 체크해서 지워주세요!
             <img
               src='/icon_write_check.svg'
               alt='체크'
-              className='w-[2.375rem] h-[2.375rem] ml-2'
+              className='w-6 h-6 md:w-[2.375rem] md:h-[2.375rem] ml-2'
             />
           </h3>
         </div>
 
         {/* 콘텐츠 영역 */}
-        <div className='flex justify-between items-center h-full'>
+        <div className='flex md:justify-between items-center h-auto md:h-full flex-col md:flex-row'>
           {/* 왼쪽 버튼 */}
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className='rounded-full'
+            className='rounded-full mb-4 md:mb-0'
           >
             <img
               src={currentPage === 0 ? '/icon_btn_writ_left.svg' : '/icon_btn_writing_left.svg'}
