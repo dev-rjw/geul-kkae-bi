@@ -11,6 +11,7 @@ import LineTitle from '@/components/LineTitle';
 import ResultSide from './ResultSide';
 import kakaoTalkShare from './kakaoTalkShare';
 import LinkCopyButton from './LinkCopyButton';
+import Modal from './Modal';
 
 const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultCardProps) => {
   const pathname = usePathname();
@@ -77,7 +78,9 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
             </LineTitle>
             {pathname !== '/share/url' && (
               <div className='flex gap-5 mt-32'>
-                <Button className='solid-light-button min-w-[6.75rem]'>오답확인</Button>
+                <Button className='solid-light-button min-w-[6.75rem]'>
+                  <Modal />
+                </Button>
                 <Button
                   asChild
                   className='solid-button min-w-[6.75rem]'
@@ -93,7 +96,6 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                 </Button>
               </div>
             )}
-            {/* <Modal /> */}
           </div>
         </div>
       </div>

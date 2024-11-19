@@ -18,7 +18,7 @@ const Modal = () => {
   const handleCloseModal = () => setIsModalOpen(false);
   return (
     <div className='z-10 '>
-      <button onClick={handleOpenModal}>모달 열기</button>
+      <button onClick={handleOpenModal}>오답 확인</button>
       <ModalPortal
         open={isModalOpen}
         onClose={handleCloseModal}
