@@ -20,7 +20,7 @@ export interface GamesArray {
 
 export interface MatchedGameArray {
   type: string;
-  score: string | number | null;
+  score: string | number | null | undefined;
   name: string;
   backgroundColor: string;
   titleColor1: string;
@@ -32,4 +32,11 @@ export interface TotalScore {
   user_id: string;
   id: string;
   total: number;
+}
+
+export interface ResultCardProps {
+  matchedGame: MatchedGameArray | undefined;
+  GameScore: string | undefined;
+  justEndedGame: string | undefined;
+  nickname: string | undefined;
 }
