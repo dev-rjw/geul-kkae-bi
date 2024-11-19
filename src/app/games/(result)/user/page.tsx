@@ -61,7 +61,7 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
     <div className='container py-8 max-md:p-0'>
       <div className='flex max-md:hidden justify-center pb-[2.375rem]'>
         <LineTitle
-          className='text-primary-400 title-34 font-normal'
+          className='title-34 font-normal'
           lineClassName={`!-bottom-1.5 !w-[calc(100%+20px)] h-4/6 ${matchedGame?.lineColor}`}
         >
           <span className={matchedGame?.titleColor1}>
