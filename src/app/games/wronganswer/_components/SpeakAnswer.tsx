@@ -46,14 +46,16 @@ const SpeakAnswer = () => {
         {wrongAnswer?.map((speak) => (
           <div
             key={speak.id}
-            className='flex items-center bg-[#FEF2E0] py-4 mb-3.5 rounded-lg '
+            className={`${
+              selecteAnswer.includes(speak.answer) ? 'bg-secondary-200' : ''
+            } flex items-center bg-[#FEF2E0] py-4 mb-3.5 rounded-lg`}
           >
-            <p className='text-secondary-500 w-[8.688rem] h-[3.25rem] leading-[3.25rem] pt-1 text-center title-36'>
+            <p className='relative text-secondary-500 w-[8.688rem] h-[3.25rem] leading-[3.25rem] pt-1 text-center title-36 before:absolute before:top-1/2 before:right-0 before:translate-y-[-50%] before:w-[0.313rem] before:h-[3.188rem] before:bg-[#FFB440]'>
               <span>{speak.score}</span>
               <span className='text-[1rem]'>%</span>
             </p>
-            <p className='body-24'>{speak.answer}</p>
-            <div className='ml-auto'>
+            <p className='body-24 pl-[1.563rem]'>{speak.answer}</p>
+            <div className='ml-auto mr-8 flex items-center'>
               <input
                 type='checkbox'
                 id={`checkbox-${speak.answer}`}
@@ -69,14 +71,20 @@ const SpeakAnswer = () => {
           </div>
         ))}
         <div className='mt-[1.875rem] text-center'>
-          <button
-            className='w-[21.875rem] h-[3.25rem] bg-secondary-500 rounded-lg'
-            onClick={() => del({ answer: selecteAnswer, userId: user?.id })}
-          >
-            <span className='text-secondary-100 body-18'>
-              {selecteAnswer.length === 0 ? null : <span>{selecteAnswer.length}개 </span>}삭제하기
+          {selecteAnswer.length === 0 ? (
+            <span className='inline-flex items-center justify-center w-[21.875rem] h-[3.25rem] bg-secondary-200 rounded-lg body-18 text-secondary-400'>
+              지우기
             </span>
-          </button>
+          ) : (
+            <button
+              className='w-[21.875rem] h-[3.25rem] bg-secondary-500 rounded-lg'
+              onClick={() => del({ answer: selecteAnswer, userId: user?.id })}
+            >
+              <p className='text-secondary-100 body-18'>
+                {selecteAnswer.length === 0 ? null : <span>{selecteAnswer.length}개 </span>}지우기
+              </p>
+            </button>
+          )}
         </div>
       </div>
       <Pagintaion
