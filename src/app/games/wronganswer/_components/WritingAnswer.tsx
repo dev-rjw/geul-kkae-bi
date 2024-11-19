@@ -48,9 +48,13 @@ const WritingAnswer = () => {
       <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center'>
-          <h3 className='text-[1.5rem] font-bold text-[#198069]'>
+          <h3 className='text-[1.5rem] font-bold text-[#198069] flex items-center'>
             완료한 문장은 체크해서 지워주세요!
-            <span className='text-[1.5rem] ml-2'>✓</span>
+            <img
+              src='/icon_write_check.svg'
+              alt='체크'
+              className='w-[2.375rem] h-[2.375rem] ml-2'
+            />
           </h3>
         </div>
 
