@@ -81,3 +81,25 @@ export const useInsertResultMutation = () => {
     },
   });
 };
+
+const deleteSpeakAnswer = async (result: { answer: string[]; userId: string | undefined }) => {
+  if (!result.userId) {
+    throw new Error('User ID가 없습니다');
+  }
+
+  return await browserClient.from('answer').delete().in('answer', result.answer).eq('user_id', result.userId);
+};
+
+export const useDeleteSpeakAnswersMutation = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteSpeakAnswer,
+    onSuccess: async () => {
+      client.invalidateQueries({ queryKey: ['answer'] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
