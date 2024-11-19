@@ -11,6 +11,7 @@ type speek = {
   addIndex: () => void;
   resetIndex: () => void;
   resetPercent: () => void;
+  resetTotlaPercent: () => void;
   setText: (text: string) => void;
   resetText: () => void;
   setPercent: (value: number) => void;
@@ -33,6 +34,7 @@ export const useSpeakStore = create<speek>((set) => ({
   addIndex: () => set((state) => ({ index: state.index + 1 })),
   resetIndex: () => set(() => ({ index: 0 })),
   resetPercent: () => set(() => ({ percent: 0 })),
+  resetTotlaPercent: () => set(() => ({ totlaPercent: 0 })),
   setText: (text) => set(() => ({ text })),
   resetText: () => set(() => ({ text: '' })),
   setPercent: (value) => set(() => ({ percent: value })),

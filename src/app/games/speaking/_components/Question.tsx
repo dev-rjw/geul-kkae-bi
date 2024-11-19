@@ -34,18 +34,28 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     addIndex,
     addTotalPercent,
     setIsGame,
+    resetTotlaPercent,
   } = useSpeakStore();
   const { time } = useTimeStore();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
   const { mutate: insertResult } = useInsertResultMutation();
-  const finalPercent = Math.round(totlaPercent / 10);
   const { data: game } = useGetSpeekDataUser(data?.id, weekNumber);
+  const [finalPercent, setFinalPercent] = useState(0);
+
+  useEffect(() => {
+    return () => {
+      setFinalPercent(0);
+      resetTotlaPercent();
+      console.log('unmount 될때');
+    };
+  }, []);
 
   useEffect(() => {
     if (text && randomText[index]) {
       handleAccuracy(text, randomText[index]);
     }
+    setFinalPercent(Math.round(totlaPercent / 10));
   }, [text, randomText, index]);
 
   const handleAccuracy = (text: string | null, randomText: string) => {
@@ -75,9 +85,8 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     if (data) {
       if (game && game.length > 0) {
         if (finalPercent > game[0].speaking || game[0].speaking === null) {
+          localStorage.setItem('update', finalPercent.toString());
           update({ score: finalPercent, userId: game[0].user_id, week: weekNumber });
-        } else {
-          localStorage.setItem('speaking', finalPercent.toString());
         }
       } else {
         insert({ userId: data.id, score: finalPercent, weekNumber: weekNumber });
@@ -98,7 +107,6 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
 
   const handleResult = useCallback(
     throttle(() => {
-      handleUpsertScore();
       if (percent <= 30)
         insertResult({
           userId: data?.id,
@@ -138,6 +146,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
           </div>
           <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
             <Link
+              onClick={handleUpsertScore}
               className='mt-[16px] flex flex-col items-center max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`

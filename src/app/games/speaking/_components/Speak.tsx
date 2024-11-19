@@ -39,7 +39,6 @@ const Speak = () => {
   } = useSpeakStore();
   const { isDelay, resetTimer, setIsDelay } = useTimeStore();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [wrongAnswer, setWrongAnswer] = useState<Answer[]>([]);
 
   const ondataavailable = (event: { data: Blob }) => {
