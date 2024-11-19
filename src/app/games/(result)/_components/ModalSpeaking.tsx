@@ -26,15 +26,15 @@ const ModalSpeaking = ({ handleCloseModal }: Props) => {
           <p className='mt-3 body-24 max-md:caption-14 max-md:mt-0'>
             발음 문제는 <span className='text-secondary-600'>30% 이하</span> 점수만 오답으로 책정됩니다.
           </p>
-          <div className='mt-[2.5rem] h-[31.75rem] overflow-y-scroll scrollbar-secondary pr-4 mr-[-2rem] max-md:mt-[1.188rem] max-md:h-[38.5rem]'>
+          <div className='mt-[2.5rem] h-[31.75rem] overflow-y-scroll scrollbar-secondary pr-4 mr-[-2rem] max-md:mt-[1.188rem] max-md:h-[38.5rem] max-md:pr-1 max-md:mr-[-0.5rem]'>
             {result?.map((item, index) => {
               return (
                 <div
-                  className='relative flex items-center bg-secondary-100 w-[802px] h-[5.375rem] mb-4 px-[1.125rem] max-md:min-w-[19.875rem] max-md:w-auto max-md:flex-col max-md:h-[auto] max-md:p-2 max-md:items-start'
+                  className='relative flex items-center bg-secondary-100 w-[802px] h-[5.375rem] mb-4 px-[1.125rem] max-md:min-w-[19.875rem] max-md:w-auto max-md:flex-col max-md:h-[auto] max-md:p-2 max-md:items-start max-md:rounded-lg'
                   key={item.text}
                 >
                   <strong className='title-32 w-[8.438rem] text-secondary-700 text-center max-md:title-20 max-md:w-auto'>
-                    {index + 1}
+                    0{index + 1}
                   </strong>
                   <p className='body-24 font-semibold max-md:body-16'>{item.text}</p>
                   <p className='font-bold text-secondary-500 text-[3.5rem] ml-auto max-md:absolute max-md:right-3 max-md:top-3.5 max-md:body-20'>
