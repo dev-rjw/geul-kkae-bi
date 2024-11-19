@@ -73,9 +73,9 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMob
           </div>
         )
       ) : null}
-      <div className='w-full bg-[#BAF1E5] h-[28px]'>
+      <div className={`w-full bg-[#BAF1E5] ${isMobile ? 'h-[14px]' : 'h-[28px]'}`}>
         <div
-          className=' bg-tertiary-g-500 h-[28px] transition-all ease-linear rounded-r-lg'
+          className={`bg-tertiary-g-500 ${isMobile ? 'h-[14px]' : 'h-[28px]'} transition-all ease-linear rounded-r-lg`}
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
       </div>

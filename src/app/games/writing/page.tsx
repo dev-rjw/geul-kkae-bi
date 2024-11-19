@@ -162,7 +162,7 @@ const WritingQuizPage = () => {
       <div className={`flex flex-col items-center ${isMobile ? 'mt-10' : 'mt-20'}`}>
         <p
           className={`inline-flex items-center justify-center px-[1.875rem] py-2.5 text-2xl font-medium rounded-full ${
-            isMobile ? 'bg-tertiary-g-500 text-xl' : 'bg-tertiary-g-500'
+            isMobile ? 'bg-tertiary-g-500 text-xl mt-[4.5rem]' : 'bg-tertiary-g-500'
           }`}
         >
           {`${currentQuizIndex + 1}번문제`}
@@ -182,10 +182,12 @@ const WritingQuizPage = () => {
         />
         <div
           className={`flex flex-col justify-center items-center ${
-            isMobile ? 'h-auto mt-6 p-4' : 'h-[12.5rem] mt-10 p-2.5'
+            isMobile ? 'h-auto mt-[3.688rem] p-4' : 'h-[12.5rem] mt-10 p-2.5'
           } font-yangjin`}
         >
-          <p className={`${isMobile ? 'text-lg mb-4' : 'text-4xl mb-[1.6875rem]'} font-medium text-[#363635]`}>
+          <p
+            className={`${isMobile ? 'text-2xl mb-[1.688rem]' : 'text-4xl mb-[1.6875rem]'} font-medium text-[#363635]`}
+          >
             {question.question}
           </p>
           <p className={`${isMobile ? 'text-base' : 'text-2xl'} font-medium text-tertiary-g-500`}>
@@ -194,7 +196,7 @@ const WritingQuizPage = () => {
         </div>
         <form
           onSubmit={moveToNextQuiz}
-          className={`${isMobile ? 'w-full px-4' : ''}`}
+          className={`${isMobile ? 'w-full px-4 mt-[4.25rem]' : ''}`}
         >
           <input
             type='text'
