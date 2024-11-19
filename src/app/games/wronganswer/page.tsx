@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import CheckingAnswer from './_components/CheckingAnswer';
 import WritingAnswer from './_components/WritingAnswer';
+import SpeakAnswer from './_components/SpeakAnswer';
 
 const WrongAnswerPage = () => {
   const [selectedTab, setSelectedTab] = useState('checking');
@@ -19,31 +20,32 @@ const WrongAnswerPage = () => {
               }`}
               onClick={() => setSelectedTab('checking')}
             >
-              틀린말 탐정단
+              <p className='text-xl font-normal'>틀린말 탐정단</p>
+            </button>
+            <button
+              className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
+                selectedTab === 'speaking'
+                  ? "bg-[url('/speaking_btnon_wrong.svg')] bg-cover text-[#855205]"
+                  : "bg-[url('/speaking_btn_wrong.svg')] bg-contain text-[#e78f09]"
+              }`}
+              onClick={() => setSelectedTab('speaking')}
+            >
+              <p className='text-xl font-normal'>나야, 발음왕</p>
             </button>
             <button
               className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
                 selectedTab === 'writing'
-                  ? "bg-[url('/speaking_btnon_wrong.svg')] bg-cover text-[#855205]"
-                  : "bg-[url('/speaking_btn_wrong.svg')] bg-contain text-[#e78f09]"
-              }`}
-              onClick={() => setSelectedTab('writing')}
-            >
-              나야, 발음왕
-            </button>
-            <button
-              className={`relative w-[192px] h-[60px] bg-center bg-no-repeat ${
-                selectedTab === 'blank'
                   ? "bg-[url('/writing_btnon_wrong.svg')] bg-cover text-[#115546]"
                   : "bg-[url('/writing_btn_wrong.svg')] bg-contain text-[#2ad4af]"
               }`}
-              onClick={() => setSelectedTab('blank')}
+              onClick={() => setSelectedTab('writing')}
             >
-              빈칸 한 입
+              <p className='text-xl font-normal'>빈칸 한 입</p>
             </button>
           </div>
         </div>
         <div className='flex flex-col'>
+          {selectedTab === 'speaking' && <SpeakAnswer />}
           {selectedTab === 'checking' && <CheckingAnswer />}
           {selectedTab === 'writing' && <WritingAnswer />}
         </div>

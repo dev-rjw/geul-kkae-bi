@@ -2,6 +2,7 @@ export interface QuizTimerProps {
   onTimeOver: () => void;
   isAllQuestions: boolean;
   isMobile: boolean;
+  currentQuizIndex: number;
 }
 
 export type MobileTutorialProps = {
