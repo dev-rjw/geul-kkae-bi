@@ -3,9 +3,9 @@ import { useAuth } from '@/queries/useAuth';
 import { useGetWrongAnswer } from '@/queries/useGetWrongAnswer';
 import { weekNumber } from '@/utils/week/weekNumber';
 import { useState } from 'react';
-import Pagintaion from './Pagintaion';
+import Pagintaion from './Pagination';
 
-const SpeakWrong = () => {
+const SpeakAnswer = () => {
   const { data: user } = useAuth();
   const { data: answer } = useGetWrongAnswer(user?.id, weekNumber);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,4 +52,4 @@ const SpeakWrong = () => {
   );
 };
 
-export default SpeakWrong;
+export default SpeakAnswer;

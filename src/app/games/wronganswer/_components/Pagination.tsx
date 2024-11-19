@@ -1,8 +1,5 @@
 'use client';
 type Props = {
-  // currentPage: number; // 현재 페이지
-  // totalItems: number; // 데이터의 총 개수
-  // contentsPerPage: number; // 보여줄 페이지 개수
   setCurrentPage: (state: number) => void;
 };
 
