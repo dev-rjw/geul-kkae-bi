@@ -36,7 +36,7 @@ const SpeakAnswer = () => {
     setSelectedAnswer((prev) => (prev.includes(question) ? prev.filter((q) => q !== question) : [...prev, question]));
   };
   return (
-    <div className='bg-secondary-300 w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] max-md:w-full max-md:rounded-br-none max-md:rounded-bl-none'>
+    <div className='bg-secondary-300 w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] max-md:w-full max-md:h-[40.313rem] max-md:rounded-br-none max-md:rounded-bl-none'>
       <div className='text-center mt-8 mb-[1.313rem] max-md:[1.75rem]'>
         <div className='flex items-center justify-center'>
           <strong className='title-24 text-secondary-700 max-md:title-16'>완료한 문장은 체크해서 지워주세요!</strong>
@@ -61,33 +61,64 @@ const SpeakAnswer = () => {
         ) : (
           <></>
         )}
-        {wrongAnswer?.map((speak) => (
-          <div
-            key={speak.id}
-            className={`${
-              selecteAnswer.includes(speak.answer) ? 'bg-secondary-200' : ''
-            } flex items-center bg-[#FEF2E0] py-4 mb-3.5 rounded-lg max-md:py-[0.438rem] max-md:mb-3`}
-          >
-            <p className='relative text-secondary-500 w-[8.688rem] h-[3.25rem] leading-[3.25rem] pt-1 text-center title-36 before:absolute before:top-1/2 before:right-0 before:translate-y-[-50%] before:w-[0.313rem] before:h-[3.188rem] before:bg-[#FFB440] max-md:w-[3.813rem] max-md:before:w-[0.125rem]'>
-              <span>{speak.score}</span>
-              <span className='text-[1rem]'>%</span>
-            </p>
-            <p className='body-24 pl-[1.563rem] max-md:pl-2.5 max-md:caption-14'>{speak.answer}</p>
-            <div className='ml-auto mr-8 flex items-center'>
-              <input
-                type='checkbox'
-                id={`checkbox-${speak.answer}`}
-                className='input-box hidden'
-                checked={selecteAnswer.includes(speak.answer)}
-                onChange={() => handleSelect(speak.answer)}
-              />
-              <label
-                htmlFor={`checkbox-${speak.answer}`}
-                className='w-[3.125rem] h-[3.125rem] check-label inline-block max-md:w-[1.5rem] max-md:h-[1.5rem]'
-              ></label>
+        <div className='max-md:hidden'>
+          {wrongAnswer?.map((speak) => (
+            <div
+              key={speak.id}
+              className={`${
+                selecteAnswer.includes(speak.answer) ? 'bg-secondary-200' : ''
+              } flex items-center bg-[#FEF2E0] py-4 mb-3.5 rounded-lg max-md:py-[0.438rem] max-md:mb-3`}
+            >
+              <p className='relative text-secondary-500 w-[8.688rem] h-[3.25rem] leading-[3.25rem] pt-1 text-center title-36 before:absolute before:top-1/2 before:right-0 before:translate-y-[-50%] before:w-[0.313rem] before:h-[3.188rem] before:bg-[#FFB440] max-md:w-[3.813rem] max-md:before:w-[0.125rem]'>
+                <span>{speak.score}</span>
+                <span className='text-[1rem]'>%</span>
+              </p>
+              <p className='body-24 pl-[1.563rem] max-md:pl-2.5 max-md:caption-14'>{speak.answer}</p>
+              <div className='ml-auto mr-8 flex items-center'>
+                <input
+                  type='checkbox'
+                  id={`checkbox-${speak.answer}`}
+                  className='input-box hidden'
+                  checked={selecteAnswer.includes(speak.answer)}
+                  onChange={() => handleSelect(speak.answer)}
+                />
+                <label
+                  htmlFor={`checkbox-${speak.answer}`}
+                  className='w-[3.125rem] h-[3.125rem] check-label inline-block max-md:w-[1.5rem] max-md:h-[1.5rem]'
+                ></label>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className='hidden max-md:block h-[27.625rem] scrollbar-speaking overflow-x-hidden pr-[0.438rem] mr-[-0.813rem]'>
+          {answerData?.map((speak) => (
+            <div
+              key={speak.id}
+              className={`${
+                selecteAnswer.includes(speak.answer) ? 'bg-secondary-200' : ''
+              } flex items-center bg-[#FEF2E0] rounded-lg py-[0.438rem] mb-3`}
+            >
+              <p className='relative text-secondary-500 w-[3.813rem] h-[3.25rem] leading-[3.25rem] pt-1 text-center title-36 before:absolute before:top-1/2 before:right-0 before:translate-y-[-50%] before:h-[3.188rem] before:bg-[#FFB440] before:w-[0.125rem]'>
+                <span>{speak.score}</span>
+                <span className='text-[1rem]'>%</span>
+              </p>
+              <p className='pl-2.5 caption-14'>{speak.answer}</p>
+              <div className='ml-auto mr-8 flex items-center'>
+                <input
+                  type='checkbox'
+                  id={`checkbox-${speak.answer}`}
+                  className='input-box hidden'
+                  checked={selecteAnswer.includes(speak.answer)}
+                  onChange={() => handleSelect(speak.answer)}
+                />
+                <label
+                  htmlFor={`checkbox-${speak.answer}`}
+                  className='check-label inline-block w-[1.5rem] h-[1.5rem]'
+                ></label>
+              </div>
+            </div>
+          ))}
+        </div>
         <div className='mt-[1.875rem] text-center'>
           {selecteAnswer.length === 0 ? (
             <span className='inline-flex items-center justify-center w-[21.875rem] h-[3.25rem] bg-secondary-200 rounded-lg body-18 text-secondary-400 max-md:w-full'>

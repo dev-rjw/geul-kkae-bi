@@ -12,11 +12,13 @@ const Pagintaion = ({ currentPage, totalItems, contentsPerPage, handlePrevPage, 
   return (
     <>
       <button
-        className={`${currentPage === 1 ? 'disable' : ''} pagination-button prev`}
+        className={`${currentPage === 1 ? 'disable' : ''} pagination-button prev max-md:hidden`}
         onClick={handlePrevPage}
       ></button>
       <button
-        className={`${currentPage === totalPage || totalPage === 0 ? 'disable' : ''} pagination-button next`}
+        className={`${
+          currentPage === totalPage || totalPage === 0 ? 'disable' : ''
+        } pagination-button next max-md:hidden`}
         onClick={handleNextPage}
       ></button>
     </>
