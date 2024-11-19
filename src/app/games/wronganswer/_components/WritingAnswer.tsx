@@ -85,7 +85,7 @@ const WritingAnswer = () => {
                   {/* 왼쪽: "내 오답"과 사용자의 오답 텍스트 */}
                   <div className='flex items-center gap-[0.625rem]'>
                     <p className='bg-[#FCDEDE] text-[#EF5252] font-bold px-[0.875rem] py-[0.125rem] rounded-lg text-lg flex items-center gap-1'>
-                      <span className='text-lg font-light'>✖</span> {/* X 아이콘 */}내 오답
+                      <span className='text-lg font-light'>✖</span> 내 오답
                     </p>
                     <p className='text-[#EF5252] text-[1.375rem] font-semibold'>{answer.user_answer}</p>
                   </div>
