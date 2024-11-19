@@ -67,7 +67,7 @@ const CheckingAnswer = () => {
             className='rounded-full'
           >
             <img
-              src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checkiong_left.svg'}
+              src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checking_left.svg'}
               alt='이전 버튼'
               className='w-14 h-14'
             />
@@ -187,7 +187,7 @@ const CheckingAnswer = () => {
             <img
               src={
                 (currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length
-                  ? '/icon_btn_check_right.svg'
+                  ? '/icon-btn_check_right.svg'
                   : '/icon_btn_checking_right.svg'
               }
               alt='다음 버튼'

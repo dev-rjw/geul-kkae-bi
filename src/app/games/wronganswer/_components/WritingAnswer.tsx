@@ -63,7 +63,7 @@ const WritingAnswer = () => {
             className='rounded-full'
           >
             <img
-              src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checkiong_left.svg'}
+              src={currentPage === 0 ? '/icon_btn_writ_left.svg' : '/icon_btn_writing_left.svg'}
               alt='이전 버튼'
               className='w-14 h-14'
             />
@@ -143,13 +143,17 @@ const WritingAnswer = () => {
           <button
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= writingWrongAnswers.length}
-            className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              (currentPage + 1) * itemsPerPage >= writingWrongAnswers.length
-                ? 'bg-[#55DDBF] text-[#7FE6CF]'
-                : 'bg-[#55DDBF] text-white'
-            }`}
+            className='rounded-full flex items-center justify-center'
           >
-            <span className='text-2xl'>&#8250;</span>
+            <img
+              src={
+                (currentPage + 1) * itemsPerPage >= writingWrongAnswers.length
+                  ? '/icon_btn_writ_right.svg'
+                  : '/icon_btn_writing_right.svg'
+              }
+              alt='다음 버튼'
+              className='w-14 h-14'
+            />
           </button>
         </div>
         <div className='flex justify-center items-center '>

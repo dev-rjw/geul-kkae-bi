@@ -23,7 +23,7 @@ const Modal = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        {currentGameType === 'speaking' && <ModalSpeaking />}
+        {currentGameType === 'speaking' && <ModalSpeaking handleCloseModal={handleCloseModal} />}
         {currentGameType === 'writing' && <ModalWriting />}
         {currentGameType === 'checking' && <ModalChecking />}
         <button onClick={handleCloseModal}>모달 닫기</button>
