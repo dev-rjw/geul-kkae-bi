@@ -13,7 +13,7 @@ const CheckingButton: React.FC<CheckingButtonProps> = ({ correctOptions, selecte
           key={option}
           onClick={() => onselect(option)}
           className={`${
-            isMobile ? 'w-[12rem] h-[4rem] text-lg' : 'w-[18.75rem] h-[6.25rem] text-[2.5rem]'
+            isMobile ? 'w-[8.188rem] h-[4.5rem] text-xl' : 'w-[18.75rem] h-[6.25rem] text-[2.5rem]'
           } font-medium rounded-[1.25rem] ${selectedOption === option ? 'bg-[#A07BE5] text-white' : 'bg-white'}`}
         >
           <span className='relative inline-block'>{option}</span>
