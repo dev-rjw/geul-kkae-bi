@@ -79,7 +79,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
             </div>
             {pathname !== '/share/url' && (
               <div className='solid-button-group'>
-                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'>오답확인</Button>
+                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'>오답 확인</Button>
                 <Button
                   asChild
                   className='solid-button min-w-[6.75rem] max-md:w-full'
@@ -96,12 +96,14 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
             )}
             {pathname === '/share/url' && (
               <div className='mt-28 max-md:hidden'>
-                <Button asChild className='solid-button w-full'>
+                <Button
+                  asChild
+                  className='solid-button w-full'
+                >
                   <Link href='https://geul-kkae-bi.vercel.app/'>나도 하러가기</Link>
                 </Button>
               </div>
             )}
-            {/* <Modal /> */}
           </div>
         </div>
       </div>
