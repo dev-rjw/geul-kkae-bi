@@ -6,7 +6,7 @@ import { GamesArray, GamesScore, JustEndedGameProp } from '@/types/result';
 import ResultSide from '../_components/ResultSide';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
-import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
+// import { highlightScoreForMatchedGame } from '../utils/highlightScoreForMatchedGame';
 import LineTitle from '@/components/LineTitle';
 import kakaoTalkShare from './kakaoTalkShare';
 // import Modal from './Modal';
@@ -72,7 +72,7 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
     <div>
       <div className='flex justify-center pb-[2.375rem]'>
         <LineTitle
-          className='text-primary-400 title-34 font-normal'
+          className='title-34 font-normal'
           lineClassName={`-bottom-2 w-[calc(100%+20px)] h-4/6 ${matchedGame?.lineColor}`}
         >
           <span className={matchedGame?.titleColor1}>
@@ -101,14 +101,20 @@ const GuestPage = ({ searchParams }: JustEndedGameProp) => {
               <span className='query body-16'>님의</span>
               <div className='query title-32'>국어 문해력은?</div>
             </div>
-            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline relative`}>
+            <LineTitle
+              className={`title-72 font-normal ${matchedGame?.titleColor1}`}
+              lineClassName={`w-[calc(100%+20px)] h-4/6 ${matchedGame?.lineColor}`}
+            >
+              {GameScore}점
+            </LineTitle>
+            {/* <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline relative`}>
               <span className='score relative z-20'>{GameScore}점</span>
               <div
                 className={`h-[2.688rem] ${
                   matchedGame ? highlightScoreForMatchedGame(matchedGame) : ''
                 } absolute w-full -bottom-5 z-10`}
               />
-            </div>
+            </div> */}
             {/* <Modal /> */}
           </div>
         </div>

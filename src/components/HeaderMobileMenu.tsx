@@ -1,5 +1,5 @@
 import MyProfileInfo from './MyProfileInfo';
-import { House, UserRound, Gamepad2, BookCopy, NotebookText, Award, LogOut } from 'lucide-react';
+import { House, UserRound, Gamepad2, LogOut, Medal, BookA, BookOpenCheck } from 'lucide-react';
 import { useAuth } from '@/queries/useAuth';
 import { useSignout } from '@/utils/sign/signout';
 import { HeaderMobileMenuData } from '@/types/header';
@@ -15,22 +15,6 @@ const HEADER_MOBILE_MENU_DATA: HeaderMobileMenuData[] = [
   },
   {
     id: 2,
-    icon: UserRound,
-    title: '마이페이지',
-    link: '/mypage',
-    children: [
-      {
-        title: '프로필 변경',
-        link: '/mypage/information',
-      },
-      {
-        title: '비밀번호 변경',
-        link: '/mypage/change-password',
-      },
-    ],
-  },
-  {
-    id: 3,
     icon: Gamepad2,
     title: '깨비게임',
     link: '/games/speaking',
@@ -50,22 +34,52 @@ const HEADER_MOBILE_MENU_DATA: HeaderMobileMenuData[] = [
     ],
   },
   {
-    id: 4,
-    icon: BookCopy,
+    id: 3,
+    icon: BookA,
     title: '학습카드',
     link: '/learning',
   },
   {
-    id: 5,
-    icon: NotebookText,
+    id: 4,
+    icon: BookOpenCheck,
     title: '오답모아',
-    link: '/answer',
+    link: '/wronganswer/speaking',
+    children: [
+      {
+        title: '나야, 발음왕',
+        link: '/wronganswer/speaking',
+      },
+      {
+        title: '틀린 말 탐정단',
+        link: '/wronganswer/checking',
+      },
+      {
+        title: '빈칸 한 입',
+        link: '/wronganswer/writing',
+      },
+    ],
+  },
+  {
+    id: 5,
+    icon: Medal,
+    title: '랭킹',
+    link: '/games/rank',
   },
   {
     id: 6,
-    icon: Award,
-    title: '랭킹',
-    link: '/games/rank',
+    icon: UserRound,
+    title: '마이페이지',
+    link: '/mypage',
+    children: [
+      {
+        title: '프로필 변경',
+        link: '/mypage/information',
+      },
+      {
+        title: '비밀번호 변경',
+        link: '/mypage/change-password',
+      },
+    ],
   },
 ];
 

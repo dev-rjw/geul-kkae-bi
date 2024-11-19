@@ -51,7 +51,7 @@ const MainCarousel = () => {
             >
               <CardContent>
                 <div className='mb-4 max-lg:mb-[0.875rem]'>
-                  <Badge className='h-[1.875rem] text-sm font-bold rounded-md px-[0.625rem] py-0 bg-primary-500 text-primary-100 hover:bg-primary-500 max-lg:h-[1.375rem] max-lg:text-xs max-lg:px-[0.375rem] max-lg:rounded-sm'>
+                  <Badge className='h-[1.875rem] text-sm font-bold rounded-md px-[0.625rem] py-0 bg-primary-500 text-primary-100 hover:bg-primary-500 max-lg:h-[1.375rem] max-lg:text-[0.688rem] max-lg:px-[0.375rem] max-lg:rounded-sm'>
                     서비스 소개
                   </Badge>
                 </div>
