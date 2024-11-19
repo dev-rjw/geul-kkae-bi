@@ -5,6 +5,7 @@ import { weekNumber } from '@/utils/week/weekNumber';
 import { useState } from 'react';
 import Pagintaion from './Pagination';
 import { useDeleteSpeakAnswersMutation } from '@/mutations/speek-mutation';
+import Image from 'next/image';
 
 const SpeakAnswer = () => {
   const { data: user } = useAuth();
@@ -35,14 +36,31 @@ const SpeakAnswer = () => {
     setSelectedAnswer((prev) => (prev.includes(question) ? prev.filter((q) => q !== question) : [...prev, question]));
   };
   return (
-    <div className='bg-secondary-300 w-[67.5rem] h-[44.938rem] relative'>
+    <div className='bg-secondary-300 w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem]'>
       <div className='text-center mt-8 mb-[1.313rem]'>
-        <strong className='title-24 text-secondary-700'>완료한 문장은 체크해서 지워주세요!</strong>
-        <p className='text-gray-700'>
+        <div className='flex items-center justify-center'>
+          <strong className='title-24 text-secondary-700'>완료한 문장은 체크해서 지워주세요!</strong>
+          <Image
+            src='/icon_speak_answer_check.svg'
+            width={40}
+            height={40}
+            alt='check'
+            priority
+            className='mt-[-10px]'
+          />
+        </div>
+        <p className='text-gray-700 font-bold'>
           발음 문제는 <span className='text-secondary-600'>30% 이하</span> 점수만 오답으로 책정됩니다.
         </p>
       </div>
       <div className='w-[56.125rem] mx-auto'>
+        {!answer || answer.length === 0 ? (
+          <div className='h-[31.063rem] flex items-center justify-center'>
+            <p className='title-34 text-secondary-500'>오답이 아직 모이지 않았어요!</p>
+          </div>
+        ) : (
+          <></>
+        )}
         {wrongAnswer?.map((speak) => (
           <div
             key={speak.id}

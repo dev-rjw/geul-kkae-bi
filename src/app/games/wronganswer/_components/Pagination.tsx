@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Pagintaion = ({ currentPage, totalItems, contentsPerPage, handlePrevPage, handleNextPage }: Props) => {
-  const totalPage = Math.floor((totalItems ?? 0) / contentsPerPage);
+  const totalPage = Math.ceil((totalItems ?? 0) / contentsPerPage);
   return (
     <>
       <button
@@ -16,7 +16,7 @@ const Pagintaion = ({ currentPage, totalItems, contentsPerPage, handlePrevPage, 
         onClick={handlePrevPage}
       ></button>
       <button
-        className={`${currentPage === totalPage ? 'disable' : ''} pagination-button next`}
+        className={`${currentPage === totalPage || totalPage === 0 ? 'disable' : ''} pagination-button next`}
         onClick={handleNextPage}
       ></button>
     </>
