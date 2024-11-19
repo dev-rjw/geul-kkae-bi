@@ -111,7 +111,7 @@ const MypageCharacter = () => {
                   className='flex flex-col items-center relative w-[200px] h-[120px]'
                 >
                   {/* 단계 번호 */}
-                  <span className='bg-[#357EE7] text-white text-md font-semibold px-2 py-1 rounded-full mb-2'>
+                  <span className='bg-primary-400 text-white text-md font-semibold px-2 py-1 rounded-full mb-2'>
                     &nbsp;&nbsp;&nbsp;{stage.name}&nbsp;&nbsp;&nbsp;
                   </span>
                   {/* 화살표: 마지막 단계에는 표시하지 않음 */}
