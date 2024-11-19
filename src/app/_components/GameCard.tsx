@@ -25,12 +25,12 @@ const GameCard = ({ card, hoveredCard, selectedCard, onHover, onLeave, onClick }
         <CardHeader className='p-0 mb-4'>
           <div className='flex justify-between mb-4 max-lg:mb-2'>
             <Badge
-              className={`h-5 text-sm font-bold leading-3 rounded-sm px-[0.375rem] py-0 max-lg:text-xs ${card?.styles.badgeColor}`}
+              className={`h-5 text-sm font-bold leading-3 rounded-sm px-[0.375rem] py-0 max-lg:text-[0.688rem] ${card?.styles.badgeColor}`}
             >
               {card?.badge}
             </Badge>
             <div className='flex items-center gap-1.5'>
-              <span className={`body-16 -mb-1 max-lg:text-xs ${card?.styles.difficultyTextColor}`}>난이도</span>
+              <span className={`body-16 -mb-1 max-lg:text-xs max-md:mb-0 ${card?.styles.difficultyTextColor}`}>난이도</span>
               <div className='flex items-center gap-0.5'>
                 {card?.difficulty &&
                   Array.from({ length: card?.difficulty }, (_, index) => (
@@ -56,7 +56,7 @@ const GameCard = ({ card, hoveredCard, selectedCard, onHover, onLeave, onClick }
           className={`group flex w-fit h-[3.125rem] text-white rounded-[0.5rem] gap-[1.125rem] mt-auto max-lg:h-[2rem] max-lg:gap-2 max-lg:px-3 max-lg:py-1 max-lg:rounded-sm ${card?.styles.buttonColor}`}
           onClick={() => router.push(`${card?.link}`)}
         >
-          <span className='title-20 -mb-1 max-lg:text-base'>게임 하러 가기</span>
+          <span className='title-20 -mb-1 max-lg:text-base max-md:mb-0'>게임 하러 가기</span>
           <IconChevronRight className={`!h-4 transition-colors max-lg:!w-3 max-lg:!h-3 ${card?.styles.buttonIconColor}`} />
         </Button>
       </div>
