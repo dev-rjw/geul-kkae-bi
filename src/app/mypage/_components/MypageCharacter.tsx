@@ -5,6 +5,7 @@ import { useUserRank } from '@/queries/useRank';
 import { weekCalculate } from '@/utils/rank/client-action';
 import Image from 'next/image';
 import { useState } from 'react';
+import { X, Info } from 'lucide-react';
 
 const MypageCharacter = () => {
   const { data } = useAuth();
@@ -80,13 +81,17 @@ const MypageCharacter = () => {
           ''
         )}
 
-        <button onClick={() => setIsModalOpen(true)}>i</button>
+        <button
+          className='flex'
+          onClick={() => setIsModalOpen(true)}
+        >
+          <Info className='text-white mt-[-350px] ml-[670px]' />
+        </button>
         <ModalPortal
           open={isModalOpen}
           onClose={handleCloseModal}
         >
-          {' '}
-          <div className='flex flex-col items-center bg-blue-500 p-6 rounded-lg  max-w-4xl w-[1086px] mx-auto'>
+          <div className='flex flex-col items-center bg-[#649CED] p-6 rounded-lg  max-w-4xl w-[1086px] h-[262px] mx-auto'>
             {/* 상단 제목 */}
             <div className='flex'>
               <h2 className='text-white text-2xl font-bold mb-6'>변화 단계</h2>
@@ -94,7 +99,7 @@ const MypageCharacter = () => {
                 className='text-white font-bold text-2xl'
                 onClick={handleCloseModal}
               >
-                X
+                <X className='flex' />
               </button>
             </div>
             {/* 단계별 캐릭터 */}
@@ -103,11 +108,11 @@ const MypageCharacter = () => {
               {imgArray.map((stage, index) => (
                 <div
                   key={index}
-                  className='flex flex-col items-center relative'
+                  className='flex flex-col items-center relative w-[200px] h-[120px]'
                 >
                   {/* 단계 번호 */}
-                  <span className='bg-blue-700 text-white text-sm font-semibold px-2 py-1 rounded-full mb-2'>
-                    {stage.name}
+                  <span className='bg-primary-400 text-white text-md font-semibold px-2 py-1 rounded-full mb-2'>
+                    &nbsp;&nbsp;&nbsp;{stage.name}&nbsp;&nbsp;&nbsp;
                   </span>
                   {/* 화살표: 마지막 단계에는 표시하지 않음 */}
                   {index < 3 && (
@@ -121,14 +126,13 @@ const MypageCharacter = () => {
                       />
                     </div>
                   )}
-
                   {/* 각 단계의 이미지 */}
                   <Image
                     src={`/kkae_bi_${index + 1}.png`}
                     alt={`Stage ${index + 1}`}
                     width={stage.width}
                     height={stage.height}
-                    className='mb-2'
+                    className={`mb-2 ${index < 2 ? ' mt-[20px]' : ''}`}
                   />
                 </div>
               ))}
