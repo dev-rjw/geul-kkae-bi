@@ -1,12 +1,14 @@
 'use client';
 type Props = {
-  setCurrentPage: (state: number) => void;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
 };
 
-const Pagintaion = ({ setCurrentPage }: Props) => {
+const Pagintaion = ({ handlePrevPage, handleNextPage }: Props) => {
   return (
     <div>
-      <button onClick={() => setCurrentPage}>다음 페이지</button>
+      <button onClick={handlePrevPage}>이전 페이지</button>
+      <button onClick={handleNextPage}>다음 페이지</button>
     </div>
   );
 };
