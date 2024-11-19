@@ -1,8 +1,10 @@
 import React from 'react';
-import { fetchUserId } from '@/utils/auth/server-action';
-import Image from 'next/image';
 import './style.css';
+import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { UserRound } from 'lucide-react';
+import { fetchUserId } from '@/utils/auth/server-action';
 import {
   fetchLastWeek,
   fetchLatestWeek,
@@ -10,7 +12,6 @@ import {
   fetchUserLastRank,
   insertLastRankingData,
 } from '@/utils/rank/server-action';
-import { redirect } from 'next/navigation';
 import { fetchUserProfile } from '@/utils/user/server-action';
 import PercentGraph from './_components/PercentGraph';
 import LineTitle from '@/components/LineTitle';
@@ -47,7 +48,6 @@ const RankingPage = async () => {
       }
     }
   }
-  console.log('myRankPercentThisWeek', myRankPercentThisWeek);
 
   //지난주 랭킹 로직
   let myRankingLastWeek;
@@ -84,7 +84,7 @@ const RankingPage = async () => {
   }
 
   return (
-    <div className='container pt-10 pb-4 max-md:px-0 max-md:pt-[14rem]'>
+    <div className='container pt-10 pb-4 max-md:min-h-content max-md:flex max-md:flex-col max-md:px-0 max-md:pt-[14rem] max-md:pb-0'>
       <div className='hidden max-md:flex items-center justify-center mb-5'>
         <LineTitle
           className='text-primary-400 text-xl font-normal font-yangjin'
@@ -101,10 +101,7 @@ const RankingPage = async () => {
           이번주 전체 랭킹 순위
         </LineTitle>
       </div>
-      <div
-        className='scrollbar-primary flex flex-col pt-8 pb-[9.375rem] rounded-[3.125rem] bg-primary-50 max-md:!h-auto max-md:px-4 max-md:py-6 max-md:rounded-[1.25rem]'
-        style={{ height: 'calc(100vh - 136px)' }}
-      >
+      <div className='scrollbar-primary flex flex-col h-[calc(100vh-8.5rem)] pt-8 pb-[9.375rem] rounded-[3.125rem] bg-primary-50 max-md:grow max-md:h-full max-md:px-4 max-md:py-6 max-md:rounded-t-[1.25rem] max-md:rounded-b-none'>
         <div className='max-md:hidden flex items-center justify-center gap-x-2'>
           <Image
             src='/icon_rank.svg'
@@ -207,7 +204,7 @@ const RankingPage = async () => {
       <div className='rank-my-info'>
         <div className='rank-my-info-card'>
           <div>
-            <div className='relative w-[6.875rem] aspect-square border border-primary-400 rounded-[1.25rem] overflow-hidden max-md:w-[6.25rem] max-md:rounded-sm'>
+            <div className='relative w-[6.875rem] aspect-square rounded-[1.25rem] overflow-hidden max-md:w-[6.25rem] max-md:rounded-[0.313rem]'>
               <Image
                 src={userProfile?.image ?? ''}
                 alt='profile image for my ranking'
@@ -220,38 +217,48 @@ const RankingPage = async () => {
               {userProfile?.nickname}
             </div>
           </div>
-          <div className='flex grow gap-[2.75rem] h-full pl-[2.125rem] max-md:flex-col max-md:gap-3 max-md:h-auto max-md:pl-3'>
-            <div className='flex items-center grow gap-[2.75rem] max-md:flex-col max-md:grow-0 max-md:gap-3'>
-              <div className='flex flex-col self-stretch w-full max-md:order-2'>
-                <div className='flex max-md:hidden items-center justify-center body-16 mb-4 text-primary-400'>
+          <div className='flex grow gap-[1.875rem] h-full pl-6 max-md:flex-col max-md:gap-3 max-md:h-auto max-md:pl-3'>
+            <div className='flex items-center grow gap-9 max-md:flex-col max-md:grow-0 max-md:gap-3'>
+              <div className='flex flex-col items-center w-full max-w-[15.75rem] max-md:order-2 max-md:max-w-none'>
+                <div className='flex max-md:hidden text-[1.375rem] font-yangjin mb-[0.375rem] text-primary-500'>
                   {userProfile?.nickname}
                 </div>
-                <div className='flex items-center justify-center h-full caption-14 bg-primary-50 rounded-[0.875rem] max-md:p-2 max-md:rounded-md'>
-                  {userProfile ? userProfile?.introduction : '한줄 소개가 없습니다.'}
+                <div className='flex items-center justify-center w-full h-11 body-16 px-3 py-[0.625rem] bg-[#D9E8FF] text-primary-600 rounded-lg max-md:h-9 max-md:p-2 max-md:text-sm max-md:rounded-md'>
+                  <span className='text-ellipsis whitespace-nowrap break-all overflow-hidden'>
+                    {userProfile ? userProfile?.introduction : '한줄 소개가 없습니다.'}
+                  </span>
                 </div>
               </div>
-              <div className='flex flex-col justify-between gap-4 w-full max-w-[12.813rem] title-20 max-md:flex-row max-md:max-w-none max-md:title-14 max-md:order-1'>
-                <div className='flex items-center justify-between max-md:gap-[0.625rem]'>
-                  <div className='text-primary-700'>나의 랭킹</div>
-                  <div className='text-primary-400'>{myRankingThisWeek?.[0]?.ranking}등</div>
+              <div className='flex gap-[1.625rem] w-full title-20 max-md:max-w-none max-md:title-14 max-md:order-1'>
+                <div className='flex flex-col items-center gap-5 max-md:flex-row max-md:flex-wrap max-md:gap-y-2 max-md:justify-between max-md:w-full'>
+                  <div className='flex items-center h-8 max-md:h-auto'>
+                    <div className='w-[6.75rem] text-primary-700 max-md:w-auto'>나의 랭킹</div>
+                    <div className='w-12 text-right text-primary-400 max-md:w-11'>
+                      {myRankingThisWeek?.[0]?.ranking}등
+                    </div>
+                  </div>
+                  <div className='flex items-center h-8 max-md:h-auto'>
+                    <div className='w-[6.75rem] text-primary-700 max-md:w-auto'>지난주 순위</div>
+                    <div className='w-12 text-right text-primary-600 max-md:w-11'>
+                      {myRankingLastWeek ? myRankingLastWeek : ''}등
+                    </div>
+                  </div>
                 </div>
-                <div className='flex items-center justify-between max-md:gap-[0.625rem]'>
-                  <div className='text-primary-700'>지난주 순위</div>
-                  <div className='text-primary-600'>{myRankingLastWeek ? myRankingLastWeek : ''}등</div>
-                </div>
-              </div>
-              <div className='w-[200px]'>
                 <PercentGraph
                   thisWeek={myRankPercentThisWeek}
                   lastWeek={myRankPercentLastWeek}
+                  className='max-md:hidden'
                 />
               </div>
             </div>
             <Link
               href={'/mypage'}
-              className='flex justify-center items-center self-center text-center w-[5.875rem] h-[5.25rem] body-16 bg-primary-400 text-white rounded-[0.875rem] max-md:w-full max-md:h-12 max-md:rounded-md'
+              className='group flex flex-col gap-1 justify-center items-center self-center text-center w-[7.5rem] h-[5.25rem] body-16 bg-primary-400 text-white rounded-[0.875rem] transition-colors hover:bg-primary-600 hover:text-primary-400 group max-md:w-full max-md:h-12 max-md:rounded-md'
             >
-              마이페이지 가기
+              <div className='flex max-md:hidden items-center justify-center w-7 h-7 rounded-full bg-primary-200 text-primary-400 transition-colors group-hover:bg-primary-500'>
+                <UserRound className='w-5 h-5' />
+              </div>
+              마이페이지
             </Link>
           </div>
         </div>

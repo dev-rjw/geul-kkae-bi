@@ -69,7 +69,7 @@ const MainRank = () => {
       </div>
       <div className='h-[0.625rem] bg-primary-50 border-t-2 border-primary-100 max-lg:h-2' />
       <div
-        className='flex grow items-center cursor-pointer'
+        className='flex grow cursor-pointer'
         onClick={() => router.push('/games/rank')}
       >
         <div className='w-full pb-5 max-lg:pt-[0.625rem] max-lg:pb-3'>

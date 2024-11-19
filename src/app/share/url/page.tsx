@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import ResultCard from '@/app/games/(result)/_components/ResultCard';
 
 export const metadata: Metadata = {
-  title: '결과공유',
+  title: '글깨비 - 결과공유',
   description: '내 문해력은 몇 점일지! 글깨비를 통해 내 문해력도 테스트 해보자!',
 };
 
