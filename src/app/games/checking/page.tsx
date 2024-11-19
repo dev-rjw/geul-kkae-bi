@@ -185,7 +185,7 @@ const CheckingQuizPage = () => {
         </p>
         <div
           className={`${
-            isMobile ? 'text-xl pb-[4.5rem] leading-8 ' : 'text-4xl pb-[10.1875rem]'
+            isMobile ? 'text-xl leading-8 ' : 'text-4xl pb-[10.1875rem]'
           } font-medium text-[#363635] font-yangjin`}
         >
           <QuestionUnderLine
@@ -216,7 +216,7 @@ const CheckingQuizPage = () => {
               onClick={moveToNextQuiz}
               className={`${
                 isMobile
-                  ? 'w-[22.375rem] h-[3rem] bg-tertiary-p-300 text-[#271051] text-lg font-medium rounded-md'
+                  ? 'w-[22.375rem] h-[3rem] bg-tertiary-p-300  text-[#271051] text-base font-medium rounded-md'
                   : 'px-4 py-2'
               }`}
             >
@@ -238,11 +238,11 @@ const CheckingQuizPage = () => {
             onClick={() => moveToCheckingResultPage(scoreRef.current)}
             className={`${
               isMobile
-                ? 'w-[22.375rem] h-[3rem] text-base mt-4 font-medium bg-tertiary-p-300 px-4 py-2 rounded'
+                ? 'w-[22.375rem] h-[3rem] text-base mt-4 text-[#271051] font-medium bg-tertiary-p-300 px-4 py-2 rounded-md'
                 : 'text-2xl font-medium'
             }`}
           >
-            {isMobile ? '결과 보기' : '결과 보기'}
+            결과 보기
           </button>
         )}
       </div>

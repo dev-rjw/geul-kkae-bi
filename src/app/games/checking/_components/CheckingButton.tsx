@@ -5,7 +5,7 @@ const CheckingButton: React.FC<CheckingButtonProps> = ({ correctOptions, selecte
   return (
     <div
       className={`flex flex-wrap ${
-        isMobile ? 'gap-x-4 gap-y-4 max-w-full mt-[4.25rem]' : 'gap-x-8 gap-y-[1.8125rem] max-w-[39.5rem]'
+        isMobile ? 'gap-x-4 gap-y-4 max-w-full mt-[4.5rem]' : 'gap-x-8 gap-y-[1.8125rem] max-w-[39.5rem]'
       } justify-center mx-auto font-yangjin`}
     >
       {correctOptions.map((option: string) => (
