@@ -19,7 +19,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
   return (
     <>
       <div
-        className={`${matchedGame?.type} ${matchedGame?.backgroundColor} result-card flex grow rounded-[1.25rem] max-md:flex-col max-md:rounded-none`}
+        className={`result-card ${matchedGame?.type} ${matchedGame?.backgroundColor} flex grow rounded-[1.25rem] max-md:flex-col max-md:rounded-t-none max-md:rounded-b-2xl`}
       >
         <ResultSide
           GameScore={GameScore}
@@ -64,7 +64,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
               </PopoverContent>
             </Popover>
           )}
-          <div className='pt-[8.5rem] max-md:w-full max-md:px-4 max-md:pt-[1.625rem] max-md:pb-[1.125rem]'>
+          <div className='w-full px-6 pt-[8.5rem] max-md:px-4 max-md:pt-[1.625rem] max-md:pb-[1.125rem]'>
             <div className='max-md:flex max-md:items-center max-md:justify-between'>
               <div className={`${matchedGame?.titleColor1} mb-11 max-md:mb-0 max-md:pl-3 max-md:text-left`}>
                 <span className='title-20 text-primary-500 max-md:text-sm'>{nickname}</span>
@@ -98,8 +98,8 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
               </div>
             )}
             {pathname === '/share/url' && (
-              <div className='mt-28'>
-                <Button asChild>
+              <div className='mt-28 max-md:hidden'>
+                <Button asChild className='solid-button w-full'>
                   <Link href='https://geul-kkae-bi.vercel.app/'>나도 하러가기</Link>
                 </Button>
               </div>

@@ -21,7 +21,7 @@ const SigninPage = async () => {
   }
 
   return (
-    <div className='container min-h-content flex py-16 max-md:py-10'>
+    <div className='container min-h-screen flex py-16 max-md:py-10'>
       <div className='w-full max-w-[23.875rem] m-auto max-sm:max-w-[24.875rem] max-md:my-0'>
         <div className='flex justify-center mb-16 max-md:mb-[3.75rem]'>
           <Link
@@ -30,9 +30,9 @@ const SigninPage = async () => {
           >
             <Image
               src='/logo.svg'
-              alt='Profile'
+              alt='글깨비'
               fill
-              sizes='100%'
+              sizes='16.375rem'
             />
           </Link>
         </div>

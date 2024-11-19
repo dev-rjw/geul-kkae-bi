@@ -557,6 +557,7 @@
 .solid-button-group {
   position: relative;
   display: flex;
+  justify-content: center;
   gap: 1.25rem;
   margin-top: 8rem;
 }
@@ -766,30 +767,40 @@
   color: var(--color-tertiary-g-700);
 }
 
-.speaking,
-.checking,
-.writing {
+.next-game-card {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right bottom;
 }
-.speaking {
+.next-game-card.speaking {
   color: var(--color-secondary-500);
   background-image: url(/game_result_card_speaking.svg);
   background-color: var(--color-secondary-100);
 }
-.checking {
+.next-game-card.checking {
   color: var(--color-tertiary-p-400);
   background-image: url(/game_result_card_checking.svg);
   background-color: var(--color-tertiary-p-100);
 }
-.writing {
+.next-game-card.writing {
   color: var(--color-tertiary-g-600);
   background-image: url(/game_result_card_writing.svg);
   background-color: var(--color-tertiary-g-100);
 }
 .result-card {
   background-image: none;
+}
+.result-card.speaking {
+  color: var(--color-secondary-500);
+  background-color: var(--color-secondary-100);
+}
+.result-card.checking {
+  color: var(--color-tertiary-p-400);
+  background-color: var(--color-tertiary-p-100);
+}
+.result-card.writing {
+  color: var(--color-tertiary-g-600);
+  background-color: var(--color-tertiary-g-100);
 }
 .speaking p {
   color: var(--color-secondary-300);
