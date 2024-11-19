@@ -3,6 +3,7 @@ import { useDeleteWritingAnswersMutation } from '@/mutations/writing-mutation';
 import { useAuth } from '@/queries/useAuth';
 import { useFetchWritingWrongAnswer } from '@/queries/writing-fetchQuestions';
 import { weekNumber } from '@/utils/week/weekNumber';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const WritingAnswer = () => {
@@ -44,27 +45,28 @@ const WritingAnswer = () => {
   };
 
   return (
-    <div className='flex justify-center items-center'>
-      <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#7FE6CF]'>
-        {/* 상단 텍스트 */}
-        <div className='flex justify-center items-center'>
-          <h3 className='text-[1.5rem] font-bold text-[#198069] flex items-center'>
+    <div className=' bg-[#7FE6CF] w-full max-w-[67.5rem] max-auto md:h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] '>
+      <div className='text-center mt-8 mb-[1.313rem]'>
+        <div className='flex items-center justify-center'>
+          <strong className='title-16 md:title-24 font-bold text-[#198069] flex items-center'>
             완료한 문장은 체크해서 지워주세요!
-            <img
-              src='/icon_write_check.svg'
-              alt='체크'
-              className='w-[2.375rem] h-[2.375rem] ml-2'
-            />
-          </h3>
+          </strong>
+          <Image
+            src='/icon_write_check.svg'
+            width={40}
+            height={40}
+            alt='check'
+            priority
+            className='mt-[-10px]'
+          />
         </div>
 
-        {/* 콘텐츠 영역 */}
-        <div className='flex justify-between items-center h-full'>
+        <div className='mt-[1.938rem] flex md:justify-between items-center h-auto md:h-full flex-col md:flex-row'>
           {/* 왼쪽 버튼 */}
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className='rounded-full'
+            className=' mb-4 md:mb-0 hidden md:block'
           >
             <img
               src={currentPage === 0 ? '/icon_btn_writ_left.svg' : '/icon_btn_writing_left.svg'}
@@ -72,13 +74,11 @@ const WritingAnswer = () => {
               className='w-14 h-14'
             />
           </button>
-
-          {/* 카드 영역 */}
-          <div className='grid grid-cols-2 gap-x-4 gap-y-[0.625rem] max-auto'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-[0.625rem] mx-auto'>
             {paginatedAnswers?.map((answer, index) => (
               <div
                 key={index}
-                className='relative card rounded-lg flex flex-col w-[27.5rem] h-[15.375rem]'
+                className='relative card rounded-lg flex flex-col w-full md:w-[27.5rem] h-auto md:h-[15.375rem]'
               >
                 {/* 상단 - 내 오답 */}
                 <div className='flex justify-between items-center px-[1.063rem] py-3 bg-white h-[3.25rem] mb-[0.188rem] rounded-t-xl'>
@@ -147,7 +147,7 @@ const WritingAnswer = () => {
           <button
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= writingWrongAnswers.length}
-            className='rounded-full flex items-center justify-center'
+            className='rounded-full md:mb-0 hidden md:block'
           >
             <img
               src={
@@ -160,13 +160,13 @@ const WritingAnswer = () => {
             />
           </button>
         </div>
-        <div className='flex justify-center items-center '>
+        <div className='flex justify-center items-center mt-[2.438rem] '>
           {/* 삭제 버튼 */}
           <button
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
             className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
-              selectedQuestions.length === 0 ? 'bg-[#2AD4AF] text-[#AAEEDF]' : 'bg-[#198069] text-[#f6fdfc]'
+              selectedQuestions.length === 0 ? 'bg-[#AAEEDF] text-[#2AD4AF]' : 'bg-[#198069] text-[#F6FDFC ]'
             }`}
           >
             {selectedQuestions.length === 0 ? '지우기' : `${selectedQuestions.length}개 지우기`}

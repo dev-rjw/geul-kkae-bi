@@ -3,6 +3,7 @@ import { useDeleteCheckingAnswersMutation } from '@/mutations/checking-mutation'
 import { useFetchCheckingWrongAnswer } from '@/queries/checking-fetchQuestions';
 import { useAuth } from '@/queries/useAuth';
 import { weekNumber } from '@/utils/week/weekNumber';
+import Image from 'next/image';
 import { useState } from 'react';
 
 const CheckingAnswer = () => {
@@ -48,22 +49,24 @@ const CheckingAnswer = () => {
   if (isError) return <p>에러...</p>;
 
   return (
-    <div className='flex justify-center items-center'>
-      <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
-        {/* 상단 텍스트 */}
-        <div className='flex justify-center items-center mb-6'>
-          <h3 className='text-[1.5rem] font-bold text-[#4f21a6] flex items-center'>
+    <div className='bg-[#bfa5ed] w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem]'>
+      <div className='text-center mt-8 mb-[1.313rem]'>
+        <div className='flex items-center justify-center'>
+          <strong className='text-[1rem] md:title-24 font-bold text-[#4f21a6] flex items-center'>
             완료한 문장은 체크해서 지워주세요!
-            <img
-              src='/icon_check_check.svg'
-              alt='체크'
-              className='w-[2.375rem] h-[2.375rem] ml-2'
-            />
-          </h3>
+          </strong>
+          <Image
+            src='/icon_check_check.svg'
+            width={40}
+            height={40}
+            alt='check'
+            priority
+            className='mt-[-10px]'
+          />
         </div>
 
         {/* 콘텐츠 영역 */}
-        <div className='flex justify-between items-center h-full'>
+        <div className='mt-[1.938rem] flex md:justify-between items-center h-auto md:h-full flex-col md:flex-row'>
           {/* 왼쪽 버튼 */}
           <button
             onClick={handlePrevious}
@@ -209,12 +212,12 @@ const CheckingAnswer = () => {
         </div>
 
         {/* 삭제 버튼 */}
-        <div className='flex justify-center items-center mt-4'>
+        <div className='flex justify-center items-center mt-8'>
           <button
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
             className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
-              selectedQuestions.length === 0 ? 'bg-[#D1C4E9] text-[#B39DDB]' : 'bg-[#8150DD] text-white'
+              selectedQuestions.length === 0 ? 'bg-[#DDD0F6] text-[#BFA5ED]' : 'bg-[#8150DD] text-[#FCFBFE]'
             }`}
           >
             {selectedQuestions.length === 0 ? '지우기' : `${selectedQuestions.length}개 지우기`}
