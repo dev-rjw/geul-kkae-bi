@@ -1,13 +1,25 @@
 'use client';
 type Props = {
-  setCurrentPage: (state: number) => void;
+  currentPage: number;
+  totalItems: number | undefined;
+  contentsPerPage: number;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
 };
 
-const Pagintaion = ({ setCurrentPage }: Props) => {
+const Pagintaion = ({ currentPage, totalItems, contentsPerPage, handlePrevPage, handleNextPage }: Props) => {
+  const totalPage = Math.floor((totalItems ?? 0) / contentsPerPage);
   return (
-    <div>
-      <button onClick={() => setCurrentPage}>다음 페이지</button>
-    </div>
+    <>
+      <button
+        className={`${currentPage === 1 ? 'disable' : ''} pagination-button prev`}
+        onClick={handlePrevPage}
+      ></button>
+      <button
+        className={`${currentPage === totalPage ? 'disable' : ''} pagination-button next`}
+        onClick={handleNextPage}
+      ></button>
+    </>
   );
 };
 

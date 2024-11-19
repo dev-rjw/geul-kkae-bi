@@ -93,13 +93,21 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     resetPercent();
     resetText();
     handleIndex();
+    handleResult();
   };
 
   const handleResult = useCallback(
     throttle(() => {
-      const dataAnswer = JSON.stringify(wrongAnswer);
       handleUpsertScore();
-      insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
+      if (percent <= 30)
+        insertResult({
+          userId: data?.id,
+          answer: randomText[index],
+          game: 'speaking',
+          weekNumber: weekNumber,
+          score: percent,
+        });
+      const dataAnswer = JSON.stringify(wrongAnswer);
       localStorage.setItem('speakingResult', dataAnswer);
     }, 2000),
     [wrongAnswer, insertResult],
@@ -129,7 +137,6 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
           </div>
           <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
             <Link
-              onClick={handleResult}
               className='mt-[16px] flex flex-col items-center max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`
