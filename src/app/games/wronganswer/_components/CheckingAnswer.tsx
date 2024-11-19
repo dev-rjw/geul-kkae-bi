@@ -181,7 +181,7 @@ const CheckingAnswer = () => {
 
                     {/* 화살표 및 해설 */}
                     <span className='text-[#a07be5] text-2xl font-semibold'>→</span>
-                    <span className='text-[#4f21a6] text-2xl font-semibold underline decoration-[#b39ddb] decoration-'>
+                    <span className='text-[#4f21a6] text-2xl font-semibold underline decoration-[#BFA5ED] decoration-[12px] underline-offset-[-3px]'>
                       {answer.meaning}
                     </span>
                   </div>
