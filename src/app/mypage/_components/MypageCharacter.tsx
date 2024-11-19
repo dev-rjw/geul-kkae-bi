@@ -6,6 +6,7 @@ import { weekCalculate } from '@/utils/rank/client-action';
 import Image from 'next/image';
 import { useState } from 'react';
 import { X, Info } from 'lucide-react';
+import LineTitle from '@/components/LineTitle';
 
 const MypageCharacter = () => {
   const { data } = useAuth();
@@ -24,7 +25,7 @@ const MypageCharacter = () => {
 
   return (
     <>
-      <div className='bg-primary-50 rounded-3xl border border-primary-100'>
+      <div className='relative bg-primary-50 rounded-3xl border border-primary-100'>
         {rank?.total === null ? (
           <Image
             src={'/character0.svg'}
@@ -82,26 +83,34 @@ const MypageCharacter = () => {
         )}
 
         <button
-          className='flex'
+          className='flex absolute top-[1.875rem] right-[1.875rem]'
           onClick={() => setIsModalOpen(true)}
         >
-          <Info className='text-white mt-[-350px] ml-[670px]' />
+          <Info className='text-white' />
         </button>
         <ModalPortal
           open={isModalOpen}
           onClose={handleCloseModal}
         >
-          <div className='flex flex-col items-center bg-[#649CED] p-6 rounded-lg  max-w-4xl w-[1086px] h-[262px] mx-auto'>
+          <div className='flex flex-col relative items-center bg-[#649CED] p-6 rounded-lg  max-w-4xl w-[1086px] h-[262px] mx-auto'>
             {/* 상단 제목 */}
             <div className='flex'>
-              <h2 className='text-white text-2xl font-bold mb-6'>변화 단계</h2>
+              <div className='mb-10'>
+                <LineTitle
+                  className={`title-36 font-normal text-white`}
+                  lineClassName={`!w-[calc(100%+0.75rem)] bg-primary-400`}
+                >
+                  변화 단계
+                </LineTitle>
+              </div>
               <button
-                className='text-white font-bold text-2xl'
+                className='text-white font-bold text-2xl absolute top-[1.875rem] right-[1.875rem]'
                 onClick={handleCloseModal}
               >
                 <X className='flex' />
               </button>
             </div>
+            <div className='absolute bottom-0 left-0 w-full h-[33.3333%] bg-[#3983ED]'></div>
             {/* 단계별 캐릭터 */}
             <div className='flex items-center justify-between w-full'>
               {/* 각 단계 */}
