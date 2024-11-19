@@ -24,14 +24,14 @@ const TurtorialMobile = ({ handleStart }: Delay) => {
     >
       <CarouselContent>
         <CarouselItem>
-          <Card className="bg-center bg-[#2F2F2F] h-screen bg-[url('/speak_mobile_tutorial1.svg')] bg-contain h-screen bg-no-repeat">
+          <Card className="bg-center bg-[#2F2F2F] h-screen bg-[url('/speak_mobile_tutorial1.svg')] bg-contain bg-no-repeat">
             <CardContent>
               <div></div>
             </CardContent>
           </Card>
         </CarouselItem>
         <CarouselItem>
-          <Card className="relative bg-center bg-[#2F2F2F] h-screen bg-[url('/speak_mobile_tutorial2.svg')] bg-contain h-screen bg-no-repeat">
+          <Card className="relative bg-center bg-[#2F2F2F] h-screen bg-[url('/speak_mobile_tutorial2.svg')] bg-contain bg-no-repeat">
             <CardContent>
               <span className='turtorial1'></span>
               <button

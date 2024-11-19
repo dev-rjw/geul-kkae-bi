@@ -1,10 +1,10 @@
-.start_btn {
+.start-btn {
   border: 10px solid var(--color-secondary-100);
   background-color: var(--color-secondary-400);
   box-shadow: inset 0 -6px var(--color-secondary-500), inset 0 6px #f6c06d, 0 6px #f6c06d;
 }
 
-.start_btn::before {
+.start-btn::before {
   pointer-events: none;
   content: '';
   position: absolute;
@@ -14,7 +14,7 @@
   height: 51px;
   background: url(/ico_star.svg);
 }
-.start_btn::after {
+.start-btn::after {
   pointer-events: none;
   content: '';
   position: absolute;
@@ -25,6 +25,18 @@
   background: url(/ico_star.svg);
 }
 
-.start_btn span {
+.start-btn span {
   text-shadow: 0 2px 0 var(--color-secondary-500);
+}
+
+.tutorial-bg {
+  background: url(/speak_tutorial.svg) no-repeat center;
+  background-size: contain;
+}
+.mb-tutorial-bg {
+  background: url(/speak_mobile_tutorial1.svg) no-repeat center;
+  background-size: contain;
+}
+.mb-tutorial-bg.ty2 {
+  background-image: url(/speak_mobile_tutorial2.svg);
 }
