@@ -29,7 +29,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
         <div className='relative flex flex-col items-center w-full text-center'>
           {pathname !== '/share/url' && (
             <Popover>
-              <PopoverTrigger className='absolute top-4 right-4 flex items-center justify-center w-11 h-11 !rounded-2xl bg-transparent hover:bg-white/25 [&_svg]:size-[1.875rem]'>
+              <PopoverTrigger className='max-md:hidden absolute top-4 right-4 flex items-center justify-center w-11 h-11 !rounded-2xl bg-transparent hover:bg-white/25 [&_svg]:size-[1.875rem]'>
                 <Share className={`${matchedGame?.titleColor1}`} />
               </PopoverTrigger>
               <PopoverContent
@@ -44,7 +44,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                 <div className='h-1 bg-gray-100 border-t border-gray-200' />
                 <div className='flex flex-col'>
                   <Button
-                    className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 bg-transparent hover:bg-primary-50'
+                    className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
                     onClick={kakaoTalkShare}
                   >
                     <div className='relative aspect-square w-7 rounded-full'>
@@ -64,29 +64,35 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
               </PopoverContent>
             </Popover>
           )}
-          <div className='pt-[8.5rem]'>
-            <div className={`${matchedGame?.titleColor1} mb-11`}>
-              <span className='title-20 text-primary-500'>{nickname}</span>
-              <span className='query body-16'>님의</span>
-              <div className='query title-32 mt-[0.125rem]'>국어 문해력은?</div>
+          <div className='pt-[8.5rem] max-md:w-full max-md:px-4 max-md:pt-[1.625rem] max-md:pb-[1.125rem]'>
+            <div className='max-md:flex max-md:items-center max-md:justify-between'>
+              <div className={`${matchedGame?.titleColor1} mb-11 max-md:mb-0 max-md:pl-3 max-md:text-left`}>
+                <span className='title-20 text-primary-500 max-md:text-sm'>{nickname}</span>
+                <span className='query body-16 max-md:text-xs'>{nickname === '당신' ? '의' : '님의'}</span>
+                <div className='query title-32 mt-[0.125rem] max-md:text-xl'>국어 문해력은?</div>
+              </div>
+              <LineTitle
+                className={`title-72 font-normal max-md:title-56 max-md:mr-3 ${matchedGame?.titleColor1}`}
+                lineClassName={`!-bottom-1.5 !w-[calc(100%+0.75rem)] h-3/6 max-md:!bottom-0 ${matchedGame?.lineColor}`}
+              >
+                {GameScore}점
+              </LineTitle>
             </div>
-            <LineTitle
-              className={`title-72 font-normal ${matchedGame?.titleColor1}`}
-              lineClassName={`!-bottom-1.5 !w-[calc(100%+12px)] h-4/6 ${matchedGame?.lineColor}`}
-            >
-              {GameScore}점
-            </LineTitle>
             {pathname !== '/share/url' && (
-              <div className='flex gap-5 mt-32'>
-                <Button className='solid-light-button min-w-[6.75rem]'>
-                  <Modal />
-                </Button>
+              <div className='solid-button-group'>
+                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'>오답확인</Button>
                 <Button
                   asChild
-                  className='solid-button min-w-[6.75rem]'
+                  className='solid-button min-w-[6.75rem] max-md:w-full'
                 >
                   <Link href={`/games/${matchedGame?.type}`}>재도전</Link>
                 </Button>
+                <div className='solid-screw-group'>
+                  <span className='solid-screw' />
+                  <span className='solid-screw' />
+                  <span className='solid-screw' />
+                  <span className='solid-screw' />
+                </div>
               </div>
             )}
             {pathname === '/share/url' && (

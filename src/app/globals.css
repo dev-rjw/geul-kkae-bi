@@ -387,7 +387,8 @@
   .heaber-mobile-menu-icon {
     @apply flex items-center justify-center w-[1.375rem] h-[1.375rem] rounded-full bg-primary-50 text-primary-200;
   }
-  .heaber-mobile-menu-title:hover .heaber-mobile-menu-icon {
+  .heaber-mobile-menu-title:hover .heaber-mobile-menu-icon,
+  .heaber-mobile-menu-title:active .heaber-mobile-menu-icon {
     @apply text-primary-400;
   }
   .heaber-mobile-menu-icon > svg {
@@ -405,7 +406,8 @@
   .heaber-mobile-menu-children-dot {
     @apply w-1 h-1 rounded-full bg-primary-100;
   }
-  .heaber-mobile-menu-children-title:hover .heaber-mobile-menu-children-dot {
+  .heaber-mobile-menu-children-title:hover .heaber-mobile-menu-children-dot,
+  .heaber-mobile-menu-children-title:active .heaber-mobile-menu-children-dot {
     @apply bg-primary-300;
   }
 
@@ -530,7 +532,7 @@
     top: 50%;
     right: 0;
     transform: translate(50%, -50%);
-    width:6.125rem;
+    width: 6.125rem;
     aspect-ratio: 72/62;
     background-image: url(/character_speak.svg);
     background-size: cover;
@@ -552,6 +554,15 @@
   }
 }
 
+.solid-button-group {
+  position: relative;
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 8rem;
+}
+.solid-screw-group {
+  display: none;
+}
 .solid-button,
 .solid-light-button {
   height: 3.375rem;
@@ -564,7 +575,9 @@
   transition-duration: 0.15s;
 }
 .solid-button:hover,
-.solid-light-button:hover {
+.solid-light-button:hover,
+.solid-button:active,
+.solid-light-button:active {
   padding: 0.875rem 1.25rem 0.625rem !important;
 }
 .speaking .solid-light-button {
@@ -572,7 +585,8 @@
   background-color: var(--color-secondary-200);
   box-shadow: inset 0 -6px 0 #f7b652;
 }
-.speaking .solid-light-button:hover {
+.speaking .solid-light-button:hover,
+.speaking .solid-light-button:active {
   color: var(--color-secondary-600);
   background-color: var(--color-secondary-300) !important;
   box-shadow: inset 0 4px 0 #de8a0a;
@@ -582,7 +596,8 @@
   background-color: var(--color-secondary-400);
   box-shadow: inset 0 -6px 0 #de8a0a;
 }
-.speaking .solid-button:hover {
+.speaking .solid-button:hover,
+.speaking .solid-button:active {
   color: var(--color-secondary-500);
   background-color: var(--color-secondary-600) !important;
   box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.25);
@@ -592,7 +607,8 @@
   background-color: var(--color-tertiary-p-200);
   box-shadow: inset 0 -6px 0 #a07be5;
 }
-.checking .solid-light-button:hover {
+.checking .solid-light-button:hover,
+.checking .solid-light-button:active {
   color: var(--color-tertiary-p-400);
   background-color: var(--color-tertiary-p-300) !important;
   box-shadow: inset 0 4px 0 #8555de;
@@ -602,7 +618,8 @@
   background-color: var(--color-tertiary-p-400);
   box-shadow: inset 0 -6px 0 #4f21a6;
 }
-.checking .solid-button:hover {
+.checking .solid-button:hover,
+.checking .solid-button:active {
   color: var(--color-tertiary-p-400);
   background-color: var(--color-tertiary-p-500) !important;
   box-shadow: inset 0 4px 0 #3b187c;
@@ -612,7 +629,8 @@
   background-color: var(--color-tertiary-g-300);
   box-shadow: inset 0 -6px 0 #2ccca9;
 }
-.writing .solid-light-button:hover {
+.writing .solid-light-button:hover,
+.writing .solid-light-button:active {
   color: var(--color-tertiary-g-700);
   background-color: var(--color-tertiary-g-600) !important;
   box-shadow: inset 0 4px 0 #198069;
@@ -622,7 +640,8 @@
   background-color: var(--color-tertiary-g-500);
   box-shadow: inset 0 -6px 0 #23987e;
 }
-.writing .solid-button:hover {
+.writing .solid-button:hover,
+.writing .solid-button:active {
   color: var(--color-tertiary-g-600);
   background-color: var(--color-tertiary-g-700) !important;
   box-shadow: inset 0 4px 0 #115546;
@@ -747,29 +766,27 @@
   color: var(--color-tertiary-g-700);
 }
 
+.speaking,
+.checking,
+.writing {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
 .speaking {
   color: var(--color-secondary-500);
   background-image: url(/game_result_card_speaking.svg);
   background-color: var(--color-secondary-100);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right bottom;
 }
 .checking {
   color: var(--color-tertiary-p-400);
   background-image: url(/game_result_card_checking.svg);
   background-color: var(--color-tertiary-p-100);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right bottom;
 }
 .writing {
   color: var(--color-tertiary-g-600);
   background-image: url(/game_result_card_writing.svg);
   background-color: var(--color-tertiary-g-100);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right bottom;
 }
 .result-card {
   background-image: none;
@@ -865,14 +882,16 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   color: #fff;
   background-color: var(--color-primary-400);
 }
-.swal-custom-button:hover {
+.swal-custom-button:hover,
+.swal-custom-button:active {
   color: var(--color-primary-300);
   background-color: var(--color-primary-600);
 }
 .swal-custom-button.swal2-cancel {
   background-color: var(--color-warning-300);
 }
-.swal-custom-button.swal2-cancel:hover {
+.swal-custom-button.swal2-cancel:hover,
+.swal-custom-button.swal2-cancel:active {
   color: var(--color-warning-200);
   background-color: var(--color-warning-500);
 }
@@ -885,6 +904,73 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   .solid-button,
   .solid-light-button {
     height: 3.75rem;
+  }
+  .solid-button-group {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    background-color: #fff;
+    border-radius: 0.813rem;
+    border: 1px solid #f9daab;
+    box-shadow: 0 2px 0 #f9daab;
+  }
+  .speaking .solid-button-group {
+    border: 1px solid #f9daab;
+    box-shadow: 0 2px 0 #f9daab;
+  }
+  .checking .solid-button-group {
+    border: 1px solid var(--color-tertiary-p-200);
+    box-shadow: 0 2px 0 var(--color-tertiary-p-200);
+  }
+  .writing .solid-button-group {
+    border: 1px solid var(--color-tertiary-g-500);
+    box-shadow: 0 2px 0 #2ccca9;
+  }
+  .solid-button-group > button,
+  .solid-button-group > a {
+    position: relative;
+    z-index: 1;
+  }
+  .solid-screw-group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .solid-screw {
+    position: absolute;
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .solid-screw:nth-child(1) {
+    top: 0.625rem;
+    left: 0.625rem;
+  }
+  .solid-screw:nth-child(2) {
+    top: 0.625rem;
+    right: 0.625rem;
+  }
+  .solid-screw:nth-child(3) {
+    bottom: 0.625rem;
+    left: 0.625rem;
+  }
+  .solid-screw:nth-child(4) {
+    bottom: 0.625rem;
+    right: 0.625rem;
+  }
+  .speaking .solid-screw {
+    background-image: url('/icon_screw_speaking@2x.png');
+  }
+  .checking .solid-screw {
+    background-image: url('/icon_screw_checking@2x.png');
+  }
+  .writing .solid-screw {
+    background-image: url('/icon_screw_writing@2x.png');
   }
 
   .form-items {
@@ -911,10 +997,23 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   }
 
   .progress-bar::before {
-    width:4.625rem;
+    width: 4.625rem;
   }
 
   .rank-my-info {
     top: var(--header-height);
+  }
+
+  .speaking,
+  .checking,
+  .writing {
+    background-size: 15.625rem auto;
+  }
+  .icon-play {
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+    border-left: 12px solid currentColor;
+    border-right: 12px solid transparent;
+    margin-right: -14px;
   }
 }
