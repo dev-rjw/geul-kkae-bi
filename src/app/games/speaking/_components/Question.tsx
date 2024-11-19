@@ -109,6 +109,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
         });
       const dataAnswer = JSON.stringify(wrongAnswer);
       localStorage.setItem('speakingResult', dataAnswer);
+      localStorage.setItem('lastGameType', 'speaking');
     }, 2000),
     [wrongAnswer, insertResult],
   );
