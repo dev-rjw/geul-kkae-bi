@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import CheckingAnswer from './_components/CheckingAnswer';
 import WritingAnswer from './_components/WritingAnswer';
+import SpeakAnswer from './_components/SpeakAnswer';
 
 const WrongAnswerPage = () => {
   const [selectedTab, setSelectedTab] = useState('checking');
@@ -44,6 +45,7 @@ const WrongAnswerPage = () => {
           </div>
         </div>
         <div className='flex flex-col'>
+          {selectedTab === 'speaking' && <SpeakAnswer />}
           {selectedTab === 'checking' && <CheckingAnswer />}
           {selectedTab === 'writing' && <WritingAnswer />}
         </div>
