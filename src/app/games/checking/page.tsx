@@ -46,6 +46,7 @@ const CheckingQuizPage = () => {
 
   const saveResultsToLocalStorage = (results: CheckingResult[]) => {
     localStorage.setItem('checkingQuizResults', JSON.stringify(results));
+    localStorage.setItem('lastGameType', 'checking');
   };
 
   const moveToNextQuiz = () => {
@@ -78,6 +79,7 @@ const CheckingQuizPage = () => {
       right: questions[currentQuizIndex].meaning,
       userAnswer: selectedOption,
       isCorrect: selectedOption === questions[currentQuizIndex].answer,
+      gameType: 'checking',
     };
 
     allResults.current.push(currentResult);
@@ -163,47 +165,83 @@ const CheckingQuizPage = () => {
         isAllQuestions={isAllQuestions}
         isMobile={isMobile}
       />
-      <div className='flex-1 flex flex-col items-center justify-center mt-20'>
-        <p className=' inline-flex items-center justify-center px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl font-medium rounded-full'>{`${
-          currentQuizIndex + 1
-        }번 문제`}</p>
-        <p className=' mt-[3.25rem] mb-20 text-2xl font-medium font-yangjin'>문장에서 틀린 부분을 고르세요</p>
-        <div className=' text-4xl font-medium pb-[10.1875rem] font-yangjin'>
+      <div className={`flex-1 flex flex-col items-center justify-center ${isMobile ? 'mt-10' : 'mt-20'}`}>
+        <p
+          className={`inline-flex items-center justify-center ${
+            isMobile
+              ? 'px-4 py-2 bg-tertiary-p-300 text-base mt-[4.5rem]'
+              : 'px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl'
+          } font-medium rounded-full`}
+        >
+          {`${currentQuizIndex + 1}번 문제`}
+        </p>
+        <p
+          className={`${
+            isMobile ? 'mt-6 mb-8 text-lg text-center text-[#363635]' : 'mt-[3.25rem] mb-20 text-2xl'
+          } font-medium font-yangjin text-[#363635]`}
+        >
+          문장에서 틀린 부분을 고르세요
+        </p>
+        <div
+          className={`${
+            isMobile ? 'text-lg pb-10 leading-6' : 'text-4xl pb-[10.1875rem]'
+          } font-medium text-[#363635] font-yangjin`}
+        >
           <QuestionUnderLine
             question={questions[currentQuizIndex].question}
             selectedOption={selectedOption}
             correct={questions[currentQuizIndex].correct}
+            isMobile={isMobile}
           />
         </div>
         <CheckingButton
           correctOptions={questions[currentQuizIndex].correct}
           selectedOption={selectedOption}
           onselect={setSelectedOption}
+          isMobile={isMobile}
         />
       </div>
-      <div className=' absolute top-1/2 right-[1.25rem] transform -translate-y-1/2 flex flex-col items-center font-yangjin'>
+      <div
+        className={`absolute ${
+          isMobile
+            ? 'bottom-4 left-1/2 transform -translate-x-1/2'
+            : 'top-1/2 right-[1.25rem] transform -translate-y-1/2'
+        } flex flex-col items-center font-yangjin`}
+      >
         {!(isTimeOver || isAllQuestions) ? (
           <div className='flex flex-col items-center'>
-            <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>
+            {!isMobile && <p className='self-center text-2xl font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>}
             <button
               onClick={moveToNextQuiz}
-              className='px-4 py-2'
+              className={`${
+                isMobile
+                  ? 'w-[22.375rem] h-[3rem] bg-tertiary-p-300 text-[#271051] text-lg font-medium rounded-md'
+                  : 'px-4 py-2'
+              }`}
             >
-              <Image
-                src='/icon_btn_checking.svg'
-                alt='nextbutton'
-                width={48}
-                height={48}
-                style={{ width: 'auto', height: 'auto' }}
-              />
+              {isMobile ? (
+                '다음'
+              ) : (
+                <Image
+                  src='/icon_btn_checking.svg'
+                  alt='nextbutton'
+                  width={48}
+                  height={48}
+                  style={{ width: 'auto', height: 'auto' }}
+                />
+              )}
             </button>
           </div>
         ) : (
           <button
             onClick={() => moveToCheckingResultPage(scoreRef.current)}
-            className={'text-2xl font-medium'}
+            className={`${
+              isMobile
+                ? 'w-[22.375rem] h-[3rem] text-base mt-4 font-medium bg-tertiary-p-300 px-4 py-2 rounded'
+                : 'text-2xl font-medium'
+            }`}
           >
-            결과 보기
+            {isMobile ? '결과 보기' : '결과 보기'}
           </button>
         )}
       </div>

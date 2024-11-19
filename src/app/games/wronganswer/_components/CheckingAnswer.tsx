@@ -49,12 +49,16 @@ const CheckingAnswer = () => {
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='w-[1080px] h-[719px] flex flex-col border rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
+      <div className='w-[67.5rem] h-[44.938rem] flex flex-col rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] px-[1.188rem] py-[1.875rem] bg-[#bfa5ed]'>
         {/* 상단 텍스트 */}
         <div className='flex justify-center items-center mb-6'>
-          <h3 className='text-[1.5rem] font-bold text-[#4f21a6]'>
+          <h3 className='text-[1.5rem] font-bold text-[#4f21a6] flex items-center'>
             완료한 문장은 체크해서 지워주세요!
-            <span className='text-[1.5rem] ml-2'>✓</span>
+            <img
+              src='/icon_check_check.svg'
+              alt='체크'
+              className='w-[2.375rem] h-[2.375rem] ml-2'
+            />
           </h3>
         </div>
 
@@ -64,11 +68,13 @@ const CheckingAnswer = () => {
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              currentPage === 0 ? 'bg-[#A07BE5] text-[#BFA5ED] cursor-not-allowed' : 'bg-[#A07BE5] text-white'
-            }`}
+            className='rounded-full'
           >
-            &lt;
+            <img
+              src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checking_left.svg'}
+              alt='이전 버튼'
+              className='w-14 h-14'
+            />
           </button>
 
           {/* 카드 영역 */}
@@ -76,7 +82,7 @@ const CheckingAnswer = () => {
             {paginatedAnswers?.map((answer, index) => (
               <div
                 key={index}
-                className='relative card rounded-2xl bg-[#fcfbfe] p-5 flex flex-col border h-[509px] w-[442px]'
+                className='relative card rounded-2xl bg-[#fcfbfe] p-5 flex flex-col h-[31.813rem] w-[27.625rem]'
               >
                 <div className='flex justify-between items-center'></div>
 
@@ -128,19 +134,27 @@ const CheckingAnswer = () => {
                           }`}
                         >
                           {/* 번호 표시 */}
-                          <span className='flex items-center justify-center w-8 h-8 rounded-full bg-[#A07BE5] text-white font-bold'>
+                          <span className='flex items-center justify-center w-8 h-8 rounded-full bg-[#A07BE5] text-[1.25rem] text-white font-semibold'>
                             {idx + 1}
                           </span>
                           {/* 옵션 텍스트 */}
-                          <span className='text-2xl font-medium flex items-center justify-between gap-2'>
+                          <span className='text-2xl font-semibold flex items-center justify-between gap-2'>
                             {option}
-                            {answer.user_answer !== option && option === answer.answer && (
-                              <span className='text-[#4F21A6] font-bold text-base'>O</span>
-                            )}
-                            {answer.user_answer === option && option !== answer.answer && (
-                              <span className='text-[#EF5252] font-bold text-base'>X</span>
-                            )}
                           </span>
+                          {answer.user_answer !== option && option === answer.answer && (
+                            <img
+                              src='/icon_check_wrong.svg'
+                              alt='정답'
+                              className='w-4 h-4 ml-auto'
+                            />
+                          )}
+                          {answer.user_answer === option && option !== answer.answer && (
+                            <img
+                              src='/icon_wronganswer_modal.svg'
+                              alt='오답'
+                              className='w-4 h-4 ml-auto'
+                            />
+                          )}
                         </div>
                       ))}
                   </div>
@@ -156,18 +170,18 @@ const CheckingAnswer = () => {
                   <div className='flex items-center gap-[0.313rem]'>
                     {/* 정답 인덱스 */}
                     <div className='flex items-center gap-2'>
-                      <span className='w-6 h-6 flex items-center justify-center bg-[#a07be5] text-[#ffffff] font-bold rounded-full'>
+                      <span className='w-8 h-8 flex items-center justify-center bg-[#a07be5] text-[1.25rem] text-[#ffffff] font-bold rounded-full'>
                         {Array.isArray(answer.correct)
                           ? answer.correct.findIndex((opt: string) => opt === answer.answer) + 1
                           : '-'}
                       </span>
                       {/* 정답 */}
-                      <span className={`text-[#504f4e] text-2xl line-through`}>{answer.answer}</span>
+                      <span className={`text-[#504f4e] text-2xl font-semibold line-through`}>{answer.answer}</span>
                     </div>
 
                     {/* 화살표 및 해설 */}
                     <span className='text-[#a07be5] text-2xl font-semibold'>→</span>
-                    <span className='text-[#4f21a6] text-2xl font-semibold underline decoration-[#b39ddb] decoration-'>
+                    <span className='text-[#4f21a6] text-2xl font-semibold underline decoration-[#BFA5ED] decoration-[12px] underline-offset-[-3px]'>
                       {answer.meaning}
                     </span>
                   </div>
@@ -180,13 +194,17 @@ const CheckingAnswer = () => {
           <button
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length}
-            className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              (currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length
-                ? 'bg-[#A07BE5] text-[#BFA5ED] cursor-not-allowed'
-                : 'bg-[#A07BE5] text-white'
-            }`}
+            className='rounded-full flex items-center justify-center'
           >
-            &gt;
+            <img
+              src={
+                (currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length
+                  ? '/icon-btn_check_right.svg'
+                  : '/icon_btn_checking_right.svg'
+              }
+              alt='다음 버튼'
+              className='w-14 h-14'
+            />
           </button>
         </div>
 
@@ -196,9 +214,7 @@ const CheckingAnswer = () => {
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
             className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
-              selectedQuestions.length === 0
-                ? 'bg-[#D1C4E9] text-[#B39DDB] cursor-not-allowed'
-                : 'bg-[#8150DD] text-white'
+              selectedQuestions.length === 0 ? 'bg-[#D1C4E9] text-[#B39DDB]' : 'bg-[#8150DD] text-white'
             }`}
           >
             {selectedQuestions.length === 0 ? '지우기' : `${selectedQuestions.length}개 지우기`}
