@@ -1,49 +1,159 @@
-.word-card .nth-card-1 {
-  background: url(/character1_card_learning.svg) no-repeat center 160px #649ced;
-  border-radius: 33px;
+.word-card .nth-card {
+  position: relative;
+  width: 100%;
+  font-weight: 400;
+  border-radius: 2.125rem;
+  background-repeat: no-repeat;
+  background-size: 138px auto;
+  background-position: center bottom 36px;
+}
+.word-card .nth-card:before,
+.word-card .nth-card:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+}
+.word-card .nth-card:before {
+  transform: translate(-50%, calc((50% + 14px) * -1));
+  width: 26px;
+  height: 84px;
+  background-image: url('/card_ring.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.word-card .nth-card:after {
+  z-index: -1;
+  transform: translate(calc(50% + 6px), -50%);
+  display: block;
+  width: 16px;
+  height: 84px;
+  background-color: var(--color-gray-700);
 }
 
-.word-card .nth-card-2 {
-  background: url(/character2_card_learning.svg) no-repeat center 160px #2ad4af;
-  border-radius: 33px;
-}
-
-.word-card .nth-card-3 {
-  background: url(/character3_card_learning.svg) no-repeat center 160px #f7a62c;
-  border-radius: 33px;
-}
-
-.word-card .nth-card-4 {
-  background: url(/character4_card_learning.svg) no-repeat center 160px #a07be5;
-  border-radius: 33px;
-}
-
-.word-card .nth-card-5 {
-  background: url(/character5_card_learning.svg) no-repeat center 160px #2ad4af;
-  border-radius: 33px;
-}
-
-.word-card .nth-card-6 {
-  background: url(/character6_card_learning.svg) no-repeat center 160px #f7a62c;
-  border-radius: 33px;
-}
-
-.word-card .nth-card-7 {
-  background: url(/character7_card_learning.svg) no-repeat center 160px #a07be5;
-  border-radius: 33px;
-}
-
-.word-card .nth-card-8 {
-  background: url(/character8_card_learning.svg) no-repeat center 160px #2ad4af;
-  border-radius: 33px;
-}
-
+.word-card .nth-card-1,
 .word-card .nth-card-9 {
-  background: url(/character9_card_learning.svg) no-repeat center 160px #649ced;
-  border-radius: 33px;
+  background-color: var(--color-primary-300);
+}
+.word-card .nth-card-2,
+.word-card .nth-card-5,
+.word-card .nth-card-8 {
+  background-color: var(--color-tertiary-g-500);
+}
+.word-card .nth-card-3,
+.word-card .nth-card-6,
+.word-card .nth-card-10 {
+  background-color: var(--color-secondary-400);
+}
+.word-card .nth-card-4,
+.word-card .nth-card-7 {
+  background-color: var(--color-tertiary-p-300);
+}
+.word-card .nth-card-1 {
+  background-image: url(/character1_card_learning.svg);
+}
+.word-card .nth-card-2 {
+  background-image: url(/character2_card_learning.svg);
+}
+.word-card .nth-card-3 {
+  background-image: url(/character3_card_learning.svg);
+}
+.word-card .nth-card-4 {
+  background-image: url(/character4_card_learning.svg);
+}
+.word-card .nth-card-5 {
+  background-image: url(/character5_card_learning.svg);
+}
+.word-card .nth-card-6 {
+  background-image: url(/character6_card_learning.svg);
+}
+.word-card .nth-card-7 {
+  background-image: url(/character7_card_learning.svg);
+}
+.word-card .nth-card-8 {
+  background-image: url(/character8_card_learning.svg);
+}
+.word-card .nth-card-9 {
+  background-image: url(/character9_card_learning.svg);
+}
+.word-card .nth-card-10 {
+  background-image: url(/character10_card_learning.svg);
+}
+.word-card .nth-card-1:before,
+.word-card .nth-card-2:before,
+.word-card .nth-card-3:before,
+.word-card .nth-card-4:before,
+.word-card .nth-card-5:before,
+.word-card .nth-card-1:after,
+.word-card .nth-card-2:after,
+.word-card .nth-card-3:after,
+.word-card .nth-card-4:after,
+.word-card .nth-card-5:after {
+  display: none;
+}
+.nth-card-1 .word-card-text,
+.nth-card-9 .word-card-text {
+  color: var(--color-primary-100);
+}
+.nth-card-2 .word-card-text,
+.nth-card-5 .word-card-text,
+.nth-card-8 .word-card-text {
+  color: var(--color-tertiary-g-100);
+}
+.nth-card-3 .word-card-text,
+.nth-card-6 .word-card-text,
+.nth-card-10 .word-card-text {
+  color: var(--color-secondary-100);
+}
+.nth-card-4 .word-card-text,
+.nth-card-7 .word-card-text {
+  color: var(--color-tertiary-p-100);
+}
+.word-card-text {
+  font-size: 1rem;
+  font-family: var(--font-yangjin);
+  margin-top: 0.375rem;
 }
 
-.word-card .nth-card-10 {
-  background: url(/character10_card_learning.svg) no-repeat center 160px #f7a62c;
-  border-radius: 33px;
+.dialog-close {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .word-card .nth-card-5:before,
+  .word-card .nth-card-5:after {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .word-card .nth-card {
+    background-size: 96px auto;
+    background-position: center bottom 32px;
+  }
+  .word-card .nth-card-4:before,
+  .word-card .nth-card-4:after {
+    display: block;
+  }
+  .word-card .nth-card:before {
+    transform: translate(-50%, calc((50% + 14px) * -1));
+    width: 23px;
+    height: 72px;
+  }
+  .word-card .nth-card:after {
+    width: 13px;
+    height: 84px;
+  }
+  .word-card-text {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .word-card .nth-card-3:before,
+  .word-card .nth-card-3:after {
+    display: block;
+  }
 }

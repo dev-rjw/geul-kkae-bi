@@ -16,12 +16,12 @@ const MyPage = async () => {
 
   return (
     <div className='container py-10 max-md:pt-0'>
-      <div className='flex flex-wrap lg:flex-nowrap w-full max-w-[67.5rem] rounded-lg gap-4'>
+      <div className='flex flex-wrap gap-4 max-lg:flex-col max-lg:flex-nowrap'>
         <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
           <MypageProfile />
         </Suspense>
 
-        <div className='w-full max-w[44.75rem] lg:w-2/3 flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 w-[calc(100%-22.875rem)] max-lg:w-full'>
           <Suspense fallback={<Loader2 className='mr-2 h-4 w-4 animate-spin' />}>
             <MypageCharacter />
           </Suspense>
