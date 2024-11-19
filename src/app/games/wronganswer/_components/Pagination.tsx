@@ -8,8 +8,7 @@ type Props = {
 };
 
 const Pagintaion = ({ currentPage, totalItems, contentsPerPage, handlePrevPage, handleNextPage }: Props) => {
-  const totalPage = (totalItems ?? 0) / contentsPerPage;
-  console.log(totalPage);
+  const totalPage = Math.floor((totalItems ?? 0) / contentsPerPage);
   return (
     <>
       <button
