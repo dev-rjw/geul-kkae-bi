@@ -13,6 +13,19 @@ import {
 import { redirect } from 'next/navigation';
 import { fetchUserProfile } from '@/utils/user/server-action';
 import PercentGraph from './_components/PercentGraph';
+import Swal from 'sweetalert2';
+
+const alert = async () => {
+  Swal.fire({
+    html: '<div>시간이 다 됐다 깨비!<br>다음에 다시 도전하라 깨비</div>',
+    confirmButtonText: '확인',
+    customClass: {
+      title: 'swal-custom-title',
+      htmlContainer: 'swal-custom-text',
+      confirmButton: 'swal-custom-button',
+    },
+  });
+};
 
 const RankingPage = async () => {
   const userId = await fetchUserId();
@@ -29,8 +42,10 @@ const RankingPage = async () => {
 
     const data = await fetchLatestWeek(latestWeek);
 
+    console.log('data', data);
+
     if (!data || data.length === 0) {
-      redirect('/');
+      redirect('/?redirectFrom=Rank');
     } else {
       //이번주 전체 등수 매기기
       countRankingThisWeek = data.map((item, index) => ({ ...item, ranking: index + 1 }));
@@ -70,6 +85,7 @@ const RankingPage = async () => {
     }
     const myRank = await fetchUserLastRank(userId, lastWeek);
 
+    //내 등수 퍼센트 계산
     if (myRank && myRank.ranking !== null && lastWeekData) {
       myRankingLastWeek = myRank?.ranking;
 
