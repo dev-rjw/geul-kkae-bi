@@ -102,7 +102,6 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
       insertResult({ userId: data?.id, answer: dataAnswer, game: 'speaking', weekNumber: weekNumber });
       localStorage.setItem('speakingResult', dataAnswer);
     }, 2000),
-    localStorage.setItem('lastGameType', 'speaking'),
     [wrongAnswer, insertResult],
   );
 
