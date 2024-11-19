@@ -43,7 +43,7 @@ const ResultSide = ({ GameScore, justEndedGame }: GameInfo) => {
     <div
       className={`${getScoreGame(
         justEndedGame,
-      )} flex items-center w-[31.5rem] rounded-l-[1.25rem] rounded-r-[3rem] max-md:w-full max-md:rounded-none`}
+      )} flex items-center w-[31.5rem] rounded-l-[1.25rem] rounded-r-[3rem] max-md:w-full max-md:rounded-t-none max-md:rounded-b-2xl`}
     >
       <div className='px-[2.875rem] py-9 max-md:w-full max-md:px-4 max-md:pt-8 max-md:pb-9'>
         <h3 className='text-center title-20 max-md:text-xs'>작품명</h3>

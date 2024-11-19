@@ -95,7 +95,7 @@ const Guest = ({ searchParams }: JustEndedGameProp) => {
                 <Link
                   key={game.type}
                   href={`/games/${game.type}`}
-                  className={`game ${game.type} h-full rounded-[1.25rem] max-lg:w-full max-md:h-[11.25rem] max-md:rounded-2xl`}
+                  className={`game ${game.type} next-game-card h-full rounded-[1.25rem] max-lg:w-full max-md:h-[11.25rem] max-md:rounded-2xl`}
                 >
                   <div className='flex flex-col h-full p-6 max-md:px-3 max-md:py-[0.875rem]'>
                     <div className='pb-5'>
