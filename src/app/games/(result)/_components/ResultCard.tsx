@@ -79,7 +79,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
             </div>
             {pathname !== '/share/url' && (
               <div className='solid-button-group'>
-                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'></Button>
+                <Button className='solid-light-button min-w-[6.75rem] max-md:w-full'>오답 확인</Button>
                 <Button
                   asChild
                   className='solid-button min-w-[6.75rem] max-md:w-full'
