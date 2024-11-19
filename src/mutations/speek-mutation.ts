@@ -55,6 +55,7 @@ const insertSpeekResult = async (result: {
   answer: string;
   game: string;
   weekNumber: number;
+  score: number;
 }) => {
   return await browserClient
     .from('answer')
@@ -63,7 +64,7 @@ const insertSpeekResult = async (result: {
       answer: result.answer,
       game: result.game,
       week: result.weekNumber,
-      created_at: new Date(),
+      score: result.score,
     })
     .select();
 };
