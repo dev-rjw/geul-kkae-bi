@@ -1,0 +1,49 @@
+.word-card .nth-card-1 {
+  background: url(/character1_card_learning.svg) no-repeat center 160px #649ced;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-2 {
+  background: url(/character2_card_learning.svg) no-repeat center 160px #2ad4af;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-3 {
+  background: url(/character3_card_learning.svg) no-repeat center 160px #f7a62c;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-4 {
+  background: url(/character4_card_learning.svg) no-repeat center 160px #a07be5;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-5 {
+  background: url(/character5_card_learning.svg) no-repeat center 160px #2ad4af;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-6 {
+  background: url(/character6_card_learning.svg) no-repeat center 160px #f7a62c;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-7 {
+  background: url(/character7_card_learning.svg) no-repeat center 160px #a07be5;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-8 {
+  background: url(/character8_card_learning.svg) no-repeat center 160px #2ad4af;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-9 {
+  background: url(/character9_card_learning.svg) no-repeat center 160px #649ced;
+  border-radius: 33px;
+}
+
+.word-card .nth-card-10 {
+  background: url(/character10_card_learning.svg) no-repeat center 160px #f7a62c;
+  border-radius: 33px;
+}

@@ -2,6 +2,8 @@ import WordList from '@/mock/learning';
 import React from 'react';
 import WordCard from './_components/WordCard';
 import { Word } from '@/types/learning';
+import './style.css';
+import Image from 'next/image';
 
 export const revalidate = 86400;
 
@@ -45,16 +47,28 @@ const LearningPage = async () => {
 
   return (
     <div>
-      <div className='bg-teal-200 w-[1075px]'>
-        <div>오늘의 학습 카드</div>
-        <div>{today}</div>
+      <div className='flex justify-between px-[100px] pt-[24px] pb-[32px]'>
+        <div className='flex'>
+          <div className='text-[42px] flex items-center'>오늘의 학습 카드</div>
+          <div className='relative flex items-center w-[5rem] aspect-[190/62] max-lg:w-[8.75rem]'>
+            <Image
+              src='/icon_cards_learning.svg'
+              alt='학습 대제목 옆 아이콘'
+              fill
+              sizes='11.5rem'
+            />
+          </div>
+        </div>
+        <div className='flex items-end text-[24px]'>{today}</div>
       </div>
-      <div className='flex flex-wrap gap-4'>
-        {result.map((item) => (
-          <WordCard
+      <div className='flex flex-wrap gap-y-7 word-card px-[100px] justify-between '>
+        {result.map((item, index) => (
+          <div
             key={item.word}
-            item={item}
-          />
+            className={`nth-card-${index + 1}`}
+          >
+            <WordCard item={item} />
+          </div>
         ))}
       </div>
     </div>
