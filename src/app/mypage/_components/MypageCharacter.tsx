@@ -16,10 +16,10 @@ const MypageCharacter = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   const imgArray = [
-    { name: '1단계', width: 181, height: 63, margin: 28 },
-    { name: '2단계', width: 136, height: 73, margin: 23 },
-    { name: '3단계', width: 127, height: 108, margin: 5 },
-    { name: '4단계', width: 142, height: 119, margin: 0 },
+    { name: '1단계', width: 181, height: 63 },
+    { name: '2단계', width: 136, height: 73 },
+    { name: '3단계', width: 127, height: 108 },
+    { name: '4단계', width: 142, height: 119 },
   ];
 
   return (
@@ -132,7 +132,7 @@ const MypageCharacter = () => {
                     alt={`Stage ${index + 1}`}
                     width={stage.width}
                     height={stage.height}
-                    className={`mb-2 mt-[${stage.margin}px]`}
+                    className={`mb-2 ${index < 2 ? ' mt-[20px]' : ''}`}
                   />
                 </div>
               ))}
