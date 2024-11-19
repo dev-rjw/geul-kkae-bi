@@ -1,3 +1,5 @@
+'use client';
+
 import MyProfileInfo from './MyProfileInfo';
 import { House, UserRound, Gamepad2, LogOut, Medal, BookA, BookOpenCheck } from 'lucide-react';
 import { useAuth } from '@/queries/useAuth';
@@ -43,21 +45,7 @@ const HEADER_MOBILE_MENU_DATA: HeaderMobileMenuData[] = [
     id: 4,
     icon: BookOpenCheck,
     title: '오답모아',
-    link: '/wronganswer/speaking',
-    children: [
-      {
-        title: '나야, 발음왕',
-        link: '/wronganswer/speaking',
-      },
-      {
-        title: '틀린 말 탐정단',
-        link: '/wronganswer/checking',
-      },
-      {
-        title: '빈칸 한 입',
-        link: '/wronganswer/writing',
-      },
-    ],
+    link: '/games/wronganswer',
   },
   {
     id: 5,
@@ -112,7 +100,7 @@ const HeaderMobileMenu = () => {
         <>
           <div className='h-[0.375rem] bg-primary-50 border-t-2 border-primary-100 mt-auto' />
           <Button
-            className='flex gap-[0.375rem] px-4 py-[0.625rem] w-full h-[2.375rem] justify-start text-xs font-bold rounded-none text-gray-600 bg-white hover:bg-secondary-50'
+            className='flex gap-[0.375rem] px-4 py-[0.625rem] w-full h-[2.375rem] justify-start text-xs font-bold rounded-none text-gray-600 bg-white hover:bg-primary-50'
             onClick={handleSignout}
           >
             <LogOut className='text-base' />

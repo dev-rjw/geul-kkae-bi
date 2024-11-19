@@ -21,6 +21,10 @@ const RankingPage = async () => {
   const latestWeekData = await fetchLatestWeekData();
   const userProfile = await fetchUserProfile(userId);
 
+  if (!userId) {
+    redirect('/');
+  }
+
   //이번주 랭킹 로직
   let myRankingThisWeek;
   let countRankingThisWeek;
@@ -30,6 +34,10 @@ const RankingPage = async () => {
     const latestWeek = latestWeekData.week;
 
     const data = await fetchLatestWeek(latestWeek);
+
+    if (!data || data.length === 0) {
+      redirect('/');
+    }
 
     //이번주 전체 등수 매기기
     countRankingThisWeek = data?.map((item, index) => ({ ...item, ranking: index + 1 }));
@@ -95,7 +103,7 @@ const RankingPage = async () => {
               src='/icon_rank.svg'
               alt='랭킹순위 옆 아이콘'
               fill
-              sizes='100%'
+              sizes='2.75rem'
             />
           </div>
           이번주 전체 랭킹 순위

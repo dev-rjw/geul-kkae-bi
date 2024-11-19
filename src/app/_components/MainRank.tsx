@@ -51,9 +51,10 @@ const MainRank = () => {
             className='text-[2.5rem] font-yangjin text-white text-center'
             style={{ textShadow: '0 0 12px rgb(27,99,203)' }}
           >
-            아직 랭킹이 <br />
-            등록되지 <br />
-            않았습니다
+            이번 주 <br />
+            랭킹이 없습니다.
+            <br />첫 랭킹의 주인공이 <br />
+            되어보세요.
           </div>
         </div>
       ) : (
