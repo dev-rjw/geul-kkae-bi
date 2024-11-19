@@ -15,9 +15,9 @@ const Modal = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <ModalSpeaking />
         <ModalWriting />
         <ModalChecking />
+        <ModalSpeaking handleCloseModal={handleCloseModal} />
         <button onClick={handleCloseModal}>모달 닫기</button>
       </ModalPortal>
     </div>

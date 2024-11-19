@@ -81,7 +81,6 @@ const RankingPage = async () => {
       }
     }
   }
-  console.log('myRankPercentLastWeek', myRankPercentLastWeek);
 
   return (
     <div className='container pt-10 pb-4'>
