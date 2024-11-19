@@ -64,11 +64,13 @@ const CheckingAnswer = () => {
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              currentPage === 0 ? 'bg-[#A07BE5] text-[#BFA5ED]' : 'bg-[#A07BE5] text-white'
-            }`}
+            className='rounded-full'
           >
-            &lt;
+            <img
+              src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checkiong_left.svg'}
+              alt='이전 버튼'
+              className='w-14 h-14'
+            />
           </button>
 
           {/* 카드 영역 */}
@@ -180,13 +182,17 @@ const CheckingAnswer = () => {
           <button
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length}
-            className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              (currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length
-                ? 'bg-[#A07BE5] text-[#BFA5ED]'
-                : 'bg-[#A07BE5] text-white'
-            }`}
+            className='rounded-full flex items-center justify-center'
           >
-            &gt;
+            <img
+              src={
+                (currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length
+                  ? '/icon_btn_check_right.svg'
+                  : '/icon_btn_checking_right.svg'
+              }
+              alt='다음 버튼'
+              className='w-14 h-14'
+            />
           </button>
         </div>
 

@@ -100,7 +100,6 @@ const ResultPageForUser = async ({ searchParams }: JustEndedGameProp) => {
                   matchedGame ? highlightScoreForMatchedGame(matchedGame) : ''
                 } absolute w-full -bottom-5 z-10`}
               />
-              <Modal />
             </div>
 
             {/* 테스트 중 */}

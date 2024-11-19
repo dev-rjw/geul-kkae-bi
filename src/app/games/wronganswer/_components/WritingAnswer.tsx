@@ -60,11 +60,13 @@ const WritingAnswer = () => {
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className={`w-[3.5rem] h-[3.5rem] rounded-full ${
-              currentPage === 0 ? 'bg-[#55DDBF] text-[#7FE6CF]' : 'bg-[#55DDBF] text-white'
-            }`}
+            className='rounded-full'
           >
-            &lt;
+            <img
+              src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checkiong_left.svg'}
+              alt='이전 버튼'
+              className='w-14 h-14'
+            />
           </button>
 
           {/* 카드 영역 */}
@@ -147,7 +149,7 @@ const WritingAnswer = () => {
                 : 'bg-[#55DDBF] text-white'
             }`}
           >
-            <span className='text-2xl'>&gt;</span>
+            <span className='text-2xl'>&#8250;</span>
           </button>
         </div>
         <div className='flex justify-center items-center '>

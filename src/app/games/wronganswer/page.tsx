@@ -45,6 +45,7 @@ const WrongAnswerPage = () => {
         </div>
         <div className='flex flex-col'>
           {selectedTab === 'checking' && <CheckingAnswer />}
+
           {selectedTab === 'writing' && <WritingAnswer />}
         </div>
       </div>
