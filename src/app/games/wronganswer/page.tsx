@@ -14,34 +14,34 @@ const WrongAnswerPage = () => {
         <div className='relative'>
           <div className='flex justify-start items-center'>
             <button
-              className={`relative w-[192px] h-[51px] bg-center bg-no-repeat pt-2 ${
+              className={`relative h-[51px] bg-center bg-no-repeat pt-2 ${
                 selectedTab === 'speaking'
-                  ? "bg-[url('/speaking_btn_wrong.svg')] bg-cover text-secondary-700 h-[61px] title-24"
-                  : "bg-[url('/speaking_btnon_wrong.svg')] bg-contain text-[#e78f09] w-[183px] mt-2.5 title-20"
+                  ? "bg-[url('/speaking_btn_wrong.svg')] bg-cover text-secondary-700 w-[192px] h-[61px] title-24 max-md:h-[43px] max-md:w-[130px] max-md:title-16"
+                  : "bg-[url('/speaking_btnon_wrong.svg')] bg-contain text-[#e78f09] w-[183px] mt-2.5 title-20 max-md:h-[27px] max-md:w-[100px] max-md:mt-4 max-md:pt-0.5 max-md:text-[12px]"
               }`}
               onClick={() => setSelectedTab('speaking')}
             >
-              <p className='text-xl font-normal'>나야, 발음왕</p>
+              <p className='font-normal'>나야, 발음왕</p>
             </button>
             <button
-              className={`relative w-[192px] h-[51px] bg-center bg-no-repeat pt-2 ${
+              className={`relative h-[51px] bg-center bg-no-repeat pt-2 ${
                 selectedTab === 'checking'
-                  ? "bg-[url('/checking_btn_wrong.svg')] bg-cover text-tertiary-p-600 h-[61px] title-24"
-                  : "bg-[url('/checking_btnon_wrong.svg')] bg-contain text-tertiary-p-300 w-[183px] mt-2.5 title-20"
+                  ? "bg-[url('/checking_btn_wrong.svg')] bg-cover text-tertiary-p-600 w-[192px] h-[61px] title-24 max-md:h-[43px] max-md:w-[130px] max-md:title-16"
+                  : "bg-[url('/checking_btnon_wrong.svg')] bg-contain text-tertiary-p-300 w-[183px] mt-2.5 title-20 max-md:h-[27px] max-md:w-[100px] max-md:mt-4 max-md:pt-0.5 max-md:text-[12px]"
               }`}
               onClick={() => setSelectedTab('checking')}
             >
-              <p className='text-xl font-normal'>틀린말 탐정단</p>
+              <p className='font-normal '>틀린말 탐정단</p>
             </button>
             <button
-              className={`relative w-[192px] h-[51px] bg-center bg-no-repeat pt-2 ${
+              className={`relative h-[51px] bg-center bg-no-repeat pt-2 ${
                 selectedTab === 'writing'
-                  ? "bg-[url('/writing_btn_wrong.svg')] bg-cover text-tertiary-g-800 h-[61px] title-24"
-                  : "bg-[url('/writing_btnon_wrong.svg')] bg-contain text-tertiary-g-500 w-[183px] mt-2.5 title-20"
+                  ? "bg-[url('/writing_btn_wrong.svg')] bg-cover text-tertiary-g-800 w-[192px] h-[61px] title-24 max-md:h-[43px] max-md:w-[130px] max-md:title-16"
+                  : "bg-[url('/writing_btnon_wrong.svg')] bg-contain text-tertiary-g-500 w-[183px] mt-2.5 title-20 max-md:h-[27px] max-md:w-[100px] max-md:mt-4 max-md:pt-0.5 max-md:text-[12px]"
               }`}
               onClick={() => setSelectedTab('writing')}
             >
-              <p className='text-xl font-normal'>빈칸 한 입</p>
+              <p className='font-normal'>빈칸 한 입</p>
             </button>
           </div>
         </div>
