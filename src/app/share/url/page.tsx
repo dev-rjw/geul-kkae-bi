@@ -1,66 +1,87 @@
-import { GameData, ShareUrlProps } from '@/types/share';
-import ResultSide from '@/app/games/(result)/_components/ResultSide';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ShareUrlProps } from '@/types/share';
+import { MatchedGameArray } from '@/types/result';
+import { Button } from '@/components/ui/button';
+import ResultCard from '@/app/games/(result)/_components/ResultCard';
 
-const GAME_DATA: GameData = {
-  speaking: {
-    name: '나야, 발음왕',
-    type: 'speaking',
-    styles: {
-      color: 'bg-secondary-100',
-      highlightScoreColor: 'bg-secondary-200',
-    },
-  },
-  checking: {
-    name: '틀린 말 탐정단',
-    type: 'checking',
-    styles: {
-      color: 'bg-tertiary-p-100',
-      highlightScoreColor: 'bg-tertiary-p-200',
-    },
-  },
-  writing: {
-    name: '빈칸 한입',
-    type: 'writing',
-    styles: {
-      color: 'bg-tertiary-g-100',
-      highlightScoreColor: 'bg-tertiary-g-300',
-    },
-  },
+export const metadata: Metadata = {
+  title: '결과공유',
+  description: '내 문해력은 몇 점일지! 글깨비를 통해 내 문해력도 테스트 해보자!',
 };
 
 const ShareUrlPage = ({ searchParams }: ShareUrlProps) => {
   const gameKey = searchParams.key;
-  const gameScore = searchParams.score;
+  const gameScore = searchParams.score ?? undefined;
   const nickname = searchParams.nickname;
-  const matchedGame = gameKey ? GAME_DATA[gameKey] : undefined;
+  const GAME_DATA: MatchedGameArray[] = [
+    {
+      type: 'speaking',
+      score: gameScore,
+      name: '나야, 발음왕',
+      backgroundColor: 'bg-[#FEEFD7] max-md:bg-[#FEEFD7]',
+      titleColor1: 'text-secondary-700',
+      titleColor2: 'text-secondary-600',
+      lineColor: 'bg-secondary-200',
+    },
+    {
+      type: 'checking',
+      score: gameScore,
+      name: '틀린 말 탐정단',
+      backgroundColor: 'bg-tertiary-p-100 max-md:bg-tertiary-p-100',
+      titleColor1: 'text-tertiary-p-700',
+      titleColor2: 'text-tertiary-p-400',
+      lineColor: 'bg-tertiary-p-200',
+    },
+    {
+      type: 'writing',
+      score: gameScore,
+      name: '빈칸 한입',
+      backgroundColor: 'bg-tertiary-g-100 max-md:bg-tertiary-g-100',
+      titleColor1: 'text-tertiary-g-800',
+      titleColor2: 'text-tertiary-g-600',
+      lineColor: 'bg-tertiary-g-200',
+    },
+  ];
+  const matchedGame = gameKey ? GAME_DATA.find((game) => game.type === gameKey) : undefined;
 
   return (
-    <div>
-      <div className='flex justify-center pt-7 pb-[1.875rem] '>
-        <div className='title-32 inline  relative'>
-          {matchedGame?.name} 결과
-          <div className={`h-5 ${matchedGame?.styles.color} absolute w-full -bottom-1 -z-10`} />
+    <div className='container min-h-screen flex py-16 max-md:px-0 max-md:pt-[0.625rem] max-md:pb-4'>
+      <div className='m-auto max-md:w-full max-md:my-0'>
+        <div className='mb-[1.875rem] max-md:mb-[0.625rem]'>
+          <Link
+            href='/'
+            className='relative flex items-center w-[16.375rem] aspect-[190/62] mx-auto max-md:w-[6.75rem]'
+          >
+            <Image
+              src='/logo.svg'
+              alt='글깨비'
+              fill
+              sizes='16.375rem'
+            />
+          </Link>
         </div>
-      </div>
-
-      <div className='flex flex-row justify-center h-[36.5rem]'>
-        <div className={`flex w-[49.5rem] rounded-[1.25rem] ${matchedGame?.styles.color} `}>
-          <ResultSide
+        <div className='max-w-[49.5rem] mx-auto max-md:max-w-none'>
+          <ResultCard
+            matchedGame={matchedGame}
             GameScore={gameScore}
-            justEndedGame={'checking'}
+            justEndedGame={gameKey}
+            nickname={nickname}
           />
-          <div className='flex flex-col items-center text-center pl-[2.929rem] pt-[7.5rem] '>
-            <div className={`${matchedGame?.type} `}>
-              <span className='title-20 text-primary-500'>{nickname}</span>
-              <span className='query body-16 '>님의</span>
-              <div className='query title-32'>국어 문해력은?</div>
-            </div>
-            <div className={`${matchedGame?.type} title-72 h-[6.813rem] pt-[1.219rem] inline relative`}>
-              <span className='score relative z-20'>{gameScore}점</span>
-              <div
-                className={`h-[2.688rem] absolute w-full -bottom-5 z-10 ${matchedGame?.styles.highlightScoreColor}`}
-              />
-            </div>
+        </div>
+        <div className={`${matchedGame?.type} px-4 pt-[1.875rem] text-center max-md:pt-4`}>
+          <div className='title-40 text-primary-500 max-md:text-[1.375rem]'>내 문해력은 몇 점일지!</div>
+          <div className='title-24 text-gray-600 mt-2 max-md:text-sm max-md:mt-1'>
+            글깨비를 통해 내 문해력도 테스트 해보자!
+          </div>
+          <div className='hidden max-md:block mt-4'>
+            <Button
+              asChild
+              className='solid-button w-full max-w-[15rem]'
+            >
+              <Link href='https://geul-kkae-bi.vercel.app/'>나도 하러가기</Link>
+            </Button>
           </div>
         </div>
       </div>

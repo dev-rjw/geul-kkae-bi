@@ -63,6 +63,7 @@ const insertSpeekResult = async (result: {
       answer: result.answer,
       game: result.game,
       week: result.weekNumber,
+      created_at: new Date(),
     })
     .select();
 };

@@ -18,7 +18,7 @@ const MypageMyScore = () => {
           <div className='h-[0.375rem] bg-gray-50 border-t-2 border-primary-100 hidden max-md:block max-md:w-full' />
 
           <div className='max-md:w-full max-md:flex max-md:items-center max-md:justify-between max-md:px-6 max-md:py-2'>
-            <p className='title-20 text-primary-400 mt-6 max-md:text-base max-md:mt-0'>총점</p>
+            <p className='title-20 text-primary-400 text-center mt-6 max-md:text-base max-md:mt-0'>총점</p>
             <p className='body-32 text-primary-700 mt-1 max-md:text-xl max-md:mt-0'>
               {rank?.total === null ? '-' : rank?.total}점
             </p>

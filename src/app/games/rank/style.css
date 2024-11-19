@@ -2,12 +2,11 @@
   background-color: #3e5ae5;
   color: #fff;
 }
-
-.top-rank:nth-child(1) strong,
-.top-rank:nth-child(1) span {
+.top-rank:nth-child(1) .rank-ranking,
+.top-rank:nth-child(1) .rank-nickname,
+.top-rank:nth-child(1) .rank-total {
   color: #fff;
 }
-
 .top-rank:nth-child(2) {
   background-color: #6b80eb;
 }
