@@ -12,12 +12,14 @@ export interface QuestionUnderlineProps {
   question: string;
   correct: string[];
   selectedOption: string | null;
+  isMobile: boolean;
 }
 
 export interface CheckingButtonProps {
   correctOptions: string[];
   selectedOption: string | null;
   onselect: (option: string) => void;
+  isMobile: boolean;
 }
 
 export type CheckingQuestion = {
