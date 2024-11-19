@@ -10,22 +10,10 @@ import {
   fetchUserLastRank,
   insertLastRankingData,
 } from '@/utils/rank/server-action';
-import { redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
 import { fetchUserProfile } from '@/utils/user/server-action';
 import PercentGraph from './_components/PercentGraph';
-import Swal from 'sweetalert2';
-
-const alert = async () => {
-  Swal.fire({
-    html: '<div>시간이 다 됐다 깨비!<br>다음에 다시 도전하라 깨비</div>',
-    confirmButtonText: '확인',
-    customClass: {
-      title: 'swal-custom-title',
-      htmlContainer: 'swal-custom-text',
-      confirmButton: 'swal-custom-button',
-    },
-  });
-};
+import LineTitle from '@/components/LineTitle';
 
 const RankingPage = async () => {
   const userId = await fetchUserId();
@@ -42,13 +30,10 @@ const RankingPage = async () => {
 
     const data = await fetchLatestWeek(latestWeek);
 
-    console.log('data', data);
+    //이번주 전체 등수 매기기
+    countRankingThisWeek = data?.map((item, index) => ({ ...item, ranking: index + 1 }));
 
-    if (!data || data.length === 0) {
-      redirect('/?redirectFrom=Rank');
-    } else {
-      //이번주 전체 등수 매기기
-      countRankingThisWeek = data.map((item, index) => ({ ...item, ranking: index + 1 }));
+    if (countRankingThisWeek) {
       //이번주 내 등수
       myRankingThisWeek = countRankingThisWeek?.filter((user) => user.user_id === userId);
 
