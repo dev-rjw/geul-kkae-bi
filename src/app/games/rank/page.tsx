@@ -31,11 +31,10 @@ const RankingPage = async () => {
 
     const data = await fetchLatestWeek(latestWeek);
 
-    if (!data || data.length === 0) {
-      redirect('/');
-    } else {
-      //이번주 전체 등수 매기기
-      countRankingThisWeek = data.map((item, index) => ({ ...item, ranking: index + 1 }));
+    //이번주 전체 등수 매기기
+    countRankingThisWeek = data?.map((item, index) => ({ ...item, ranking: index + 1 }));
+
+    if (countRankingThisWeek) {
       //이번주 내 등수
       myRankingThisWeek = countRankingThisWeek?.filter((user) => user.user_id === userId);
 
@@ -71,6 +70,7 @@ const RankingPage = async () => {
     }
     const myRank = await fetchUserLastRank(userId, lastWeek);
 
+    //내 등수 퍼센트 계산
     if (myRank && myRank.ranking !== null && lastWeekData) {
       myRankingLastWeek = myRank?.ranking;
 
