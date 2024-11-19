@@ -467,7 +467,8 @@
     @apply container fixed bottom-4 left-1/2 -translate-x-1/2 z-10 max-md:px-0 max-md:bottom-auto;
   }
   .rank-my-info-card {
-    @apply h-[9.375rem] flex items-center px-6 py-[1.125rem] bg-primary-100 rounded-[1.25rem] max-md:h-[12.5rem] max-md:rounded-t-none max-md:rounded-b-[1.25rem];
+    @apply h-[9rem] flex items-center p-4 bg-primary-100 rounded-[1.25rem] max-md:h-[12.5rem] max-md:items-start max-md:pt-6 max-md:rounded-t-none max-md:rounded-b-[1.25rem];
+    box-shadow: 0 -4px 0 #92b9f2;
   }
 
   .rank-ranking {
@@ -516,7 +517,8 @@
   .progress-bar {
     @apply relative w-0 h-[2.813rem] max-w-full rounded-full max-md:h-[2.188rem];
     animation: dilation 1s forwards;
-    animation-delay: 0.5s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-delay: 0.7s;
   }
   @keyframes dilation {
     0% {

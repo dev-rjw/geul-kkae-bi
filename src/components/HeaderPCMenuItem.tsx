@@ -1,55 +1,17 @@
+'use client';
+
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import Swal from 'sweetalert2';
 import { HeaderPcMenuProps } from '@/types/header';
 import { useAuth } from '@/queries/useAuth';
-import { useGetLatestWeek, useGetLatestWeekData } from '@/queries/useGetRank';
+import { useRank } from '@/queries/useRank';
+import { weekCalculate } from '@/utils/rank/client-action';
+import { useHandleMenuClick } from '@/utils/header/handleMenuClick';
 
-const HeaderPcMenu = ({ item, hoveredMenu, onHover, onLeave }: HeaderPcMenuProps) => {
-  const router = useRouter();
+const HeaderPCMenuItem = ({ item, hoveredMenu, onHover, onLeave }: HeaderPcMenuProps) => {
   const { data: user } = useAuth();
-  const restrictedLink = ['/games/rank', '/answer'];
-  const { data: latestWeekData } = useGetLatestWeekData();
-  const latestWeek = latestWeekData?.week;
-  const { data: latestWeekForAlert } = useGetLatestWeek(latestWeek!);
-
-  const handleMenuClick = (link: string | undefined) => {
-    if (restrictedLink.includes(link || '') && !user) {
-      Swal.fire({
-        html: `<div class="text-gray-600">글깨비의 다양한 기능은 <br/>로그인을 하시면 이용하실 수 있어요!</div>`,
-        customClass: {
-          title: 'swal-custom-title',
-          htmlContainer: 'swal-custom-text',
-          confirmButton: 'swal-custom-button',
-          cancelButton: 'swal-custom-button',
-        },
-        reverseButtons: true,
-        showCancelButton: true,
-        cancelButtonText: '취소',
-        confirmButtonText: '로그인하러가기',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          router.push('/signin');
-        }
-      });
-    } else {
-      // 로그인된 사용자라면 링크로 이동
-      if (!latestWeekForAlert || latestWeekForAlert.length === 0) {
-        Swal.fire({
-          html: `<div class="text-gray-600">아직 랭킹이 없어요. <br/>랭킹을 확인하시려면 게임을 <br/>모두 완료해주세요!</div>`,
-          customClass: {
-            title: 'swal-custom-title',
-            htmlContainer: 'swal-custom-text',
-            confirmButton: 'swal-custom-button ',
-          },
-          confirmButtonText: '확인',
-        });
-        router.push('/');
-      } else {
-        window.location.href = link || '#';
-      }
-    }
-  };
+  const { data: ranks } = useRank(weekCalculate(0));
+  const handleMenuClick = useHandleMenuClick();
+  const link = item.link ?? '';
 
   return (
     <li
@@ -59,7 +21,7 @@ const HeaderPcMenu = ({ item, hoveredMenu, onHover, onLeave }: HeaderPcMenuProps
     >
       <span
         className='heaber-pc-menu-title'
-        onClick={() => handleMenuClick(item.link)}
+        onClick={() => handleMenuClick({ link, user, ranks })}
       >
         {item.title}
       </span>
@@ -83,4 +45,4 @@ const HeaderPcMenu = ({ item, hoveredMenu, onHover, onLeave }: HeaderPcMenuProps
   );
 };
 
-export default HeaderPcMenu;
+export default HeaderPCMenuItem;

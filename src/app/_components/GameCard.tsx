@@ -30,7 +30,7 @@ const GameCard = ({ card, hoveredCard, selectedCard, onHover, onLeave, onClick }
               {card?.badge}
             </Badge>
             <div className='flex items-center gap-1.5'>
-              <span className={`body-16 -mb-1 max-lg:text-xs max-md:mb-0 ${card?.styles.difficultyTextColor}`}>난이도</span>
+              <div className={`body-16 -mb-1 max-lg:text-xs max-md:mb-0 ${card?.styles.difficultyTextColor}`}>난이도</div>
               <div className='flex items-center gap-0.5'>
                 {card?.difficulty &&
                   Array.from({ length: card?.difficulty }, (_, index) => (
