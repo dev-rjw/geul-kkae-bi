@@ -99,7 +99,7 @@ const MypageProfile = () => {
                 <h2 className='text-[1.75rem] font-bold max-md:text-xl max-md:font-yangjin max-md:font-normal'>
                   {user?.nickname ? user?.nickname : '닉네임'}
                 </h2>
-                <p className='text-[1.25rem] font-bold text-primary-200 mt-2 max-md:text-xs max-md:mt-[0.125rem]'>
+                <p className='text-[1.25rem] font-bold text-primary-200 mt-2 max-md:text-xs max-md:mt-1'>
                   {user?.email ? user?.email : '@email.com'}
                 </p>
                 <p className='text-[1.25rem] font-bold text-primary-100 mt-[1.125rem] max-md:text-sm max-md:font-semibold max-md:mt-3'>

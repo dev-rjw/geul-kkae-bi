@@ -62,7 +62,7 @@ const HeaderInfoChange = () => {
                 style={{ boxShadow: '0 0 4px rgba(0,0,0,0.25)' }}
               >
                 <MyProfileInfo />
-                <div className='h-1 bg-gray-100 border-t border-gray-200'></div>
+                <div className='h-1 bg-gray-100 border-t border-gray-200' />
                 <div className='flex flex-col'>
                   <Link
                     className='flex items-center gap-2 px-4 py-2 hover:bg-secondary-50'

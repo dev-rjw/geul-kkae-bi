@@ -55,7 +55,7 @@ export const fetchLatestWeek = async (latestWeek: number) => {
 
 export const fetchLastWeek = async (lastWeek: number) => {
   const supabase = createClient();
-  const { data } = await supabase
+  const { data }: { data: Rank[] | null } = await supabase
     .from('rank')
     .select()
     .eq('week', lastWeek)
