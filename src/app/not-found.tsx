@@ -16,15 +16,15 @@ const NotFound = () => {
           ></Image>
         </div>
         <div className='text-center mt-16 max-md:mt-[3.25rem]'>
-          <h1 className='title-40 text-primary-600 max-md:text-xl'>죄송해요! 요청하신 페이지를 불러올수없어요</h1>
-          <p className='title-20 text-gray-500 mt-6 max-md:title-16 max-md:mt-[3.25rem]'>
+          <h1 className='title-40 text-primary-600 break-keep max-md:text-xl'>죄송해요! 요청하신 페이지를 불러올수없어요</h1>
+          <p className='title-20 text-gray-500 break-keep mt-6 max-md:title-16 max-md:mt-[3.25rem]'>
             페이지의 주소가 잘못입력 되었거나<br></br> 요청하신 주소가 변경 혹은 삭제되어 찾을수 없습니다.
           </p>
         </div>
-        <div className='mt-20'>
+        <div className='mt-20 flex justify-center'>
           <DefaultButton
             asChild
-            className='min-w-[23.875rem] mt-[2.688rem] mx-auto max-md:min-w-full'
+            className='min-w-[23.875rem] max-md:min-w-full'
           >
             <Link href='/'>홈으로</Link>
           </DefaultButton>

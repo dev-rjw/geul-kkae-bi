@@ -1,14 +1,13 @@
 import * as React from 'react';
-import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
 import Footer from '@/components/Footer';
 import LineTitle from '@/components/LineTitle';
 import GameCards from './_components/GameCards';
 import MainCarousel from './_components/MainCarousel';
 import MainRank from './_components/MainRank';
 import MainGreeting from './_components/MainGreeting';
+import MainRankViewAllButton from './_components/MainRankViewAllButton';
 
-export default function Home() {
+const Home = async () => {
   return (
     <>
       <div className='container pt-11 max-md:pt-5'>
@@ -37,13 +36,7 @@ export default function Home() {
               >
                 RANKING
               </LineTitle>
-              <Link
-                className='inline-flex items-center text-sm font-bold text-gray-500'
-                href='/games/rank'
-              >
-                전체보기
-                <ChevronRight className='w-4 h-4 text-gray-600' />
-              </Link>
+              <MainRankViewAllButton />
             </div>
             <MainRank />
           </div>
@@ -52,4 +45,6 @@ export default function Home() {
       <Footer />
     </>
   );
-}
+};
+
+export default Home;

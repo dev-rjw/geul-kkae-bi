@@ -6,9 +6,10 @@ import { Progress } from '@/components/ui/progress';
 interface PercentGraphProps {
   thisWeek?: string | null;
   lastWeek?: string | null;
+  className?: string | null;
 }
 
-const PercentGraph: React.FC<PercentGraphProps> = ({ thisWeek, lastWeek }) => {
+const PercentGraph: React.FC<PercentGraphProps> = ({ thisWeek, lastWeek, className }) => {
   const [thisWeekProgress, setThisWeekProgress] = useState(13);
   const [lastWeekProgress, setLastWeekProgress] = useState(13);
 
@@ -25,19 +26,15 @@ const PercentGraph: React.FC<PercentGraphProps> = ({ thisWeek, lastWeek }) => {
   }, [changeThisWeekToNum, changeLastWeekToNum]);
 
   return (
-    <div>
-      <div className='w-[500px] p-4 flex items-center justify-center'>
-        <Progress
-          value={thisWeekProgress}
-          className='w-[60%] h-8 rounded-none [&>div]:bg-primary-400 bg-primary-300'
-        />
-      </div>
-      <div className='w-[500px] p-4 flex items-center justify-center'>
-        <Progress
-          value={lastWeekProgress}
-          className='w-[60%] h-8 rounded-none [&>div]:bg-primary-300 bg-primary-200'
-        />
-      </div>
+    <div className={`flex flex-col gap-5 w-full ${className}`}>
+      <Progress
+        value={thisWeekProgress}
+        className='h-8 rounded-sm [&>div]:bg-primary-400 bg-primary-300'
+      />
+      <Progress
+        value={lastWeekProgress}
+        className='h-8 rounded-sm [&>div]:bg-primary-300 bg-primary-200'
+      />
     </div>
   );
 };
