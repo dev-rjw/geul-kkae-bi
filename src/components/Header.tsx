@@ -92,6 +92,7 @@ const HEADER_DATA: { [key: string]: HeaderData } = {
     ...commonStyle,
     title: '공유하기',
     pcVisible: 'hidden',
+    mobileVisible: 'hidden',
   },
 };
 
@@ -223,9 +224,9 @@ const Header = () => {
             >
               <Image
                 src='/logo.svg'
-                alt='Profile'
+                alt='글깨비'
                 fill
-                sizes='100%'
+                sizes='11.5rem'
               />
             </Link>
 
