@@ -187,11 +187,11 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
             ) : (
               <>
                 {isRecording ? (
-                  <p className='text-[36px] text-gray-600'>녹음 중입니다</p>
+                  <p className='text-[36px] text-gray-600 max-md:text-[16px]'>녹음 중입니다</p>
                 ) : (
-                  <p className='text-[36px] text-gray-600'>녹음이 완료되었습니다</p>
+                  <p className='text-[36px] text-gray-600 max-md:text-[16px]'>녹음이 완료되었습니다</p>
                 )}
-                <div className='absolute right-[30px]'>
+                <div className='absolute right-[30px] max-md:hidden'>
                   <p>{index + 1}/10</p>
                 </div>
               </>
