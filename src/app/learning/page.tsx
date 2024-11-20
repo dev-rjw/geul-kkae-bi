@@ -46,7 +46,7 @@ const LearningPage = async () => {
   const today = date.getFullYear() + `. ` + (date.getMonth() + 1) + `. ` + date.getDate();
 
   return (
-    <div className='container py-10 max-md:py-4'>
+    <div className='container pt-10 max-md:pt-4'>
       <div className='flex items-end justify-between max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-1'>
         <div className='flex items-end'>
           <div className='text-[2.625rem] font-yangjin text-primary-300 max-md:text-2xl'>
@@ -75,6 +75,14 @@ const LearningPage = async () => {
             <WordCard item={item} />
           </div>
         ))}
+      </div>
+      <div className='relative w-[153px] h-[14px] mx-auto mt-[22px] mb-[16px]'>
+        <Image
+          src='/copyright_text_learning.svg'
+          alt='학습 대제목 옆 아이콘'
+          fill
+          sizes='0.81rem'
+        />
       </div>
     </div>
   );

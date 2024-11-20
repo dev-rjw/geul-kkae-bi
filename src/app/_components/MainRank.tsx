@@ -34,7 +34,7 @@ const MainRank = () => {
           style={{ backdropFilter: 'blur(10px)' }}
         >
           <div
-            className='text-[2.5rem] font-yangjin text-white text-center'
+            className='text-[2.5rem] leading-normal font-yangjin text-white text-center max-md:text-4xl'
             style={{ textShadow: '0 0 12px rgb(27,99,203)' }}
           >
             랭킹이 <br />
@@ -48,13 +48,13 @@ const MainRank = () => {
           style={{ backdropFilter: 'blur(10px)' }}
         >
           <div
-            className='text-[2.5rem] font-yangjin text-white text-center'
+            className='text-[2.5rem] leading-normal font-yangjin text-white text-center max-md:text-4xl'
             style={{ textShadow: '0 0 12px rgb(27,99,203)' }}
           >
             이번 주 <br />
-            랭킹이 없습니다.
+            랭킹이 없습니다
             <br />첫 랭킹의 주인공이 <br />
-            되어보세요.
+            되어보세요
           </div>
         </div>
       ) : (
@@ -78,22 +78,22 @@ const MainRank = () => {
             return (
               <div
                 key={index}
-                className='flex items-center py-[0.625rem] pr-[1.25rem] max-lg:py-[0.375rem] max-lg:pr-[1.875rem]'
+                className='flex flex-wrap items-center py-[0.625rem] pr-[1.25rem] max-lg:py-[0.375rem] max-lg:pr-[1.875rem]'
               >
                 <div
                   className={`${
                     (index === 0 && ' bg-primary-400') ||
                     (index === 1 && ' bg-primary-300') ||
                     (index === 2 && ' bg-primary-200')
-                  } flex items-center h-[2.625rem] pl-6 pr-[1.125rem] rounded-r-[0.875rem] max-lg:h-[2.375rem] max-lg:pl-10 max-lg:pr-4 max-lg:rounded-r-lg`}
+                  } flex items-center w-[4.625rem] h-[2.625rem] pl-6 pr-1 rounded-r-[0.875rem] max-lg:w-[5.375rem] max-lg:h-[2.375rem] max-lg:pl-10 max-lg:pr-1 max-lg:rounded-r-lg`}
                 >
-                  <span className='title-24 text-primary-50 translate-y-[5%] max-lg:text-lg'>{index + 1}위</span>
+                  <span className='title-24 text-primary-50 md:-mb-1 max-lg:text-lg'>{index + 1}위</span>
                 </div>
-                <div className='flex flex-grow items-center justify-between pl-6 max-lg:pl-4'>
-                  <div className='title-24 text-primary-700 translate-y-[5%] max-lg:text-lg max-sm:text-ellipsis'>
+                <div className='flex items-center justify-between w-[calc(100%-4.625rem)] pl-4 max-lg:w-[calc(100%-5.375rem)] max-lg:pl-3'>
+                  <div className='title-24 text-primary-700 md:-mb-1 max-lg:text-lg max-sm:text-ellipsis'>
                     {rank.user.nickname}
                   </div>
-                  <div className='title-20 text-primary-300 translate-y-[5%] max-lg:text-lg'>{rank.total}점</div>
+                  <div className='title-20 text-primary-300 md:-mb-1 max-lg:text-lg'>{rank.total}점</div>
                 </div>
               </div>
             );

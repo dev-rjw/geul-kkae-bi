@@ -61,8 +61,8 @@ const WritingAnswer = () => {
   };
 
   return (
-    <div className=' bg-[#7FE6CF]  w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] max-md:w-full max-md:rounded-br-none max-md:rounded-bl-none overflow-y-auto md:overflow-y-visible'>
-      <div className='text-center mt-8 mb-[1.313rem]'>
+    <div className=' bg-[#7FE6CF]  w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] max-md:w-full max-md:rounded-br-none max-md:rounded-bl-none'>
+      <div className='text-center mt-8'>
         <div className='flex items-center justify-center '>
           <strong className='title-24 text-[#198069] max-md:title-16'>완료한 문장은 체크해서 지워주세요!</strong>
           <Image
@@ -75,7 +75,7 @@ const WritingAnswer = () => {
           />
         </div>
 
-        <div className='mt-[1.938rem] flex md:justify-between items-center h-auto md:h-full flex-col md:flex-row'>
+        <div className='mt-[1.938rem] flex md:justify-between items-center h-[38.75rem] md:h-full flex-col md:flex-row overflow-y-auto'>
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
@@ -89,10 +89,10 @@ const WritingAnswer = () => {
               priority
             />
           </button>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-[0.625rem] mx-auto col-span-full'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-[0.625rem] mx-auto'>
             {!writingWrongAnswers || writingWrongAnswers.length === 0 ? (
               <div className='flex justify-center items-center h-[31.063rem] w-full col-span-full'>
-                <p className='title-34 text-[#22AA8D] text-center transform translate-y-[0.875rem]'>
+                <p className='title-34 text-[#22AA8D] text-center transform translate-y-[4.438rem] md:translate-y-[0.875rem]'>
                   오답이 아직 모이지 않았어요!
                 </p>
               </div>
@@ -175,12 +175,12 @@ const WritingAnswer = () => {
             />
           </button>
         </div>
-        <div className='md:relative fixed bottom-0 w-full bg-[#7FE6CF] py-[1.813rem] flex justify-center items-center '>
+        <div className='md:absolute fixed bottom-0 w-full bg-[#7FE6CF] py-[2.188rem] px-5 flex justify-center items-center max-md:py-6'>
           <button
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}
-            className={`w-[21.875rem] h-[3.25rem] font-semibold rounded-lg ${
-              selectedQuestions.length === 0 ? 'bg-[#AAEEDF] text-[#2AD4AF]' : 'bg-[#198069] text-[#F6FDFC ]'
+            className={`w-[21.875rem] h-[3.25rem] body-18 rounded-lg max-md:w-full ${
+              selectedQuestions.length === 0 ? 'text-[#AAEEDF] bg-[#2AD4AF]' : 'bg-[#198069] text-[#F6FDFC]'
             }`}
           >
             {selectedQuestions.length === 0 ? '지우기' : `${selectedQuestions.length}개 지우기`}

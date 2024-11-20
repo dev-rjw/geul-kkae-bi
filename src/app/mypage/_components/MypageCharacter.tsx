@@ -87,7 +87,7 @@ const MypageCharacter = () => {
       )}
 
       <button
-        className='flex absolute top-[1.875rem] right-[1.875rem]'
+        className='flex absolute top-[1.875rem] right-[1.875rem] z-10 max-md:top-3 max-md:right-3'
         onClick={() => setIsModalOpen(true)}
       >
         <Info className='w-[1.375rem] h-[1.375rem] text-white' />
@@ -96,61 +96,60 @@ const MypageCharacter = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <div className='flex flex-col relative items-center bg-[#649CED] p-6 rounded-lg  max-w-4xl w-[1086px] h-[262px] mx-auto'>
-          {/* 상단 제목 */}
-          <div className='flex'>
+        <div className='container w-screen'>
+          <div className='flex flex-col relative items-center bg-primary-300 p-11 rounded-2xl mx-auto overflow-hidden max-lg:px-5 max-md:pt-4 max-md:pb-7 max-md:rounded-md'>
+            <button
+              className='text-white absolute top-[1.25rem] right-[1.25rem] w-10 h-10 max-md:w-5 max-md:h-5 max-md:top-2 max-md:right-2'
+              onClick={handleCloseModal}
+            >
+              <X className='w-10 h-10 max-md:w-5 max-md:h-5' />
+            </button>
+            {/* 상단 제목 */}
             <div className='mb-10'>
               <LineTitle
-                className={`title-36 font-normal text-white`}
+                className={`title-36 font-normal text-white max-lg:text-2xl max-md:text-sm`}
                 lineClassName={`!w-[calc(100%+0.75rem)] bg-primary-400`}
               >
                 변화 단계
               </LineTitle>
             </div>
-            <button
-              className='text-white font-bold text-2xl absolute top-[1.875rem] right-[1.875rem]'
-              onClick={handleCloseModal}
-            >
-              <X className='flex' />
-            </button>
-          </div>
-          <div className='absolute bottom-0 left-0 w-full h-[33.3333%] bg-[#3983ED]'></div>
-          {/* 단계별 캐릭터 */}
-          <div className='flex items-center justify-between w-full'>
-            {/* 각 단계 */}
-            {imgArray.map((stage, index) => (
-              <div
-                key={index}
-                className='flex flex-col items-center relative w-[200px] h-[120px]'
-              >
-                {/* 단계 번호 */}
-                <span className='bg-primary-400 text-white text-md font-semibold px-2 py-1 rounded-full mb-2'>
-                  &nbsp;&nbsp;&nbsp;{stage.name}&nbsp;&nbsp;&nbsp;
-                </span>
-                {/* 화살표: 마지막 단계에는 표시하지 않음 */}
-                {index < 3 && (
-                  <div className='absolute right-0 top-0 transform translate-x-10'>
+            {/* 단계별 캐릭터 */}
+            <div className='relative z-10 grid grid-cols-4 w-full'>
+              {/* 각 단계 */}
+              {imgArray.map((stage, index) => (
+                <div
+                  key={index}
+                  className='relative flex flex-col items-center gap-5'
+                >
+                  {/* 단계 번호 */}
+                  <span className='w-[6.75rem] bg-primary-400 text-white text-2xl font-bold text-center py-1 rounded-full max-lg:w-[4rem] max-lg:text-base max-md:w-[2.5rem] max-md:text-[0.625rem] max-md:py-0'>
+                    {stage.name}
+                  </span>
+                  {/* 화살표: 마지막 단계에는 표시하지 않음 */}
+                  {index < 3 && (
+                    <div className='absolute top-2 right-0 translate-x-1/2 w-[6rem] aspect-[96/20] max-lg:w-[4.5rem] max-lg:top-2 max-md:w-[1.875rem]'>
+                      <Image
+                        src='/line.png'
+                        alt='화살표'
+                        fill
+                        sizes=''
+                      />
+                    </div>
+                  )}
+                  {/* 각 단계의 이미지 */}
+                  <div className='relative w-[12rem] aspect-[192/126] max-lg:w-[9rem] max-md:w-[4rem]'>
                     <Image
-                      src={`/line.png`}
-                      alt={`line`}
-                      width={96}
-                      height={1}
-                      className='mb-2'
-                      priority
+                      src={`/kkae_bi_${index + 1}@2x.png`}
+                      alt={`Stage ${index + 1}`}
+                      fill
+                      sizes='24rem'
+                      className='object-contain'
                     />
                   </div>
-                )}
-                {/* 각 단계의 이미지 */}
-                <Image
-                  src={`/kkae_bi_${index + 1}.png`}
-                  alt={`Stage ${index + 1}`}
-                  width={stage.width}
-                  height={stage.height}
-                  className={`mb-2 ${index < 2 ? ' mt-[20px]' : ''}`}
-                  priority
-                />
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
+            <div className='absolute bottom-0 left-0 w-full h-[28%] bg-[#3983ED]' />
           </div>
         </div>
       </ModalPortal>
