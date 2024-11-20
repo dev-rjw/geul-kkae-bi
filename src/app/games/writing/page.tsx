@@ -132,6 +132,7 @@ const WritingQuizPage = () => {
   const handleTimeOver = () => {
     if (!isTimeOver) {
       saveScore(scoreRef.current);
+      saveResultsToLocalStorage(allResults.current);
       setIsTimeOver(true);
       Swal.fire({
         html: '<div>시간이 다 됐다 깨비!<br/>다음에 다시 도전하라 깨비</div>',
@@ -165,10 +166,10 @@ const WritingQuizPage = () => {
           className={`inline-flex items-center justify-center ${
             isMobile
               ? 'px-[1.875rem] py-[0.625rem] bg-tertiary-g-500 text-sm font-semibold'
-              : 'px-[1.875rem] py-2.5 bg-tertiary-g-500 text-2xl font-bold'
+              : 'px-[1.875rem] py-2.5 bg-tertiary-g-500 body-24 font-bold'
           } rounded-full`}
         >
-          {`${currentQuizIndex + 1}번문제`}
+          {`${currentQuizIndex + 1}번 문제`}
         </p>
         <p
           className={`${
