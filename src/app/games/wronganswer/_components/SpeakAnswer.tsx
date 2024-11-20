@@ -96,7 +96,7 @@ const SpeakAnswer = () => {
               key={speak.id}
               className={`${
                 selecteAnswer.includes(speak.answer) ? 'bg-secondary-200' : ''
-              } flex items-center bg-[#FEF2E0] rounded-lg py-[0.438rem] mb-3`}
+              } flex items-center justify-center bg-[#FEF2E0] rounded-lg py-[0.438rem] mb-3`}
             >
               <p className='relative text-secondary-500 w-[3.813rem] h-[3.25rem] leading-[3.25rem] pt-1 text-center title-36 before:absolute before:top-1/2 before:right-0 before:translate-y-[-50%] before:h-[3.188rem] before:bg-[#FFB440] before:w-[0.125rem]'>
                 <span className='text[1.25rem]'>{speak.score}</span>

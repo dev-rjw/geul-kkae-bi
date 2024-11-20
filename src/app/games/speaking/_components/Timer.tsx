@@ -53,6 +53,7 @@ const Timer = ({ handleUpsertScore, data, finalPercent }: Upsert) => {
     if (time === 0) {
       handleAlert();
       setIsGame(true);
+      localStorage.setItem('lastGameType', 'speaking');
     }
     return () => clearInterval(countdown);
   }, [isDelay, time]);
