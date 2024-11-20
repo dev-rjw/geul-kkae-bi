@@ -22,7 +22,7 @@ const MypageProfile = () => {
   // 회원탈퇴
   const handleDeleteUser = async () => {
     Swal.fire({
-      html: `<div class="text-gray-700">정말 탈퇴하시겠습니까?</div><div class="text-lg text-gray-500 mt-2">탈퇴 버튼 선택 시, <br />계정은 삭제되며 복구되지 않습니다.</div>`,
+      html: `<div class="text-gray-700">정말 탈퇴하시겠습니까?</div><div class="text-lg text-gray-500 mt-2">탈퇴 버튼 선택 시,<br />계정은 삭제되며 복구되지 않습니다.</div>`,
       customClass: {
         title: 'swal-custom-title',
         htmlContainer: 'swal-custom-text',
@@ -68,7 +68,7 @@ const MypageProfile = () => {
 
   return (
     <>
-      <div className='flex flex-col items-stretch min-w-[21.75rem] w-full lg:w-1/3 px-[2.375rem] py-8 bg-primary-400 rounded-3xl text-white max-md:w-screen max-md:min-w-[auto] max-md:-mx-4 max-md:rounded-t-none max-md:rounded-b-[1.25rem] max-md:px-4 max-md:py-5 max-md:pb-[2.125rem]'>
+      <div className='flex flex-col items-stretch w-[21.875rem] px-[2.375rem] py-8 bg-primary-400 rounded-3xl text-white max-lg:w-full max-md:w-screen max-md:-mx-4 max-md:rounded-t-none max-md:rounded-b-[1.25rem] max-md:px-4 max-md:py-5 max-md:pb-[2.125rem]'>
         <div className='flex max-md:hidden justify-center mb-[2.5rem]'>
           <LineTitle
             className='text-[2rem] text-primary-50'
