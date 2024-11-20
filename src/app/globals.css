@@ -475,7 +475,7 @@
     @apply w-[4rem] text-primary-700 -mb-1 max-md:w-[2.5rem];
   }
   .rank-nickname {
-    @apply text-primary-700 -mb-1;
+    @apply text-primary-700 md:-mb-1;
   }
   .rank-total {
     @apply ml-auto text-primary-700;
