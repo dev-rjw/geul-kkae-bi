@@ -58,11 +58,11 @@ const RankingTable = ({ countRankingThisWeek }: { countRankingThisWeek: RankIncl
                   />
                 </div>
               </div>
-              <div className='flex gap-4 items-center overflow-hidden max-md:flex-col max-md:gap-[0.125rem] max-md:items-start max-md:overflow-hidden'>
-                <div className='rank-nickname title-20 w-[8.875rem] max-md:text-sm max-md:w-full'>
+              <div className='flex flex-wrap grow items-center overflow-hidden max-md:flex-col max-md:gap-[0.125rem] max-md:items-start max-md:overflow-hidden'>
+                <div className='rank-nickname title-20 w-[9.25rem] max-md:text-sm max-md:w-full'>
                   {item.user.nickname}
                 </div>
-                <p className='grow title-20 text-[#647BEE] -mb-1 max-md:text-xs max-md:w-full text-ellipsis whitespace-nowrap break-all overflow-hidden w-full'>{item.user.introduction}</p>
+                <p className='w-[calc(100%-9.25rem)] title-20 text-[#647BEE] -mb-1 max-md:text-xs max-md:w-full text-ellipsis whitespace-nowrap break-all overflow-hidden'>{item.user.introduction}</p>
               </div>
             </div>
             <span className='rank-total body-36 w-[6.75rem] text-right max-md:text-sm max-md:font-semibold max-md:w-[3.875rem]'>
