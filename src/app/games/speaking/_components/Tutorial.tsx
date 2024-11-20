@@ -16,17 +16,17 @@ const Tutorial = ({ handleStart }: Delay) => {
           <span className='relative z-10 title-20 text-secondary-800'>GAME START</span>
         </button>
       </div>
-      <Carousel className='w-full hidden max-md:block'>
+      <Carousel className='w-full hidden max-md:block absolute top-0 left-0 h-screen z-50'>
         <CarouselContent>
           <CarouselItem>
-            <Card className='bg-[#2F2F2F] h-screen mb-tutorial-bg max-md:h-[calc(100vh-50px)]'>
+            <Card className='h-screen mb-tutorial-bg max-md:h-screen rounded-none'>
               <CardContent>
                 <div></div>
               </CardContent>
             </Card>
           </CarouselItem>
           <CarouselItem>
-            <Card className='relative bg-[#2F2F2F] h-screen mb-tutorial-bg ty2 max-md:h-[calc(100vh-50px)]'>
+            <Card className='relative h-screen mb-tutorial-bg ty2 rounded-none'>
               <CardContent>
                 <button
                   onClick={handleStart}
