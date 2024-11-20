@@ -24,7 +24,7 @@ const ModalWriting = ({ handleCloseModal }: Props) => {
         오답은 <span className='text-[#22AA8D]'>오답모아 페이지</span> 에서 다시 확인하실 수 있습니다.
       </p>
       <div className='flex justify-center items-start max-md:w-full max-md:px-4'>
-        <ul className='mt-[1.188rem] md:mt-8 w-[836px] h-[559px] overflow-auto max-md:w-full max-md:h-[620px]'>
+        <ul className='mt-[1.188rem] md:mt-8 w-[836px] h-[559px] overflow-auto max-md:w-full max-md:h-[620px] scrollbar-tertiary-g pr-[16px] mr-[-16px] max-md:pr-[9px] max-md:mr-[-11px]'>
           {result.map((result, index) => (
             <li
               key={result.test}
@@ -32,7 +32,7 @@ const ModalWriting = ({ handleCloseModal }: Props) => {
             >
               <div className='flex justify-between items-center h-[45px] md:h-[87px] px-8 py-4 rounded-[0.5rem] mb-2 bg-[#F6FDFC] max-md:px-3 max-md:py-2 max-md:h-auto'>
                 <div className='flex items-center max-md:flex-row max-md:items-center max-md:gap-2 max-md:h-[45px]'>
-                  <p className='text-[2rem] font-medium text-[#115546] md:text-[#363635] mr-[2.688rem] max-md:mr-0 max-md:text-[1.25rem]'>
+                  <p className='title-32 font-medium text-[#115546] md:text-[#363635] mr-[2.688rem] max-md:mr-0 max-md:text-[1.25rem]'>
                     {String(index + 1).padStart(2, '0')}번
                   </p>
                   <span className='h-[2.5rem] border-l-[3px] border-[#AAEEDF] mr-[1.188rem] max-md:mr-0 max-md:ml-0 max-md:hidden'></span>
