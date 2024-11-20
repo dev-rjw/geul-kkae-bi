@@ -5,7 +5,6 @@ import Question from './Question';
 import TextData from '@/mock/speak';
 import { convertAudioToPCM, sendToAudio } from '../utils/audio';
 import Image from 'next/image';
-import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
@@ -140,12 +139,12 @@ const Speak = () => {
               onClick={isRecording ? stopRecording : startRecording}
             >
               <Image
-                src={icon}
-                width={160}
-                height={160}
+                src={isGame ? '/icon_audio.svg' : isRecording ? '/icon_audio.gif' : '/icon_audio.svg'}
+                width={144}
+                height={144}
                 alt='Audio'
                 priority
-                className='max-md:w-[5.375rem] max-md:h-[5.375rem] '
+                className='max-md:w-[5.375rem] max-md:h-[5.375rem]'
               />
             </button>
             {isGame ? (
