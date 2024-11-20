@@ -55,7 +55,7 @@ const CheckingAnswer = () => {
           <div className='title-24 text-tertiary-p-600 flex items-center max-md:text-base'>
             완료한 문장은 체크해서 지워주세요!
           </div>
-          <div className='relative w-10 aspect-square ml-1 -mt-2 max-md:w-6'>
+          <div className='relative w-10 aspect-square -mt-[0.625rem] max-md:w-6'>
             <Image
               src='/icon_check_check.svg'
               alt='check'
@@ -66,8 +66,16 @@ const CheckingAnswer = () => {
         </div>
 
         {/* 콘텐츠 영역 */}
-        <div className='flex flex-col justify-between items-center h-full mt-7 px-4 max-md:h-full max-md:flex-row max-md:mt-[1.375rem]'>
-          {/* 카드 영역 */}
+        <div className='flex flex-col justify-between items-center h-full mt-7 px-4 max-md:h-full max-md:mt-[1.375rem]'>
+          {!checkingWrongAnswers || checkingWrongAnswers.length === 0 ? (
+            <div className='flex justify-center items-center h-[31.063rem] w-full'>
+              <p className='title-34 text-[#A07BE5] text-center transform translate-y-[5rem] md:translate-y-[8.75rem]'>
+                오답이 아직 모이지 않았어요!
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
           <div className='grid grid-cols-2 gap-4 w-full h-full max-w-[56.25rem] mx-auto max-md:grid-cols-1 max-md:gap-3'>
             {paginatedAnswers?.map((answer, index) => (
               <div

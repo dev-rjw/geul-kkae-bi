@@ -92,7 +92,7 @@ const WritingAnswer = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-[0.625rem] mx-auto col-span-full'>
             {!writingWrongAnswers || writingWrongAnswers.length === 0 ? (
               <div className='flex justify-center items-center h-[31.063rem] w-full col-span-full'>
-                <p className='title-34 text-[#22AA8D] text-center transform translate-y-[0.875rem]'>
+                <p className='title-34 text-[#22AA8D] text-center transform translate-y-[4.438rem] md:translate-y-[0.875rem]'>
                   오답이 아직 모이지 않았어요!
                 </p>
               </div>
