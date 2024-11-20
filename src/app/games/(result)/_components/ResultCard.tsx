@@ -15,7 +15,7 @@ import Modal from './Modal';
 
 const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultCardProps) => {
   const pathname = usePathname();
-  const nicknameValue = nickname ? nickname : '당신'
+  const nicknameValue = nickname ? nickname : '당신';
 
   return (
     <>
@@ -46,7 +46,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                 <div className='flex flex-col'>
                   <Button
                     className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
-                    onClick={kakaoTalkShare}
+                    onClick={() => kakaoTalkShare(justEndedGame!, GameScore!, nickname!)}
                   >
                     <div className='relative aspect-square w-7 rounded-full'>
                       <Image
