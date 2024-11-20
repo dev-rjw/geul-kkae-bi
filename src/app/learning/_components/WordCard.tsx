@@ -36,7 +36,7 @@ const WordCard = ({ item }: { item: ExtractWordListFromWord }) => {
                 <div className='title-20 text-primary-100 mb-4 max-md:text-base max-md:mb-2'>{today}</div>
                 <LineTitle
                   className='title-32 font-normal text-primary-100 max-md:text-[1.625rem]'
-                  lineClassName='bg-primary-500'
+                  lineClassName='bg-primary-500 -bottom-1 w-[calc(100%+10px)]'
                 >
                   <span><span className='text-primary-50'>오늘</span>의 <span className='text-primary-50'>학습</span>카드</span>
                 </LineTitle>
