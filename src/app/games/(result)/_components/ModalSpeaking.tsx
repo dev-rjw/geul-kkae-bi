@@ -17,16 +17,16 @@ const ModalSpeaking = ({ handleCloseModal }: Props) => {
   }, []);
 
   return (
-    <div className='w-[1002px] relative h-[792px] overflow-hidden rounded-[3.125rem] max-md:w-[358px] max-md:h-[768px] max-md:rounded-[1.25rem]'>
+    <div className='w-[1002px] relative h-[792px] overflow-hidden rounded-[3.125rem] max-md:w-[358px] max-md:h-[90vh] max-md:rounded-[1.25rem]'>
       <div className='bg-secondary-200 h-full max-md:px-5'>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center max-md:h-full'>
           <h2 className='mt-[3rem] title-40 text-secondary-700 max-md:title-24 max-md:mt-[2.125rem]'>
             <span className='text-secondary-600'>나야, 발음왕</span> 오답공개
           </h2>
           <p className='mt-3 body-24 max-md:caption-14 max-md:mt-0'>
             발음 문제는 <span className='text-secondary-600'>30% 이하</span> 점수만 오답으로 책정됩니다.
           </p>
-          <div className='mt-[2.5rem] h-[31.75rem] overflow-y-scroll scrollbar-secondary pr-4 mr-[-2rem] max-md:mt-[1.188rem] max-md:h-[38.5rem] max-md:pr-1 max-md:mr-[-0.5rem]'>
+          <div className='mt-[2.5rem] h-[31.75rem] overflow-y-scroll scrollbar-secondary pr-4 mr-[-2rem] max-md:mt-[1.188rem] max-md:h-full max-md:pr-1 max-md:mr-[-0.5rem] max-md:mb-[2.125rem]'>
             {result?.map((item, index) => {
               return (
                 <div

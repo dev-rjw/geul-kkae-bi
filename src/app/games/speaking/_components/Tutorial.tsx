@@ -7,7 +7,7 @@ type Delay = {
 
 const Tutorial = ({ handleStart }: Delay) => {
   return (
-    <div className='w-full mx-auto bg-[#252424]'>
+    <div className='w-full mx-auto'>
       <div className='hidden md:block h-screen tutorial-bg'>
         <button
           onClick={handleStart}
