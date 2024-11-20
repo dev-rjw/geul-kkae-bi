@@ -126,14 +126,14 @@ const Speak = () => {
           <Tutorial handleStart={handleStart} />
         </div>
       ) : (
-        <div className='flex flex-col items-center max-md:px-4'>
+        <div className='flex-cols max-md:px-4'>
           <Question
             text={text}
             randomText={randomText}
             getWrongAnswer={getWrongAnswer}
             wrongAnswer={wrongAnswer}
           />
-          <div className='flex flex-col items-center mt-20 text-center max-md:mt-[5.188rem]'>
+          <div className='flex-cols mt-20 text-center max-md:mt-[5.188rem]'>
             <button
               disabled={isGame}
               onClick={isRecording ? stopRecording : startRecording}
@@ -148,11 +148,11 @@ const Speak = () => {
               />
             </button>
             {isGame ? (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>게임이 종료 되었습니다</p>
+              <p className='audio-text max-md:text-[12px]'>게임이 종료 되었습니다</p>
             ) : isRecording ? (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>마이크 버튼을 눌러 종료하기</p>
+              <p className='audio-text max-md:text-[12px]'>마이크 버튼을 눌러 종료하기</p>
             ) : (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>마이크 버튼을 눌러 시작하기</p>
+              <p className='audio-text max-md:text-[12px]'>마이크 버튼을 눌러 시작하기</p>
             )}
           </div>
         </div>
