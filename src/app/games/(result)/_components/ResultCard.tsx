@@ -60,7 +60,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                     카카오톡으로 공유하기
                   </Button>
                   <LinkCopyButton
-                    url={`https://www.geul-kkae-bi.com/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nicknameValue}`}
+                    url={`https://geul-kkae-bi.com/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nicknameValue}`}
                   />
                 </div>
               </PopoverContent>
@@ -103,7 +103,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                   asChild
                   className='solid-button w-full'
                 >
-                  <Link href='https://www.geul-kkae-bi.com/'>나도 하러가기</Link>
+                  <Link href='https://geul-kkae-bi.com/'>나도 하러가기</Link>
                 </Button>
               </div>
             )}

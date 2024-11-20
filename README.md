@@ -4,7 +4,7 @@
 
 ## 🔗 배포 링크
 
-https://www.geul-kkae-bi.com/
+https://geul-kkae-bi.com/
 
 ---
 

@@ -326,7 +326,7 @@ const Header = () => {
                         카카오톡으로 공유하기
                       </Button>
                       <LinkCopyButton
-                        url={`https://www.geul-kkae-bi.com/share/url?key=${key}&score=${score}&nickname=${nickname}`}
+                        url={`https://geul-kkae-bi.com/share/url?key=${key}&score=${score}&nickname=${nickname}`}
                       />
                     </div>
                   </PopoverContent>

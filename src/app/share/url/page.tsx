@@ -81,7 +81,7 @@ const ShareUrlPage = ({ searchParams }: ShareUrlProps) => {
               asChild
               className='solid-button w-full max-w-[15rem]'
             >
-              <Link href='https://www.geul-kkae-bi.com/'>나도 하러가기</Link>
+              <Link href='https://geul-kkae-bi.com/'>나도 하러가기</Link>
             </Button>
           </div>
         </div>
