@@ -20,9 +20,13 @@ export const useHandleMenuClick = () => {
 
     if (!isLogined && isRestrictedLink) {
       Swal.fire({
-        html: `<div class="text-gray-600">글깨비의 다양한 기능은 <br/>로그인을 하시면 이용하실 수 있어요!</div>`,
+        html: `<div>
+          <div class='swal-img-wrap'><img class='swal-img character-sad-kkaebi' src='/character_sad_kkaebi.svg' /></div>
+          <div class='swal-title'>죄송해요!</div>
+          <div class="swal-text">글깨비의 다양한 기능은 <br/>로그인을 하시면 이용하실 수 있어요!</div>
+        </div>`,
         customClass: {
-          title: 'swal-custom-title',
+          popup: 'swal-custom-popup-large',
           htmlContainer: 'swal-custom-text',
           confirmButton: 'swal-custom-button',
           cancelButton: 'swal-custom-button',
