@@ -180,6 +180,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
                       height={30}
                       alt='다음'
                       className='max-md:hidden'
+                      priority
                     ></Image>
                   </button>
                 </div>

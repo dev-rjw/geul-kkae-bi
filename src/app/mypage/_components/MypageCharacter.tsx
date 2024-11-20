@@ -32,6 +32,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -43,6 +44,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -54,6 +56,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -65,6 +68,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -76,6 +80,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''

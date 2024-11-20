@@ -103,6 +103,7 @@ const RankingPage = async () => {
               alt='랭킹순위 옆 아이콘'
               fill
               sizes='2.75rem'
+              priority
             />
           </div>
           이번주 전체 랭킹 순위
@@ -116,6 +117,7 @@ const RankingPage = async () => {
             height={45}
             quality={85}
             alt='랭킹순위 옆 아이콘'
+            priority
           />
           <h2 className='title-36 text-primary-400 mt-1 -mb-2'>이번주 전체 랭킹 순위</h2>
         </div>

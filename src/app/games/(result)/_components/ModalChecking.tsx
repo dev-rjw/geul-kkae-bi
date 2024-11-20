@@ -120,7 +120,8 @@ const ModalChecking = ({ handleCloseModal }: Props) => {
           height={48}
           alt='모달 닫기'
           className='max-md:w-6 max-md:h-6'
-        />
+          priority
+        ></Image>
       </button>
     </div>
   );

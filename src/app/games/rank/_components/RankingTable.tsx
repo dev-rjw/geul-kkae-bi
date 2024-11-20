@@ -21,6 +21,7 @@ const RankingTable = ({ countRankingThisWeek }: { countRankingThisWeek: RankIncl
                     quality={85}
                     fill
                     style={{ objectFit: 'cover' }}
+                    priority
                   />
                 </div>
               </div>
@@ -53,6 +54,7 @@ const RankingTable = ({ countRankingThisWeek }: { countRankingThisWeek: RankIncl
                     quality={85}
                     fill
                     style={{ objectFit: 'cover' }}
+                    priority
                   />
                 </div>
               </div>
@@ -83,6 +85,7 @@ const RankingTable = ({ countRankingThisWeek }: { countRankingThisWeek: RankIncl
                     quality={85}
                     fill
                     style={{ objectFit: 'cover' }}
+                    priority
                   />
                 </div>
               </div>

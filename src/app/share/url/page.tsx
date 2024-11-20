@@ -59,6 +59,7 @@ const ShareUrlPage = ({ searchParams }: ShareUrlProps) => {
               alt='글깨비'
               fill
               sizes='16.375rem'
+              priority
             />
           </Link>
         </div>
@@ -80,7 +81,7 @@ const ShareUrlPage = ({ searchParams }: ShareUrlProps) => {
               asChild
               className='solid-button w-full max-w-[15rem]'
             >
-              <Link href='https://www.geul-kkae-bi.com/'>나도 하러가기</Link>
+              <Link href='https://geul-kkae-bi.com/'>나도 하러가기</Link>
             </Button>
           </div>
         </div>

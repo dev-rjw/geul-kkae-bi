@@ -77,6 +77,7 @@ const CheckingAnswer = () => {
               alt='check'
               fill
               sizes='2.5rem'
+              priority
             />
           </div>
         </div>

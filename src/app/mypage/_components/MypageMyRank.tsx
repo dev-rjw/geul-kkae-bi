@@ -90,6 +90,7 @@ const MypageMyRank = () => {
               height={38}
               src='/crown.png'
               alt='crown'
+              priority
             />
           </div>
           <Avatar

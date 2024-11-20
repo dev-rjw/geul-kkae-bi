@@ -58,6 +58,7 @@ const LearningPage = async () => {
               alt='학습 대제목 옆 아이콘'
               fill
               sizes='4.5rem'
+              priority
             />
           </div>
         </div>
