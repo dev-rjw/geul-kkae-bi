@@ -56,6 +56,7 @@ const ResultSide = ({ GameScore, justEndedGame }: GameInfo) => {
               fill
               sizes='100%'
               className='object-cover'
+              priority
             />
           </div>
         </div>

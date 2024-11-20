@@ -21,6 +21,7 @@ const GuideBanner = ({
                 alt='랭킹보러가기 아이콘'
                 fill
                 sizes='14rem'
+                priority
               />
             </div>
             <div className='flex flex-col items-center'>
@@ -54,6 +55,7 @@ const GuideBanner = ({
                 alt='랭킹보러가기 아이콘'
                 fill
                 sizes='14rem'
+                priority
               />
             </div>
           </Link>
@@ -74,6 +76,7 @@ const GuideBanner = ({
               alt='회원 게임플레이 안내 아이콘'
               fill
               sizes='14.375rem'
+              priority
             />
           </div>
         </div>

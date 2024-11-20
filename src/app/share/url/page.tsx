@@ -59,6 +59,7 @@ const ShareUrlPage = ({ searchParams }: ShareUrlProps) => {
               alt='글깨비'
               fill
               sizes='16.375rem'
+              priority
             />
           </Link>
         </div>

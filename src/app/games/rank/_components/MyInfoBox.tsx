@@ -29,6 +29,7 @@ const MyInfoBox = ({
               quality={85}
               fill
               style={{ objectFit: 'cover' }}
+              priority
             />
           </div>
           <div className='hidden max-md:flex text-sm font-bold justify-center text-primary-400 mt-3'>

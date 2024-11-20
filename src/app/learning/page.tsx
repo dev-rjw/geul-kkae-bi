@@ -58,12 +58,13 @@ const LearningPage = async () => {
               alt='학습 대제목 옆 아이콘'
               fill
               sizes='4.5rem'
+              priority
             />
           </div>
         </div>
         <div className='title-24 text-gray-600 max-md:title-14'>{today}</div>
       </div>
-      <div className="h-2 border-t-4 border-primary-100 bg-[#E9F1FE] mt-3 mb-7 max-md:-mx-4 max-md:mt-3 max-md:mb-5" />
+      <div className='h-2 border-t-4 border-primary-100 bg-[#E9F1FE] mt-3 mb-7 max-md:-mx-4 max-md:mt-3 max-md:mb-5' />
 
       <div className='word-card grid grid-cols-5 flex-wrap gap-x-[1.125rem] max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-y-7 max-md:gap-y-[1.375rem]'>
         {result.map((item, index) => (

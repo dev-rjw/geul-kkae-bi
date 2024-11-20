@@ -32,6 +32,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -43,6 +44,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -54,6 +56,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -65,6 +68,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -76,6 +80,7 @@ const MypageCharacter = () => {
           fill
           sizes='44.625rem'
           className='object-cover'
+          priority
         />
       ) : (
         ''
@@ -131,6 +136,7 @@ const MypageCharacter = () => {
                       width={96}
                       height={1}
                       className='mb-2'
+                      priority
                     />
                   </div>
                 )}
@@ -141,6 +147,7 @@ const MypageCharacter = () => {
                   width={stage.width}
                   height={stage.height}
                   className={`mb-2 ${index < 2 ? ' mt-[20px]' : ''}`}
+                  priority
                 />
               </div>
             ))}

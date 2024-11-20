@@ -237,6 +237,7 @@ const WritingQuizPage = () => {
                   width={48}
                   height={48}
                   style={{ width: 'auto', height: 'auto' }}
+                  priority
                 />
               )}
             </button>

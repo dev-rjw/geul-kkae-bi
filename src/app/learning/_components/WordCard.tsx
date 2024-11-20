@@ -38,7 +38,9 @@ const WordCard = ({ item }: { item: ExtractWordListFromWord }) => {
                   className='title-32 font-normal text-primary-100 max-md:text-[1.625rem]'
                   lineClassName='bg-primary-500'
                 >
-                  <span><span className='text-primary-50'>오늘</span>의 <span className='text-primary-50'>학습</span>카드</span>
+                  <span>
+                    <span className='text-primary-50'>오늘</span>의 <span className='text-primary-50'>학습</span>카드
+                  </span>
                 </LineTitle>
               </div>
               <div className='relative flex items-center w-[14.5rem] aspect-[232/224] -ml-3 max-md:w-[12.375rem] max-md:-z-[1] max-md:mx-auto max-md:-mb-14'>
@@ -47,13 +49,16 @@ const WordCard = ({ item }: { item: ExtractWordListFromWord }) => {
                   alt='학습 모달 아이콘'
                   fill
                   sizes='14.5rem'
+                  priority
                 />
               </div>
             </div>
 
             <div className='w-[23rem] bg-primary-100 rounded-[1.75rem] text-center px-[2.625rem] pt-11 pb-[2.375rem] shadow-[4px_4px_0_#1965D2] max-md:w-full max-md:px-9 max-md:pt-8 max-md:pb-[1.875rem]'>
               <div className='pb-7 text-center max-md:pb-[1.375rem]'>
-                <div className='text-5xl leading-tight font-yangjin text-primary-700 max-md:text-[2.5rem]'>{item.word}</div>
+                <div className='text-5xl leading-tight font-yangjin text-primary-700 max-md:text-[2.5rem]'>
+                  {item.word}
+                </div>
                 <div className='inline-block body-22 px-[1.125rem] text-primary-100 bg-primary-500 mt-4 rounded-full max-md:text-lg max-md:mt-3'>
                   {item.wordClass}
                 </div>
