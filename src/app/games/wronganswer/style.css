@@ -1,0 +1,46 @@
+.pagination-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.5rem;
+  height: 3.5rem;
+  background: url(/icon_speak_wrong_btn.svg);
+  background-size: cover;
+}
+.pagination-button.prev {
+  left: 1.188rem;
+  transform: translateY(-50%) rotate(180deg);
+}
+.pagination-button.next {
+  right: 1.188rem;
+}
+.pagination-button.next.disable {
+  transform: translateY(-50%) rotate(180deg);
+}
+.pagination-button.disable {
+  background-image: url(/icon_speak_wrong_btn_disable.svg);
+  transform: translateY(-50%) rotate(0);
+  pointer-events: none;
+}
+
+.check-label {
+  background: url(/icon_speak_check_disable.svg) no-repeat center;
+  background-size: cover;
+  border-style: none;
+}
+.input-box:checked + label {
+  background-image: url(/icon_speak_check.svg);
+}
+
+.scrollbar-speaking::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-speaking::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-200); /* 스크롤바 색상 */
+  border-radius: 12px; /* 스크롤바 둥근 테두리 */
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+.scrollbar-speaking::-webkit-scrollbar-track {
+  background: transparent; /* 스크롤바 뒷 배경 색상 */
+}

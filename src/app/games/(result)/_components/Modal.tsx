@@ -4,6 +4,7 @@ import ModalSpeaking from './ModalSpeaking';
 import { useState } from 'react';
 import ModalWriting from './ModalWriting';
 import ModalChecking from './ModalChecking';
+import { Button } from '@/components/ui/button';
 
 const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,13 @@ const Modal = () => {
   const handleCloseModal = () => setIsModalOpen(false);
   return (
     <div className='z-10 '>
-      <button onClick={handleOpenModal}>오답 확인</button>
+      <Button
+        onClick={handleOpenModal}
+        className='solid-light-button min-w-[6.75rem] max-md:w-full'
+      >
+        오답 확인
+      </Button>
+
       <ModalPortal
         open={isModalOpen}
         onClose={handleCloseModal}

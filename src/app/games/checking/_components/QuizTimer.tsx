@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import MobileTutorial from './MobileTutorial';
 
-const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile }) => {
+const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMobile, currentQuizIndex }) => {
   const [timeLeft, setTimeLeft] = useState(40);
   const [isTutorial, setIsTutorial] = useState(true);
 
@@ -61,6 +61,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMob
           className={`bg-tertiary-p-300 ${isMobile ? 'h-[14px]' : 'h-7'} transition-all ease-linear rounded-r-lg`}
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
+        {isMobile && <p className='self-center text-base font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>}
       </div>
     </div>
   );

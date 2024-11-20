@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { HeaderPcMenuData } from '@/types/header';
-import HeaderPcMenu from './HeaderPCMenuItem';
+import HeaderPCMenuItem from './HeaderPCMenuItem';
 
 const HEADER_PC_MENU_DATA: HeaderPcMenuData[] = [
   {
@@ -32,21 +32,7 @@ const HEADER_PC_MENU_DATA: HeaderPcMenuData[] = [
   {
     id: 3,
     title: '오답모아',
-    link: '/wronganswer/speaking',
-    children: [
-      {
-        title: '나야, 발음왕',
-        link: '/wronganswer/speaking',
-      },
-      {
-        title: '틀린 말 탐정단',
-        link: '/wronganswer/checking',
-      },
-      {
-        title: '빈칸 한 입',
-        link: '/wronganswer/writing',
-      },
-    ],
+    link: '/games/wronganswer',
   },
   {
     id: 4,
@@ -61,7 +47,7 @@ const HeaderPCMenu = () => {
   return (
     <ul className='heaber-pc-menu'>
       {HEADER_PC_MENU_DATA.map((item) => (
-        <HeaderPcMenu
+        <HeaderPCMenuItem
           key={item.id}
           item={item}
           hoveredMenu={hoveredMenu}

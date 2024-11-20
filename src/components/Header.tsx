@@ -79,7 +79,7 @@ const HEADER_DATA: { [key: string]: HeaderData } = {
     ...commonStyle,
     title: '학습카드',
   },
-  '/wronganswer': {
+  '/games/wronganswer': {
     ...commonStyle,
     title: '오답모아',
   },
@@ -127,8 +127,15 @@ const Header = () => {
   ];
   const infoPaths = ['/'];
   const homePaths = ['/games/rank'];
-  // const sharePaths = [''];
   const gamePaths = ['/games/speaking', '/games/checking', '/games/writing'];
+  const sharePaths = (pathname: string): boolean => {
+    if (pathname.includes('/games/user') || pathname.includes('/games/guest')) {
+      if (key === 'speaking') return true;
+      if (key === 'checking') return true;
+      if (key === 'writing') return true;
+    }
+    return false;
+  };
 
   // 페이지 이동 시 메뉴 닫기
   useEffect(() => {
@@ -171,7 +178,6 @@ const Header = () => {
     if (pathname.includes('/games/checking')) return 'heaber-moblie-title-checking';
     if (pathname.includes('/games/writing')) return 'heaber-moblie-title-writing';
 
-    // 기본값
     return '';
   };
   const getTitle = (pathname: string) => {
@@ -184,6 +190,7 @@ const Header = () => {
         return '빈칸 한 입';
       }
     }
+
     return header.title;
   };
   const gameClass = getGameClass(pathname);
@@ -277,7 +284,7 @@ const Header = () => {
                   </Link>
                 </Button>
               )}
-              {gameClass && (
+              {sharePaths(pathname) && (
                 <Popover>
                   <PopoverTrigger className='flex items-center justify-center w-[3.125rem] h-[3.125rem] bg-transparent text-gray-700 rounded-none hover:bg-transparent [&_svg]:size-6'>
                     <Share />
@@ -295,7 +302,7 @@ const Header = () => {
                     <div className='flex flex-col'>
                       <Button
                         className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
-                        onClick={kakaoTalkShare}
+                        onClick={() => kakaoTalkShare(key!, score!, nickname!)}
                       >
                         <div className='relative aspect-square w-7 rounded-full'>
                           <Image

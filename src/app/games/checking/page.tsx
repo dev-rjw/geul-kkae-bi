@@ -164,12 +164,13 @@ const CheckingQuizPage = () => {
         onTimeOver={handleTimeOver}
         isAllQuestions={isAllQuestions}
         isMobile={isMobile}
+        currentQuizIndex={currentQuizIndex}
       />
       <div className={`flex-1 flex flex-col items-center justify-center ${isMobile ? 'mt-10' : 'mt-20'}`}>
         <p
           className={`inline-flex items-center justify-center ${
             isMobile
-              ? 'px-4 py-2 bg-tertiary-p-300 text-base mt-[4.5rem]'
+              ? 'px-[1.875rem] py-[0.625rem] bg-tertiary-p-300 text-sm mt-8'
               : 'px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl'
           } font-medium rounded-full`}
         >
@@ -177,14 +178,14 @@ const CheckingQuizPage = () => {
         </p>
         <p
           className={`${
-            isMobile ? 'mt-6 mb-8 text-lg text-center text-[#363635]' : 'mt-[3.25rem] mb-20 text-2xl'
+            isMobile ? 'mt-6 mb-8 text-base text-center text-[#363635]' : 'mt-[3.25rem] mb-20 text-2xl'
           } font-medium font-yangjin text-[#363635]`}
         >
           문장에서 틀린 부분을 고르세요
         </p>
         <div
           className={`${
-            isMobile ? 'text-lg pb-10 leading-6' : 'text-4xl pb-[10.1875rem]'
+            isMobile ? 'text-xl leading-8 ' : 'text-4xl pb-[10.1875rem]'
           } font-medium text-[#363635] font-yangjin`}
         >
           <QuestionUnderLine
@@ -215,7 +216,7 @@ const CheckingQuizPage = () => {
               onClick={moveToNextQuiz}
               className={`${
                 isMobile
-                  ? 'w-[22.375rem] h-[3rem] bg-tertiary-p-300 text-[#271051] text-lg font-medium rounded-md'
+                  ? 'w-[22.375rem] h-[3rem] bg-tertiary-p-300  text-[#271051] text-base font-medium rounded-md'
                   : 'px-4 py-2'
               }`}
             >
@@ -237,11 +238,11 @@ const CheckingQuizPage = () => {
             onClick={() => moveToCheckingResultPage(scoreRef.current)}
             className={`${
               isMobile
-                ? 'w-[22.375rem] h-[3rem] text-base mt-4 font-medium bg-tertiary-p-300 px-4 py-2 rounded'
+                ? 'w-[22.375rem] h-[3rem] text-base mt-4 text-[#271051] font-medium bg-tertiary-p-300 px-4 py-2 rounded-md'
                 : 'text-2xl font-medium'
             }`}
           >
-            {isMobile ? '결과 보기' : '결과 보기'}
+            결과 보기
           </button>
         )}
       </div>

@@ -160,18 +160,20 @@ const WritingQuizPage = () => {
         isMobile={isMobile}
         currentQuizIndex={currentQuizIndex}
       />
-      <div className={`flex flex-col items-center ${isMobile ? 'mt-10' : 'mt-20'}`}>
+      <div className={`flex flex-col items-center justify-center ${isMobile ? 'mt-[4.5rem]' : 'mt-20'}`}>
         <p
-          className={`inline-flex items-center justify-center px-[1.875rem] py-2.5 text-2xl font-medium rounded-full ${
-            isMobile ? 'bg-tertiary-g-500 text-xl mt-[4.5rem]' : 'bg-tertiary-g-500'
-          }`}
+          className={`inline-flex items-center justify-center ${
+            isMobile
+              ? 'px-[1.875rem] py-[0.625rem] bg-tertiary-g-500 text-sm font-semibold'
+              : 'px-[1.875rem] py-2.5 bg-tertiary-g-500 text-2xl font-bold'
+          } rounded-full`}
         >
           {`${currentQuizIndex + 1}번문제`}
         </p>
         <p
           className={`${
             isMobile
-              ? 'mt-8 mb-6 text-xl px-6 text-center text-[#363635]'
+              ? 'mt-4 mb-6 text-xl font-medium px-6 text-center text-[#363635]'
               : 'mt-[4.25rem] mb-10 text-4xl text-[#363635]'
           } font-medium font-yangjin`}
         >
@@ -223,9 +225,7 @@ const WritingQuizPage = () => {
             <button
               onClick={moveToNextQuiz}
               className={`${
-                isMobile
-                  ? 'w-[22.375rem] h-[3rem] bg-[#55DDBF] text-[#115546] text-[1rem] font-normal rounded-md'
-                  : 'p-3'
+                isMobile ? 'w-[22.375rem] h-[3rem] bg-[#55DDBF] text-[#115546] text-base font-normal rounded-md' : 'p-3'
               }`}
             >
               {isMobile ? (
@@ -246,11 +246,11 @@ const WritingQuizPage = () => {
             onClick={() => moveToWritingResultPage(scoreRef.current)}
             className={`${
               isMobile
-                ? 'w-[22.375rem] h-[3rem] text-base mt-4 font-medium bg-tertiary-g-400 px-4 py-2 rounded'
+                ? 'w-[22.375rem] h-[3rem] text-base mt-4 font-normal bg-[#55DDBF] text-[#115546] px-4 py-2 rounded-md'
                 : 'text-2xl font-medium'
             }`}
           >
-            {isMobile ? '결과 보기' : '결과 보기'}
+            결과 보기
           </button>
         )}
       </div>

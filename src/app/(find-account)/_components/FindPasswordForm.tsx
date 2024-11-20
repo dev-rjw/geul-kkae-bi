@@ -44,7 +44,7 @@ const FindPasswordForm = () => {
 
       if (result instanceof Error) {
         Swal.fire({
-          html: `<div class="text-gray-700">해당 이메일로 비밀번호 <br/>변경링크를 보내드렸어요!</div>`,
+          html: `<div class="text-gray-700">해당 이메일로 비밀번호<br/>변경링크를 보내드렸어요!</div>`,
           customClass: {
             title: 'swal-custom-title',
             htmlContainer: 'swal-custom-text',
