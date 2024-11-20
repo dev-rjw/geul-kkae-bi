@@ -118,11 +118,8 @@ const Header = () => {
     '/games/speaking',
     '/games/checking',
     '/games/writing',
-    '/mypage',
     '/mypage/information',
     '/mypage/change-password',
-    '/games/rank',
-    '/learning',
     '/games/wronganswer',
   ];
   const backResultPaths = (pathname: string): boolean => {
