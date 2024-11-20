@@ -21,11 +21,11 @@ const ModalChecking = ({ handleCloseModal }: Props) => {
       <h2 className='mt-12 text-[2.5rem] font-medium max-md:font-medium max-md:text-2xl max-md:mt-8'>
         <span className='text-[#8150DD]'>틀린 말 탐정단</span> <span className='text-[#4F21A6]'>오답 공개</span>
       </h2>
-      <p className='mt-2 body-24 max-md:caption-14 max-md:mt-2'>
+      <p className='hidden max-md:block mt-2 body-24 max-md:caption-14 max-md:mt-0'>
         오답은 <span className='text-[#8150DD]'>오답모아 페이지</span> 에서 다시 확인하실 수 있습니다.
       </p>
       <div className='flex justify-center items-start max-md:flex-col max-md:items-center'>
-        <ul className='mt-12 w-[50.5rem] max-h-[34.938rem] overflow-auto max-md:w-[100%] max-md:max-h-[600px] max-md:mt-6'>
+        <ul className='mt-12 w-[50.5rem] max-h-[32.938rem] overflow-auto max-md:w-[100%] max-md:max-h-[600px] max-md:mt-6'>
           {result.map((result, index) => (
             <li
               key={result.test}

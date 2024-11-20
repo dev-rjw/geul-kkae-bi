@@ -20,7 +20,7 @@ const ModalWriting = ({ handleCloseModal }: Props) => {
       <h2 className='mt-12 title-40 max-md:mt-8 max-md:text-[1.5rem] max-md:font-medium'>
         <span className='text-[#22AA8D]'>빈칸 한 입</span> <span className='text-[#198069]'>오답 공개</span>
       </h2>
-      <p className='mt-2 body-24 max-md:caption-14 max-md:mt-0'>
+      <p className='hidden max-md:block mt-2 body-24 max-md:caption-14 max-md:mt-0'>
         오답은 <span className='text-[#22AA8D]'>오답모아 페이지</span> 에서 다시 확인하실 수 있습니다.
       </p>
       <div className='flex justify-center items-start max-md:w-full max-md:px-4'>
