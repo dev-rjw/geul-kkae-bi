@@ -130,6 +130,7 @@ const CheckingQuizPage = () => {
   const handleTimeOver = () => {
     if (!isTimeOver) {
       saveScore(scoreRef.current);
+      saveResultsToLocalStorage(allResults.current);
       setIsTimeOver(true);
       Swal.fire({
         html: `

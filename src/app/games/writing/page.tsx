@@ -132,6 +132,7 @@ const WritingQuizPage = () => {
   const handleTimeOver = () => {
     if (!isTimeOver) {
       saveScore(scoreRef.current);
+      saveResultsToLocalStorage(allResults.current);
       setIsTimeOver(true);
       Swal.fire({
         html: '<div>시간이 다 됐다 깨비!<br/>다음에 다시 도전하라 깨비</div>',
