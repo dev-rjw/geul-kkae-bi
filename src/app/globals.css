@@ -1055,6 +1055,18 @@ div:where(.swal2-container) div:where(.swal2-footer) {
     border-right: 12px solid transparent;
     margin-right: -14px;
   }
+  .scrollbar-secondary::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-secondary::-webkit-scrollbar-thumb {
+    background: #e78f09;
+    border-radius: 12px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .scrollbar-secondary::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
   body.swal2-shown {
     padding-right: 0 !important;

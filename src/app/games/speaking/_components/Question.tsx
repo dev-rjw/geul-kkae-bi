@@ -34,18 +34,27 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     addIndex,
     addTotalPercent,
     setIsGame,
+    resetTotlaPercent,
   } = useSpeakStore();
   const { time } = useTimeStore();
   const { mutate: insert } = useInsertMutation();
   const { mutate: update } = useUpdateMutation();
   const { mutate: insertResult } = useInsertResultMutation();
-  const finalPercent = Math.round(totlaPercent / 10);
   const { data: game } = useGetSpeekDataUser(data?.id, weekNumber);
+  const [finalPercent, setFinalPercent] = useState(0);
+
+  useEffect(() => {
+    return () => {
+      setFinalPercent(0);
+      resetTotlaPercent();
+    };
+  }, []);
 
   useEffect(() => {
     if (text && randomText[index]) {
       handleAccuracy(text, randomText[index]);
     }
+    setFinalPercent(Math.round(totlaPercent / 10));
   }, [text, randomText, index]);
 
   const handleAccuracy = (text: string | null, randomText: string) => {
@@ -75,9 +84,8 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
     if (data) {
       if (game && game.length > 0) {
         if (finalPercent > game[0].speaking || game[0].speaking === null) {
+          localStorage.setItem('update', finalPercent.toString());
           update({ score: finalPercent, userId: game[0].user_id, week: weekNumber });
-        } else {
-          localStorage.setItem('speaking', finalPercent.toString());
         }
       } else {
         insert({ userId: data.id, score: finalPercent, weekNumber: weekNumber });
@@ -98,7 +106,6 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
 
   const handleResult = useCallback(
     throttle(() => {
-      handleUpsertScore();
       if (percent <= 30)
         insertResult({
           userId: data?.id,
@@ -129,7 +136,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
       </div>
       {result || time === 0 ? (
         <>
-          <div className='bg-white font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
+          <div className='bg-white font-bold mt-8 w-[800px] h-[170px] flex-cols justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
             <p className='leading-normal text-[36px] text-gray-600 max-md:text-[16px]'>정확도 총점</p>
             <p className='leading-[1.35] text-[56px] text-primary-400 max-md:text-[32px]'>
               {finalPercent}
@@ -138,7 +145,8 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
           </div>
           <div className='absolute right-[30px] top-[40%] font-bold text-[1.5rem] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
             <Link
-              className='mt-[16px] flex flex-col items-center max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
+              onClick={handleUpsertScore}
+              className='mt-[16px] flex-cols max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
               href={`/games/${
                 data ? `user?key=speaking&score=${finalPercent}` : `guest?key=speaking&score=${finalPercent}`
               }`}
@@ -149,7 +157,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
         </>
       ) : (
         <>
-          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex flex-col items-center justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
+          <div className='bg-[#fff] font-bold mt-8 w-[800px] h-[170px] flex-cols justify-center rounded-[30px] max-md:w-full max-md:mt-[1.313rem] max-md:h-[100px]'>
             {!isLoading ? (
               <>
                 <div className='text-center'>
@@ -159,7 +167,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
                     <span className='text-[36px] max-md:text-[16px]'>%</span>
                   </p>
                 </div>
-                <div className='absolute right-[30px] flex flex-col items-center top-[40%] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
+                <div className='absolute right-[30px] flex-cols top-[40%] max-md:bottom-3.5 max-md:right-1/2 max-md:translate-x-1/2 max-md:top-[auto]'>
                   <p className='text-[1.5rem] max-md:hidden'>{index + 1}/10</p>
                   <button
                     className='mt-[16px] max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
@@ -179,11 +187,11 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
             ) : (
               <>
                 {isRecording ? (
-                  <p className='text-[36px] text-gray-600'>녹음 중입니다</p>
+                  <p className='text-[36px] text-gray-600 max-md:text-[16px]'>녹음 중입니다</p>
                 ) : (
-                  <p className='text-[36px] text-gray-600'>녹음이 완료되었습니다</p>
+                  <p className='text-[36px] text-gray-600 max-md:text-[16px]'>녹음이 완료되었습니다</p>
                 )}
-                <div className='absolute right-[30px]'>
+                <div className='absolute right-[30px] max-md:hidden'>
                   <p>{index + 1}/10</p>
                 </div>
               </>

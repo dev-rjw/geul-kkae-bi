@@ -1,3 +1,15 @@
+.flex-cols {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.audio-text {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
 .start-btn {
   border: 10px solid var(--color-secondary-100);
   background-color: var(--color-secondary-400);
@@ -30,13 +42,19 @@
 }
 
 .tutorial-bg {
-  background: url(/speak_tutorial.svg) no-repeat center;
+  background: url(/speak_tutorial.svg) no-repeat center center #2f2f2f;
   background-size: contain;
 }
 .mb-tutorial-bg {
-  background: url(/speak_mobile_tutorial1.svg) no-repeat center;
+  background: url(/speak_mobile_tutorial1.svg) no-repeat center center #2f2f2f;
   background-size: contain;
 }
 .mb-tutorial-bg.ty2 {
   background-image: url(/speak_mobile_tutorial2.svg);
+}
+
+@media (max-width: 768px) {
+  .audio-text {
+    font-size: 0.75rem;
+  }
 }
