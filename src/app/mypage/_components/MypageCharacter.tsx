@@ -126,7 +126,7 @@ const MypageCharacter = () => {
                 {index < 3 && (
                   <div className='absolute right-0 top-0 transform translate-x-10'>
                     <Image
-                      src={`/line.png`}
+                      src={`/Line.png`}
                       alt={`line`}
                       width={96}
                       height={1}
