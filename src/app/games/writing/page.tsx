@@ -165,10 +165,10 @@ const WritingQuizPage = () => {
           className={`inline-flex items-center justify-center ${
             isMobile
               ? 'px-[1.875rem] py-[0.625rem] bg-tertiary-g-500 text-sm font-semibold'
-              : 'px-[1.875rem] py-2.5 bg-tertiary-g-500 text-2xl font-bold'
+              : 'px-[1.875rem] py-2.5 bg-tertiary-g-500 body-24 font-bold'
           } rounded-full`}
         >
-          {`${currentQuizIndex + 1}번문제`}
+          {`${currentQuizIndex + 1}번 문제`}
         </p>
         <p
           className={`${

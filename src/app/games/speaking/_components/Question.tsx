@@ -128,8 +128,8 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
         data={data}
         finalPercent={finalPercent}
       />
-      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 text-[24px] flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
-        {index + 1}번문제
+      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 body-24 font-bold flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
+        {index + 1}번 문제
       </strong>
       <div className='bg-secondary-100 flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-[1.625rem] py-[2.875rem] text-secondary-700 rounded-[30px] max-md:w-full max-md:py-[1.625rem] max-md:rounded-[16px]'>
         <p className='text-[36px] font-bold max-md:text-[16px]'>{randomText[index]}</p>
@@ -173,12 +173,12 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
                     className='mt-[16px] max-md:w-[22.375Rem] max-md:bg-secondary-300 max-md:py-3 max-md:rounded-[8px]'
                     onClick={handleNextButton}
                   >
-                    <span className='md:hidden title-16 '>넘어가기</span>
+                    <span className='md:hidden title-16 '>다음</span>
                     <Image
                       src='/ico_speak_next_btn.svg'
                       width={30}
                       height={30}
-                      alt='넘어가기'
+                      alt='다음'
                       className='max-md:hidden'
                     ></Image>
                   </button>
@@ -189,7 +189,9 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
                 {isRecording ? (
                   <p className='text-[36px] text-gray-600 max-md:text-[16px]'>녹음 중입니다</p>
                 ) : (
-                  <p className='text-[36px] text-gray-600 max-md:text-[16px]'>녹음이 완료되었습니다</p>
+                  <p className='text-[36px] text-gray-600 max-md:text-[16px]'>
+                    녹음이 완료되었습니다<br></br> 정확도를 측정중입니다.
+                  </p>
                 )}
                 <div className='absolute right-[30px] max-md:hidden'>
                   <p>{index + 1}/10</p>
