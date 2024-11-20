@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import Avatar from './Avatar';
 import DefaultButton from './DefaultButton';
 import MyProfileInfo from './MyProfileInfo';
+import { useState } from 'react';
 
 const HeaderInfoChange = () => {
   const supabase = createClient();
@@ -20,6 +21,11 @@ const HeaderInfoChange = () => {
   const email = data?.user_metadata.email;
   const { data: user } = useUser(email);
   const { handleSignout } = useSignout();
+  const [open, setOpen] = useState(false);
+
+  const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+  };
 
   // auth 변화 감지
   supabase.auth.onAuthStateChange(() => {
@@ -39,7 +45,10 @@ const HeaderInfoChange = () => {
       {data ? (
         <>
           <div className='max-md:hidden'>
-            <Popover>
+            <Popover
+              open={open}
+              onOpenChange={handleOpenChange}
+            >
               <PopoverTrigger>
                 <div className='flex items-center gap-[0.625rem] max-md:hidden'>
                   <div className='text-right'>
@@ -61,12 +70,13 @@ const HeaderInfoChange = () => {
                 className='rounded-[1.25rem] border-0 p-0 overflow-hidden'
                 style={{ boxShadow: '0 0 4px rgba(0,0,0,0.25)' }}
               >
-                <MyProfileInfo />
+                <MyProfileInfo setOpen={setOpen} />
                 <div className='h-1 bg-gray-100 border-t border-gray-200' />
                 <div className='flex flex-col'>
                   <Link
                     className='flex items-center gap-2 px-4 py-2 hover:bg-secondary-50'
                     href='/mypage'
+                    onClick={() => setOpen(false)}
                   >
                     <div className='flex items-center justify-center w-7 h-7 rounded-full bg-primary-50'>
                       <UserRound className='!w-5 !h-5 text-primary-200' />
