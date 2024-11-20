@@ -539,6 +539,12 @@
     background-image: url(/character_speak.svg);
     background-size: cover;
   }
+  .progress-bar[style='--target-width:0%']::before {
+    transform: translate(calc(100% - 10px), -50%);
+  }
+  .progress-bar[style='--target-width:100%']::before {
+    transform: translate(calc(50% - 20px), -50%);
+  }
   .speak .progress-bar {
     background: linear-gradient(90deg, rgba(255, 217, 159, 1) 0%, rgba(255, 169, 37, 1) 100%);
   }
@@ -945,6 +951,7 @@ div:where(.swal2-container) div:where(.swal2-footer) {
     height: 3.75rem;
   }
   .solid-button-group {
+    gap: 1rem;
     margin-top: 1.25rem;
     padding: 1.25rem;
     background-color: #fff;
