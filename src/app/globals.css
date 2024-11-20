@@ -852,13 +852,16 @@
 
 div:where(.swal2-container) {
   width: 100vw;
-  height: 100vh !important;
+  padding: var(--gutter) !important;
 }
 .swal2-popup {
   width: 100%;
   max-width: 23.125rem;
   border-radius: 1.25rem;
   padding: 0 0 2.25rem;
+}
+.swal2-popup.swal-custom-popup-large {
+  max-width: 30.125rem;
 }
 div:where(.swal2-container) .swal2-html-container {
   padding: 2.25rem 0.75rem 0.75rem !important;
@@ -882,8 +885,30 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   margin: 1.25em 0 0 !important;
   padding: 0 2.25rem !important;
 }
+.swal-img-wrap {
+  margin-bottom: 0.875rem;
+}
+.swal-img {
+  margin: 0 auto;
+}
+.swal-title {
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 150%;
+  color: var(--color-primary-400);
+  font-family: var(--font-yangjin);
+  margin-bottom: 0.625rem;
+}
+.swal-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: var(--color-gray-600);
+}
 .swal-custom-button {
-  display: block;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 15rem;
   height: 3.25rem;
@@ -901,12 +926,13 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   background-color: var(--color-primary-600);
 }
 .swal-custom-button.swal2-cancel {
-  background-color: var(--color-warning-300);
+  color: var(--color-primary-500);
+  background-color: var(--color-primary-200);
 }
 .swal-custom-button.swal2-cancel:hover,
 .swal-custom-button.swal2-cancel:active {
-  color: var(--color-warning-200);
-  background-color: var(--color-warning-500);
+  color: var(--color-primary-600);
+  background-color: var(--color-primary-400);
 }
 
 @media (max-width: 768px) {
@@ -1028,5 +1054,43 @@ div:where(.swal2-container) div:where(.swal2-footer) {
     border-left: 12px solid currentColor;
     border-right: 12px solid transparent;
     margin-right: -14px;
+  }
+
+  body.swal2-shown {
+    padding-right: 0 !important;
+  }
+  div:where(.swal2-container) .swal2-html-container {
+    padding: 1.5rem 0.75rem 0.75rem !important;
+  }
+  .swal2-popup {
+    padding: 0 0 1.375rem;
+  }
+  div:where(.swal2-container) div:where(.swal2-actions) {
+    padding: 0 1.875rem !important;
+  }
+  .swal2-popup {
+    max-width: 18.75rem;
+  }
+  .swal-img-wrap {
+    margin-bottom: 0.875rem;
+  }
+  .swal-img.character-sad-kkaebi {
+    width: 5rem;
+  }
+  .swal-title {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+  }
+  .swal-text {
+    font-size: 1.125rem;
+  }
+  div:where(.swal2-container) .swal2-html-container.swal-custom-title,
+  div:where(.swal2-container) .swal2-html-container.swal-custom-text {
+    font-size: 1.125rem;
+  }
+  .swal-custom-button {
+    height: 3rem;
+    border-radius: 0.25rem;
+    padding: 0.625rem 0.25rem;
   }
 }

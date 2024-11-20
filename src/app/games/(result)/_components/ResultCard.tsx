@@ -15,6 +15,7 @@ import Modal from './Modal';
 
 const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultCardProps) => {
   const pathname = usePathname();
+  const nicknameValue = nickname ? nickname : '당신'
 
   return (
     <>
@@ -58,7 +59,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                     카카오톡으로 공유하기
                   </Button>
                   <LinkCopyButton
-                    url={`https://geul-kkae-bi.vercel.app/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nickname}`}
+                    url={`https://geul-kkae-bi.vercel.app/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nicknameValue}`}
                   />
                 </div>
               </PopoverContent>
@@ -67,8 +68,8 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
           <div className='w-full px-6 pt-[8.5rem] max-md:px-4 max-md:pt-[1.625rem] max-md:pb-[1.125rem]'>
             <div className='max-md:flex max-md:items-center max-md:justify-between'>
               <div className={`${matchedGame?.titleColor1} mb-11 max-md:mb-0 max-md:pl-3 max-md:text-left`}>
-                <span className='title-20 text-primary-500 max-md:text-sm'>{nickname}</span>
-                <span className='query body-16 max-md:text-xs'>{nickname === '당신' ? '의' : '님의'}</span>
+                <span className='title-20 text-primary-500 max-md:text-sm'>{nicknameValue}</span>
+                <span className='query body-16 max-md:text-xs'>{nicknameValue === '당신' ? '의' : '님의'}</span>
                 <div className='query title-32 mt-[0.125rem] max-md:text-xl'>국어 문해력은?</div>
               </div>
               <LineTitle
