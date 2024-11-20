@@ -78,7 +78,7 @@ const QuizTimer: React.FC<QuizTimerProps> = ({ onTimeOver, isAllQuestions, isMob
           className={`bg-tertiary-g-500 ${isMobile ? 'h-[14px]' : 'h-[28px]'} transition-all ease-linear rounded-r-lg`}
           style={{ width: `${(timeLeft / 40) * 100}%`, transitionDuration: '1s' }}
         ></div>
-        {isMobile && <p className='self-center text-base font-medium mb-2'>{`${currentQuizIndex + 1}/10`}</p>}
+        {isMobile && <p className='self-center font-yangjin text-base font-medium mx-[0.625rem] mt-2 mb-2'>{`${currentQuizIndex + 1}/10`}</p>}
       </div>
     </div>
   );
