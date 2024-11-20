@@ -13,10 +13,10 @@ const ConsonantCard = ({ consonants, isMobile }: { consonants: string; isMobile:
           <div
             key={index}
             className={`${
-              isMobile ? 'w-[80px] h-[80px] p-[8px]' : 'w-[100px] h-[100px] p-[10px]'
+              isMobile ? 'w-[64px] h-[64px] p-[10px]' : 'w-[100px] h-[100px] p-[10px]'
             } flex flex-col justify-center items-center bg-[#F9EFDD]`}
           >
-            <span className={`${isMobile ? 'text-xl' : 'text-2xl'} custom-char-style`}>{char}</span>
+            <span className={`${isMobile ? 'text-4xl pt-3' : 'text-[3.5rem] pt-3'}`}>{char}</span>
           </div>
         );
       })}
