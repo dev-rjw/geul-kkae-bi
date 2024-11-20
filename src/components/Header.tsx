@@ -214,7 +214,7 @@ const Header = () => {
         <div className='container'>
           <div className='flex items-center justify-between'>
             <div className='header-mobile-left'>
-              {backPaths.includes(pathname) || backResultPaths ? (
+              {backPaths.includes(pathname) || backResultPaths(pathname) ? (
                 <Button
                   size='icon'
                   className='w-[3.125rem] h-[3.125rem] bg-transparent text-[currentColor] rounded-none hover:bg-transparent [&_svg]:size-6'
