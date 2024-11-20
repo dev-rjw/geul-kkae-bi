@@ -16,7 +16,7 @@ const HeaderMobileMenuItem = ({ item }: HeaderMobileMenuProps) => {
   return (
     <li className='heaber-mobile-menu-item'>
       <span
-        className='heaber-mobile-menu-title'
+        className={`heaber-mobile-menu-title ${!link && 'pointer-events-none cursor-default'}`}
         onClick={() => handleMenuClick({ link, user, ranks })}
       >
         <div className='heaber-mobile-menu-icon'>{item.icon && <item.icon />}</div>
