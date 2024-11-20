@@ -56,12 +56,13 @@ const ResultSide = ({ GameScore, justEndedGame }: GameInfo) => {
               fill
               sizes='100%'
               className='object-cover'
+              priority
             />
           </div>
         </div>
         <div className='bg-white rounded-full p-2 mt-[3.063rem] max-md:mt-[2.375rem]'>
           <div
-            className='progress-bar'
+            className={`progress-bar progress-bar-${score}`}
             style={{ '--target-width': `${score}%` } as React.CSSProperties}
           >
             <div className='progress absolute top-1/2 right-0 translate-y-[-50%]'></div>

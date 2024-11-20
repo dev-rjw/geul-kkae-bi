@@ -8,7 +8,6 @@ const HEADER_PC_MENU_DATA: HeaderPcMenuData[] = [
   {
     id: 1,
     title: '깨비게임',
-    link: '/games/speaking',
     children: [
       {
         title: '나야, 발음왕',

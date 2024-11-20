@@ -19,7 +19,6 @@ const HEADER_MOBILE_MENU_DATA: HeaderMobileMenuData[] = [
     id: 2,
     icon: Gamepad2,
     title: '깨비게임',
-    link: '/games/speaking',
     children: [
       {
         title: '나야, 발음왕',

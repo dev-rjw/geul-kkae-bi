@@ -35,6 +35,7 @@ const MypageMyScore = () => {
                   alt='Cat icon'
                   fill
                   sizes='100%'
+                  priority
                 />
               </div>
               <div className='flex flex-col'>
@@ -55,6 +56,7 @@ const MypageMyScore = () => {
                   alt='Cat icon'
                   fill
                   sizes='100%'
+                  priority
                 />
               </div>
               <div className='flex flex-col'>
@@ -75,6 +77,7 @@ const MypageMyScore = () => {
                   alt='Cat icon'
                   fill
                   sizes='100%'
+                  priority
                 />
               </div>
               <div className='flex flex-col'>

@@ -46,7 +46,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                 <div className='flex flex-col'>
                   <Button
                     className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
-                    onClick={() => kakaoTalkShare(justEndedGame!, GameScore!, nickname!)}
+                    onClick={() => kakaoTalkShare(justEndedGame!, GameScore!, nicknameValue)}
                   >
                     <div className='relative aspect-square w-7 rounded-full'>
                       <Image
@@ -54,12 +54,13 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                         alt='카카오 아이콘'
                         fill
                         className='object-fill'
+                        priority
                       />
                     </div>
                     카카오톡으로 공유하기
                   </Button>
                   <LinkCopyButton
-                    url={`https://geul-kkae-bi.vercel.app/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nicknameValue}`}
+                    url={`https://geul-kkae-bi.com/share/url?key=${justEndedGame}&score=${GameScore}&nickname=${nicknameValue}`}
                   />
                 </div>
               </PopoverContent>
@@ -102,7 +103,7 @@ const ResultCard = ({ matchedGame, GameScore, justEndedGame, nickname }: ResultC
                   asChild
                   className='solid-button w-full'
                 >
-                  <Link href='https://geul-kkae-bi.vercel.app/'>나도 하러가기</Link>
+                  <Link href='https://geul-kkae-bi.com/'>나도 하러가기</Link>
                 </Button>
               </div>
             )}

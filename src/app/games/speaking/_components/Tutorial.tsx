@@ -7,7 +7,7 @@ type Delay = {
 
 const Tutorial = ({ handleStart }: Delay) => {
   return (
-    <div className='w-full mx-auto bg-[#252424]'>
+    <div className='w-full mx-auto'>
       <div className='hidden md:block h-screen tutorial-bg'>
         <button
           onClick={handleStart}
@@ -30,7 +30,7 @@ const Tutorial = ({ handleStart }: Delay) => {
               <CardContent>
                 <button
                   onClick={handleStart}
-                  className='start-btn absolute top-[3.687rem] left-1/2 translate-x-[-50%] w-[13.063rem] py-[15px] rounded-[80px] '
+                  className='start-btn absolute left-1/2 translate-x-[-50%] w-[13.063rem] py-[15px] rounded-[80px] bottom-[7.5rem]'
                 >
                   <span className='relative z-10 title-20 text-secondary-800'>GAME START</span>
                 </button>

@@ -4,7 +4,7 @@ import { useFetchCheckingWrongAnswer } from '@/queries/checking-fetchQuestions';
 import { useAuth } from '@/queries/useAuth';
 import { weekNumber } from '@/utils/week/weekNumber';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CheckingAnswer = () => {
   const { data: user } = useAuth();
@@ -12,9 +12,25 @@ const CheckingAnswer = () => {
   const { data: checkingWrongAnswers = [], isLoading, isError } = useFetchCheckingWrongAnswer(userId, weekNumber);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
   const itemsPerPage = 2;
 
-  const paginatedAnswers = checkingWrongAnswers?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // 초기 설정
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const paginatedAnswers = isMobile
+    ? checkingWrongAnswers
+    : checkingWrongAnswers?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
   const { mutate: deleteAnswers } = useDeleteCheckingAnswersMutation();
 
   const handlePrevious = () => {
@@ -49,30 +65,39 @@ const CheckingAnswer = () => {
   if (isError) return <p>에러...</p>;
 
   return (
-    <div className='bg-tertiary-p-200 w-full h-[44.938rem] relative rounded-[1.25rem] rounded-tl-none max-lg:rounded-b-none max-md:h-auto max-md:min-h-[calc(100vh-6.813rem)]'>
+    <div className='bg-tertiary-p-200 w-full h-[44.938rem] relative rounded-[1.25rem] rounded-tl-none max-lg:rounded-b-none max-md:min-h-[calc(100vh-6.813rem)]'>
       <div className='flex flex-col h-full text-center pt-8 pb-[2.125rem] max-md:pb-[6.25rem]'>
         <div className='flex items-center justify-center'>
           <div className='title-24 text-tertiary-p-600 flex items-center max-md:text-base'>
             완료한 문장은 체크해서 지워주세요!
           </div>
-          <div className='relative w-10 aspect-square ml-1 -mt-2 max-md:w-6'>
+          <div className='relative w-10 aspect-square -mt-[0.625rem] max-md:w-6'>
             <Image
               src='/icon_check_check.svg'
               alt='check'
               fill
               sizes='2.5rem'
+              priority
             />
           </div>
         </div>
 
         {/* 콘텐츠 영역 */}
-        <div className='flex flex-col justify-between items-center h-full mt-7 px-4 max-md:h-full max-md:flex-row max-md:mt-[1.375rem]'>
-          {/* 카드 영역 */}
-          <div className='grid grid-cols-2 gap-4 w-full h-full max-w-[56.25rem] mx-auto max-md:grid-cols-1 max-md:gap-3'>
+        <div className='flex flex-col justify-between items-center h-full mt-7 px-4 max-md:h-full max-md:mt-[1.375rem] '>
+          {!checkingWrongAnswers || checkingWrongAnswers.length === 0 ? (
+            <div className='flex justify-center items-center h-[31.063rem] w-full'>
+              <p className='title-34 text-[#A07BE5] text-center transform translate-y-[5rem] md:translate-y-[8.75rem]'>
+                오답이 아직 모이지 않았어요!
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className='grid grid-cols-2 gap-4 w-full h-full max-w-[56.25rem] mx-auto max-md:grid-cols-1 max-md:gap-3 max-md:h-[calc(90vh-12.063rem)] overflow-x-hidden'>
             {paginatedAnswers?.map((answer, index) => (
               <div
                 key={index}
-                className='relative card rounded-2xl bg-tertiary-p-50 p-5 flex flex-col max-md:p-4 max-md:h-auto'
+                className='relative card rounded-2xl bg-tertiary-p-50 p-5 flex flex-col max-md:p-4 max-md:h-[400px] overflow-y-auto md:overflow-y-visible'
               >
                 {/* 문제 및 선택지 */}
                 <div className='flex flex-col gap-4 pb-5 max-md:gap-[0.563rem]'>
@@ -186,7 +211,7 @@ const CheckingAnswer = () => {
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className='absolute top-1/2 left-[1.188rem] -translate-y-1/2 rounded-full flex items-center justify-center'
+            className='absolute top-1/2 left-[1.188rem] -translate-y-1/2 rounded-full items-center justify-center hidden md:block'
           >
             <img
               src={currentPage === 0 ? '/icon-btn_check_left.svg' : '/icon_btn_checking_left.svg'}
@@ -198,7 +223,7 @@ const CheckingAnswer = () => {
           <button
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= checkingWrongAnswers.length}
-            className='absolute top-1/2 right-[1.188rem] -translate-y-1/2 rounded-full flex items-center justify-center'
+            className='absolute top-1/2 right-[1.188rem] -translate-y-1/2 rounded-full items-center justify-center hidden md:block'
           >
             <img
               src={

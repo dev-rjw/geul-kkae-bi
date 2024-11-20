@@ -33,6 +33,7 @@ const GoogleSignButton = () => {
         height={24}
         alt='구글아이콘'
         className='absolute top-1/2 -translate-y-1/2 left-6'
+        priority
       />
       구글로 시작하기
     </DefaultButton>

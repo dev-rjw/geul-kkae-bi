@@ -144,14 +144,14 @@ const Speak = () => {
                 height={144}
                 alt='Audio'
                 priority
-                className='max-md:w-[5.375rem] max-md:h-[5.375rem]'
+                className={`${
+                  isRecording ? `w-[240px] h-[240px] max-md:w-[11rem] max-md:h-[11rem]` : ''
+                } max-md:w-[5.375rem] max-md:h-[5.375rem]`}
               />
             </button>
             {isGame ? (
               <p className='audio-text max-md:text-[12px]'>게임이 종료 되었습니다</p>
-            ) : isRecording ? (
-              <p className='audio-text max-md:text-[12px]'>마이크 버튼을 눌러 종료하기</p>
-            ) : (
+            ) : isRecording ? null : (
               <p className='audio-text max-md:text-[12px]'>마이크 버튼을 눌러 시작하기</p>
             )}
           </div>

@@ -18,14 +18,14 @@ const Modal = () => {
 
   const handleCloseModal = () => setIsModalOpen(false);
   return (
-    <div className='z-10 '>
+    <>
       <Button
         onClick={handleOpenModal}
         className='solid-light-button min-w-[6.75rem] max-md:w-full'
       >
         오답 확인
       </Button>
-
+      
       <ModalPortal
         open={isModalOpen}
         onClose={handleCloseModal}
@@ -34,7 +34,7 @@ const Modal = () => {
         {currentGameType === 'writing' && <ModalWriting handleCloseModal={handleCloseModal} />}
         {currentGameType === 'checking' && <ModalChecking handleCloseModal={handleCloseModal} />}
       </ModalPortal>
-    </div>
+    </>
   );
 };
 export default Modal;

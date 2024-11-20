@@ -47,6 +47,7 @@ const LinkCopyButton = ({ url }: { url: string }) => {
           alt='링크 아이콘'
           fill
           className='object-fill'
+          priority
         />
       </div>
       링크 복사하기
