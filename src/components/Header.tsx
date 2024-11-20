@@ -100,7 +100,7 @@ const Header = () => {
   const { data } = useAuth();
   const email = data?.user_metadata.email;
   const { data: user } = useUser(email);
-  const nickname = user?.nickname;
+  const nickname = user?.nickname ? user?.nickname : '당신';
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -123,8 +123,16 @@ const Header = () => {
     '/mypage/change-password',
     '/games/rank',
     '/learning',
-    '/answer',
+    '/games/wronganswer',
   ];
+  const backResultPaths = (pathname: string): boolean => {
+    if (pathname.includes('/games/user') || pathname.includes('/games/guest')) {
+      if (key === 'speaking') return true;
+      if (key === 'checking') return true;
+      if (key === 'writing') return true;
+    }
+    return false;
+  };
   const infoPaths = ['/'];
   const homePaths = ['/games/rank'];
   const gamePaths = ['/games/speaking', '/games/checking', '/games/writing'];
@@ -206,7 +214,7 @@ const Header = () => {
         <div className='container'>
           <div className='flex items-center justify-between'>
             <div className='header-mobile-left'>
-              {backPaths.includes(pathname) ? (
+              {backPaths.includes(pathname) || backResultPaths ? (
                 <Button
                   size='icon'
                   className='w-[3.125rem] h-[3.125rem] bg-transparent text-[currentColor] rounded-none hover:bg-transparent [&_svg]:size-6'
