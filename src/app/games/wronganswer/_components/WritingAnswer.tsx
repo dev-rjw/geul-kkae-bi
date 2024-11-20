@@ -79,7 +79,7 @@ const WritingAnswer = () => {
           <button
             onClick={handlePrevious}
             disabled={currentPage === 0}
-            className=' md:ml-5 hidden md:block'
+            className='z-10 absolute top-1/2 left-[1.188rem] transform -translate-y-1/2 hidden md:block'
           >
             <Image
               src={currentPage === 0 ? '/icon_btn_writ_left.svg' : '/icon_btn_writing_left.svg'}
@@ -89,7 +89,16 @@ const WritingAnswer = () => {
               priority
             />
           </button>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-[0.625rem] mx-auto'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-[0.625rem] mx-auto col-span-full'>
+            {!writingWrongAnswers || writingWrongAnswers.length === 0 ? (
+              <div className='flex justify-center items-center h-[31.063rem] w-full col-span-full'>
+                <p className='title-34 text-[#22AA8D] text-center transform translate-y-[0.875rem]'>
+                  오답이 아직 모이지 않았어요!
+                </p>
+              </div>
+            ) : (
+              <></>
+            )}
             {paginatedAnswers?.map((answer, index) => (
               <div
                 key={index}
@@ -151,7 +160,7 @@ const WritingAnswer = () => {
           <button
             onClick={handleNext}
             disabled={(currentPage + 1) * itemsPerPage >= writingWrongAnswers.length}
-            className=' md:mr-5 hidden md:block'
+            className=' z-10 absolute top-1/2 right-[1.188rem] transform -translate-y-1/2 hidden md:block'
           >
             <Image
               src={
