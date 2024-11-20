@@ -35,6 +35,11 @@ const SpeakAnswer = () => {
   const handleSelect = (question: string) => {
     setSelectedAnswer((prev) => (prev.includes(question) ? prev.filter((q) => q !== question) : [...prev, question]));
   };
+
+  const handleDelete = () => {
+    del({ answer: selecteAnswer, userId: user?.id });
+    setSelectedAnswer([]);
+  };
   return (
     <div className='bg-secondary-300 w-[67.5rem] h-[44.938rem] relative rounded-tr-[1.25rem] rounded-br-[1.25rem] rounded-bl-[1.25rem] max-md:w-full max-md:rounded-br-none max-md:rounded-bl-none max-md:h-[calc(100vh-6.813rem)]'>
       <div className='text-center mt-8 mb-[1.313rem] max-md:[1.75rem]'>
@@ -127,7 +132,7 @@ const SpeakAnswer = () => {
           ) : (
             <button
               className='w-[21.875rem] h-[3.25rem] bg-secondary-500 rounded-lg max-md:w-full'
-              onClick={() => del({ answer: selecteAnswer, userId: user?.id })}
+              onClick={handleDelete}
             >
               <p className='text-secondary-100 body-18'>
                 {selecteAnswer.length === 0 ? null : <span>{selecteAnswer.length}개 </span>}지우기
