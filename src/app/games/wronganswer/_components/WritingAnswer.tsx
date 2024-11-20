@@ -175,7 +175,7 @@ const WritingAnswer = () => {
             />
           </button>
         </div>
-        <div className='md:relative fixed bottom-0 w-full bg-[#7FE6CF] py-[1.688rem] px-5 flex justify-center items-center '>
+        <div className='md:absolute fixed bottom-0 w-full bg-[#7FE6CF] py-[2.188rem] px-5 flex justify-center items-center max-md:py-6'>
           <button
             onClick={handleDelete}
             disabled={selectedQuestions.length === 0}

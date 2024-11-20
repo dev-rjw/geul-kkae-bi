@@ -184,6 +184,30 @@
   .scrollbar-secondary::-webkit-scrollbar-track {
     background: transparent; /* 스크롤바 뒷 배경 색상 */
   }
+  .scrollbar-tertiary-p::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollbar-tertiary-p::-webkit-scrollbar-thumb {
+    background: var(--color-tertiary-p-400);
+    border-radius: 12px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .scrollbar-tertiary-p::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar-thumb {
+    background: var(--color-tertiary-g-600);
+    border-radius: 12px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 @layer components {
   .title-56 {
@@ -1073,6 +1097,12 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   }
   .scrollbar-secondary::-webkit-scrollbar-track {
     background: transparent;
+  }
+  .scrollbar-tertiary-p::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar {
+    width: 8px;
   }
 
   body.swal2-shown {
