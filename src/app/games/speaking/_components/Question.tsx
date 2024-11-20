@@ -128,7 +128,7 @@ const Question = ({ text, randomText, wrongAnswer, getWrongAnswer }: QuestionPro
         data={data}
         finalPercent={finalPercent}
       />
-      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 body-24 flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
+      <strong className='bg-secondary-300 mt-[5.25rem] rounded-[100px] px-[30px] py-2.5 body-24 font-bold flex items-center justify-center max-md:mt-[10.933vw] max-md:py-[0.344rem] max-md:text-[0.875rem]'>
         {index + 1}번 문제
       </strong>
       <div className='bg-secondary-100 flex items-center justify-center mt-12 w-[800px] max-w-[800px] min-h[200px] px-[1.625rem] py-[2.875rem] text-secondary-700 rounded-[30px] max-md:w-full max-md:py-[1.625rem] max-md:rounded-[16px]'>
