@@ -5,7 +5,6 @@ import Question from './Question';
 import TextData from '@/mock/speak';
 import { convertAudioToPCM, sendToAudio } from '../utils/audio';
 import Image from 'next/image';
-import icon from '../../../../../public/ico_audio.png';
 import { useTimeStore } from '@/store/timeStore';
 import Tutorial from './Tutorial';
 import { useSpeakStore } from '@/store/speakStore';
@@ -39,7 +38,6 @@ const Speak = () => {
   } = useSpeakStore();
   const { isDelay, resetTimer, setIsDelay } = useTimeStore();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [wrongAnswer, setWrongAnswer] = useState<Answer[]>([]);
 
   const ondataavailable = (event: { data: Blob }) => {
@@ -128,33 +126,33 @@ const Speak = () => {
           <Tutorial handleStart={handleStart} />
         </div>
       ) : (
-        <div className='flex flex-col items-center max-md:px-4'>
+        <div className='flex-cols max-md:px-4'>
           <Question
             text={text}
             randomText={randomText}
             getWrongAnswer={getWrongAnswer}
             wrongAnswer={wrongAnswer}
           />
-          <div className='flex flex-col items-center mt-20 text-center max-md:mt-[5.188rem]'>
+          <div className='flex-cols mt-20 text-center max-md:mt-[5.188rem]'>
             <button
               disabled={isGame}
               onClick={isRecording ? stopRecording : startRecording}
             >
               <Image
-                src={icon}
-                width={160}
-                height={160}
+                src={isGame ? '/icon_audio.svg' : isRecording ? '/icon_audio.gif' : '/icon_audio.svg'}
+                width={144}
+                height={144}
                 alt='Audio'
                 priority
-                className='max-md:w-[5.375rem] max-md:h-[5.375rem] '
+                className='max-md:w-[5.375rem] max-md:h-[5.375rem]'
               />
             </button>
             {isGame ? (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>게임이 종료 되었습니다</p>
+              <p className='audio-text max-md:text-[12px]'>게임이 종료 되었습니다</p>
             ) : isRecording ? (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>마이크 버튼을 눌러 종료하기</p>
+              <p className='audio-text max-md:text-[12px]'>마이크 버튼을 눌러 종료하기</p>
             ) : (
-              <p className='text-[1.5rem] leading-normal mt-5 max-md:text-[12px]'>마이크 버튼을 눌러 시작하기</p>
+              <p className='audio-text max-md:text-[12px]'>마이크 버튼을 눌러 시작하기</p>
             )}
           </div>
         </div>
