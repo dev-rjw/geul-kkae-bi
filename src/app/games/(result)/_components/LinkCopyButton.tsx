@@ -9,20 +9,29 @@ const LinkCopyButton = ({ url }: { url: string }) => {
     try {
       await navigator.clipboard.writeText(url);
       Swal.fire({
-        icon: 'success',
-        title: '링크 복사 완료',
-        text: '링크가 복사되었습니다. 친구와 공유해보세요!',
-        timer: 2000,
+        html: `<div class="text-primary-400">링크가 복사되었습니다.<br/>친구와 공유해보세요!</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
         showConfirmButton: false,
+        timer: 2000,
       });
     } catch (error) {
       console.error('링크 복사 실패:', error);
+
       Swal.fire({
-        icon: 'error',
-        title: '복사 실패',
-        text: '링크 복사에 실패했습니다. 다시 시도해주세요.',
-        timer: 2000,
+        html: `<div class="text-primary-400">링크 복사에 실패했습니다.<br/>다시 시도해주세요.</div>`,
+        customClass: {
+          title: 'swal-custom-title',
+          htmlContainer: 'swal-custom-text',
+          confirmButton: 'swal-custom-button',
+        },
+        confirmButtonText: '확인',
         showConfirmButton: false,
+        timer: 2000,
       });
     }
   };

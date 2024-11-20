@@ -11,7 +11,7 @@ const MypageMyScore = () => {
   const { data: rank } = useUserRank(user_id!, weekCalculate(0));
 
   return (
-    <div className='rounded-3xl w-full h-full bg-primary-50 max-md:min-w-[auto] max-md:rounded-[0.875rem]'>
+    <div className='rounded-3xl w-full h-full bg-primary-50 max-lg:h-auto max-md:min-w-[auto] max-md:rounded-[0.875rem]'>
       <div className='flex w-full h-full max-md:flex-col'>
         <div className='flex flex-col w-1/3 min-w-[10.375rem] rounded-3xl items-center justify-center p-4 bg-primary-100 max-md:w-full max-md:min-w-[auto] max-md:bg-transparent max-md:p-0'>
           <h2 className='title-24 text-primary-800 max-md:text-xl max-md:pt-4 max-md:pb-[0.875rem]'>게임별 점수</h2>

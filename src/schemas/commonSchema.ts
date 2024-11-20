@@ -6,7 +6,7 @@ export const translateErrorMessage = (error: string): string => {
     'Invalid login credentials': '로그인 정보가 올바르지 않습니다.',
     'Email already in use': '이미 사용 중인 이메일입니다.',
     'Password is too weak': '비밀번호가 너무 약합니다.',
-    'New password should be different from the old password.': '새로운 비밀번호는 이전 비밀번호와 달라야 합니다.',
+    'New password should be different from the old password.': '새로운 비밀번호는<br />이전 비밀번호와 달라야 합니다.',
   };
 
   return errorTranslations[error] || '알 수 없는 오류가 발생했습니다.';
