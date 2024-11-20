@@ -7,7 +7,7 @@ import SpeakAnswer from './_components/SpeakAnswer';
 import './style.css';
 
 const WrongAnswerPage = () => {
-  const [selectedTab, setSelectedTab] = useState('checking');
+  const [selectedTab, setSelectedTab] = useState('speaking');
   return (
     <div className='container py-10 max-lg:px-0 max-lg:pb-0 max-md:pt-4'>
       <div className='flex flex-col items-center'>

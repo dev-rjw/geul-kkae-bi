@@ -18,14 +18,14 @@ const ModalChecking = ({ handleCloseModal }: Props) => {
 
   return (
     <div className='bg-[#BFA5ED] w-[63rem] h-[48rem] rounded-[3.125rem] flex flex-col items-center max-md:w-[358px] max-md:h-[768px] max-md:rounded-[1.25rem]'>
-      <h2 className='mt-12 text-[2.5rem] font-medium max-md:font-medium max-md:text-2xl max-md:mt-8'>
+      <h2 className='mt-12 title-40 max-md:font-medium max-md:text-2xl max-md:mt-8'>
         <span className='text-[#8150DD]'>틀린 말 탐정단</span> <span className='text-[#4F21A6]'>오답 공개</span>
       </h2>
       <p className='hidden max-md:block mt-2 body-24 max-md:caption-14 max-md:mt-0'>
         오답은 <span className='text-[#8150DD]'>오답모아 페이지</span> 에서 다시 확인하실 수 있습니다.
       </p>
       <div className='flex justify-center items-start max-md:flex-col max-md:items-center'>
-        <ul className='mt-12 w-[50.5rem] max-h-[32.938rem] overflow-auto max-md:w-[100%] max-md:max-h-[600px] max-md:mt-6'>
+        <ul className='scrollbar-tertiary-p mt-12 w-[50.5rem] max-h-[32.938rem] overflow-auto max-md:w-[100%] max-md:max-h-[600px] max-md:mt-6 pr-[16px] mr-[-16px] max-md:pr-[16px] max-md:mr-[-11px]'>
           {result.map((result, index) => (
             <li
               key={result.test}
@@ -33,7 +33,7 @@ const ModalChecking = ({ handleCloseModal }: Props) => {
             >
               <div className='flex justify-between items-center h-[5.438rem] px-8 rounded-[0.5rem] bg-[#EFE9FB] max-md:h-[2.813rem] max-md:w-[318px] max-md:px-4 max-md:py-1'>
                 <div className='flex items-center max-md:gap-2'>
-                  <p className='text-[2rem] font-medium text-[#4F21A6] mr-[2.188rem] max-md:text-xl max-md:mr-2'>
+                  <p className='title-32 font-medium text-[#4F21A6] mr-[2.188rem] max-md:text-xl max-md:mr-2'>
                     {String(index + 1).padStart(2, '0')}번
                   </p>
                   <span className='h-[2.5rem] border-l-[3px] border-[#bfa5ed] mr-[1.438rem] max-md:hidden'></span>
