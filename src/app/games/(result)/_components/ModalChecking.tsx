@@ -35,7 +35,7 @@ const ModalChecking = ({ handleCloseModal }: Props) => {
                     {String(index + 1).padStart(2, '0')}번
                   </p>
                   <span className='h-[2.5rem] border-l-[3px] border-[#bfa5ed] mr-[1.438rem]'></span>
-                  <p className='text-3xl font-bold text-[#504F4E]'>{result.test.slice(0, 6)}</p>
+                  <p className='text-3xl font-bold text-[#504F4E]'>{result.userAnswer}</p>
                   {result.isCorrect ? (
                     <img
                       src='/icon_correctanswer_modal.svg'
