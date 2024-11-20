@@ -28,7 +28,7 @@ const RankingTable = ({ countRankingThisWeek }: { countRankingThisWeek: RankIncl
                 <div className='rank-nickname title-24 w-[11.25rem] max-md:text-base max-md:w-full'>
                   {item.user.nickname}
                 </div>
-                <p className='flex-1 title-24 text-white/60 -mb-1 max-md:text-xs text-ellipsis whitespace-nowrap break-all overflow-hidden'>
+                <p className='flex-1 title-24 text-white/60 -mb-1 max-md:text-xs max-md:w-full text-ellipsis whitespace-nowrap break-all overflow-hidden'>
                   {item.user.introduction}
                 </p>
               </div>
@@ -60,7 +60,7 @@ const RankingTable = ({ countRankingThisWeek }: { countRankingThisWeek: RankIncl
                 <div className='rank-nickname title-20 w-[8.875rem] max-md:text-sm max-md:w-full'>
                   {item.user.nickname}
                 </div>
-                <p className='grow title-20 text-[#647BEE] -mb-1 max-md:text-xs text-ellipsis whitespace-nowrap break-all overflow-hidden w-full'>{item.user.introduction}</p>
+                <p className='grow title-20 text-[#647BEE] -mb-1 max-md:text-xs max-md:w-full text-ellipsis whitespace-nowrap break-all overflow-hidden w-full'>{item.user.introduction}</p>
               </div>
             </div>
             <span className='rank-total body-36 w-[6.75rem] text-right max-md:text-sm max-md:font-semibold max-md:w-[3.875rem]'>
