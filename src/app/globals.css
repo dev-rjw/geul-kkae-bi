@@ -539,10 +539,10 @@
     background-image: url(/character_speak.svg);
     background-size: cover;
   }
-  .progress-bar[style='--target-width:0%']::before {
+  .progress-bar[style*='--target-width:0%']::before {
     transform: translate(calc(100% - 10px), -50%);
   }
-  .progress-bar[style='--target-width:100%']::before {
+  .progress-bar[style*='--target-width:100%']::before {
     transform: translate(calc(50% - 20px), -50%);
   }
   .speak .progress-bar {

@@ -4,7 +4,7 @@
 
 ## 🔗 배포 링크
 
-https://geul-kkae-bi.vercel.app/
+https://www.geul-kkae-bi.com/
 
 ---
 
