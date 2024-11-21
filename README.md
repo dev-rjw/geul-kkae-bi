@@ -28,7 +28,7 @@ https://geul-kkae-bi.com/
 |   류지원   |      조아영      |        송진우         |      이보영      |     임기철     |    권현정    |    조애리    |
 | :--------: | :--------------: | :-------------------: | :--------------: | :------------: | :----------: | :----------: |
 |  **리더**  |    **부리더**    |       **팀원**        |     **팀원**     |    **팀원**    | **디자이너** | **디자이너** |
-| 메인페이지 | 회원가입, 로그인 | 게임(wrting,checking) | 결과, 랭킹페이지 | 게임(speaking) |    디자인    |    디자인    |
+| 메인페이지 | 회원가입,<br/>로그인 | 게임(wrting,<br/>checking) | 결과,<br/>랭킹페이지 | 게임(speaking) |    디자인    |    디자인    |
 
 ---
 
@@ -73,24 +73,21 @@ https://geul-kkae-bi.com/
  ┣ 📂public
  ┣ 📂src
  ┃ ┣ 📂app
- ┃ ┃ ┣ 📂(find)
+ ┃ ┃ ┣ 📂(find-account)
  ┃ ┃ ┃ ┣ 📂change-password
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📂find-password
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┗ 📂_components
  ┃ ┃ ┃ ┃ ┣ 📜ChangePasswordForm.tsx
  ┃ ┃ ┃ ┃ ┗ 📜FindPasswordForm.tsx
- ┃ ┃ ┃ ┗ 📜layout.tsx
  ┃ ┃ ┣ 📂(sign)
  ┃ ┃ ┃ ┣ 📂signin
- ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📂signup
- ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📂utils
- ┃ ┃ ┃ ┃ ┗ 📜randomNickname.ts
+ ┃ ┃ ┃ ┃ ┗ 📜sign.ts
  ┃ ┃ ┃ ┣ 📂_components
  ┃ ┃ ┃ ┃ ┣ 📜GoogleSignButton.tsx
  ┃ ┃ ┃ ┃ ┣ 📜KakaoSignButtton.tsx
@@ -98,29 +95,46 @@ https://geul-kkae-bi.com/
  ┃ ┃ ┃ ┃ ┗ 📜SignupForm.tsx
  ┃ ┃ ┃ ┗ 📜style.css
  ┃ ┃ ┣ 📂auth
- ┃ ┃ ┃ ┗ 📂callback
+ ┃ ┃ ┃ ┣ 📂callback
  ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┗ 📂callback-client
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┃ ┣ 📜PretendardVariable.woff2
+ ┃ ┃ ┃ ┗ 📜yangjin.woff2
  ┃ ┃ ┣ 📂games
  ┃ ┃ ┃ ┣ 📂(result)
  ┃ ┃ ┃ ┃ ┣ 📂guest
- ┃ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┃ ┣ 📂user
- ┃ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┃ ┃ ┣ 📂_components
- ┃ ┃ ┃ ┃ ┃ ┣ 📜GuestPage.tsx
- ┃ ┃ ┃ ┃ ┃ ┗ 📜ResultSide.tsx
- ┃ ┃ ┃ ┃ ┗ 📜style.css
+ ┃ ┃ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜highlightScoreForMatchedGame.ts
+ ┃ ┃ ┃ ┃ ┗ 📂_components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Guest.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GuideBanner.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜kakaoTalkShare.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LinkCopyButton.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Modal.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ModalChecking.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ModalSpeaking.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ModalWriting.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResultCard.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResultSide.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜StatusCard.tsx
  ┃ ┃ ┃ ┣ 📂checking
  ┃ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CheckingButton.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜MobileTutorial.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuestionUnderLine.tsx
  ┃ ┃ ┃ ┃ ┃ ┗ 📜QuizTimer.tsx
- ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┃ ┣ 📜page.tsx
  ┃ ┃ ┃ ┃ ┗ 📜style.css
  ┃ ┃ ┃ ┣ 📂rank
- ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜MyInfoBox.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜PercentGraph.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜RankingTable.tsx
  ┃ ┃ ┃ ┃ ┣ 📜page.tsx
  ┃ ┃ ┃ ┃ ┗ 📜style.css
  ┃ ┃ ┃ ┣ 📂speaking
@@ -133,73 +147,153 @@ https://geul-kkae-bi.com/
  ┃ ┃ ┃ ┃ ┃ ┗ 📜Tutorial.tsx
  ┃ ┃ ┃ ┃ ┣ 📜page.tsx
  ┃ ┃ ┃ ┃ ┗ 📜style.css
- ┃ ┃ ┃ ┗ 📂writing
+ ┃ ┃ ┃ ┣ 📂writing
+ ┃ ┃ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜TimerWorker.js
  ┃ ┃ ┃ ┃ ┣ 📂_components
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ConsonantCard.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜MobileTutorial.tsx
  ┃ ┃ ┃ ┃ ┃ ┗ 📜QuizTimer.tsx
- ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┃ ┣ 📜page.tsx
  ┃ ┃ ┃ ┃ ┗ 📜style.css
+ ┃ ┃ ┃ ┗ 📂wronganswer
+ ┃ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CheckingAnswer.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Pagination.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SpeakAnswer.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜WritingAnswer.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜style.css
+ ┃ ┃ ┣ 📂learning
+ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┗ 📜WordCard.tsx
+ ┃ ┃ ┃ ┣ 📜page.tsx
+ ┃ ┃ ┃ ┗ 📜style.css
  ┃ ┃ ┣ 📂mypage
  ┃ ┃ ┃ ┣ 📂change-password
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📂information
  ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┣ 📜ChangeProfile.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜MypageCharacter.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜MypageMyRank.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜MypageMyScore.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜MypageProfile.tsx
  ┃ ┃ ┃ ┃ ┗ 📜Tabs.tsx
- ┃ ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂share
+ ┃ ┃ ┃ ┗ 📂url
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┣ 📜GameCard.tsx
  ┃ ┃ ┃ ┣ 📜GameCards.tsx
  ┃ ┃ ┃ ┣ 📜MainCarousel.tsx
- ┃ ┃ ┃ ┗ 📜MainRank.tsx
+ ┃ ┃ ┃ ┣ 📜MainGreeting.tsx
+ ┃ ┃ ┃ ┣ 📜MainRank.tsx
+ ┃ ┃ ┃ ┗ 📜MainRankViewAllButton.tsx
  ┃ ┃ ┣ 📜favicon.ico
  ┃ ┃ ┣ 📜globals.css
+ ┃ ┃ ┣ 📜KakaoScript.tsx
  ┃ ┃ ┣ 📜layout.tsx
  ┃ ┃ ┣ 📜loading.tsx
  ┃ ┃ ┣ 📜not-found.tsx
  ┃ ┃ ┗ 📜page.tsx
  ┃ ┣ 📂components
  ┃ ┃ ┣ 📂ui
+ ┃ ┃ ┃ ┣ 📜badge.tsx
+ ┃ ┃ ┃ ┣ 📜button.tsx
+ ┃ ┃ ┃ ┣ 📜card.tsx
+ ┃ ┃ ┃ ┣ 📜carousel.tsx
+ ┃ ┃ ┃ ┣ 📜checkbox.tsx
+ ┃ ┃ ┃ ┣ 📜dialog.tsx
+ ┃ ┃ ┃ ┣ 📜form.tsx
+ ┃ ┃ ┃ ┣ 📜input.tsx
+ ┃ ┃ ┃ ┣ 📜label.tsx
+ ┃ ┃ ┃ ┣ 📜popover.tsx
+ ┃ ┃ ┃ ┣ 📜progress.tsx
+ ┃ ┃ ┃ ┗ 📜select.tsx
+ ┃ ┃ ┣ 📜Avatar.tsx
  ┃ ┃ ┣ 📜DefaultButton.tsx
  ┃ ┃ ┣ 📜DefaultInput.tsx
  ┃ ┃ ┣ 📜EmailInput.tsx
  ┃ ┃ ┣ 📜Footer.tsx
  ┃ ┃ ┣ 📜Header.tsx
  ┃ ┃ ┣ 📜HeaderInfoChange.tsx
+ ┃ ┃ ┣ 📜HeaderMobileMenu.tsx
+ ┃ ┃ ┣ 📜HeaderMobileMenuItem.tsx
+ ┃ ┃ ┣ 📜HeaderPCMenu.tsx
+ ┃ ┃ ┣ 📜HeaderPCMenuItem.tsx
  ┃ ┃ ┣ 📜IconChevronRight.tsx
  ┃ ┃ ┣ 📜IconStar.tsx
- ┃ ┃ ┣ 📜Layout.tsx
- ┃ ┃ ┣ 📜NoLayout.tsx
+ ┃ ┃ ┣ 📜LineTitle.tsx
+ ┃ ┃ ┣ 📜ModalPortal.tsx
+ ┃ ┃ ┣ 📜MyProfileInfo.tsx
  ┃ ┃ ┣ 📜PasswordInput.tsx
  ┃ ┃ ┣ 📜PasswordValidationInput.tsx
  ┃ ┃ ┗ 📜Providers.tsx
  ┃ ┣ 📂lib
+ ┃ ┃ ┣ 📜GoogleAnalytics.tsx
  ┃ ┃ ┗ 📜utils.ts
  ┃ ┣ 📂mock
+ ┃ ┃ ┣ 📜learning.ts
  ┃ ┃ ┗ 📜speak.ts
  ┃ ┣ 📂mutations
- ┃ ┃ ┗ 📜speek-mutation.ts
+ ┃ ┃ ┣ 📜checking-mutation.ts
+ ┃ ┃ ┣ 📜speek-mutation.ts
+ ┃ ┃ ┗ 📜writing-mutation.ts
  ┃ ┣ 📂queries
+ ┃ ┃ ┣ 📜checking-fetchQuestions.ts
  ┃ ┃ ┣ 📜useAuth.ts
- ┃ ┃ ┗ 📜useGetSpeekQuery.ts
+ ┃ ┃ ┣ 📜useGetRank.ts
+ ┃ ┃ ┣ 📜useGetSpeekQuery.ts
+ ┃ ┃ ┣ 📜useGetWrongAnswer.ts
+ ┃ ┃ ┣ 📜useRank.ts
+ ┃ ┃ ┣ 📜useUser.ts
+ ┃ ┃ ┗ 📜writing-fetchQuestions.ts
  ┃ ┣ 📂schemas
+ ┃ ┃ ┣ 📜changeProfileSchema.ts
  ┃ ┃ ┣ 📜commonSchema.ts
  ┃ ┃ ┣ 📜findSchema.ts
  ┃ ┃ ┗ 📜signSchema.ts
  ┃ ┣ 📂store
- ┃ ┃ ┣ 📜speekStore.ts
+ ┃ ┃ ┣ 📜speakStore.ts
  ┃ ┃ ┗ 📜timeStore.ts
  ┃ ┣ 📂types
- ┃ ┃ ┗ 📜result.ts
+ ┃ ┃ ┣ 📜checking.ts
+ ┃ ┃ ┣ 📜header.ts
+ ┃ ┃ ┣ 📜learning.ts
+ ┃ ┃ ┣ 📜main.ts
+ ┃ ┃ ┣ 📜mypage.ts
+ ┃ ┃ ┣ 📜rank.ts
+ ┃ ┃ ┣ 📜result.ts
+ ┃ ┃ ┣ 📜share.ts
+ ┃ ┃ ┣ 📜speeking.ts
+ ┃ ┃ ┣ 📜user.ts
+ ┃ ┃ ┗ 📜writing.ts
  ┃ ┣ 📂utils
  ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┣ 📜client-action.ts
+ ┃ ┃ ┃ ┗ 📜server-action.ts
+ ┃ ┃ ┣ 📂header
+ ┃ ┃ ┃ ┗ 📜handleMenuClick.ts
+ ┃ ┃ ┣ 📂mediaquery
+ ┃ ┃ ┃ ┗ 📜useMediaQuery.ts
  ┃ ┃ ┣ 📂rank
+ ┃ ┃ ┃ ┣ 📜client-action.ts
+ ┃ ┃ ┃ ┗ 📜server-action.ts
+ ┃ ┃ ┣ 📂sign
+ ┃ ┃ ┃ ┗ 📜signout.ts
  ┃ ┃ ┣ 📂supabase
+ ┃ ┃ ┃ ┣ 📜admin.ts
  ┃ ┃ ┃ ┣ 📜client.ts
  ┃ ┃ ┃ ┣ 📜middleware.ts
  ┃ ┃ ┃ ┗ 📜server.ts
  ┃ ┃ ┣ 📂user
+ ┃ ┃ ┃ ┣ 📜client-action.ts
+ ┃ ┃ ┃ ┗ 📜server-action.ts
+ ┃ ┃ ┣ 📂week
+ ┃ ┃ ┃ ┗ 📜weekNumber.ts
  ┃ ┃ ┗ 📜QueryProvider.tsx
  ┃ ┗ 📜middleware.ts
  ┣ 📜.env.local
@@ -222,7 +316,7 @@ https://geul-kkae-bi.com/
 
 ## 📋 Supabase ERD 설계도
 
-![Supabase ERD 설계도](https://github.com/user-attachments/assets/80b1cffc-b7ff-4dfe-a7dd-10ece2a49128)
+![Supabase ERD 설계도](https://github.com/user-attachments/assets/d6b8d1c8-a679-436f-90e9-93de618f5145)
 
 ---
 
@@ -664,11 +758,9 @@ useEffect(() => {
 
 ---
 
-## ⏳ 고도화 작업 계획
-
-- 반응형 구현
-- 메신저 연동을 통한 공유 기능 추가
-- 특정 목표 달성 시 사용자에게 뱃지 부여 기능
-- 랭크 데이터 정확히 출력 검토
-- 학습 페이지 및 틀린 문제 보여주는 페이지 추가
-- 타이머 정확한 시간 흐름 개선
+## ⏳ 기대효과 및 향후 목표
+- 사용자가 자신의 문해력 수준을 자연스럽게 인식할 수 있도록 지원
+- 재미 요소를 접목해 학습의 지루함을 줄이고 꾸준하고 지속적인 학습을 유도
+- 일상생활에서 자주 헷갈릴 수 있는 문제들을 풀면서 문해력에 대한 자신감을 키우고, 이를 통해 긍정적인 학습 경험을 제공
+- 랭킹 시스템을 통해 다른 사용자와 경쟁하고 상호작용하며 동질감과 연결감을 형성
+- 학습과 게임을 결합하여 게임에 대한 죄책감을 상쇄시키고, 학습의 만족감을 동시에 제공
