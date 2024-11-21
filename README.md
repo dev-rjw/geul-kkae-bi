@@ -325,6 +325,7 @@ https://geul-kkae-bi.com/
 
 ### 메인
 - 게임 시작 및 랭킹을 볼 수 있는 페이지 입니다.
+
 ![메인](https://github.com/user-attachments/assets/eb83d28f-8e22-4d42-ba7e-59f501d32744)
 
 각 게임 별로 hover시 진하게 나타나도록 추가하였습니다.
@@ -347,6 +348,7 @@ https://geul-kkae-bi.com/
 - 유효성 검사를 거쳐 정확한 정보만 등록합니다.
 - 소셜 회원은 자동으로 랜덤 닉네임이 배정됩니다.
 - 비회원이 게임을 진행한 후 가입하면, 이전에 획득한 게임 점수가 유지됩니다.
+
 ![회원가입](https://github.com/user-attachments/assets/090cbf81-ffe6-4f80-9e3e-01de9e0ddba7)
 
 비회원이 게임을 진행하면 종합 랭크에는 기록되지 않습니다. <br/>
@@ -409,6 +411,7 @@ const onSubmit = async (values: FieldValues) => {
 - 아이디 저장 기능을 제공합니다.
 - 비밀번호 분실 시 이메일로 재설정할 수 있습니다.
 - Kakao와 Google 계정으로 간편 로그인이 가능합니다.
+
 ![로그인](https://github.com/user-attachments/assets/62d89fb6-d754-4e54-b0e6-92b0328db2e6)
 
 소셜 로그인 회원에게 랜덤 닉네임을 자동으로 부여하는 기능을 구현했습니다.<br/>
@@ -476,6 +479,7 @@ if (isLocalEnv) {
 - 닉네임, 한줄 소개, 프로필 이미지를 자유롭게 수정할 수 있습니다.
 - 비밀번호 변경이 가능합니다.
 - 회원 탈퇴 시 계정이 삭제됩니다.
+
 ![마이페이지](https://github.com/user-attachments/assets/b06dfc61-b342-4a39-a335-cc1eafb6338e)
 
 user API와 rank API를 가져와서 해당 유저의 정보를 가져온다.<br/>
@@ -503,6 +507,7 @@ const uploadImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
 - 마이크 버튼을 눌러 녹음 후 정확도 확인 가능합니다.
 - 타이머를 두어 제한 시간에 따라 동적으로 상단 시간바 움직입니다.
 - 타이머 종료시 팝업창 표시합니다.
+
 ![나야발음왕](https://github.com/user-attachments/assets/0c5b2b2d-e4a4-4237-bbae-e66eb43426f1)
 
 getuserMedia를 통해 유저의 마이크 접근 권한을 체크하여 변수에 담아 접근 권한 여부를 MediaRecorder 인수로 전달해주고 recorder라는 인스턴스 객체를 만들고 오디오 값을 저장해준다.<br/>
@@ -538,6 +543,7 @@ recorder.onstop = async () => {
 - 문장에서 맞춤법이 틀린 부분을 찾아 선택하는 게임입니다.
 - 타이머를 두어 제한 시간에 따라 동적으로 상단 시간바가 움직입니다.
 - 옵션을 클릭하게 되면 문장에서 해당하는 밑줄과 번호의 색상이 변경됩니다.
+
 ![틀린말탐정단](https://github.com/user-attachments/assets/edc95e5a-a4ad-4a00-bbc8-0760f993f413)
 
 
@@ -598,8 +604,8 @@ const questionUnderLine = () => {
 - 힌트를 추론해서 빈칸에 들어갈 적절한 알맞은 말을 적어주는 게임입니다.
 - enter를 했을때도 자동으로 다음페이지로 이동 할 수 있습니다.
 - 타이머를 두어 제한 시간에 따라 동적으로 상단 시간바가 움직입니다.
-![빈칸한입](https://github.com/user-attachments/assets/ef95c9d6-3f78-4d34-ab30-4525687608d6)
 
+![빈칸한입](https://github.com/user-attachments/assets/ef95c9d6-3f78-4d34-ab30-4525687608d6)
 
 Supabase에 저장된 퀴즈 문제를 불러와 문장 내 빈칸에 알맞은 단어를 사용자가 입력하도록 한다.<br/>
 타이머가 제한 시간을 관리하며, 사용자가 입력한 답안을 정답과 비교해 점수를 부여하고, 최종 점수는 로그인 상태에 따라 Supabase 또는 로컬 스토리지에 저장된다.
@@ -661,8 +667,8 @@ const saveScore = async () => {
 - 끝나지 않은 게임을 하러갈 수 있으며 모든 게임을 끝냈을시 랭킹을 보러 이동 가능합니다.
 - 방금 끝난 게임의 오답을 버튼 클릭시 모달로 확인 할 수 있습니다.
 - 게임 결과를 친구들과 공유 할 수 있습니다.
-![결과](https://github.com/user-attachments/assets/c1f3529d-dbab-456e-9ab1-1f210c56b5ac)
 
+![결과](https://github.com/user-attachments/assets/c1f3529d-dbab-456e-9ab1-1f210c56b5ac)
 
 회원은 supabase에서 비회원은 localstorage에서 데이터를 받아 옴으로써 회원은 server 비회원은 clinet로 페이지를 각각 구성하였습니다.<br/>
 회원에 한해서 모든 게임(3문제)을 끝냈을 때에만 점수를 합산하여 supabase에 total점수를 업데이트 시켜줍니다.
@@ -694,8 +700,8 @@ if (isDone) {
 - 이번주 내 게임별 상세 점수와 지난주 랭킹을 확인 할 수 있습니다.
 - 한줄 소개로 사용자들끼리 소통을 할 수 있습니다.
 - 일주일을 기준으로 실시간 전체 랭킹은 리셋이 됩니다.
-![랭킹](https://github.com/user-attachments/assets/39cca580-5d2c-474e-9c9f-443ba1ab5d37)
 
+![랭킹](https://github.com/user-attachments/assets/39cca580-5d2c-474e-9c9f-443ba1ab5d37)
 
 이번주 모든 랭킹 리스트와 지난주 나의 랭킹 순위를 볼 수 있습니다.<br/>
 이번주 랭킹 순위는 따로 supabase에 저장하지 않고 화면이 렌더링 될 때마다 순위를 매겨서 화면 ui에 그려주는 방식을 채택하였고 지난주 랭킹 같은 경우에는 supabase에 새로운 주차가 생길 때 새로운row가 생성되면서 지난주차row의 게임 total 점수의 변동이 일어나지 않는데, 그래서 새로운 주차가 시작했을 때 가장 처음 랭킹페이지를 들어오는 사람을 기준으로 지난주차 데이터를 가져와 total 점수를 기준으로 랭킹 순위를 매겨서 supabase에 넣어주고 난 뒤 지난주 나의 랭킹 순위를 supabase에서 불러오는 방식은 채택 하였습니다.
@@ -740,12 +746,13 @@ if (isDone) {
 ### 오답모아, 오답팝업
 - 틀린 문제에 대한 문항과 정답을 확인 할 수 있습니다.
 - 틀렸던 문제가 log로 쌓여서 오답 문제에 대한 지속적인 학습이 가능합니다.
+
 ![오답모아](https://github.com/user-attachments/assets/7f38482a-fd99-4ff3-9576-6c7c3db959e0)
 ![오답](https://github.com/user-attachments/assets/9134fbfe-4f61-44f7-a139-36d2283b3c47)
 
-
 ### 학습
 - 매일 새로운 중급/고급 단어 10개를 뜻과 함께 카드 형태로 제공합니다.
+
 ![학습](https://github.com/user-attachments/assets/c550f7c0-648b-4780-87d6-8fa73f97163d)
 
 ---
