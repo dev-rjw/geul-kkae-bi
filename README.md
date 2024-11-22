@@ -1,5 +1,5 @@
 # 글깨비
-![대상수상](https://files.slack.com/files-pri/T06B9PCLY1E-F0822J3CYP6/image.png)
+![대상수상](./대상수상.png)
 
 ![메인장표](https://github.com/user-attachments/assets/667a599d-d37c-4261-8285-1de73f592aa3)
 
