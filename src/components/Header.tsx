@@ -100,7 +100,7 @@ const Header = () => {
   const { data } = useAuth();
   const email = data?.user_metadata.email;
   const { data: user } = useUser(email);
-  const nickname = user?.nickname;
+  const nickname = user?.nickname ? user?.nickname : '당신';
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -118,13 +118,18 @@ const Header = () => {
     '/games/speaking',
     '/games/checking',
     '/games/writing',
-    '/mypage',
     '/mypage/information',
     '/mypage/change-password',
-    '/games/rank',
-    '/learning',
-    '/answer',
+    '/games/wronganswer',
   ];
+  const backResultPaths = (pathname: string): boolean => {
+    if (pathname.includes('/games/user') || pathname.includes('/games/guest')) {
+      if (key === 'speaking') return true;
+      if (key === 'checking') return true;
+      if (key === 'writing') return true;
+    }
+    return false;
+  };
   const infoPaths = ['/'];
   const homePaths = ['/games/rank'];
   const gamePaths = ['/games/speaking', '/games/checking', '/games/writing'];
@@ -206,7 +211,7 @@ const Header = () => {
         <div className='container'>
           <div className='flex items-center justify-between'>
             <div className='header-mobile-left'>
-              {backPaths.includes(pathname) ? (
+              {backPaths.includes(pathname) || backResultPaths(pathname) ? (
                 <Button
                   size='icon'
                   className='w-[3.125rem] h-[3.125rem] bg-transparent text-[currentColor] rounded-none hover:bg-transparent [&_svg]:size-6'
@@ -234,6 +239,7 @@ const Header = () => {
                 alt='글깨비'
                 fill
                 sizes='11.5rem'
+                priority
               />
             </Link>
 
@@ -255,6 +261,7 @@ const Header = () => {
                     width={84}
                     height={26}
                     alt='글깨비'
+                    priority
                   ></Image>
                 </Link>
               ) : gamePaths.includes(pathname) || gameClass ? (
@@ -302,7 +309,7 @@ const Header = () => {
                     <div className='flex flex-col'>
                       <Button
                         className='flex items-center justify-start gap-2 h-11 text-lg font-bold text-gray-600 px-4 py-2 rounded-none bg-transparent hover:bg-primary-50'
-                        onClick={() => kakaoTalkShare(key!, score!, nickname!)}
+                        onClick={() => kakaoTalkShare(key!, score!, nickname)}
                       >
                         <div className='relative aspect-square w-7 rounded-full'>
                           <Image
@@ -310,12 +317,13 @@ const Header = () => {
                             alt='카카오 아이콘'
                             fill
                             className='object-fill'
+                            priority
                           />
                         </div>
                         카카오톡으로 공유하기
                       </Button>
                       <LinkCopyButton
-                        url={`https://geul-kkae-bi.vercel.app/share/url?key=${key}&score=${score}&nickname=${nickname}`}
+                        url={`https://geul-kkae-bi.com/share/url?key=${key}&score=${score}&nickname=${nickname}`}
                       />
                     </div>
                   </PopoverContent>

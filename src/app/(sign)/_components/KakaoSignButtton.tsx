@@ -33,6 +33,7 @@ const KakaoSignButtton = () => {
         height={24}
         alt='카카오 아이콘'
         className='absolute top-1/2 -translate-y-1/2 left-6'
+        priority
       />
       카카오로 시작하기
     </DefaultButton>

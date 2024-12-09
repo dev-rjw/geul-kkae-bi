@@ -130,6 +130,7 @@ const CheckingQuizPage = () => {
   const handleTimeOver = () => {
     if (!isTimeOver) {
       saveScore(scoreRef.current);
+      saveResultsToLocalStorage(allResults.current);
       setIsTimeOver(true);
       Swal.fire({
         html: `
@@ -171,8 +172,8 @@ const CheckingQuizPage = () => {
           className={`inline-flex items-center justify-center ${
             isMobile
               ? 'px-[1.875rem] py-[0.625rem] bg-tertiary-p-300 text-sm mt-8'
-              : 'px-[1.875rem] py-2.5 bg-tertiary-p-300 text-2xl'
-          } font-medium rounded-full`}
+              : 'px-[1.875rem] py-2.5 bg-tertiary-p-300 body-24 font-bold'
+          } rounded-full`}
         >
           {`${currentQuizIndex + 1}번 문제`}
         </p>
@@ -229,6 +230,7 @@ const CheckingQuizPage = () => {
                   width={48}
                   height={48}
                   style={{ width: 'auto', height: 'auto' }}
+                  priority
                 />
               )}
             </button>

@@ -46,7 +46,7 @@ const LearningPage = async () => {
   const today = date.getFullYear() + `. ` + (date.getMonth() + 1) + `. ` + date.getDate();
 
   return (
-    <div className='container py-10 max-md:py-4'>
+    <div className='container pt-10 max-md:pt-4'>
       <div className='flex items-end justify-between max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-1'>
         <div className='flex items-end'>
           <div className='text-[2.625rem] font-yangjin text-primary-300 max-md:text-2xl'>
@@ -58,12 +58,13 @@ const LearningPage = async () => {
               alt='학습 대제목 옆 아이콘'
               fill
               sizes='4.5rem'
+              priority
             />
           </div>
         </div>
         <div className='title-24 text-gray-600 max-md:title-14'>{today}</div>
       </div>
-      <div className="h-2 border-t-4 border-primary-100 bg-[#E9F1FE] mt-3 mb-7 max-md:-mx-4 max-md:mt-3 max-md:mb-5" />
+      <div className='h-2 border-t-4 border-primary-100 bg-[#E9F1FE] mt-3 mb-7 max-md:-mx-4 max-md:mt-3 max-md:mb-5' />
 
       <div className='word-card grid grid-cols-5 flex-wrap gap-x-[1.125rem] max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-y-7 max-md:gap-y-[1.375rem]'>
         {result.map((item, index) => (
@@ -74,6 +75,14 @@ const LearningPage = async () => {
             <WordCard item={item} />
           </div>
         ))}
+      </div>
+      <div className='relative w-[153px] h-[14px] mx-auto mt-[22px] mb-[16px]'>
+        <Image
+          src='/copyright_text_learning.svg'
+          alt='학습 대제목 옆 아이콘'
+          fill
+          sizes='0.81rem'
+        />
       </div>
     </div>
   );

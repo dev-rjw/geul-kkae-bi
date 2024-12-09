@@ -135,6 +135,7 @@ const Guest = ({ searchParams }: JustEndedGameProp) => {
                 alt='비회원 게임플레이 안내 아이콘'
                 fill
                 sizes='15.625rem'
+                priority
               />
             </div>
           </div>

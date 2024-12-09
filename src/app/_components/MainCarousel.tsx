@@ -46,7 +46,7 @@ const MainCarousel = () => {
         <CarouselContent>
           <CarouselItem>
             <Card
-              className='px-[2.875rem] py-[3.125rem] rounded-[1.25rem] border-0 bg-primary-400 h-full min-h-[20.5rem] bg-cover bg-no-repeat bg-right-bottom max-lg:p-[1.875rem] max-lg:bg-[length:auto_60%]'
+              className='px-[2.875rem] py-[3.125rem] rounded-[1.25rem] border-0 bg-primary-400 h-full min-h-[20.5rem] bg-cover bg-no-repeat bg-right-bottom max-lg:p-[1.875rem] max-lg:bg-[length:auto_60%] max-lg:rounded-2xl'
               style={{ backgroundImage: `url('/main_carousel_image1.svg')` }}
             >
               <CardContent>
@@ -66,7 +66,7 @@ const MainCarousel = () => {
           </CarouselItem>
           <CarouselItem>
             <Card
-              className='px-[2.875rem] py-[3.125rem] rounded-[1.25rem] border-0 bg-primary-400 h-full min-h-[20.5rem] bg-cover bg-no-repeat bg-right-bottom max-lg:p-[1.875rem] max-lg:bg-[length:auto_60%]'
+              className='px-[2.875rem] py-[3.125rem] rounded-[1.25rem] border-0 bg-primary-400 h-full min-h-[20.5rem] bg-cover bg-no-repeat bg-right-bottom max-lg:p-[1.875rem] max-lg:bg-[length:auto_60%] max-lg:rounded-2xl'
               style={{ backgroundImage: `url('/main_carousel_image2.svg')` }}
             >
               <CardContent>
@@ -86,7 +86,7 @@ const MainCarousel = () => {
           </CarouselItem>
           <CarouselItem>
             <Card
-              className='px-[2.875rem] py-[3.125rem] rounded-[1.25rem] border-0 bg-primary-400 h-full min-h-[20.5rem] bg-cover bg-no-repeat bg-right-bottom max-lg:p-[1.875rem] max-lg:bg-[length:auto_60%]'
+              className='px-[2.875rem] py-[3.125rem] rounded-[1.25rem] border-0 bg-primary-400 h-full min-h-[20.5rem] bg-cover bg-no-repeat bg-right-bottom max-lg:p-[1.875rem] max-lg:bg-[length:auto_60%] max-lg:rounded-2xl'
               style={{ backgroundImage: `url('/main_carousel_image3.svg')` }}
             >
               <CardContent>

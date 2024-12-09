@@ -21,6 +21,7 @@ const Avatar = ({ src, size, className, style }: Props) => {
         fill
         sizes={size}
         style={{ objectFit: 'cover' }}
+        priority
       />
     </div>
   );

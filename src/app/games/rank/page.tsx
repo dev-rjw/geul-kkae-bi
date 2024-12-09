@@ -109,12 +109,13 @@ const RankingPage = async () => {
               alt='랭킹순위 옆 아이콘'
               fill
               sizes='2.75rem'
+              priority
             />
           </div>
           이번주 전체 랭킹 순위
         </LineTitle>
       </div>
-      <div className='scrollbar-primary flex flex-col h-[calc(100vh-8.5rem)] pt-8 pb-[9.375rem] rounded-[3.125rem] bg-primary-50 max-md:grow max-md:h-full max-md:px-4 max-md:py-6 max-md:rounded-t-[1.25rem] max-md:rounded-b-none'>
+      <div className='scrollbar-primary flex flex-col h-[calc(100vh-8.5rem)] pt-8 pb-[9rem] rounded-[3.125rem] bg-primary-50 max-md:grow max-md:h-full max-md:px-4 max-md:py-6 max-md:rounded-t-[1.25rem] max-md:rounded-b-none'>
         <div className='max-md:hidden flex items-center justify-center gap-x-2'>
           <Image
             src='/icon_rank.svg'
@@ -122,6 +123,7 @@ const RankingPage = async () => {
             height={45}
             quality={85}
             alt='랭킹순위 옆 아이콘'
+            priority
           />
           <h2 className='title-36 text-primary-400 mt-1 -mb-2'>이번주 전체 랭킹 순위</h2>
         </div>

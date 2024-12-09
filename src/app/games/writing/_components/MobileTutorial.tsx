@@ -31,7 +31,7 @@ const MobileTutorial: React.FC<MobileTutorialProps> = ({ onStartGame }) => {
               />
               <button
                 onClick={onStartGame}
-                className='start_writing_btn absolute  top-[108px] w-[209px] py-[15px] rounded-[80px]'
+                className='start_writing_btn absolute w-[209px] py-[15px] rounded-[80px] bottom-[7.5rem]'
               >
                 <span className='relative z-10 title-20 text-tertiary-g-800 text-shadow'>GAME START</span>
               </button>

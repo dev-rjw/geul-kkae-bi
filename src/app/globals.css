@@ -184,6 +184,30 @@
   .scrollbar-secondary::-webkit-scrollbar-track {
     background: transparent; /* 스크롤바 뒷 배경 색상 */
   }
+  .scrollbar-tertiary-p::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollbar-tertiary-p::-webkit-scrollbar-thumb {
+    background: var(--color-tertiary-p-400);
+    border-radius: 12px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .scrollbar-tertiary-p::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar-thumb {
+    background: var(--color-tertiary-g-600);
+    border-radius: 12px;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 @layer components {
   .title-56 {
@@ -475,7 +499,7 @@
     @apply w-[4rem] text-primary-700 -mb-1 max-md:w-[2.5rem];
   }
   .rank-nickname {
-    @apply text-primary-700 -mb-1;
+    @apply text-primary-700 md:-mb-1;
   }
   .rank-total {
     @apply ml-auto text-primary-700;
@@ -945,6 +969,7 @@ div:where(.swal2-container) div:where(.swal2-footer) {
     height: 3.75rem;
   }
   .solid-button-group {
+    gap: 1rem;
     margin-top: 1.25rem;
     padding: 1.25rem;
     background-color: #fff;
@@ -1038,6 +1063,12 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   .progress-bar::before {
     width: 4.625rem;
   }
+  .progress-bar-0::before {
+    transform: translate(calc(100% - 10px), -50%);
+  }
+  .progress-bar-100::before {
+    transform: translate(calc(50% - 20px), -50%);
+  }
 
   .rank-my-info {
     top: var(--header-height);
@@ -1066,6 +1097,12 @@ div:where(.swal2-container) div:where(.swal2-footer) {
   }
   .scrollbar-secondary::-webkit-scrollbar-track {
     background: transparent;
+  }
+  .scrollbar-tertiary-p::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-tertiary-g::-webkit-scrollbar {
+    width: 8px;
   }
 
   body.swal2-shown {
