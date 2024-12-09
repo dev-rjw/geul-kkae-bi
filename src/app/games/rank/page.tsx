@@ -64,10 +64,8 @@ const RankingPage = async () => {
 
   if (latestWeekData && latestWeekData.week - 1 > 0) {
     const lastWeek = latestWeekData.week - 1;
-    console.log('lastWeek', lastWeek);
 
     lastWeekData = await fetchLastWeek(lastWeek);
-    console.log('lastWeekData', lastWeekData);
 
     if (Array.isArray(lastWeekData) && lastWeekData.length > 0) {
       if (lastWeekData?.[0].ranking === null) {
