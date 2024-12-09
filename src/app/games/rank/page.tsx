@@ -48,7 +48,9 @@ const RankingPage = async () => {
       //내 등수 퍼센트 계산
       if (myRankingThisWeek && myRankingThisWeek.length > 0) {
         const myRank = myRankingThisWeek[0]?.ranking;
+        console.log('myRank', myRank);
         const totalUsers = countRankingThisWeek?.length;
+        console.log('totalUsers', totalUsers);
 
         myRankPercentThisWeek = ((1 - (myRank - 1) / (totalUsers - 1)) * 100).toFixed(2);
       }
@@ -65,27 +67,29 @@ const RankingPage = async () => {
 
     lastWeekData = await fetchLastWeek(lastWeek);
 
-    if (lastWeekData?.[0].ranking === null) {
-      const countLastWeekRanking = lastWeekData?.map((item, index) => ({
-        ...item,
-        ranking: index + 1,
-      }));
+    if (Array.isArray(lastWeekData) && lastWeekData.length > 0) {
+      if (lastWeekData?.[0].ranking === null) {
+        const countLastWeekRanking = lastWeekData?.map((item, index) => ({
+          ...item,
+          ranking: index + 1,
+        }));
 
-      if (countLastWeekRanking) {
-        insertLastRankingData(countLastWeekRanking);
+        if (countLastWeekRanking) {
+          insertLastRankingData(countLastWeekRanking);
+        }
       }
-    }
-    const myRank = await fetchUserLastRank(userId, lastWeek);
+      const myRank = await fetchUserLastRank(userId, lastWeek);
 
-    //내 등수 퍼센트 계산
-    if (myRank && myRank.ranking !== null && lastWeekData) {
-      myRankingLastWeek = myRank?.ranking;
+      //내 등수 퍼센트 계산
+      if (myRank && myRank.ranking !== null && lastWeekData) {
+        myRankingLastWeek = myRank?.ranking;
 
-      if (myRankingLastWeek !== undefined) {
-        const totalUsers = lastWeekData.length;
-        myRankPercentLastWeek = ((1 - (myRankingLastWeek - 1) / (totalUsers - 1)) * 100).toFixed(2);
-      } else {
-        myRankPercentLastWeek = null;
+        if (myRankingLastWeek !== undefined) {
+          const totalUsers = lastWeekData.length;
+          myRankPercentLastWeek = ((1 - (myRankingLastWeek - 1) / (totalUsers - 1)) * 100).toFixed(2);
+        } else {
+          myRankPercentLastWeek = null;
+        }
       }
     }
   }
